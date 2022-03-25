@@ -1,0 +1,185 @@
+<CoordinateSystem> { Z-Up }
+
+<Comment> {
+  "bam2egg loading-background-old.bam loading-background-old.egg"
+}
+<Texture> toontown-logo {
+  "/g/Toontown-Sources/Toontown-Sources/Toontown Rewritten MongoDB/resources/phase_3/maps/toontown-logo-old.jpg"
+  <Scalar> alpha-file { "/g/Toontown-Sources/Toontown-Sources/Toontown Rewritten MongoDB/resources/phase_3/maps/toontown-logo_a.rgb" }
+  <Scalar> format { rgba }
+  <Scalar> wrapu { clamp }
+  <Scalar> wrapv { clamp }
+  <Scalar> minfilter { linear }
+  <Scalar> magfilter { linear }
+  <Scalar> envtype { modulate }
+}
+<Texture> square_drop_shadow {
+  "/g/Toontown-Sources/Toontown-Sources/Toontown Rewritten MongoDB/resources/phase_3/maps/square_drop_shadow.jpg"
+  <Scalar> format { luminance }
+  <Scalar> wrapu { clamp }
+  <Scalar> wrapv { clamp }
+  <Scalar> minfilter { linear }
+  <Scalar> magfilter { linear }
+  <Scalar> envtype { modulate }
+}
+<Texture> loading_bg_clouds {
+  "/g/Toontown-Sources/Toontown-Sources/Toontown Rewritten MongoDB/resources/phase_3/maps/loading_bg_clouds.jpg"
+  <Scalar> format { rgb }
+  <Scalar> wrapu { repeat }
+  <Scalar> wrapv { repeat }
+  <Scalar> minfilter { linear }
+  <Scalar> magfilter { linear }
+  <Scalar> envtype { modulate }
+}
+<VertexPool> loading-background.egg {
+  <Vertex> 0 {
+    1 0 -1
+    <UV> { 1 0 }
+    <RGBA> { 1 1 1 1 }
+  }
+  <Vertex> 1 {
+    1 0 1
+    <UV> { 1 1 }
+    <RGBA> { 1 1 1 1 }
+  }
+  <Vertex> 2 {
+    -1 0 -1
+    <UV> { 0 0 }
+    <RGBA> { 1 1 1 1 }
+  }
+  <Vertex> 3 {
+    -1 0 1
+    <UV> { 0 1 }
+    <RGBA> { 1 1 1 1 }
+  }
+  <Vertex> 4 {
+    0.915000021457672 0 -0.600000023841858
+    <UV> { 1 0 }
+    <RGBA> { 1 1 1 1 }
+  }
+  <Vertex> 5 {
+    0.915000021457672 0 0.600000023841858
+    <UV> { 1 1 }
+    <RGBA> { 1 1 1 1 }
+  }
+  <Vertex> 6 {
+    -0.915000021457672 0 -0.600000023841858
+    <UV> { 0 0 }
+    <RGBA> { 1 1 1 1 }
+  }
+  <Vertex> 7 {
+    -0.915000021457672 0 0.600000023841858
+    <UV> { 0 1 }
+    <RGBA> { 1 1 1 1 }
+  }
+  <Vertex> 8 {
+    0.75 0 -0.899999976158142
+    <UV> { 0.75 0 }
+    <RGBA> { 1 1 1 0.2470703125 }
+  }
+  <Vertex> 9 {
+    0.75 0 -0.800000011920929
+    <UV> { 0.75 1 }
+    <RGBA> { 1 1 1 0.2470703125 }
+  }
+  <Vertex> 10 {
+    -0.75 0 -0.899999976158142
+    <UV> { 0.25 0 }
+    <RGBA> { 1 1 1 0.2470703125 }
+  }
+  <Vertex> 11 {
+    -0.75 0 -0.800000011920929
+    <UV> { 0.25 1 }
+    <RGBA> { 1 1 1 0.2470703125 }
+  }
+  <Vertex> 12 {
+    -0.75 0 -0.899999976158142
+    <UV> { 0.5 0 }
+    <RGBA> { 1 1 1 0.2470703125 }
+  }
+  <Vertex> 13 {
+    -0.75 0 -0.800000011920929
+    <UV> { 0.5 1 }
+    <RGBA> { 1 1 1 0.2470703125 }
+  }
+  <Vertex> 14 {
+    -0.824999988079071 0 -0.899999976158142
+    <UV> { 0 0 }
+    <RGBA> { 1 1 1 0.2470703125 }
+  }
+  <Vertex> 15 {
+    -0.824999988079071 0 -0.800000011920929
+    <UV> { 0 1 }
+    <RGBA> { 1 1 1 0.2470703125 }
+  }
+  <Vertex> 16 {
+    0.824999988079071 0 -0.899999976158142
+    <UV> { 1 0 }
+    <RGBA> { 1 1 1 0.2470703125 }
+  }
+  <Vertex> 17 {
+    0.824999988079071 0 -0.800000011920929
+    <UV> { 1 1 }
+    <RGBA> { 1 1 1 0.2470703125 }
+  }
+  <Vertex> 18 {
+    0.75 0 -0.899999976158142
+    <UV> { 0.5 0 }
+    <RGBA> { 1 1 1 0.2470703125 }
+  }
+  <Vertex> 19 {
+    0.75 0 -0.800000011920929
+    <UV> { 0.5 1 }
+    <RGBA> { 1 1 1 0.2470703125 }
+  }
+}
+<Group> title_screen {
+  <Group> bg {
+    <Polygon> {
+      <TRef> { loading_bg_clouds }
+      <VertexRef> { 0 1 2 <Ref> { loading-background.egg } }
+    }
+    <Polygon> {
+      <TRef> { loading_bg_clouds }
+      <VertexRef> { 2 1 3 <Ref> { loading-background.egg } }
+    }
+  }
+  <Group> fg {
+    <Scalar> alpha { dual }
+    <Polygon> {
+      <TRef> { toontown-logo }
+      <VertexRef> { 4 5 6 <Ref> { loading-background.egg } }
+    }
+    <Polygon> {
+      <TRef> { toontown-logo }
+      <VertexRef> { 6 5 7 <Ref> { loading-background.egg } }
+    }
+  }
+  <Group> bar_shadow {
+    <Scalar> alpha { blend }
+    <Polygon> {
+      <TRef> { square_drop_shadow }
+      <VertexRef> { 8 9 10 <Ref> { loading-background.egg } }
+    }
+    <Polygon> {
+      <TRef> { square_drop_shadow }
+      <VertexRef> { 10 9 11 <Ref> { loading-background.egg } }
+    }
+    <Polygon> {
+      <TRef> { square_drop_shadow }
+      <VertexRef> { 12 13 14 <Ref> { loading-background.egg } }
+    }
+    <Polygon> {
+      <TRef> { square_drop_shadow }
+      <VertexRef> { 14 13 15 <Ref> { loading-background.egg } }
+    }
+    <Polygon> {
+      <TRef> { square_drop_shadow }
+      <VertexRef> { 16 17 18 <Ref> { loading-background.egg } }
+    }
+    <Polygon> {
+      <TRef> { square_drop_shadow }
+      <VertexRef> { 18 17 19 <Ref> { loading-background.egg } }
+    }
+  }
+}

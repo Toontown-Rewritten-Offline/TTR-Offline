@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hey guys, there's just a bench in here. But thanks for taking a look anyways. -->
+
+<scene zone="11800">
+	<group name="sbhq_11800">
+		<visgroup zone="11800:safe_zone" vis="11800:safe_zone">
+            <!-- Here's a bench. I call the bench Bob; Bob the Bench doesn't get many visitors, so they are glad you are here. -->
+			<prop name="hideout_bench_0" code="prop_playground_bench">
+				<pos x="155.1337" y="77.42069" z="13.885"/>
+				<nhpr h="98.306" p="0" r="0"/>
+				<scale x="1" y="1" z="1" />
+			</prop>
+        </visgroup>
+    </group>
+</scene>
