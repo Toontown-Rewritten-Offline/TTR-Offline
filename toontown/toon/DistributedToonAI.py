@@ -4691,11 +4691,6 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
     def d_setLastSeen(self, timestamp):
         self.sendUpdate('setLastSeen', [int(timestamp)])
 
-@magicWord(category=CATEGORY_MODERATION, types=[str])
-def getTarget():
-    return "Current target is set to %s" % spellbook.getTarget()
-    
-
 @magicWord(category=CATEGORY_CHARACTERSTATS, types=[int, int, int])
 def setCE(CEValue, CEHood=0, CEExpire=0):
     """Set Cheesy Effect of the target."""
@@ -5142,7 +5137,7 @@ def dna(part, value):
         return "DNA: Invalid part specified."
 
     av.b_setDNAString(dna.makeNetString())
-    return "Completed DNA change successfully. Curr. DNA STR: %s" % av.getDNAString()
+    return "Completed DNA change successfully."
 
 @magicWord(category=CATEGORY_OVERRIDE, types=[int])
 def setTrophyScore(value):
