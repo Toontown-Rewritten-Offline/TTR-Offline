@@ -4691,6 +4691,11 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
     def d_setLastSeen(self, timestamp):
         self.sendUpdate('setLastSeen', [int(timestamp)])
 
+@magicWord(category=CATEGORY_MODERATION, types=[str])
+def getTarget():
+    return "Current target is set to %s" % spellbook.getTarget()
+    
+
 @magicWord(category=CATEGORY_CHARACTERSTATS, types=[int, int, int])
 def setCE(CEValue, CEHood=0, CEExpire=0):
     """Set Cheesy Effect of the target."""
@@ -4765,11 +4770,9 @@ def maxToon(hasConfirmed='UNCONFIRMED'):
     toon.b_setQuestCarryLimit(ToontownGlobals.MaxQuestCarryLimit)
     toon.b_setRewardHistory(Quests.ELDER_TIER, [])
     toon.b_setMaxMoney(250)
+    toon.b_setTokens(250)
     toon.b_setMoney(toon.getMaxMoney())
     toon.b_setBankMoney(ToontownGlobals.DefaultMaxBankMoney)
-
-    # Testing
-    toon.b_setTokens(60)
 
     return 'By the power invested in me, I, McQuack, max your toon.'
 
@@ -4955,6 +4958,17 @@ def badName():
     spellbook.getTarget().sendUpdate('WishNameState', 4) # 4 = WISHNAME_REJECTED
     return "Revoked %s's name successfully. They have been renamed to %s." % (oldname, spellbook.getTarget().getName())
 
+@magicWord(category=CATEGORY_MODERATION)
+def approveName():
+    """Set target's name to the 'APPROVED' state."""
+    newname = spellbook.getTarget().WishName
+    if spellbook.getTarget().WishNameState == 0:
+        # dumbass tried to approve a name more than once
+        return "You can't approve a name more than twice silly!"
+    else:
+        spellbook.getTarget().sendUpdate('WishNameState', 3) # 3 = WISHNAME_APPROVED
+        return "Approved %s's name successfully. They have been renamed to %s. They will need to relog." % (spellbook.getTarget().getName(), newname)
+
 @magicWord(category=CATEGORY_CHARACTERSTATS, types=[int])
 def setGM(gmId):
     """Set the target's GM level (used for icon)."""
@@ -5033,6 +5047,38 @@ def dna(part, value):
         if not 0 <= value <= 38:
             return "DNA: Color index out of range."
         dna.gloveColor = value
+    elif part=='shirtid':
+        value = int(value)
+        #if not isValidColor(value):
+        #    return "DNA: Invalid shirt if specified."
+        dna.topTex = value
+        dna.sleeveTex = value
+    elif part=='shirtcolor':
+        value = int(value)
+        #if not isValidColor(value):
+        #    return "DNA: Invalid shirt if specified."
+        dna.topTexColor = value
+        dna.sleeveTexColor = value
+    elif part=='sleeveid':
+        value = int(value)
+        #if not isValidColor(value):
+        #    return "DNA: Invalid shirt if specified."
+        dna.sleeveTex = value
+    elif part=='sleevecolor':
+        value = int(value)
+        #if not isValidColor(value):
+        #    return "DNA: Invalid shirt if specified."
+        dna.sleeveTexColor = value
+    elif part=='shortsid':
+        value = int(value)
+        #if not isValidColor(value):
+        #    return "DNA: Invalid shirt if specified."
+        dna.botTex = value
+    elif part=='shortscolor':
+        value = int(value)
+        #if not isValidColor(value):
+        #    return "DNA: Invalid shirt if specified."
+        dna.botTexColor = value
 
     # Body Sizes, Species & Gender (y u want to change gender pls)
     elif part=='gender':
@@ -5096,7 +5142,7 @@ def dna(part, value):
         return "DNA: Invalid part specified."
 
     av.b_setDNAString(dna.makeNetString())
-    return "Completed DNA change successfully."
+    return "Completed DNA change successfully. Curr. DNA STR: %s" % av.getDNAString()
 
 @magicWord(category=CATEGORY_OVERRIDE, types=[int])
 def setTrophyScore(value):
