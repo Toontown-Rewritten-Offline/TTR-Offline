@@ -233,11 +233,11 @@ class OptionsTabPage(DirectFrame):
         self.speedChatStyleText.enter()
         self.speedChatStyleIndex = base.localAvatar.getSpeedChatStyleIndex()
         self.updateSpeedChatStyle()
-        #if self._parent_aspect2d.book.safeMode:
-        #    self.exitButton.hide()
+        if self._parent_aspect2d.book.safeMode:
+            self.exitButton.hide()
         #    self.customOptionsButton.hide()
-        #else:
-        #    self.exitButton.show()
+        else:
+            self.exitButton.show()
         #    self.customOptionsButton.show()
 
     def exit(self):
