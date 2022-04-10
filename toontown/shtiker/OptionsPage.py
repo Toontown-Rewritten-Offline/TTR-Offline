@@ -215,7 +215,7 @@ class OptionsTabPage(DirectFrame):
         self.speedChatStyleText.setPos(0.37, 0, buttonbase_ycoord - textRowHeight * 6 + 0.03)
         self.speedChatStyleText.reparentTo(self, DGG.FOREGROUND_SORT_INDEX)
         self.exitButton = DirectButton(parent=self, relief=None, image=(guiButton.find('**/QuitBtn_UP'), guiButton.find('**/QuitBtn_DN'), guiButton.find('**/QuitBtn_RLVR')), image_scale=1.15, text=TTLocalizer.OptionsPageExitToontown, text_scale=options_text_scale, text_pos=button_textpos, textMayChange=0, pos=(0.45, 0, -0.6), command=self.__handleExitShowWithConfirm)
-        self.customOptionsButton = DirectButton(parent=self, relief=None, image=(guiButton.find('**/QuitBtn_UP'), guiButton.find('**/QuitBtn_DN'), guiButton.find('**/QuitBtn_RLVR')), image_scale=1.15, text=TTLocalizer.NewOptionsButtonTitle, text_scale=options_text_scale, text_pos=button_textpos, textMayChange=0, pos=(-0.45, 0, -0.6), command=self.__handleExitShowWithConfirm)
+        #self.customOptionsButton = DirectButton(parent=self, relief=None, image=(guiButton.find('**/QuitBtn_UP'), guiButton.find('**/QuitBtn_DN'), guiButton.find('**/QuitBtn_RLVR')), image_scale=1.15, text=TTLocalizer.NewOptionsButtonTitle, text_scale=options_text_scale, text_pos=button_textpos, textMayChange=0, pos=(-0.45, 0, -0.6), command=self.__handleExitShowWithConfirm)
         guiButton.removeNode()
         gui.removeNode()
         return
@@ -233,12 +233,12 @@ class OptionsTabPage(DirectFrame):
         self.speedChatStyleText.enter()
         self.speedChatStyleIndex = base.localAvatar.getSpeedChatStyleIndex()
         self.updateSpeedChatStyle()
-        if self._parent_aspect2d.book.safeMode:
-            self.exitButton.hide()
-            self.customOptionsButton.hide()
-        else:
-            self.exitButton.show()
-            self.customOptionsButton.show()
+        #if self._parent_aspect2d.book.safeMode:
+        #    self.exitButton.hide()
+        #    self.customOptionsButton.hide()
+        #else:
+        #    self.exitButton.show()
+        #    self.customOptionsButton.show()
 
     def exit(self):
         self.ignore('confirmDone')
@@ -255,7 +255,7 @@ class OptionsTabPage(DirectFrame):
             self.displaySettings.unload()
         self.displaySettings = None
         self.exitButton.destroy()
-        self.customOptionsButton.destroy()
+        #self.customOptionsButton.destroy()
         self.Music_toggleButton.destroy()
         self.SoundFX_toggleButton.destroy()
         self.Friends_toggleButton.destroy()
@@ -264,7 +264,7 @@ class OptionsTabPage(DirectFrame):
         self.speedChatStyleLeftArrow.destroy()
         self.speedChatStyleRightArrow.destroy()
         del self.exitButton
-        del self.customOptionsButton
+        #del self.customOptionsButton
         del self.SoundFX_Label
         del self.Music_Label
         del self.Friends_Label
