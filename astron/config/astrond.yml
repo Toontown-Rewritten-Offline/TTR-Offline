@@ -54,7 +54,7 @@ uberdogs:
 roles:
     - type: clientagent
       bind: 0.0.0.0:7198
-      version: ttrp-beta-v2.7.6
+      version: ttrp-beta-v2.7.7
       client:
        relocate: true
        add_interest: enabled
