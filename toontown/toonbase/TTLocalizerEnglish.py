@@ -17,7 +17,7 @@ MickeyFontClassic = 'phase_3/fonts/MickeyFontStandard'
 MickeyFontStandard = 'phase_3/fonts/MickeyFontClassic'
 MickeyFontMaximum = 'phase_3/fonts/MickeyFontMaximum'
 BuildingNametagShadow = None
-NametagFonts = ('phase_3/fonts/AnimGothic.ttf',
+NametagFonts = ('phase_3/fonts/AnimGothic.bam',
  'phase_3/fonts/Aftershock.ttf',
  'phase_3/fonts/JiggeryPokery.ttf',
  'phase_3/fonts/Ironwork.ttf',
