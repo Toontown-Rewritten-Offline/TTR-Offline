@@ -4,12 +4,13 @@
 
 # Client settings
 window-title Toontown Rewritten [PRIVATE]
-server-version ttrp-beta-v2.7.6
+server-version ttrp-beta-v2.7.7
 sync-video #f
 want-dev #f
 preload-avatars #t
 texture-anisotropic-degree 16
 want-speedhack-fix #t
+load-display pandagl
 
 
 # New Addons for the 1 Year Anniversary!
@@ -20,13 +21,7 @@ want-new-toonhall #t
 want-max-font #t
 
 
-# Fix for newer Nvidia GPU's to lower the gamma
-load-display pandagl
-color-bits 8 8 8
-alpha-bits 8
-
-
-# Resources settings
+# Resource settings
 model-path /
 model-cache-models #f
 model-cache-textures #f
@@ -47,7 +42,7 @@ default-model-extension .bam
 
 
 # DC Files
-dc-file config/ttrp.dc
+#dc-file config/ttrp.dc Automatically wrapped into the code.
 
 
 # Server settings
@@ -55,11 +50,6 @@ want-rpc-server #f
 rpc-server-endpoint http://localhost:8080/
 eventlog-host 127.0.0.1
 want-cheesy-expirations #t
-
-
-# DC Files
-# This is, oddly enough, in *reverse* order of their loading...
-dc-file config/ttrp.dc
 
 
 # Beta Modifications
