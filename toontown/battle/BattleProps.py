@@ -395,6 +395,7 @@ class PropPool:
         if self.propTypes[name] == 'actor':
             if name not in self.props:
                 prop = Actor.Actor()
+                prop.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
                 prop.loadModel(self.propStrings[name][0])
                 animDict = {}
                 animDict[name] = self.propStrings[name][1]

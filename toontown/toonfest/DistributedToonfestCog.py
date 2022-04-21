@@ -62,7 +62,7 @@ class DistributedToonfestCog(DistributedObject, FSM):
          'bodyHitFront': path + 'bodyHitFront_anim',
          'headHitBack': path + 'headHitBack_anim',
          'headHitFront': path + 'headHitFront_anim'})
-        self.actor.setBlend(frameBlend = base.wantSmoothAnims)
+        self.actor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.actor.reparentTo(self.root)
         self.temp_transform = Mat4()
         self.head_locator = self.actor.attachNewNode('temphead')

@@ -22,6 +22,11 @@ loadPrcFileData('Command-line', localconfig)
 
 loadPrcFile("config/dev.prc")
 
+print('ServiceStartUD: Loading settings.')
+from toontown.settings.ToontownSettings import ToontownSettings
+settings = ToontownSettings()
+settings.loadFromSettings()
+
 class game:
     name = 'uberDog'
     process = 'server'

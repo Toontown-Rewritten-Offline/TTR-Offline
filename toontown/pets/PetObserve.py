@@ -1,6 +1,6 @@
-# Embedded file name: toontown.pets.PetObserve
+from enum import Enum
 from direct.directnotify import DirectNotifyGlobal
-from direct.showbase.PythonUtil import list2dict, Enum
+from direct.showbase.PythonUtil import list2dict
 from toontown.pets import PetTricks
 import types
 notify = DirectNotifyGlobal.directNotify.newCategory('PetObserve')
@@ -17,9 +17,41 @@ def send(zoneIds, petObserve):
             messenger.send(getEventName(zoneId), [petObserve])
 
 
-Phrases = Enum('HI, BYE, YES, NO, SOOTHE, PRAISE, CRITICISM, HAPPY,SAD, ANGRY, HURRY, QUESTION, FRIENDLY, LETS_PLAY,COME, FOLLOW_ME, STAY, NEED_LAFF, NEED_GAGS, NEED_JB,GO_AWAY, DO_TRICK,')
-Actions = Enum('FEED, SCRATCH,ATTENDED_START, ATTENDED_STOP,ATTENDING_START, ATTENDING_STOP,CHANGE_ZONE, LOGOUT,GARDEN')
-
+#Phrases = Enum('HI, BYE, YES, NO, SOOTHE, PRAISE, CRITICISM, HAPPY,SAD, ANGRY, HURRY, QUESTION, FRIENDLY, LETS_PLAY,COME, FOLLOW_ME, STAY, NEED_LAFF, NEED_GAGS, NEED_JB,GO_AWAY, DO_TRICK,')
+#Actions = Enum('FEED, SCRATCH,ATTENDED_START, ATTENDED_STOP,ATTENDING_START, ATTENDING_STOP,CHANGE_ZONE, LOGOUT,GARDEN')
+class Phrases(Enum):
+    HI = 1
+    BYE = 2
+    YES = 3
+    NO = 4
+    SOOTHE = 5
+    PRAISE = 6
+    CRITICISM = 7
+    HAPPY = 8
+    SAD = 9
+    ANGRY = 10
+    HURRY = 11
+    QUESTION = 12
+    FRIENDLY = 13
+    LETS_PLAY = 14
+    COME = 15
+    FOLLOW_ME = 16
+    STAY = 17
+    NEED_LAFF = 18
+    NEED_GAGS = 19
+    NEED_JB = 20
+    GO_AWAY = 21
+    DO_TRICK = 22
+class Actions(Enum):
+    FEED = 1
+    SCRATCH = 2
+    ATTENDED_START = 3
+    ATTENDED_STOP = 4
+    ATTENDING_START = 5
+    ATTENDING_STOP = 6
+    CHANGE_ZONE = 7
+    LOGOUT = 8
+    GARDEN = 9
 class PetObserve:
 
     def isValid(self):

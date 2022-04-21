@@ -51,6 +51,7 @@ class DistributedButterfly(DistributedObject.DistributedObject):
         if self.butterfly:
             return
         self.butterfly = Actor.Actor()
+        self.butterfly.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.butterfly.loadModel('phase_4/models/props/SZ_butterfly-mod')
         self.butterfly.loadAnims({'flutter': 'phase_4/models/props/SZ_butterfly-flutter',
          'glide': 'phase_4/models/props/SZ_butterfly-glide',
@@ -74,6 +75,7 @@ class DistributedButterfly(DistributedObject.DistributedObject):
                 wing.setColor(color)
 
         self.butterfly2 = Actor.Actor(other=self.butterfly)
+        self.butterfly2.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.butterfly.enableBlend(blendType=PartBundle.BTLinear)
         self.butterfly.loop('flutter')
         self.butterfly.loop('land')

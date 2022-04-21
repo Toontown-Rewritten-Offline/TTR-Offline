@@ -46,6 +46,7 @@ class CatalogPoleItem(CatalogItem.CatalogItem):
     def getPicture(self, avatar):
         rodPath = FishGlobals.RodFileDict.get(self.rodId)
         pole = Actor.Actor(rodPath, {'cast': 'phase_4/models/props/fishing-pole-chan'})
+        pole.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         pole.setPosHpr(1.47, 0, -1.67, 90, 55, -90)
         pole.setScale(0.8)
         pole.setDepthTest(1)

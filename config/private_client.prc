@@ -4,7 +4,7 @@
 
 # Client settings
 window-title Toontown Rewritten [PRIVATE]
-server-version ttrp-beta-v2.7.7
+server-version ttrp-beta-v2.8.0
 sync-video #f
 want-dev #f
 preload-avatars #t
@@ -13,12 +13,13 @@ want-speedhack-fix #t
 load-display pandagl
 
 
-# New Addons for the 1 Year Anniversary!
+# New Addons!
 want-WASD #t
 tt-framerate #t
 want-new-ttrloader #t
 want-new-toonhall #t
 want-max-font #t
+want-smooth-animations #f
 
 
 # Resource settings

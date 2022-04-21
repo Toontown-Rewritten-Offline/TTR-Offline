@@ -32,6 +32,7 @@ class Decoration(NodePath):
             banner.append(banner1)
             banner.append(banner2)
             self.partyBanner = Actor.Actor(partyBannerModel, {'float': 'phase_13/models/parties/tt_m_ara_pty_bannerJellybean'})
+            self.partyBanner.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             bannerSeqNodeParent = self.partyBanner.find('**/bannerJoint')
             bannerSeqNode = SequenceNode('banner')
             for bannerNode in banner:
@@ -55,6 +56,7 @@ class Decoration(NodePath):
             self.partyBanner.reparentTo(self)
         elif self.name == 'GagGlobe':
             self.partyGlobe = Actor.Actor('phase_13/models/parties/tt_m_ara_pty_gagGlobe_model', {'idle': 'phase_13/models/parties/tt_m_ara_pty_gagGlobe'})
+            self.partyGlobe.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             self.partyGlobe.setBillboardAxis()
             confettiLocator = self.partyGlobe.find('**/uvj_confetti')
             confettiMesh = self.partyGlobe.find('**/innerGlobeMesh')
@@ -72,6 +74,7 @@ class Decoration(NodePath):
         elif self.name == 'FlyingHeart':
             flyingHeartModel = loader.loadModel('phase_13/models/parties/tt_m_ara_pty_heartWing_model')
             self.flyingHeart = Actor.Actor(flyingHeartModel, {'idle': 'phase_13/models/parties/tt_m_ara_pty_heartWing'})
+            self.flyingHeart.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             wingsSeqNodeParent = self.flyingHeart.find('**/heartWingJoint')
             collisionMesh = self.flyingHeart.find('**/collision_heartWing')
             collisionMesh.hide()
@@ -109,11 +112,12 @@ class Decoration(NodePath):
             wingsSeqNode.setFrameRate(12)
             wingsSeqNode.loop(True)
             wingsSeqNode.setPlayRate(1)
-            self.flyingHeart.setBlend(frameBlend = base.wantSmoothAnims)
+            self.flyingHeart.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             self.flyingHeart.loop('idle')
             self.flyingHeart.reparentTo(self)
         elif self.name == 'HeartBanner':
             self.heartBanner = Actor.Actor('phase_13/models/parties/tt_m_ara_pty_bannerValentine_model', {'idle': 'phase_13/models/parties/tt_m_ara_pty_bannerValentine'})
+            self.heartBanner.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             balloonLeft = self.heartBanner.find('**/balloonsL')
             balloonRight = self.heartBanner.find('**/balloonsR')
             balloonLeft.setBillboardAxis()
@@ -122,14 +126,16 @@ class Decoration(NodePath):
             balloonRightLocator = self.heartBanner.find('**/balloonJointR')
             balloonLeft.reparentTo(balloonLeftLocator)
             balloonRight.reparentTo(balloonRightLocator)
-            self.heartBanner.setBlend(frameBlend = base.wantSmoothAnims)
+            self.heartBanner.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             self.heartBanner.loop('idle')
             self.heartBanner.reparentTo(self)
         elif self.name == 'Hydra' or self.name == 'StageWinter':
             if self.name == 'StageWinter':
                 self.hydra = Actor.Actor('phase_13/models/parties/tt_r_ara_pty_winterProps', {'dance': 'phase_13/models/parties/tt_a_ara_pty_hydra_dance'})
+                self.hydra.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             else:
                 self.hydra = Actor.Actor('phase_13/models/parties/tt_a_ara_pty_hydra_default', {'dance': 'phase_13/models/parties/tt_a_ara_pty_hydra_dance'})
+                self.hydra.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             st = random.randint(0, 10)
             animIval = ActorInterval(self.hydra, 'dance')
             animIvalDur = animIval.getDuration()
@@ -140,7 +146,7 @@ class Decoration(NodePath):
             collisions = self.hydra.find('**/*collision*')
             collisions.setPos(0, 0, -5)
             self.hydra.flattenStrong()
-            self.hydra.setBlend(frameBlend = base.wantSmoothAnims)
+            self.hydra.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             self.hydra.reparentTo(self)
             if self.name == 'StageWinter':
                 stageBounds = self.hydra.find('**/stage').node().getBounds()
@@ -148,6 +154,7 @@ class Decoration(NodePath):
                 self.hydra.node().setFinal(1)
         elif self.name == 'TubeCogVictory':
             self.tubeCog = Actor.Actor('phase_5.5/models/estate/tt_a_ara_pty_tubeCogVictory_default', {'wave': 'phase_5.5/models/estate/tt_a_ara_pty_tubeCogVictory_wave'})
+            self.tubeCog.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             st = random.randint(0, 10)
             animIval = ActorInterval(self.tubeCog, 'wave')
             animIvalDur = animIval.getDuration()
@@ -156,11 +163,12 @@ class Decoration(NodePath):
             self.animSeq = Parallel(animIval, soundIval)
             self.animSeq.loop()
             self.animSeq.setT(st)
-            self.tubeCog.setBlend(frameBlend = base.wantSmoothAnims)
+            self.tubeCog.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             self.tubeCog.flattenStrong()
             self.tubeCog.reparentTo(self)
         elif self.name == 'BannerVictory':
             self.bannerVictory = Actor.Actor('phase_13/models/parties/tt_m_ara_pty_bannerVictory_model', {'idle': 'phase_13/models/parties/tt_m_ara_pty_bannerVictory'})
+            slef.bannerVictory.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             balloonLeft = self.bannerVictory.find('**/balloonsLMesh')
             balloonRight = self.bannerVictory.find('**/balloonsRMesh')
             balloonLeft.setBillboardAxis()
@@ -169,16 +177,17 @@ class Decoration(NodePath):
             balloonRightLocator = self.bannerVictory.find('**/balloonJointR')
             balloonLeft.reparentTo(balloonLeftLocator)
             balloonRight.reparentTo(balloonRightLocator)
-            self.bannerVictory.setBlend(frameBlend = base.wantSmoothAnims)
+            self.bannerVictory.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             self.bannerVictory.loop('idle')
             self.bannerVictory.reparentTo(self)
         elif self.name == 'CannonVictory':
             self.cannonVictory = Actor.Actor('phase_13/models/parties/tt_m_ara_pty_cannonVictory_model', {'idle': 'phase_13/models/parties/tt_m_ara_pty_cannonVictory'})
+            self.cannonVictory.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             confettiLocator = self.cannonVictory.findAllMatches('**/uvj_confetties')[1]
             confettiMesh = self.cannonVictory.find('**/confettis')
             confettiMesh.setTexProjector(confettiMesh.findTextureStage('default'), self.cannonVictory, confettiLocator)
             self.cannonVictory.flattenStrong()
-            self.cannonVictory.setBlend(frameBlend = base.wantSmoothAnims)
+            self.cannonVictory.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             self.cannonVictory.loop('idle')
             self.cannonVictory.reparentTo(self)
         elif self.name == 'CogStatueVictory':

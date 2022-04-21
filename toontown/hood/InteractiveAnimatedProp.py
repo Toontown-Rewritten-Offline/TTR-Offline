@@ -75,6 +75,7 @@ class InteractiveAnimatedProp(GenericAnimatedProp.GenericAnimatedProp, FSM.FSM):
         self.idleInterval = None
         anim = node.getTag('DNAAnim')
         self.trashcan = Actor.Actor(node, copy=0)
+        self.trashcan.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.trashcan.reparentTo(node)
         animDict = {}
         animDict['anim'] = '%s/%s' % (self.path, anim)
@@ -110,7 +111,7 @@ class InteractiveAnimatedProp(GenericAnimatedProp.GenericAnimatedProp, FSM.FSM):
             animDict[animKey] = animStr
         self.trashcan.loadAnims(animDict)
         self.trashcan.pose('anim', 0)
-        self.trashcan.setBlend(frameBlend = base.wantSmoothAnims)
+        self.trashcan.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.node = self.trashcan
         self.idleInterval = self.createIdleInterval()
         self.battleCheerInterval = self.createBattleCheerInterval()

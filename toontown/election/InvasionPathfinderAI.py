@@ -305,5 +305,17 @@ class AStarPath:
         self.heuristic = heuristic
         self.totalCost = cost
 
-    def __cmp__(self, other):
-        return cmp(self.totalCost + self.heuristic, other.totalCost + other.heuristic)
+    #def __cmp__(self, other):
+    #    return cmp(self.totalCost + self.heuristic, other.totalCost + other.heuristic)
+
+    def __eq__(self, other):
+        return ((self.totalCost, self.heuristic) == (other.totalCost, other.heuristic))
+
+    def __ne__(self, other):
+        return not (self == other)
+
+    def __lt__(self, other):
+        return ((self.totalCost, self.heuristic) < (other.totalCost, other.heuristic))
+
+    def __repr__(self):
+        return "%s %s" % (self.heuristic, self.totalCost)

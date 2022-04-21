@@ -150,6 +150,7 @@ class SpecialsPhoto(NodePath):
             return pedestal
         elif specialsIndex == 135:
             model = Actor.Actor()
+            model.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             modelPath = GardenGlobals.Specials[specialsIndex]['photoModel']
             anims = GardenGlobals.Specials[specialsIndex]['photoAnimation']
             animPath = modelPath + anims[1]

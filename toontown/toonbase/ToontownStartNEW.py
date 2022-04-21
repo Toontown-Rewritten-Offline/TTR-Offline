@@ -51,7 +51,10 @@ launcher.setPandaErrorCode(7)
 from . import ToonBase
 ToonBase.ToonBase()
 print('TTRPrivate: Ongoing project by RegDogg')
-print('ToontownStart: loading settings module')
+print('ToontownStart: loading game settings')
+from toontown.settings.ToontownSettings import ToontownSettings
+settings = ToontownSettings()
+settings.loadFromSettings()
 print('ToontownStart: Starting the game.')
 print('ToontownStart: setting default font')
 from panda3d.core import *

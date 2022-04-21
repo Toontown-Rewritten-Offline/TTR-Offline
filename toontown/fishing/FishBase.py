@@ -49,6 +49,7 @@ class FishBase:
         from direct.actor import Actor
         actor = Actor.Actor(prefix + fileInfo[1], {'intro': prefix + fileInfo[2],
          'swim': prefix + fileInfo[3]})
+        actor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         return actor
 
     def getSound(self):

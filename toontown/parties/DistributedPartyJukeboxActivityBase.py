@@ -30,8 +30,9 @@ class DistributedPartyJukeboxActivityBase(DistributedPartyActivity):
     def load(self):
         DistributedPartyActivity.load(self)
         self.jukebox = Actor('phase_13/models/parties/jukebox_model', {'dance': 'phase_13/models/parties/jukebox_dance'})
+        self.jukebox.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.jukebox.reparentTo(self.root)
-        self.jukebox.setBlend(frameBlend = base.wantSmoothAnims)
+        self.jukebox.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.jukebox.loop('dance', fromFrame=0, toFrame=48)
         self.collNode = CollisionNode(self.getCollisionName())
         self.collNode.setCollideMask(ToontownGlobals.CameraBitmask | ToontownGlobals.WallBitmask)

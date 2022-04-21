@@ -1,4 +1,3 @@
-# Embedded file name: toontown.electionsuit.SuitDialog
 import random
 from direct.directnotify import DirectNotifyGlobal
 from otp.otpbase import OTPLocalizer

@@ -13,6 +13,11 @@ parser.add_argument('--astron-ip', help="The IP address of the Astron Message Di
 parser.add_argument('--eventlogger-ip', help="The IP address of the Astron Event Logger to log to.")
 args = parser.parse_args()
 
+print('ServiceStartAI: Loading settings.')
+from toontown.settings.ToontownSettings import ToontownSettings
+settings = ToontownSettings()
+settings.loadFromSettings()
+
 localconfig = ''
 if args.base_channel: localconfig += 'air-base-channel %s\n' % args.base_channel
 if args.max_channels: localconfig += 'air-channel-allocation %s\n' % args.max_channels

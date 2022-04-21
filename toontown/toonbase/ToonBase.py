@@ -38,7 +38,6 @@ class ToonBase(OTPBase.OTPBase):
         OTPBase.OTPBase.__init__(self)
         base.enableMusic(self.display.settings.getBool('game', 'music', True))
         base.enableSoundEffects(self.display.settings.getBool('game', 'sfx', True))
-        self.wantSmoothAnims = (self.display.settings.getBool('game', 'smoothanimations', True))
         self.disableShowbaseMouse()
         self.addCullBins()
         base.debugRunningMultiplier /= OTPGlobals.ToonSpeedFactor

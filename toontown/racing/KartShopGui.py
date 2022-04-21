@@ -1,5 +1,6 @@
 if __name__ == '__main__':
     from direct.directbase import DirectStart
+from enum import Enum
 from panda3d.core import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.gui.DirectGui import *
@@ -15,18 +16,50 @@ from .KartDNA import *
 from toontown.toontowngui.TeaserPanel import TeaserPanel
 if (__debug__):
     import pdb
-MENUS = PythonUtil.Enum('MainMenu, BuyKart, BuyAccessory, ReturnKart, ConfirmBuyAccessory, ConfirmBuyKart, BoughtKart, BoughtAccessory, TeaserPanel')
-MM_OPTIONS = PythonUtil.Enum('Cancel, BuyAccessory, BuyKart', -1)
-BK_OPTIONS = PythonUtil.Enum('Cancel, BuyKart', -1)
-BA_OPTIONS = PythonUtil.Enum('Cancel, BuyAccessory', -1)
-RK_OPTIONS = PythonUtil.Enum('Cancel, ReturnKart', -1)
-CBK_OPTIONS = PythonUtil.Enum('Cancel, BuyKart', -1)
-CBA_OPTIONS = PythonUtil.Enum('Cancel, BuyAccessory', -1)
-BTK_OPTIONS = PythonUtil.Enum('Ok', -1)
-BTA_OPTIONS = PythonUtil.Enum('Ok', -1)
+#MENUS = PythonUtil.Enum('MainMenu, BuyKart, BuyAccessory, ReturnKart, ConfirmBuyAccessory, ConfirmBuyKart, BoughtKart, BoughtAccessory, TeaserPanel')
+#MM_OPTIONS = PythonUtil.Enum('Cancel, BuyAccessory, BuyKart', -1)
+#BK_OPTIONS = PythonUtil.Enum('Cancel, BuyKart', -1)
+#BA_OPTIONS = PythonUtil.Enum('Cancel, BuyAccessory', -1)
+#RK_OPTIONS = PythonUtil.Enum('Cancel, ReturnKart', -1)
+#CBK_OPTIONS = PythonUtil.Enum('Cancel, BuyKart', -1)
+#CBA_OPTIONS = PythonUtil.Enum('Cancel, BuyAccessory', -1)
+#BTK_OPTIONS = PythonUtil.Enum('Ok', -1)
+#BTA_OPTIONS = PythonUtil.Enum('Ok', -1)
+class MENUS(Enum):
+    MainMenu = 1
+    BuyKart = 2
+    BuyAccessory = 3
+    ReturnKart = 4
+    ConfirmBuyAccessory = 5
+    ConfirmBuyKart = 6
+    BoughtKart = 7
+    BoughtAccessory = 8
+    TeaserPanel = 9
+class MM_OPTIONS(Enum):
+    Cancel = 1
+    BuyAccessory = 2
+    BuyKart = 3
+class BK_OPTIONS(Enum):
+    Cancel = 1
+    BuyKart = 2
+class BA_OPTIONS(Enum):
+    Cancel = 1
+    BuyAccessory = 2
+class RK_OPTIONS(Enum):
+    Cancel = 1
+    ReturnKart = 2
+class CBK_OPTIONS(Enum):
+    Cancel = 1
+    BuyKart = 2
+class CBA_OPTIONS(Enum):
+    Cancel = 1
+    BuyAccessory = 2
+class BTK_OPTIONS(Enum):
+    Ok = 1
+class BTA_OPTIONS(Enum):
+    Ok = 1
 KS_TEXT_SIZE_BIG = TTLocalizer.KSGtextSizeBig
 KS_TEXT_SIZE_SMALL = TTLocalizer.KSGtextSizeSmall
-
 class KartShopGuiMgr(DirectObject.DirectObject):
     notify = DirectNotifyGlobal.directNotify.newCategory('KartShopGuiMgr')
 

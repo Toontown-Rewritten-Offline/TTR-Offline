@@ -1,3 +1,4 @@
+from enum import Enum
 from panda3d.core import *
 from . import ShtikerPage
 from toontown.toontowngui import TTDialog
@@ -80,7 +81,10 @@ speedChatStyles = ((2000,
   (170 / 255.0, 120 / 255.0, 20 / 255.0),
   (165 / 255.0, 120 / 255.0, 50 / 255.0),
   (210 / 255.0, 200 / 255.0, 180 / 255.0)))
-PageMode = PythonUtil.Enum('Options, Codes')
+#PageMode = PythonUtil.Enum('Options, Codes')
+class PageMode(Enum):
+    Options = 1
+    Codes = 2
 
 class OptionsPage(ShtikerPage.ShtikerPage):
     notify = DirectNotifyGlobal.directNotify.newCategory('OptionsPage')
@@ -148,8 +152,8 @@ class OptionsTabPage(DirectFrame):
     notify = DirectNotifyGlobal.directNotify.newCategory('OptionsTabPage')
     DisplaySettingsTaskName = 'save-display-settings'
     DisplaySettingsDelay = 60
-    ChangeDisplaySettings = config.GetBool('change-display-settings', 1)
-    ChangeDisplayAPI = config.GetBool('change-display-api', 0)
+    ChangeDisplaySettings = config.ConfigVariableBool('change-display-settings', 1).getValue()
+    ChangeDisplayAPI = config.ConfigVariableBool('change-display-api', 0).getValue()
 
     def __init__(self, parent = aspect2d):
         self._parent_aspect2d = parent

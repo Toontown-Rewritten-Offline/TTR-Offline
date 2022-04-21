@@ -93,6 +93,7 @@ class DistributedElectionCameraManager(DistributedObject):
         if self.tvOn:
             #gg hacks
             self.tvOn = False
+            self.tv = loader.loadModel('phase_4/models/events/election_tv')
             tex = loader.loadTexture("phase_4/maps/tv_standby.jpg")
             ts = self.tv.find('**/screen').findTextureStage('*')
             self.tv.find('**/screen').setTexture(ts, tex, 1)

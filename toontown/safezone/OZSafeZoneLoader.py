@@ -64,6 +64,7 @@ class OZSafeZoneLoader(SafeZoneLoader):
         self.geyserSoundNoToonInterval = SoundInterval(self.geyserSoundNoToon, node=geyserPlacer, listenerNode=base.camera, seamlessLoop=False, volume=1.0, cutOff=120)
         if self.geyserModel:
             self.geyserActor = Actor.Actor(self.geyserModel)
+            self.geyserActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             self.geyserActor.loadAnims({'idle': 'phase_6/models/golf/golf_geyser'})
             self.geyserActor.reparentTo(render)
             self.geyserActor.setPlayRate(8.6, 'idle')
@@ -98,6 +99,7 @@ class OZSafeZoneLoader(SafeZoneLoader):
         self.waterfallModel = loader.loadModel('phase_6/models/golf/golf_waterfall_model')
         if self.waterfallModel:
             self.waterfallActor = Actor.Actor(self.waterfallModel)
+            self.waterfallActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             self.waterfallActor.loadAnims({'idle': 'phase_6/models/golf/golf_waterfall'})
             self.waterfallActor.reparentTo(render)
             self.waterfallActor.setPlayRate(3.5, 'idle')

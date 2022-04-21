@@ -1,4 +1,3 @@
-# Embedded file name: toontown.electionsuit.Suit
 from direct.actor import Actor
 from otp.avatar import Avatar
 from . import SuitDNA
@@ -13,9 +12,11 @@ from panda3d.core import VirtualFileMountHTTP, VirtualFileSystem, Filename, DSea
 from direct.showbase import AppRunnerGlobal
 import string
 import os
+
 aSize = 6.06
 bSize = 5.29
 cSize = 4.14
+
 SuitDialogArray = []
 SkelSuitDialogArray = []
 AllSuits = (('walk', 'walk'), ('run', 'walk'), ('neutral', 'neutral'))
@@ -34,6 +35,7 @@ AllSuitsBattle = (('drop-react', 'anvil-drop'),
  ('reach', 'walknreach'),
  ('rake-react', 'rake'),
  ('hypnotized', 'hypnotize'),
+ ('lured', 'lured'),
  ('soak', 'soak'))
 SuitsCEOBattle = (('sit', 'sit'),
  ('sit-eat-in', 'sit-eat-in'),
@@ -152,7 +154,7 @@ bw = (('finger-wag', 'fingerwag', 5),
  ('magic1', 'magic1', 5),
  ('throw-object', 'throw-object', 5),
  ('throw-paper', 'throw-paper', 5))
-if not base.config.GetBool('want-new-cogs', 0):
+if not config.GetBool('want-new-cogs', 0):
     ModelDict = {'a': ('/models/char/suitA-', 4),
      'b': ('/models/char/suitB-', 4),
      'c': ('/models/char/suitC-', 3.5)}
@@ -188,22 +190,22 @@ def unloadSuits(level):
 def loadSuitModelsAndAnims(level, flag = 0):
     for key in list(ModelDict.keys()):
         model, phase = ModelDict[key]
-        if base.config.GetBool('want-new-cogs', 0):
+        if config.GetBool('want-new-cogs', 0):
             headModel, headPhase = HeadModelDict[key]
         else:
             headModel, headPhase = ModelDict[key]
         if flag:
-            if base.config.GetBool('want-new-cogs', 0):
+            if config.GetBool('want-new-cogs', 0):
                 filepath = 'phase_3.5' + model + 'zero'
-                if cogExists(model + 'zero.bam'):
+                if cogExists(model + 'zero'):
                     loader.loadModel(filepath)
             else:
                 loader.loadModel('phase_3.5' + model + 'mod')
             loader.loadModel('phase_' + str(headPhase) + headModel + 'heads')
         else:
-            if base.config.GetBool('want-new-cogs', 0):
+            if config.GetBool('want-new-cogs', 0):
                 filepath = 'phase_3.5' + model + 'zero'
-                if cogExists(model + 'zero.bam'):
+                if cogExists(model + 'zero'):
                     loader.unloadModel(filepath)
             else:
                 loader.unloadModel('phase_3.5' + model + 'mod')
@@ -228,8 +230,9 @@ def cogExists(filePrefix):
 def loadSuitAnims(suit, flag = 1):
     if suit in SuitDNA.suitHeadTypes:
         try:
-            animList = locals()[suit]
+            animList = globals()[suit]
         except KeyError:
+            print('still keyError, gg')
             animList = ()
 
     else:
@@ -249,32 +252,34 @@ def loadDialog(level):
     global SuitDialogArray
     if len(SuitDialogArray) > 0:
         return
-    loadPath = 'phase_3.5/audio/dial/'
-    SuitDialogFiles = ['COG_VO_grunt',
-     'COG_VO_murmur',
-     'COG_VO_statement',
-     'COG_VO_question']
-    for file in SuitDialogFiles:
-        SuitDialogArray.append(base.loader.loadSfx(loadPath + file + '.ogg'))
+    else:
+        loadPath = 'phase_3.5/audio/dial/'
+        SuitDialogFiles = ['COG_VO_statement',
+         'COG_VO_murmur',
+         'COG_VO_statement',
+         'COG_VO_question']
+        for file in SuitDialogFiles:
+            SuitDialogArray.append(base.loader.loadSfx(loadPath + file + '.ogg'))
 
-    SuitDialogArray.append(SuitDialogArray[0])
-    SuitDialogArray.append(SuitDialogArray[1])
+        SuitDialogArray.append(SuitDialogArray[0])
+        SuitDialogArray.append(SuitDialogArray[1])
 
 
 def loadSkelDialog():
     global SkelSuitDialogArray
     if len(SkelSuitDialogArray) > 0:
         return
-    grunt = loader.loadSfx('phase_5/audio/sfx/Skel_COG_VO_grunt.ogg')
-    murmur = loader.loadSfx('phase_5/audio/sfx/Skel_COG_VO_murmur.ogg')
-    statement = loader.loadSfx('phase_5/audio/sfx/Skel_COG_VO_statement.ogg')
-    question = loader.loadSfx('phase_5/audio/sfx/Skel_COG_VO_question.ogg')
-    SkelSuitDialogArray = [grunt,
-     murmur,
-     statement,
-     question,
-     statement,
-     statement]
+    else:
+        grunt = loader.loadSfx('phase_5/audio/sfx/Skel_COG_VO_grunt.ogg')
+        murmur = loader.loadSfx('phase_5/audio/sfx/Skel_COG_VO_murmur.ogg')
+        statement = loader.loadSfx('phase_5/audio/sfx/Skel_COG_VO_statement.ogg')
+        question = loader.loadSfx('phase_5/audio/sfx/Skel_COG_VO_question.ogg')
+        SkelSuitDialogArray = [grunt,
+         murmur,
+         statement,
+         question,
+         statement,
+         statement]
 
 
 def unloadDialog(level):
@@ -620,8 +625,8 @@ class Suit(Avatar.Avatar):
     def generateBody(self):
         animDict = self.generateAnimDict()
         filePrefix, bodyPhase = ModelDict[self.style.body]
-        if base.config.GetBool('want-new-cogs', 0):
-            if cogExists(filePrefix + 'zero.bam'):
+        if config.GetBool('want-new-cogs', 0):
+            if cogExists(filePrefix + 'zero'):
                 self.loadModel('phase_3.5' + filePrefix + 'zero')
             else:
                 self.loadModel('phase_3.5' + filePrefix + 'mod')
@@ -629,6 +634,7 @@ class Suit(Avatar.Avatar):
             self.loadModel('phase_3.5' + filePrefix + 'mod')
         self.loadAnims(animDict)
         self.setSuitClothes()
+        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
 
     def generateAnimDict(self):
         animDict = {}
@@ -646,7 +652,7 @@ class Suit(Avatar.Avatar):
         for anim in AllSuitsBattle:
             animDict[anim[0]] = 'phase_5' + filePrefix + anim[1]
 
-        if not base.config.GetBool('want-new-cogs', 0):
+        if not config.GetBool('want-new-cogs', 0):
             if self.style.body == 'a':
                 animDict['neutral'] = 'phase_4/models/char/suitA-neutral'
                 for anim in SuitsCEOBattle:
@@ -663,7 +669,7 @@ class Suit(Avatar.Avatar):
                     animDict[anim[0]] = 'phase_12/models/char/suitC-' + anim[1]
 
         try:
-            animList = locals()[self.style.name]
+            animList = globals()[self.style.name]
         except KeyError:
             animList = ()
 
@@ -703,7 +709,7 @@ class Suit(Avatar.Avatar):
             self.shadowJoint = self.find('**/joint_shadow')
             self.nametagJoint = self.find('**/joint_nameTag')
 
-        if base.config.GetBool('want-new-cogs', 0):
+        if config.GetBool('want-new-cogs', 0):
             if dept == 'c':
                 texType = 'bossbot'
             elif dept == 'm':
@@ -761,14 +767,14 @@ class Suit(Avatar.Avatar):
         modelRoot.find('**/hands').setTexture(handTex, 1)
 
     def generateHead(self, headType):
-        if base.config.GetBool('want-new-cogs', 0):
+        if config.GetBool('want-new-cogs', 0):
             filePrefix, phase = HeadModelDict[self.style.body]
         else:
             filePrefix, phase = ModelDict[self.style.body]
         headModel = loader.loadModel('phase_' + str(phase) + filePrefix + 'heads')
         headReferences = headModel.findAllMatches('**/' + headType)
         for i in range(0, headReferences.getNumPaths()):
-            if base.config.GetBool('want-new-cogs', 0):
+            if config.GetBool('want-new-cogs', 0):
                 headPart = self.instance(headReferences.getPath(i), 'modelRoot', 'to_head')
                 if not headPart:
                     headPart = self.instance(headReferences.getPath(i), 'modelRoot', 'joint_head')
@@ -808,7 +814,7 @@ class Suit(Avatar.Avatar):
     def generateCorporateMedallion(self):
         icons = loader.loadModel('phase_3/models/gui/cog_icons')
         dept = self.style.dept
-        if base.config.GetBool('want-new-cogs', 0):
+        if config.GetBool('want-new-cogs', 0):
             chestNull = self.find('**/def_joint_attachMeter')
             if chestNull.isEmpty():
                 chestNull = self.find('**/joint_attachMeter')
@@ -833,7 +839,7 @@ class Suit(Avatar.Avatar):
         button.setScale(3.0)
         button.setH(180.0)
         button.setColor(self.healthColors[0])
-        if base.config.GetBool('want-new-cogs', 0):
+        if config.GetBool('want-new-cogs', 0):
             chestNull = self.find('**/def_joint_attachMeter')
             if chestNull.isEmpty():
                 chestNull = self.find('**/joint_attachMeter')
@@ -911,7 +917,7 @@ class Suit(Avatar.Avatar):
         return
 
     def getLoseActor(self):
-        if base.config.GetBool('want-new-cogs', 0):
+        if config.GetBool('want-new-cogs', 0):
             if self.find('**/body'):
                 return self
         if self.loseActor == None:
@@ -960,20 +966,22 @@ class Suit(Avatar.Avatar):
         model = 'phase_5/models/char/cog' + self.style.body.upper() + '_robot-zero'
         anims = self.generateAnimDict()
         anim = self.getCurrentAnim()
+        # Remove all of the previous cog except for a few necessary joints
         modelRoot = self.getGeomNode()
         modelRoot.find('**/torso').removeNode()
         modelRoot.find('**/arms').removeNode()
         modelRoot.find('**/hands').removeNode()
         modelRoot.find('**/legs').removeNode()
-        modelRoot.find('**/').removeNode()
+        modelRoot.find('**/').removeNode() # These are feet
         modelRoot.find('**/joint_head').removeNode()
+        # Now, to load our skelecog
         self.loadModel(model)
         self.loadAnims(anims)
         self.getGeomNode().setScale(self.scale * 1.0173)
         self.generateHealthBar()
-        self.generateCorporateMedallion()
         self.generateCorporateTie()
         self.setHeight(self.height)
+        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         parts = self.findAllMatches('**/pPlane*')
         for partNum in range(0, parts.getNumPaths()):
             bb = parts.getPath(partNum)

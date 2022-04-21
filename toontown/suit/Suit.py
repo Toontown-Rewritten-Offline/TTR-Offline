@@ -634,7 +634,7 @@ class Suit(Avatar.Avatar):
             self.loadModel('phase_3.5' + filePrefix + 'mod')
         self.loadAnims(animDict)
         self.setSuitClothes()
-        self.setBlend(frameBlend = base.wantSmoothAnims)
+        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
 
     def generateAnimDict(self):
         animDict = {}
@@ -981,7 +981,7 @@ class Suit(Avatar.Avatar):
         self.generateHealthBar()
         self.generateCorporateTie()
         self.setHeight(self.height)
-        self.setBlend(frameBlend = base.wantSmoothAnims)
+        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         parts = self.findAllMatches('**/pPlane*')
         for partNum in range(0, parts.getNumPaths()):
             bb = parts.getPath(partNum)

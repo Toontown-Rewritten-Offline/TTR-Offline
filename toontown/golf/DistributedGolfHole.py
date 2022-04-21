@@ -1529,6 +1529,7 @@ class DistributedGolfHole(DistributedPhysicsWorld.DistributedPhysicsWorld, FSM, 
         cameraAnimFullPath = path + cameraName
         try:
             self.flyOverActor = Actor.Actor(camModelFullPath, {'camera': cameraAnimFullPath})
+            self.flyOverActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         except Exception:
             self.notify.debug("Couldn't find flyover %s" % camModelFullPath)
             return False

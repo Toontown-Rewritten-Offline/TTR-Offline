@@ -1,8 +1,7 @@
 general:
     eventlogger: 127.0.0.1:7197
     dc_files:
-        - otp.dc
-        - toon.dc
+        - ../dclass/ttrp.dc
 
 messagedirector:
     bind: 127.0.0.1:7199
@@ -54,7 +53,8 @@ uberdogs:
 
 roles:
     - type: clientagent
-      bind: 127.0.0.1:7198
+      bind: 0.0.0.0:7198
+      version: ttrp-beta-v2.8.0
       client:
        relocate: true
        add_interest: enabled
@@ -63,7 +63,7 @@ roles:
         max: 1009999999
 
     - type: stateserver
-      control: 10000
+      control: 4002
 
     - type: database
       control: 4003
@@ -72,7 +72,7 @@ roles:
         max: 399999999
       backend:
         type: mongodb
-        database: test
+        server: mongodb://127.0.0.1/astron
 
     - type: dbss
       database: 4003

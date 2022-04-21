@@ -480,6 +480,7 @@ class DistributedStartingBlock(DistributedObject.DistributedObject, FSM):
 
         if not self.holeActor:
             self.holeActor = Actor.Actor('phase_3.5/models/props/portal-mod', {'hole': 'phase_3.5/models/props/portal-chan'})
+            self.holeActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         holeTrack = getHoleTrack(self.holeActor, self.kartNode)
         shrinkTrack = getKartShrinkTrack(self.kart)
         kartTrack = Parallel(shrinkTrack, holeTrack)

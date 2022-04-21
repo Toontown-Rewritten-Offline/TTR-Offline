@@ -42,7 +42,11 @@ except:
     builtins.launcher = launcher
 
 pollingDelay = 0.5
-print('Toontown Rewritten Private is an Ongoing project by RegDogg')
+print('TTRPrivate: Ongoing project by RegDogg')
+print('ToontownStart: loading game settings')
+from toontown.settings.ToontownSettings import ToontownSettings
+settings = ToontownSettings()
+settings.loadFromSettings()
 print('ToontownStart: Polling for game2 to finish...')
 while not launcher.getGame2Done():
     time.sleep(pollingDelay)

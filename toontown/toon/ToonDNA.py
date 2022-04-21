@@ -410,7 +410,8 @@ def isValidGirlShirt(index):
     return 0
 
 
-Sleeves = ['phase_3/maps/desat_sleeve_1.jpg',
+Sleeves = [
+ 'phase_3/maps/desat_sleeve_1.jpg',
  'phase_3/maps/desat_sleeve_2.jpg',
  'phase_3/maps/desat_sleeve_3.jpg',
  'phase_3/maps/desat_sleeve_4.jpg',
@@ -549,7 +550,8 @@ Sleeves = ['phase_3/maps/desat_sleeve_1.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_saveBuilding05.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_anniversary.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_slappy.jpg']
-BoyShorts = ['phase_3/maps/desat_shorts_1.jpg',
+BoyShorts = [
+ 'phase_3/maps/desat_shorts_1.jpg',
  'phase_3/maps/desat_shorts_2.jpg',
  'phase_3/maps/desat_shorts_4.jpg',
  'phase_3/maps/desat_shorts_6.jpg',

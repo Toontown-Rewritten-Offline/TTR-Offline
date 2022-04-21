@@ -33,6 +33,7 @@ from otp.login import LoginTTRAccount
 from otp.login import HTTPUtil
 from otp.otpbase import OTPGlobals
 from otp.otpbase import OTPLauncherGlobals
+from enum import Enum
 from otp.uberdog import OtpAvatarManager
 from otp.distributed import OtpDoGlobals
 from otp.distributed.TelemetryLimiter import TelemetryLimiter
@@ -42,10 +43,15 @@ from toontown.toonbase import ToontownGlobals
 class OTPClientRepository(ClientRepositoryBase):
     notify = directNotify.newCategory('OTPClientRepository')
     avatarLimit = 6
-    WishNameResult = Enum(['Failure',
-     'PendingApproval',
-     'Approved',
-     'Rejected'])
+    #WishNameResult = Enum(['Failure',
+    # 'PendingApproval',
+    # 'Approved',
+    # 'Rejected'])
+    class WishNameResult(Enum):
+        Failure = 1
+        PendingApproval = 2
+        Approved = 3
+        Rejected = 4
     whiteListChatEnabled = 1 # TODO: Have server set this on localAvatar on login.
 
     def __init__(self, serverVersion, launcher = None, playGame = None):

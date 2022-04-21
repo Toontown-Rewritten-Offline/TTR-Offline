@@ -24,6 +24,11 @@ loadPrcFileData('Command-line', localconfig)
 
 loadPrcFile("config/dev.prc")
 
+print('ServiceStartAI: Loading settings.')
+from toontown.settings.ToontownSettings import ToontownSettings
+settings = ToontownSettings()
+settings.loadFromSettings()
+
 class game:
     name = 'toontown'
     process = 'server'
@@ -32,10 +37,10 @@ builtins.game = game
 from otp.ai.AIBaseGlobal import *
 
 from toontown.ai.ToontownAIRepository import ToontownAIRepository
-simbase.air = ToontownAIRepository(config.GetInt('air-base-channel', 401000000),
-                                   config.GetInt('air-stateserver', 10000),
-                                   config.GetString('district-name', 'Devhaven'))
-host = config.GetString('air-connect', '127.0.0.1')
+simbase.air = ToontownAIRepository(config.ConfigVariableInt('air-base-channel', 401000000).getValue(),
+                                   config.ConfigVariableInt('air-stateserver', 10000).getValue(),
+                                   config.ConfigVariableString('district-name', 'Devhaven').getValue())
+host = config.ConfigVariableString('air-connect', '127.0.0.1').getValue()
 port = 7199
 if ':' in host:
     host, port = host.split(':', 1)
@@ -51,7 +56,7 @@ except Exception:
     info = traceback.format_exc()
     simbase.air.writeServerEvent('ai-exception', simbase.air.getAvatarIdFromSender(), simbase.air.getAccountIdFromSender(), info)
     # TEMP! (due to lack of Kibana) Dump crash to the FS.
-    with open(config.GetString('ai-crash-log-name', 'ai-crash.txt'), 'w+') as file:
+    with open(config.ConfigVariableString('ai-crash-log-name', 'ai-crash.txt').getValue(), 'w+') as file:
         # w+ empties log and writes fresh (meaning 1 exception at a time)
         file.write(info + "\n")
     raise

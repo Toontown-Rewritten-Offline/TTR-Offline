@@ -75,6 +75,7 @@ class DistributedPetshopInterior(DistributedObject.DistributedObject):
         self.interior = loader.loadModel('phase_4/models/modules/PetShopInterior')
         self.interior.reparentTo(render)
         self.fish = Actor.Actor('phase_4/models/props/interiorfish-zero', {'swim': 'phase_4/models/props/interiorfish-swim'})
+        self.fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.fish.reparentTo(self.interior)
         self.fish.setColorScale(0.8, 0.9, 1, 0.8)
         self.fish.setScale(0.8)

@@ -1,3 +1,4 @@
+from enum import Enum
 from direct.showbase import PythonUtil
 from otp.speedchat.SCMenu import SCMenu
 from otp.speedchat.SCMenuHolder import SCMenuHolder
@@ -13,7 +14,11 @@ JellybeanJamMenu = [(OTPLocalizer.JellybeanJamMenuSections[0], [30180,
    30188,
    30189,
    30190])]
-JellybeanJamPhases = PythonUtil.Enum('TROLLEY, FISHING, PARTIES')
+#JellybeanJamPhases = PythonUtil.Enum('TROLLEY, FISHING, PARTIES')
+class JellybeanJamPhases(Enum):
+    TROLLEY = 1
+    FISHING = 2
+    PARTIES = 3
 PhaseSpecifPhrases = [30180, 30181, 30182]
 
 class TTSCJellybeanJamMenu(SCMenu):

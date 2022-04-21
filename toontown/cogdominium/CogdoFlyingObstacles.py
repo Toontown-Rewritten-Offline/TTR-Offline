@@ -1,4 +1,5 @@
 import random
+from enum import Enum
 from direct.showbase.DirectObject import DirectObject
 from direct.interval.IntervalGlobal import LerpFunc, ActorInterval, LerpPosInterval
 from direct.interval.MetaInterval import Sequence
@@ -91,7 +92,10 @@ class CogdoFlyingObtacleFactory:
 class CogdoFlyingObstacle(DirectObject):
     EnterEventName = 'CogdoFlyingObstacle_Enter'
     ExitEventName = 'CogdoFlyingObstacle_Exit'
-    MotionTypes = PythonUtil.Enum(('BackForth', 'Loop'))
+    #MotionTypes = PythonUtil.Enum(('BackForth', 'Loop'))
+    class MotionTypes(Enum):
+        BackForth = 1
+        Loop = 2
 
     def __init__(self, type, index, model, collSolid, motionPath = None, motionPattern = None, blendMotion = True, instanceModel = True):
         self.type = type

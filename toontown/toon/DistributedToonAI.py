@@ -3034,7 +3034,7 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
     if simbase.wantKarts:
 
         def hasKart(self):
-            return self.kartDNA[KartDNA.bodyType] != -1
+            return self.kartDNA[KartDNA.bodyType.value] != -1
 
         def b_setTickets(self, numTickets):
             if numTickets > RaceGlobals.MaxTickets:
@@ -3114,15 +3114,15 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             return self.kartingPersonalBest + self.kartingPersonalBest2
 
         def setKartDNA(self, kartDNA):
-            self.b_setKartBodyType(kartDNA[KartDNA.bodyType])
-            self.b_setKartBodyColor(kartDNA[KartDNA.bodyColor])
-            self.b_setKartAccColor(kartDNA[KartDNA.accColor])
-            self.b_setKartEngineBlockType(kartDNA[KartDNA.ebType])
-            self.b_setKartSpoilerType(kartDNA[KartDNA.spType])
-            self.b_setKartFrontWheelWellType(kartDNA[KartDNA.fwwType])
-            self.b_setKartBackWheelWellType(kartDNA[KartDNA.bwwType])
-            self.b_setKartRimType(kartDNA[KartDNA.rimsType])
-            self.b_setKartDecalType(kartDNA[KartDNA.decalType])
+            self.b_setKartBodyType(kartDNA[KartDNA.bodyType.value])
+            self.b_setKartBodyColor(kartDNA[KartDNA.bodyColor.value])
+            self.b_setKartAccColor(kartDNA[KartDNA.accColor.value])
+            self.b_setKartEngineBlockType(kartDNA[KartDNA.ebType.value])
+            self.b_setKartSpoilerType(kartDNA[KartDNA.spType.value])
+            self.b_setKartFrontWheelWellType(kartDNA[KartDNA.fwwType.value])
+            self.b_setKartBackWheelWellType(kartDNA[KartDNA.bwwType.value])
+            self.b_setKartRimType(kartDNA[KartDNA.rimsType.value])
+            self.b_setKartDecalType(kartDNA[KartDNA.decalType.value])
 
         def b_setKartBodyType(self, bodyType):
             self.d_setKartBodyType(bodyType)
@@ -3132,10 +3132,10 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             self.sendUpdate('setKartBodyType', [bodyType])
 
         def setKartBodyType(self, bodyType):
-            self.kartDNA[KartDNA.bodyType] = bodyType
+            self.kartDNA[KartDNA.bodyType.value] = bodyType
 
         def getKartBodyType(self):
-            return self.kartDNA[KartDNA.bodyType]
+            return self.kartDNA[KartDNA.bodyType.value]
 
         def b_setKartBodyColor(self, bodyColor):
             self.d_setKartBodyColor(bodyColor)
@@ -3145,10 +3145,10 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             self.sendUpdate('setKartBodyColor', [bodyColor])
 
         def setKartBodyColor(self, bodyColor):
-            self.kartDNA[KartDNA.bodyColor] = bodyColor
+            self.kartDNA[KartDNA.bodyColor.value] = bodyColor
 
         def getKartBodyColor(self):
-            return self.kartDNA[KartDNA.bodyColor]
+            return self.kartDNA[KartDNA.bodyColor.value]
 
         def b_setKartAccessoryColor(self, accColor):
             self.d_setKartAccessoryColor(accColor)
@@ -3158,10 +3158,10 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             self.sendUpdate('setKartAccessoryColor', [accColor])
 
         def setKartAccessoryColor(self, accColor):
-            self.kartDNA[KartDNA.accColor] = accColor
+            self.kartDNA[KartDNA.accColor.value] = accColor
 
         def getKartAccessoryColor(self):
-            return self.kartDNA[KartDNA.accColor]
+            return self.kartDNA[KartDNA.accColor.value]
 
         def b_setKartEngineBlockType(self, ebType):
             self.d_setKartEngineBlockType(ebType)
@@ -3171,10 +3171,10 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             self.sendUpdate('setKartEngineBlockType', [ebType])
 
         def setKartEngineBlockType(self, ebType):
-            self.kartDNA[KartDNA.ebType] = ebType
+            self.kartDNA[KartDNA.ebType.value] = ebType
 
         def getKartEngineBlockType(self):
-            return self.kartDNA[KartDNA.ebType]
+            return self.kartDNA[KartDNA.ebType.value]
 
         def b_setKartSpoilerType(self, spType):
             self.d_setKartSpoilerType(spType)
@@ -3184,10 +3184,10 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             self.sendUpdate('setKartSpoilerType', [spType])
 
         def setKartSpoilerType(self, spType):
-            self.kartDNA[KartDNA.spType] = spType
+            self.kartDNA[KartDNA.spType.value] = spType
 
         def getKartSpoilerType(self):
-            return self.kartDNA[KartDNA.spType]
+            return self.kartDNA[KartDNA.spType.value]
 
         def b_setKartFrontWheelWellType(self, fwwType):
             self.d_setKartFrontWheelWellType(fwwType)
@@ -3197,10 +3197,10 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             self.sendUpdate('setKartFrontWheelWellType', [fwwType])
 
         def setKartFrontWheelWellType(self, fwwType):
-            self.kartDNA[KartDNA.fwwType] = fwwType
+            self.kartDNA[KartDNA.fwwType.value] = fwwType
 
         def getKartFrontWheelWellType(self):
-            return self.kartDNA[KartDNA.fwwType]
+            return self.kartDNA[KartDNA.fwwType.value]
 
         def b_setKartBackWheelWellType(self, bwwType):
             self.d_setKartBackWheelWellType(bwwType)
@@ -3210,10 +3210,10 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             self.sendUpdate('setKartBackWheelWellType', [bwwType])
 
         def setKartBackWheelWellType(self, bwwType):
-            self.kartDNA[KartDNA.bwwType] = bwwType
+            self.kartDNA[KartDNA.bwwType.value] = bwwType
 
         def getKartBackWheelWellType(self):
-            return self.kartDNA[KartDNA.bwwType]
+            return self.kartDNA[KartDNA.bwwType.value]
 
         def b_setKartRimType(self, rimsType):
             self.d_setKartRimType(rimsType)
@@ -3223,10 +3223,10 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             self.sendUpdate('setKartRimType', [rimsType])
 
         def setKartRimType(self, rimsType):
-            self.kartDNA[KartDNA.rimsType] = rimsType
+            self.kartDNA[KartDNA.rimsType.value] = rimsType
 
         def getKartRimType(self):
-            return self.kartDNA[KartDNA.rimsType]
+            return self.kartDNA[KartDNA.rimsType.value]
 
         def b_setKartDecalType(self, decalType):
             self.d_setKartDecalType(decalType)
@@ -3236,10 +3236,10 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             self.sendUpdate('setKartDecalType', [decalType])
 
         def setKartDecalType(self, decalType):
-            self.kartDNA[KartDNA.decalType] = decalType
+            self.kartDNA[KartDNA.decalType.value] = decalType
 
         def getKartDecalType(self):
-            return self.kartDNA[KartDNA.decalType]
+            return self.kartDNA[KartDNA.decalType.value]
 
         def b_setKartAccessoriesOwned(self, accessories):
             self.d_setKartAccessoriesOwned(accessories)
@@ -3297,7 +3297,7 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
             if not checkKartFieldValidity(dnaField):
                 self.air.writeServerEvent('suspicious', avId=self.doId, issue='attempt to update to dna value  %s in the invalid field %s' % (fieldValue, dnaField))
                 return
-            if dnaField == KartDNA.bodyType:
+            if dnaField == KartDNA.bodyType.value:
                 if fieldValue not in list(KartDict.keys()) and fieldValue != InvalidEntry:
                     self.air.writeServerEvent('suspicious', avId=self.doId, issue='attempt to update kart body to invalid body %s.' % fieldValue)
                     return
@@ -3336,7 +3336,7 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
                             elif fieldValue == getDefaultColor() and self.kartDNA[dnaField] != InvalidEntry:
                                 self.air.writeServerEvent('suspicious', avId=self.doId, issue='attempt to update to default color %s which is not owned!' % fieldValue)
                                 return
-                        if getAccessoryType(fieldValue) != KartDNA.bodyColor:
+                        if getAccessoryType(fieldValue) != KartDNA.bodyColor.value:
                             self.air.writeServerEvent('suspicious', avId=self.doId, issue='attempt to update invalid color %s for dna field %s' % (fieldValue, dnaField))
                             return
                         self.__updateKartDNAField(dnaField, fieldValue)
@@ -3345,21 +3345,21 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
                     return
 
         def __updateKartDNAField(self, dnaField, fieldValue):
-            if dnaField == KartDNA.bodyColor:
+            if dnaField == KartDNA.bodyColor.value:
                 self.b_setKartBodyColor(fieldValue)
-            elif dnaField == KartDNA.accColor:
+            elif dnaField == KartDNA.accColor.value:
                 self.b_setKartAccessoryColor(fieldValue)
-            elif dnaField == KartDNA.ebType:
+            elif dnaField == KartDNA.ebType.value:
                 self.b_setKartEngineBlockType(fieldValue)
-            elif dnaField == KartDNA.spType:
+            elif dnaField == KartDNA.spType.value:
                 self.b_setKartSpoilerType(fieldValue)
-            elif dnaField == KartDNA.fwwType:
+            elif dnaField == KartDNA.fwwType.value:
                 self.b_setKartFrontWheelWellType(fieldValue)
-            elif dnaField == KartDNA.bwwType:
+            elif dnaField == KartDNA.bwwType.value:
                 self.b_setKartBackWheelWellType(fieldValue)
-            elif dnaField == KartDNA.rimsType:
+            elif dnaField == KartDNA.rimsType.value:
                 self.b_setKartRimType(fieldValue)
-            elif dnaField == KartDNA.decalType:
+            elif dnaField == KartDNA.decalType.value:
                 self.b_setKartDecalType(fieldValue)
 
         def setAllowSoloRace(self, allowSoloRace):

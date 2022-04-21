@@ -1,4 +1,3 @@
-# Embedded file name: toontown.electionsuit.SuitDNA
 import random
 from panda3d.core import *
 from direct.directnotify.DirectNotifyGlobal import *
@@ -102,11 +101,12 @@ goonTypes = ['pg', 'sg']
 def getSuitBodyType(name):
     if name in suitATypes:
         return 'a'
-    if name in suitBTypes:
+    elif name in suitBTypes:
         return 'b'
-    if name in suitCTypes:
+    elif name in suitCTypes:
         return 'c'
-    print('Unknown body type for suit name: ', name)
+    else:
+        print('Unknown body type for suit name: ', name)
 
 
 def getSuitDept(name):
@@ -122,7 +122,7 @@ def getSuitDept(name):
     else:
         print('Unknown dept for suit name: ', name)
         return None
-        return None
+    return None
 
 
 def getDeptFullname(dept):

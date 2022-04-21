@@ -1,3 +1,4 @@
+from enum import Enum
 from direct.directnotify import DirectNotifyGlobal
 from direct.gui.DirectGui import *
 from panda3d.core import *
@@ -10,7 +11,10 @@ from .FishPage import FishingTrophy
 from toontown.golf import GolfGlobals
 if (__debug__):
     import pdb
-PageMode = PythonUtil.Enum('Records, Trophy')
+#PageMode = PythonUtil.Enum('Records, Trophy')
+class PageMode(Enum):
+    Records = 1
+    Trophy = 2
 
 class GolfPage(ShtikerPage):
     notify = DirectNotifyGlobal.directNotify.newCategory('GolfPage')

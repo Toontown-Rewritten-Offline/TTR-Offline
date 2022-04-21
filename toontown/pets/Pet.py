@@ -1,3 +1,4 @@
+from enum import Enum
 from panda3d.core import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.interval.IntervalGlobal import *
@@ -31,7 +32,12 @@ Component2IconDict = {'boredom': 'Bored',
 class Pet(Avatar.Avatar):
     notify = DirectNotifyGlobal.directNotify.newCategory('Pet')
     SerialNum = 0
-    Interactions = PythonUtil.Enum('SCRATCH, BEG, EAT, NEUTRAL')
+    #Interactions = PythonUtil.Enum('SCRATCH, BEG, EAT, NEUTRAL')
+    class Interactions(Enum):
+        SCRATCH = 1
+        BEG = 2
+        EAT = 3
+        NEUTRAL = 4
     InteractAnims = {Interactions.SCRATCH: ('toPet', 'pet', 'fromPet'),
      Interactions.BEG: ('toBeg', 'beg', 'fromBeg'),
      Interactions.EAT: ('eat', 'swallow', 'neutral'),
@@ -322,7 +328,7 @@ class Pet(Avatar.Avatar):
     def speakMood(self, mood):
         if self.moodModel:
             self.moodModel.hide()
-        if config.GetBool('want-speech-bubble', 1):
+        if config.ConfigVariableBool('want-speech-bubble', 1):
             self.nametag.setChat(random.choice(TTLocalizer.SpokenMoods[mood]), CFSpeech)
         else:
             self.nametag.setChat(random.choice(TTLocalizer.SpokenMoods[mood]), CFThought)
@@ -455,6 +461,7 @@ class Pet(Avatar.Avatar):
     def getTeleportInTrack(self):
         if not self.teleportHole:
             self.teleportHole = Actor.Actor('phase_3.5/models/props/portal-mod', {'hole': 'phase_3.5/models/props/portal-chan'})
+            self.teleportHole.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         track = Sequence(Wait(1.0), Parallel(self.getTeleportInSoundInterval(), Sequence(Func(self.showHole), ActorInterval(self.teleportHole, 'hole', startFrame=81, endFrame=71), ActorInterval(self, 'reappear'), ActorInterval(self.teleportHole, 'hole', startFrame=71, endFrame=81), Func(self.cleanupHole), Func(self.loop, 'neutral')), Sequence(Func(self.dropShadow.hide), Wait(1.0), Func(self.dropShadow.show))))
         return track
 
@@ -468,6 +475,7 @@ class Pet(Avatar.Avatar):
     def getTeleportOutTrack(self):
         if not self.teleportHole:
             self.teleportHole = Actor.Actor('phase_3.5/models/props/portal-mod', {'hole': 'phase_3.5/models/props/portal-chan'})
+            self.teleportHole.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         track = Sequence(Wait(1.0), Parallel(self.getTeleportOutSoundInterval(), Sequence(ActorInterval(self, 'toDig'), Parallel(ActorInterval(self, 'dig'), Func(self.showHole), ActorInterval(self.teleportHole, 'hole', startFrame=81, endFrame=71)), ActorInterval(self, 'disappear'), ActorInterval(self.teleportHole, 'hole', startFrame=71, endFrame=81), Func(self.cleanupHole)), Sequence(Wait(1.0), Func(self.dropShadow.hide))))
         return track
 

@@ -1,5 +1,6 @@
+from enum import Enum
 from panda3d.core import *
-from direct.showbase.PythonUtil import Enum, invertDictLossless
+from direct.showbase.PythonUtil import invertDictLossless
 import math
 from toontown.toonbase import ToontownGlobals
 OurPetsMoodChangedKey = 'OurPetsMoodChanged'
@@ -25,7 +26,11 @@ HungerChaseToonScale = 1.2
 FleeFromOwnerScale = 0.5
 GettingAttentionGoalScale = 1.2
 GettingAttentionGoalScaleDur = 7.0
-AnimMoods = Enum('EXCITED, SAD, NEUTRAL')
+#AnimMoods = Enum('EXCITED, SAD, NEUTRAL')
+class AnimMoods(Enum):
+    EXCITED = 1
+    SAD = 2
+    NEUTRAL = 3
 FwdSpeed = 12.0
 RotSpeed = 360.0
 _HappyMult = 1.0

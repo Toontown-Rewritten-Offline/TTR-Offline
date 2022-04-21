@@ -1,4 +1,3 @@
-# Embedded file name: toontown.electionsuit.SuitBase
 from panda3d.core import *
 from direct.distributed.ClockDelta import *
 import math
@@ -9,6 +8,7 @@ from toontown.battle import SuitBattleGlobals
 from . import SuitTimings
 from . import SuitDNA
 from toontown.toonbase import TTLocalizer
+from .SuitLegList import *
 TIME_BUFFER_PER_WPT = 0.25
 TIME_DIVISOR = 100
 DISTRIBUTE_TASK_CREATION = 0
@@ -22,10 +22,20 @@ class SuitBase:
         self.maxHP = 10
         self.currHP = 10
         self.isSkelecog = 0
+        self.legList = None
+        self.path = None
+        self.suitGraph = None
         return
 
     def delete(self):
-        pass
+        if self.legList is not None:
+            del self.legList
+        # I have no idea if this will fix anything... but it looks like it isn't
+        # deleted, so w/e.
+        if self.path is not None:
+            del self.path
+        if self.suitGraph is not None:
+            del self.suitGraph
 
     def getStyleName(self):
         if hasattr(self, 'dna') and self.dna:
@@ -67,18 +77,17 @@ class SuitBase:
             self.notify.warning('called getActualLevel with no DNA, returning 1 for level')
             return 1
 
-    def setPath(self, path):
+    def setPath(self, suitGraph, path):
+        self.suitGraph = suitGraph
         self.path = path
-        self.pathLength = self.path.getNumPoints()
 
     def getPath(self):
         return self.path
 
     def printPath(self):
-        print('%d points in path' % self.pathLength)
-        for currPathPt in range(self.pathLength):
-            indexVal = self.path.getPointIndex(currPathPt)
-            print('\t', self.sp.dnaStore.getSuitPointWithIndex(indexVal))
+        print('%d points in path' % len(self.path))
+        for currPathPt in self.path:
+            print('\t', currPathPt)
 
     def makeLegList(self):
-        self.legList = SuitLegList(self.path, self.sp.dnaStore, self.sp.suitWalkSpeed, SuitTimings.fromSky, SuitTimings.toSky, SuitTimings.fromSuitBuilding, SuitTimings.toSuitBuilding, SuitTimings.toToonBuilding)
+        self.legList = SuitLegList(self.suitGraph, self.path)

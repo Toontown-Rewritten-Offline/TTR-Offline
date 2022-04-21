@@ -521,7 +521,7 @@ class Toon(Avatar.Avatar, ToonHead):
         self.isDisguised = 0
         self.defaultColorScale = None
         self.jar = None
-        self.setBlend(frameBlend = base.wantSmoothAnims)
+        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.setTag('pieCode', str(ToontownGlobals.PieCodeToon))
         self.setFont(ToontownGlobals.getToonFont())
         self.setSpeechFont(ToontownGlobals.getToonFont())
@@ -649,7 +649,7 @@ class Toon(Avatar.Avatar, ToonHead):
             self.sendLogSuspiciousEvent('nakedToonDNA %s was requested' % newDNA.torso)
             newDNA.torso = newDNA.torso + 's'
         self.setDNA(newDNA)
-        self.setBlend(frameBlend = base.wantSmoothAnims)
+        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
 
     def setDNA(self, dna):
         if hasattr(self, 'isDisguised'):
@@ -713,7 +713,7 @@ class Toon(Avatar.Avatar, ToonHead):
         self.rescaleToon()
         self.resetHeight()
         self.setupToonNodes()
-        self.setBlend(frameBlend = base.wantSmoothAnims)
+        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
 
     def setupToonNodes(self):
         rightHand = NodePath('rightHand')
@@ -758,8 +758,11 @@ class Toon(Avatar.Avatar, ToonHead):
         if self.__bookActors:
             return self.__bookActors
         bookActor = Actor.Actor('phase_3.5/models/props/book-mod', {'book': 'phase_3.5/models/props/book-chan'})
+        bookActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         bookActor2 = Actor.Actor(other=bookActor)
+        bookActor2.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         bookActor3 = Actor.Actor(other=bookActor)
+        bookActor3.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.__bookActors = [bookActor, bookActor2, bookActor3]
         hands = self.getRightHands()
         for bookActor, hand in zip(self.__bookActors, hands):
@@ -772,8 +775,11 @@ class Toon(Avatar.Avatar, ToonHead):
         if self.__holeActors:
             return self.__holeActors
         holeActor = Actor.Actor('phase_3.5/models/props/portal-mod', {'hole': 'phase_3.5/models/props/portal-chan'})
+        holeActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         holeActor2 = Actor.Actor(other=holeActor)
+        holeActor2.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         holeActor3 = Actor.Actor(other=holeActor)
+        holeActor3.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.__holeActors = [holeActor, holeActor2, holeActor3]
         for ha in self.__holeActors:
             if hasattr(self, 'uniqueName'):

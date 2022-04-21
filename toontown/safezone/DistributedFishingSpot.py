@@ -293,6 +293,7 @@ class DistributedFishingSpot(DistributedObject.DistributedObject):
             self.notify.warning('Rod id: %s model not found' % rodId)
             rodPath = RodFileDict[0]
         self.pole = Actor.Actor()
+        self.pole.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.pole.loadModel(rodPath)
         self.pole.loadAnims({'cast': 'phase_4/models/props/fishing-pole-chan'})
         self.pole.pose('cast', 0)

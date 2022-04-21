@@ -147,6 +147,7 @@ class DistributedLawbotChair(DistributedObject.DistributedObject, FSM.FSM):
 
     def makeNodePath(self):
         self.nodePath = Actor.Actor()
+        self.nodePath.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.chair = self.nodePath.attachNewNode('myChair')
 
     def disable(self):

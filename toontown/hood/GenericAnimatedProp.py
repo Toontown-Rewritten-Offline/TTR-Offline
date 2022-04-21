@@ -72,10 +72,11 @@ class GenericAnimatedProp(AnimatedProp.AnimatedProp):
     def setupActor(self, node):
         anim = node.getTag('DNAAnim')
         self.trashcan = Actor.Actor(node, copy=0)
+        self.trashcan.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.trashcan.reparentTo(node)
         self.trashcan.loadAnims({'anim': '%s/%s' % (self.path, anim)})
         self.trashcan.pose('anim', 0)
-        self.trashcan.setBlend(frameBlend = base.wantSmoothAnims)
+        self.trashcan.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.node = self.trashcan
 
     def calcHoodId(self, node):

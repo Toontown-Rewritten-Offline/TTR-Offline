@@ -1,4 +1,25 @@
-GiveAwardErrors = Enum('Success, WrongGender, NotGiftable, FullMailbox, FullAwardMailbox, AlreadyInMailbox, AlreadyInGiftQueue, AlreadyInOrderedQueue, AlreadyInCloset, AlreadyBeingWorn, AlreadyInAwardMailbox, AlreadyInThirtyMinuteQueue, AlreadyInMyPhrases, AlreadyKnowDoodleTraining, AlreadyRented, GenericAlreadyHaveError, UnknownError, UnknownToon, NonToon,')
+from enum import Enum
+#GiveAwardErrors = Enum('Success, WrongGender, NotGiftable, FullMailbox, FullAwardMailbox, AlreadyInMailbox, AlreadyInGiftQueue, AlreadyInOrderedQueue, AlreadyInCloset, AlreadyBeingWorn, AlreadyInAwardMailbox, AlreadyInThirtyMinuteQueue, AlreadyInMyPhrases, AlreadyKnowDoodleTraining, AlreadyRented, GenericAlreadyHaveError, UnknownError, UnknownToon, NonToon,')
+class GiveAwardErrors(Enum):
+    Success = 1
+    WrongGender = 2
+    NotGiftable = 3
+    FullMailbox = 4
+    FullAwardMailbox = 5
+    AlreadyInMailbox = 6
+    AlreadyInGiftQueue = 7
+    AlreadyInOrderedQueue = 8
+    AlreadyInCloset = 9
+    AlreadyBeingWorn = 10
+    AlreadyInAwardMailbox = 11
+    AlreadyInThirtyMinuteQueue = 12
+    AlreadyInMyPhrases = 13
+    AlreadyKnowDoodleTraining = 14
+    AlreadyRented = 15
+    GenericAlreadyHaveError = 16
+    UnknownError = 17
+    UnknownToon = 18
+    NonToon = 19
 GiveAwardErrorStrings = {GiveAwardErrors.Success: 'success',
  GiveAwardErrors.WrongGender: 'wrong gender',
  GiveAwardErrors.NotGiftable: 'item is not giftable',
@@ -18,3 +39,4 @@ GiveAwardErrorStrings = {GiveAwardErrors.Success: 'success',
  GiveAwardErrors.UnknownError: 'unknown error',
  GiveAwardErrors.UnknownToon: 'toon not in database',
  GiveAwardErrors.NonToon: 'this is not a toon'}
+

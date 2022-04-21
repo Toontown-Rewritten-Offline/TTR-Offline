@@ -749,6 +749,7 @@ class CatalogScreen(DirectFrame):
         self.cDr.setClearColor(Vec4(0.3, 0.3, 0.3, 1))
         self.cDr.setCamera(self.cCam)
         self.clarabelle = Actor.Actor('phase_5.5/models/char/Clarabelle-zero', {'listen': 'phase_5.5/models/char/Clarabelle-listens'})
+        self.clarabelle.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.clarabelle.loop('listen')
         self.clarabelle.find('**/eyes').setBin('fixed', 0)
         self.clarabelle.find('**/pupilL').setBin('fixed', 1)

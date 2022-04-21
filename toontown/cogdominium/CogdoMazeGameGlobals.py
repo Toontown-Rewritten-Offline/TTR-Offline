@@ -1,10 +1,17 @@
+from enum import Enum
 from direct.showbase import PythonUtil
 from panda3d.core import VBase4
-GameActions = PythonUtil.Enum(('EnterDoor',
- 'RevealDoor',
- 'OpenDoor',
- 'Countdown',
- 'TimeAlert'))
+#GameActions = PythonUtil.Enum(('EnterDoor',
+# 'RevealDoor',
+# 'OpenDoor',
+# 'Countdown',
+# 'TimeAlert'))
+class GameActions(Enum):
+    EnterDoor = 1
+    RevealDoor = 2
+    OpenDoor = 3
+    Countdown = 4
+    TimeAlert = 5
 SecondsUntilTimeout = 4.0 * 60.0
 SecondsUntilGameEnds = 60.0
 SecondsForTimeAlert = 60.0
@@ -78,10 +85,16 @@ CamCutoffFactor = 1.34
 ToonAnimationInfo = {'hit': ('slip-backward', 2.25, 12)}
 NumPickups = 256
 PickupsUntilDoorOpens = int(NumPickups * 0.6)
-SuitCollisionName = 'CogdoMazeSuit_Collision'
+#SuitCollisionName = 'CogdoMazeSuit_Collision'
+class SuitCollisionName(Enum):
+    CogdoMazeSuit_Collision = 1
 SuitWalkSameDirectionProb = 1
 SuitWalkTurnAroundProb = 100
-SuitTypes = PythonUtil.Enum(('Boss', 'FastMinion', 'SlowMinion'))
+#SuitTypes = PythonUtil.Enum(('Boss', 'FastMinion', 'SlowMinion'))
+class SuitTypes(Enum):
+    Boss = 1
+    FastMinion = 2
+    SlowMinion = 3
 SuitData = {}
 SuitData[SuitTypes.Boss] = {'dnaName': 'ms',
  'cellWalkPeriod': 192,

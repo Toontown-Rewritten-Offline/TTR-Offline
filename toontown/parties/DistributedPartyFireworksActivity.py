@@ -57,6 +57,7 @@ class DistributedPartyFireworksActivity(DistributedPartyActivity, FireworkShowMi
         self.toonPullingLeverInterval = None
         self.sign.reparentTo(self.launchPadModel.find('**/launchPad_sign_locator'))
         self.rocketActor = Actor('phase_13/models/parties/rocket_model', {'launch': 'phase_13/models/parties/rocket_launch'})
+        self.rocketActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         rocketLocator = self.launchPadModel.find('**/rocket_locator')
         self.rocketActor.reparentTo(rocketLocator)
         self.rocketActor.node().setBound(OmniBoundingVolume())

@@ -156,6 +156,7 @@ class DistributedFoodBelt(DistributedObject.DistributedObject, FSM.FSM, FoodBelt
             self.beltActorModel = loader.loadModel('phase_12/models/bossbotHQ/food_belt2_model')
         if self.beltActorModel:
             self.beltActor = Actor.Actor(self.beltActorModel)
+            self.beltActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             if self.index == 0:
                 self.beltActor.loadAnims({'idle': 'phase_12/models/bossbotHQ/food_belt1'})
             else:

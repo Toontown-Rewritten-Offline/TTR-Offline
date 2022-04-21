@@ -1,3 +1,4 @@
+from enum import Enum
 from direct.showbase import PythonUtil
 
 class KartShopGlobals:
@@ -15,7 +16,17 @@ class KartGlobals:
     COUNTDOWN_TIME = 30
     BOARDING_TIME = 10.0
     ENTER_RACE_TIME = 6.0
-    ERROR_CODE = PythonUtil.Enum('success, eGeneric, eTickets, eBoardOver, eNoKart, eOccupied, eTrackClosed, eTooLate, eUnpaid')
+    #ERROR_CODE = PythonUtil.Enum('success, eGeneric, eTickets, eBoardOver, eNoKart, eOccupied, eTrackClosed, eTooLate, eUnpaid')
+    class ERROR_CODE(Enum):
+        success = 1
+        eGeneric = 2
+        eTickets = 3
+        eBoardOver = 4
+        eNoKart = 5
+        eOccupied = 6
+        eTrackClosed = 7
+        eTooLate = 8
+        eUnpaid = 9
     FRONT_LEFT_SPOT = 0
     FRONT_RIGHT_SPOT = 1
     REAR_LEFT_SPOT = 2

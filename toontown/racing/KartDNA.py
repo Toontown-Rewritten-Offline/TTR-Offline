@@ -1,3 +1,4 @@
+from enum import Enum
 from direct.directnotify import DirectNotifyGlobal
 from direct.showbase import PythonUtil
 from toontown.toonbase import TTLocalizer
@@ -7,10 +8,34 @@ import types
 if (__debug__):
     import pdb
 import copy
-KartDNA = PythonUtil.Enum('bodyType, bodyColor, accColor,                             ebType, spType, fwwType,                             bwwType, rimsType, decalType')
+#KartDNA = PythonUtil.Enum('bodyType, bodyColor, accColor,                             ebType, spType, fwwType,                             bwwType, rimsType, decalType')
+class KartDNA(Enum):
+    bodyType = 1
+    bodyColor = 2
+    accColor = 3
+    ebType = 4
+    spType = 5
+    fwwType = 6
+    bwwType = 7
+    rimsType = 8
+    decalType = 9
 InvalidEntry = -1
-KartInfo = PythonUtil.Enum('name, model, cost, viewDist, decalId, LODmodel1, LODmodel2')
-AccInfo = PythonUtil.Enum('name, model, cost, texCard, attach')
+#KartInfo = PythonUtil.Enum('name, model, cost, viewDist, decalId, LODmodel1, LODmodel2')
+#AccInfo = PythonUtil.Enum('name, model, cost, texCard, attach')
+class KartInfo(Enum):
+    name = 1
+    model = 2
+    cost = 3
+    viewDist = 4
+    decalId = 5
+    LODmodel1 = 6
+    LODmodel2 = 7
+class AccInfo(Enum):
+    name = 1
+    model = 2
+    cost = 3
+    texCard = 4
+    attach = 5
 kNames = TTLocalizer.KartDNA_KartNames
 KartDict = {0: (kNames[0],
      'phase_6/models/karting/Kart1_Final',
@@ -477,7 +502,7 @@ def checkKartFieldValidity(field):
 
 
 def getNumFields():
-    return KartDNA.decalType + 1
+    return KartDNA.decalType.value + 1
 
 
 def getKartModelPath(kartType, lodLevel = 0):
