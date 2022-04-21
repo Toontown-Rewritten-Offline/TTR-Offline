@@ -39,7 +39,7 @@ class DNASceneElement(DNAElement):
 
     # Lookup functions:
     def getVisGroup(self):
-        if self.parent is not None:
-            return self.parent.getVisGroup()
+        if self.parent_ is not None:
+            return self.parent_.getVisGroup()
         else:
             return None

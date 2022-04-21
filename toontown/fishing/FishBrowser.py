@@ -43,14 +43,14 @@ class FishBrowser(DirectScrolledList):
 
     def destroy(self):
         DirectScrolledList.destroy(self)
-        self.parent = None
+        self.parent_ = None
         return
 
     def update(self):
         pass
 
     def show(self):
-        if not self.parent.isHidden():
+        if not self.parent_.isHidden():
             self['items'][self.index].show()
             DirectScrolledList.show(self)
 

@@ -10,8 +10,8 @@ class DNAStorageElement(DNAElement):
     def getScope(self):
         if self.scope is not None:
             return self.scope
-        elif self.parent is not None:
-            return self.parent
+        elif self.parent_ is not None:
+            return self.parent_
         else:
             raise DNAParseError('No scope defined')
 

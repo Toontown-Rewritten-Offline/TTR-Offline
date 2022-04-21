@@ -160,8 +160,8 @@ class TeaserPanel(DirectObject):
 class FeatureBrowser(DirectScrolledList):
 
     def __init__(self, parent = aspect2dp, **kw):
-        self.parent = parent
-        optiondefs = (('parent', self.parent, None),
+        self.parent_ = parent
+        optiondefs = (('parent', self.parent_, None),
          ('relief', None, None),
          ('numItemsVisible', 1, None),
          ('items', [], None))

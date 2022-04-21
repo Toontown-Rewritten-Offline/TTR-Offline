@@ -300,7 +300,7 @@ class AStarSearch:
 class AStarPath:
 
     def __init__(self, parent, vertex, cost, heuristic):
-        self.parent = parent
+        self.parent_ = parent
         self.vertex = vertex
         self.heuristic = heuristic
         self.totalCost = cost

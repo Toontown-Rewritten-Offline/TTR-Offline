@@ -16,7 +16,7 @@ class DNAStoreNode(DNAStorageElement):
             self.node = node
 
     def _store(self, storage):
-        model = self.parent.getModel()
+        model = self.parent_.getModel()
 
         if self.node == "":
             node = model
