@@ -15,7 +15,10 @@ class NewLoadingScreen(DirectObject.DirectObject):
 
     def __init__(self):
         DirectGuiGlobals.setDefaultFontFunc(ToontownGlobals.getInterfaceFont)
-        base.setBackgroundColor(Vec4(0.145, 0.368, 0.78, 1))
+        if ConfigVariableBool('want-new-ttrloader', False):
+            base.setBackgroundColor(Vec4(0.145, 0.368, 0.78, 1))
+        else:
+            base.setBackgroundColor(ToontownGlobals.DefaultBackgroundColor)
 
     def musicVolCont1(self, t):
         musPhase1.setVolume(t)
