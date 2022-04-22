@@ -292,7 +292,7 @@ class AStarSearch:
         result = []
         while path is not None:
             result.insert(0, path.vertex)
-            path = path.parent
+            path = path.parent_
 
         return result
 
