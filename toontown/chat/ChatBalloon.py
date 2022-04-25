@@ -89,7 +89,7 @@ class ChatBalloon(NodePath):
         self.textNodePath.setX(self.textNodePath, self.TEXT_X_OFFSET)
 
         # Add a button if one is given:
-        if self.button is not None:
+        if self.button != None:
             self.buttonNodePath = button.copyTo(self)
             self.buttonNodePath.setPos(self.textNodePath, self.textWidth, 0, -self.textHeight)
             self.buttonNodePath.setPos(self.buttonNodePath, ChatBalloon.BUTTON_SHIFT)
@@ -115,11 +115,11 @@ class ChatBalloon(NodePath):
         return self.background
 
     def setButton(self, button):
-        if self.buttonNodePath is not None:
+        if self.buttonNodePath != None:
             self.buttonNodePath.removeNode()
             self.buttonNodePath = None
 
-        if button is not None:
+        if button != None:
             self.buttonNodePath = button.copyTo(self)
             self.buttonNodePath.setPos(self.textNodePath, self.textWidth, 0, -self.textHeight)
             self.buttonNodePath.setPos(self.buttonNodePath, ChatBalloon.BUTTON_SHIFT)

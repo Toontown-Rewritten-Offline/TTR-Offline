@@ -5550,7 +5550,7 @@ def phrase(phraseStringOrId):
                 id = scId
                 break # Assume that this is the only match. Perhaps return a list if >1 matches?
 
-    if id is None:
+    if id == None:
         return "Unable to match string to a custom phrase."
     else:
         if av.customMessages.count(id) != 0:

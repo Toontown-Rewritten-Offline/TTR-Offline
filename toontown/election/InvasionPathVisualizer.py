@@ -58,7 +58,7 @@ def showInvasionPaths():
 
 @magicWord()
 def hideInvasionPaths():
-    if invasionViz is None:
+    if invasionViz == None:
         return 'No invasion paths to hide.'
     else:
         invasionViz.removeNode()

@@ -56,7 +56,7 @@ def avatarDodge(leftAvatars, rightAvatars, leftData, rightData):
         avDodgeList = PoLR
     else:
         avDodgeList = PoMR
-    if avDodgeList is leftAvatars:
+    if avDodgeList == leftAvatars:
         data = leftData
     else:
         data = rightData
@@ -365,7 +365,7 @@ def createToonDodgeMultitrack(tDodge, toon, leftToons, rightToons):
         toonDodgeList = PoLR
     else:
         toonDodgeList = PoMR
-    if toonDodgeList is leftToons:
+    if toonDodgeList == leftToons:
         sidestepAnim = 'sidestep-left'
         for t in toonDodgeList:
             toonTracks.append(Sequence(ActorInterval(t, sidestepAnim), Func(t.loop, 'neutral')))

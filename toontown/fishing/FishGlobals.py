@@ -635,7 +635,7 @@ def getRodWeightRange(rodIndex):
 
 
 def __rollRarityDice(rodId, rNumGen):
-    if rNumGen is None:
+    if rNumGen == None:
         diceRoll = random.random()
     else:
         diceRoll = rNumGen.random()
@@ -648,14 +648,14 @@ def __rollRarityDice(rodId, rNumGen):
 
 def getRandomWeight(genus, species, rodIndex = None, rNumGen = None):
     minFishWeight, maxFishWeight = getWeightRange(genus, species)
-    if rodIndex is None:
+    if rodIndex == None:
         minWeight = minFishWeight
         maxWeight = maxFishWeight
     else:
         minRodWeight, maxRodWeight = getRodWeightRange(rodIndex)
         minWeight = max(minFishWeight, minRodWeight)
         maxWeight = min(maxFishWeight, maxRodWeight)
-    if rNumGen is None:
+    if rNumGen == None:
         randNumA = random.random()
         randNumB = random.random()
     else:

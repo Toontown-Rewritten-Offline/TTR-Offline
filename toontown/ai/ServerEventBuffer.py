@@ -6,7 +6,7 @@ class ServerEventBuffer:
         self.air = air
         self.name = name
         self.avId = avId
-        if period is None:
+        if period == None:
             period = 6 * 60.0
         self.period = period
         self.lastFlushTime = None
@@ -23,7 +23,7 @@ class ServerEventBuffer:
         self.air.writeServerEvent(self.name, avId=self.avId, msg=msg)
 
     def considerFlush(self):
-        if self.lastFlushTime is None:
+        if self.lastFlushTime == None:
             self.lastFlushTime = globalClock.getFrameTime()
         elif globalClock.getFrameTime() - self.lastFlushTime > self.period * 60.0:
             self.flush()

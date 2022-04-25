@@ -289,10 +289,11 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
     def exitChooseAvatar(self):
         self.handler = None
         self.stopMusic = self.loading.exitMusic
-        if self.music:
-            self.music.stop()
-            self.music = None
-        if ConfigVariableBool('want-new-ttrloader', False):
+        if ConfigVariableBool('want-retro-rewritten', False):
+            if self.music:
+                self.music.stop()
+                self.music = None
+        else:
             self.stopMusic()
         self.avChoice.exit()
         self.avChoice.unload()

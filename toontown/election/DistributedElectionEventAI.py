@@ -190,7 +190,7 @@ class DistributedElectionEventAI(DistributedObjectAI, FSM):
 @magicWord(category=CATEGORY_MODERATION, types=[str])
 def election(state):
     event = simbase.air.doFind('ElectionEvent')
-    if event is None:
+    if event == None:
         event = DistributedElectionEventAI(simbase.air)
         event.generateWithRequired(2000)
     if not hasattr(event, 'enter' + state):

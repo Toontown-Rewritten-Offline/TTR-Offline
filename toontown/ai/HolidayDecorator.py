@@ -10,7 +10,7 @@ class HolidayDecorator:
         return
 
     def exit(self):
-        if self.swapIval is not None and self.swapIval.isPlaying():
+        if self.swapIval != None and self.swapIval.isPlaying():
             self.swapIval.finish()
         return
 

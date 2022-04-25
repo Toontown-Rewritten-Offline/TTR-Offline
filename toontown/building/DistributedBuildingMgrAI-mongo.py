@@ -147,7 +147,7 @@ class DistributedBuildingMgrAI:
     def newBuilding(self, blockNumber, backup = None):
         building = DistributedBuildingAI.DistributedBuildingAI(self.air, blockNumber, self.branchID, self.trophyMgr)
         building.generateWithRequired(self.branchID)
-        if backup is not None:
+        if backup != None:
             building.track = backup.get('track', 'c')
             building.difficulty = backup.get('difficulty', 1)
             building.numFloors = backup.get('numFloors', 1)

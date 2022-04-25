@@ -22,8 +22,6 @@ for file in glob.glob('resources/*.mf'):
             mf.removeSubfile(name)
     vfs.mount(mf, Filename('/'), 0)
 
-ConfigVariableBool('want-new-ttrloader', False)
-
 class game:
     name = 'toontown'
     process = 'client'

@@ -5,10 +5,10 @@ TTSCToontaskMsgEvent = 'SCToontaskMsg'
 
 def decodeTTSCToontaskMsg(taskId, toNpcId, toonProgress, msgIndex):
     q = Quests.getQuest(taskId)
-    if q is None:
+    if q == None:
         return
     name = NPCToons.getNPCName(toNpcId)
-    if name is None:
+    if name == None:
         return
     msgs = q.getSCStrings(toNpcId, toonProgress)
     if type(msgs) != type([]):

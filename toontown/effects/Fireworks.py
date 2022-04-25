@@ -40,7 +40,7 @@ def getTexture(textureIndex):
 def shootFirework(style, x = 0, y = 0, z = 0, colorIndex1 = 0, colorIndex2 = 0, amp = 10):
     func = style2shootFunc.get(style)
     color1 = getColor(colorIndex1)
-    if style is CIRCLESPRITE:
+    if style == CIRCLESPRITE:
         color2 = getTexture(colorIndex2)
     else:
         color2 = getColor(colorIndex2)

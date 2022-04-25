@@ -48,7 +48,7 @@ class NewsManager(DistributedObject.DistributedObject):
         self.holidayDecorator = None
         self.holidayIdList = []
         base.cr.newsManager = self
-        if hasattr(base, 'localAvatar') and base.localAvatar is not None:
+        if hasattr(base, 'localAvatar') and base.localAvatar != None:
             base.localAvatar.inventory.setInvasionCreditMultiplier(1)
         self.weeklyCalendarHolidays = []
         return

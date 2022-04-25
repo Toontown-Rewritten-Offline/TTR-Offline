@@ -86,7 +86,7 @@ class CogdoBarrelRoom:
     def hide(self):
         self.model.stash()
         render.setFogOff()
-        if self.defaultFar is not None:
+        if self.defaultFar != None:
             base.camLens.setFar(self.defaultFar)
         return
 
@@ -149,7 +149,7 @@ class CogdoBarrelRoom:
 
     def __rewardUiTimeout(self, callback):
         self.hideRewardUi()
-        if callback is not None:
+        if callback != None:
             callback()
         return
 

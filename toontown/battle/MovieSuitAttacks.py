@@ -594,7 +594,7 @@ def getAllyToonsDodgeParallel(target):
         toonDodgeList = PoLR
     else:
         toonDodgeList = PoMR
-    if toonDodgeList is leftToons:
+    if toonDodgeList == leftToons:
         sidestepAnim = 'sidestep-left'
         soundEffect = globalBattleSoundCache.getSound('AV_side_step.ogg')
     else:

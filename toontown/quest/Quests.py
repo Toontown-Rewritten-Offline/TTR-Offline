@@ -17683,11 +17683,11 @@ Tier2Reward2QuestsDict = {}
 Quest2RemainingStepsDict = {}
 
 def getAllRewardIdsForReward(rewardId):
-    if rewardId is AnyCashbotSuitPart:
+    if rewardId == AnyCashbotSuitPart:
         return list(range(4000, 4011 + 1))
-    if rewardId is AnyLawbotSuitPart:
+    if rewardId == AnyLawbotSuitPart:
         return list(range(4100, 4113 + 1))
-    if rewardId is AnyBossbotSuitPart:
+    if rewardId == AnyBossbotSuitPart:
         return list(range(4200, 4216 + 1))
     return (rewardId,)
 
@@ -19840,7 +19840,7 @@ def checkReward(questId, forked = 0):
     quest = QuestDict[questId]
     reward = quest[5]
     nextQuests = nextQuestList(quest[6])
-    if nextQuests is None:
+    if nextQuests == None:
         validRewards = list(RewardDict.keys()) + [Any,
          AnyCashbotSuitPart,
          AnyLawbotSuitPart,

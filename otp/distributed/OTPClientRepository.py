@@ -496,25 +496,26 @@ class OTPClientRepository(ClientRepositoryBase):
 
     def enterPressKey(self, serverList):
         self.serverList = serverList
-        if ConfigVariableBool('want-new-ttrloader', False):
-            self.pressKeyText = OnscreenText(parent = aspect2d, text = 'Press Any Key To Enter', font = ToontownGlobals.getMickeyFont(), fg = (0.97647059, 0.81568627, 0.13333333, 1), align=TextNode.ACenter, scale=0.15, pos=(0, -0.67))
+        if ConfigVariableBool('want-retro-rewritten', False):
+            self.enterConnect(serverList)
+        else:
+            self.pressKeyText = OnscreenText(parent = aspect2d, text = OTPLocalizer.CRPressAnyKey, font = ToontownGlobals.getMickeyFont(), fg = (0.97647059, 0.81568627, 0.13333333, 1), align=TextNode.ACenter, scale=0.15, pos=(0, -0.67))
             self.pressKeyText.show()
             base.buttonThrowers[0].node().setButtonDownEvent('buttonpress')
             self.acceptOnce('buttonpress', self.enterConnect)
-        else:
-            self.enterConnect(serverList)
 
     @report(types=['args', 'deltaStamp'], dConfigParam='teleport')
     def enterConnect(self, serverList):
         self.exitPressKey()
         dialogClass = OTPGlobals.getGlobalDialogClass()
-        if ConfigVariableBool('want-new-ttrloader', False):
-            self.connectingText = OnscreenText(parent = aspect2d, text='Connecting...', font = ToontownGlobals.getMickeyFont(), fg = (0.97647059, 0.81568627, 0.13333333, 1), align=TextNode.ACenter, scale=0.15, pos=(0, -0.67))
-            self.connectingText.show()
-        else:
+        if ConfigVariableBool('want-retro-rewritten', False):
             self.serverList = serverList
             self.connectingBox = dialogClass(message=OTPLocalizer.CRConnecting)
             self.connectingBox.show()
+        else:
+            self.connectingText = OnscreenText(parent = aspect2d, text=OTPLocalizer.CRConnecting, font = ToontownGlobals.getMickeyFont(), fg = (0.97647059, 0.81568627, 0.13333333, 1), align=TextNode.ACenter, scale=0.15, pos=(0, -0.67))
+            self.connectingText.show()
+
         self.renderFrame()
         self.handler = self.handleConnecting
         # TTR SSL Hack
@@ -554,12 +555,12 @@ class OTPClientRepository(ClientRepositoryBase):
 
     @report(types=['args', 'deltaStamp'], dConfigParam='teleport')
     def exitConnect(self):
-        if ConfigVariableBool('want-new-ttrloader', False):
-            self.connectingText.cleanup()
-            del self.connectingText
-        else:
+        if ConfigVariableBool('want-retro-rewritten', False):
             self.connectingBox.cleanup()
             del self.connectingBox
+        else:
+            self.connectingText.cleanup()
+            del self.connectingText
 
     def handleSystemMessage(self, di):
         message = ClientRepositoryBase.handleSystemMessage(self, di)
@@ -588,12 +589,12 @@ class OTPClientRepository(ClientRepositoryBase):
     def enterLogin(self):
         self.sendSetAvatarIdMsg(0)
         dialogClass = OTPGlobals.getGlobalDialogClass()
-        if ConfigVariableBool('want-new-ttrloader', False):
-            self.loggingInText = OnscreenText(parent = aspect2d, text='Authenticating...', font = ToontownGlobals.getMickeyFont(), fg = (0.97647059, 0.81568627, 0.13333333, 1), align=TextNode.ACenter, scale=0.15, pos=(0, -0.67))
-            self.loggingInText.show()
-        else:
+        if ConfigVariableBool('want-retro-rewritten', False):
             self.loggingInBox = dialogClass(message=OTPLocalizer.CRLoggingIn)
             self.loggingInBox.show()
+        else:
+            self.loggingInText = OnscreenText(parent = aspect2d, text=OTPLocalizer.CRLoggingIn, font = ToontownGlobals.getMickeyFont(), fg = (0.97647059, 0.81568627, 0.13333333, 1), align=TextNode.ACenter, scale=0.15, pos=(0, -0.67))
+            self.loggingInText.show()
         self.renderFrame()
         self.loginDoneEvent = 'loginDone'
         self.accept(self.loginDoneEvent, self.__handleLoginDone)
@@ -624,12 +625,12 @@ class OTPClientRepository(ClientRepositoryBase):
 
     @report(types=['args', 'deltaStamp'], dConfigParam='teleport')
     def exitLogin(self):
-        if ConfigVariableBool('want-new-ttrloader', False):
-            self.loggingInText.cleanup()
-            del self.loggingInText
-        else:
+        if ConfigVariableBool('want-retro-rewritten', False):
             self.loggingInBox.cleanup()
             del self.loggingInBox
+        else:
+            self.loggingInText.cleanup()
+            del self.loggingInText
         self.cleanupWaitingForDatabase()
         self.ignore(self.loginDoneEvent)
         del self.loginDoneEvent
