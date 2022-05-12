@@ -38,6 +38,7 @@ from toontown.shtiker import EventsPage
 from toontown.shtiker import TIPPage
 from toontown.quest import Quests
 from toontown.quest import QuestParser
+from toontown.toontowngui import TTDialog
 from toontown.toonbase.ToontownGlobals import *
 from toontown.toonbase import ToontownGlobals
 from toontown.toonbase import TTLocalizer
@@ -56,11 +57,14 @@ from . import LaffMeter
 from toontown.quest import QuestMap
 from toontown.toon.DistributedNPCToonBase import DistributedNPCToonBase
 WantNewsPage = config.GetBool('want-news-page', ToontownGlobals.DefaultWantNewsPageSetting)
+WantToonFest = config.GetBool('want-toonfest', False)
 from toontown.toontowngui import NewsPageButtonManager
 if WantNewsPage:
     from toontown.shtiker import NewsPage
 AdjustmentForNewsButton = -0.275
+AdjustmentForClarabelleButton = 0.275
 ClaraBaseXPos = 0.12
+ToonFestBaseXPos = 0.12
 if (__debug__):
     import pdb
 
@@ -104,10 +108,12 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
             self.__lerpFurnitureButton = None
             self.__clarabelleButton = None
             self.__clarabelleFlash = None
+            self.__toonfestButton = None
             self.furnitureManager = None
             self.furnitureDirector = None
             self.gotCatalogNotify = 0
             self.__catalogNotifyDialog = None
+            self.__toonfestNotifyDialog = None
             self.accept('phaseComplete-5.5', self.loadPhase55Stuff)
             Toon.loadDialog()
             self.isIt = 0
@@ -1025,12 +1031,12 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
         claraXPos = ClaraBaseXPos
         newScale = oldScale = 0.5
         newPos = (claraXPos, 1.0, -0.63)
-        if WantNewsPage:
+        if WantToonFest:
             claraXPos += AdjustmentForNewsButton
             oldPos = ((claraXPos, 1.0, -0.63))
-            newScale = oldScale * ToontownGlobals.NewsPageScaleAdjust
+            #newScale = oldScale * ToontownGlobals.NewsPageScaleAdjust
             newPos = (claraXPos - 0.1, 1.0, -0.63)
-        self.__clarabelleButton = DirectButton(relief=None, image=circle, text='', text_fg=(1, 1, 1, 1), text_shadow=(0, 0, 0, 1), text_scale=0.1, text_pos=(-1.06, 1.06), text_font=ToontownGlobals.getInterfaceFont(), pos=newPos, scale=newScale, command=self.__handleClarabelleButton)
+        self.__clarabelleButton = DirectButton(relief=None, image=circle, text='', text_fg=(1, 1, 1, 1), text_shadow=(0, 0, 0, 1), text_scale=0.1, text_pos=(-1.06, 1.06), text_font=ToontownGlobals.getInterfaceFont(), pos=newPos, scale=newScale, command=self.__handleClarabelleConfirm)
         self.__clarabelleButton.reparentTo(base.a2dTopRight, DGG.BACKGROUND_SORT_INDEX - 1)
         button = self.__clarabelleButton.stateNodePath[0]
         self.__clarabelleFlash = Sequence(LerpColorInterval(button, 2, white, blendType='easeInOut'), LerpColorInterval(button, 2, rgba, blendType='easeInOut'))
@@ -1046,7 +1052,7 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
             self.__clarabelleButton['text'] = ['', TTLocalizer.CatalogNewCatalogButton, TTLocalizer.CatalogNewCatalogButton]
         if not self.mailboxNotify and not self.awardNotify and self.catalogNotify == ToontownGlobals.OldItems and (self.simpleMailNotify != ToontownGlobals.NoItems or self.inviteMailNotify != ToontownGlobals.NoItems):
             self.__clarabelleButton['text'] = ['', TTLocalizer.MailNewMailButton, TTLocalizer.MailNewMailButton]
-        if self.newsButtonMgr.isNewIssueButtonShown() and WantNewsPage:
+        if WantToonFest:
             self.clarabelleNewsPageCollision(True)
         self.__clarabelleButton.show()
         self.__clarabelleFlash.resume()
@@ -1056,19 +1062,94 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
             self.__clarabelleButton.hide()
             self.__clarabelleFlash.pause()
 
-    def __handleClarabelleButton(self):
-        self.stopMoveFurniture()
-        place = base.cr.playGame.getPlace()
-        if place == None:
-            self.notify.warning('Tried to go home, but place is None.')
+    def __handleClarabelleConfirm(self):
+        self.confirmFrame = TTDialog.TTDialog(style=TTDialog.YesNo, text=TTLocalizer.TeleportPanelEstate, text_wordwrap=12, command=self.__handleClarabelleButton)
+        self.confirmFrame.show()
+    def __handleClarabelleButton(self, value):
+        if self.confirmFrame:
+            self.confirmFrame.destroy()
+        self.confirmFrame = None
+        if value > 0:
+            self.stopMoveFurniture()
+            place = base.cr.playGame.getPlace()
+            if place == None:
+                self.notify.warning('Tried to go home, but place is None.')
+                return
+            if self.__catalogNotifyDialog:
+                self.__catalogNotifyDialog.cleanup()
+                self.__catalogNotifyDialog = None
+            if config.GetBool('want-qa-regression', 0):
+                self.notify.info('QA-REGRESSION: VISITESTATE: Visit estate')
+            place.goHomeNow(self.lastHood)
+            return                                   
+
+
+    def toonfestClarabelleCollision(self, show = True):
+        if self.__toonfestButton == None:
             return
-        if self.__catalogNotifyDialog:
-            self.__catalogNotifyDialog.cleanup()
-            self.__catalogNotifyDialog = None
-        if config.GetBool('want-qa-regression', 0):
-            self.notify.info('QA-REGRESSION: VISITESTATE: Visit estate')
-        place.goHomeNow(self.lastHood)
+        toonfestXPos = ToonFestBaseXPos
+        notifyXPos = CatalogNotifyDialog.CatalogNotifyBaseXPos
+        if show:
+            toonfestXPos += AdjustmentForClarabelleButton
+            notifyXPos += AdjustmentForClarabelleButton
+        newPos = (toonfestXPos - 1.1, 1.0, -0.125)
+        self.__toonfestButton.setPos(newPos)
+        if self.__toonfestNotifyDialog == None or self.__toonfestNotifyDialog.frame == None:
+            return
+        notifyPos = self.__toonfestNotifyDialog.frame.getPos()
+        notifyPos[0] = notifyXPos
+        self.__toonfestNotifyDialog.frame.setPos(notifyPos)
         return
+
+    def loadToonFestGui(self):
+        if self.__toonfestButton:
+            return
+        toonfestButton = loader.loadModel('phase_3.5/models/gui/toonfest_gui')
+        toonfestXPos = ToonFestBaseXPos
+        newScale = oldScale = 0.225
+        newPos = (toonfestXPos - 0.575, 1.0, -0.125)
+        #showClarabelle = not launcher or launcher.getPhaseComplete(5.5)
+        #if showClarabelle:
+        #    toonfestXPos += AdjustmentForClarabelleButton
+        #    oldPos = ((toonfestXPos, 1.0, -0.63))
+        #    newScale = oldScale = 0.225
+        #    newPos = (toonfestXPos - 0.1, 1.0, -0.63)
+        self.__toonfestButton = DirectButton(relief=None, image=toonfestButton, text=('', TTLocalizer.ToonFestTeleportButton, TTLocalizer.ToonFestTeleportButton, ''), text_fg=(1, 1, 1, 1), text_shadow=(0, 0, 0, 1), text_scale=0.2, text_pos=(0, 0.05), text_font=ToontownGlobals.getInterfaceFont(), pos=newPos, scale=newScale, command=self.__handleToonFestConfirm)
+        self.__toonfestButton.reparentTo(base.a2dTopRight, DGG.BACKGROUND_SORT_INDEX - 1)
+        return
+
+    def showToonFestGui(self):
+        self.loadToonFestGui()
+        self.__toonfestButton['text'] = ['', TTLocalizer.ToonFestTeleportButton, TTLocalizer.ToonFestTeleportButton]
+        self.__toonfestButton.show()
+
+    def hideToonFestGui(self):
+        if self.__toonfestButton:
+            self.__toonfestButton.hide()
+
+    def __handleToonFestConfirm(self):
+        self.confirmFrame = TTDialog.TTDialog(style=TTDialog.YesNo, text=TTLocalizer.TeleportPanelToonFest, text_wordwrap=12, command=self.__handleToonFestButton)
+        self.confirmFrame.show()
+
+    def __handleToonFestButton(self, value):
+        if self.confirmFrame:
+            self.confirmFrame.destroy()
+        self.confirmFrame = None
+        if value > 0:
+            self.stopMoveFurniture()
+            place = base.cr.playGame.getPlace()
+            if place == None:
+                self.notify.warning('Tried to teleport to ToonFest, but place is None.')
+                return
+            if self.__toonfestNotifyDialog:
+                self.__toonfestNotifyDialog.cleanup()
+                self.__toonfestNotifyDialog = None
+            hoodId = ToontownGlobals.ToonFest
+            zoneId = ToontownGlobals.ToonFest
+            shardId = None
+            avId = 0
+            place.requestTeleport(hoodId, zoneId, shardId, avId)
+            return
 
     def __startMoveFurniture(self):
         self.oldPos = self.getPos()
@@ -1165,10 +1246,13 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
         self.bFriendsList.hide()
         self.hideFurnitureGui()
         self.hideClarabelleGui()
+        self.hideToonFestGui()
         clarabelleHidden = 1
         self.ignore(ToontownGlobals.FriendsListHotkey)
         if self.friendsListButtonActive and self.friendsListButtonObscured <= 0:
             self.bFriendsList.show()
+            if WantToonFest:
+                self.showToonFestGui()
             self.accept(ToontownGlobals.FriendsListHotkey, self.sendFriendsListEvent)
             if self.clarabelleButtonObscured <= 0 and self.isTeleportAllowed():
                 if self.catalogNotify == ToontownGlobals.NewItems or self.mailboxNotify == ToontownGlobals.NewItems or self.simpleMailNotify == ToontownGlobals.NewItems or self.inviteMailNotify == ToontownGlobals.NewItems or self.awardNotify == ToontownGlobals.NewItems:

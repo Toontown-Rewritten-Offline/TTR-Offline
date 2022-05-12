@@ -19,7 +19,7 @@ class DistributedToonfestActivity(DistributedObject.DistributedObject):
     def __init__(self, cr, activityId, activityType, wantLever = False, wantRewardGui = False):
         DistributedObject.DistributedObject.__init__(self, cr)
         self.activityId = activityType
-        self.activityName = PartyGlobals.ActivityIds.getString(self.activityId)
+        self.activityName = PartyGlobals.ActivityIds(self.activityId.value)
         self.activityType = activityType
         self.wantLever = wantLever
         self.wantRewardGui = wantRewardGui
@@ -181,7 +181,7 @@ class DistributedToonfestActivity(DistributedObject.DistributedObject):
     def announceGenerate(self):
         DistributedObject.DistributedObject.announceGenerate(self)
         self.notify.debug('BASE: announceGenerate %s' % self.activityName)
-        self.root.setName(self.activityName + 'Root')
+        self.root.setName(self.activityName.name + 'Root')
         self.normalExit = True
         if self.wantLever:
             self.leverTriggerEvent = self.uniqueName('leverTriggerEvent')
@@ -216,7 +216,7 @@ class DistributedToonfestActivity(DistributedObject.DistributedObject):
         DistributedObject.DistributedObject.delete(self)
 
     def load(self):
-        self.root.setName(self.activityName + 'Root')
+        self.root.setName(self.activityName.name + 'Root')
         self.notify.debug('BASE: load')
         self.loadSign()
         if self.wantLever:
