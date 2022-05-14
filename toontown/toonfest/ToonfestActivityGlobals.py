@@ -91,7 +91,7 @@ PartyEditorTrashBounds = ((-0.16, -0.38), (-0.05, -0.56))
 # 'PartyValentineJukebox',
 # 'PartyValentineJukebox40',
 # 'PartyValentineTrampoline'))
- 'PartyValentineTrampoline'))
+# 'PartyValentineTrampoline'))
 class ActivityRequestStatus(Enum):
     Joining = 1
     Exiting = 2
