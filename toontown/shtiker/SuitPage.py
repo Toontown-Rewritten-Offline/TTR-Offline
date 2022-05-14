@@ -470,7 +470,7 @@ class SuitPage(ShtikerPage.ShtikerPage):
         elif status == COG_COMPLETE1:
             panel['image_color'] = PANEL_COLORS_COMPLETE1[index / SuitDNA.suitsPerDept]
         elif status == COG_COMPLETE2:
-            panel['image_color'] = PANEL_COLORS_COMPLETE2[index / SuitDNA.suitsPerDept]
+            panel['image_color'] = PANEL_COLORS_COMPLETE2[index // SuitDNA.suitsPerDept]
 
     def updateAllCogs(self, status):
         for index in range(0, len(base.localAvatar.cogs)):
