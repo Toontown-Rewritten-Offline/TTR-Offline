@@ -842,13 +842,14 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         return 1
 
     def restockAllNPCFriends(self, amt=1):
-        desiredNpcFriends = [2001,
+        desiredNpcFriends = [2003,
+         2001,
          2011,
          3112,
          4119,
          1116,
-         3137,
-         3135]
+         4230,
+         2208]
         self.resetNPCFriendsDict()
         for npcId in desiredNpcFriends:
             self.attemptAddNPCFriend(npcId, amt)
@@ -4764,10 +4765,27 @@ def maxToon(hasConfirmed='UNCONFIRMED'):
     # General end game settings
     toon.b_setQuestCarryLimit(ToontownGlobals.MaxQuestCarryLimit)
     toon.b_setRewardHistory(Quests.ELDER_TIER, [])
-    toon.b_setMaxMoney(250)
+    # ToonFest Tokens
     toon.b_setTokens(250)
+    # Jellybeans
+    toon.b_setMaxMoney(250)
     toon.b_setMoney(toon.getMaxMoney())
     toon.b_setBankMoney(ToontownGlobals.DefaultMaxBankMoney)
+    # SOS Toons
+    toon.restockAllNPCFriends(99)
+    # Unites
+    toon.restockAllResistanceMessages(99)
+    # Pink Slips
+    toon.b_setPinkSlips(99)
+    # Summons
+    cogCount = []
+    from toontown.shtiker import CogPageGlobals
+    for deptIndex in range(4):
+        for cogIndex in range(8):
+            cogCount.append(CogPageGlobals.COG_QUOTAS[1][cogIndex])
+    toon.b_setCogCount(cogCount)
+    toon.b_setCogStatus([CogPageGlobals.COG_COMPLETE2] * 32)
+    toon.restockAllCogSummons()
 
     return 'By the power invested in me, I, McQuack, max your toon.'
 
