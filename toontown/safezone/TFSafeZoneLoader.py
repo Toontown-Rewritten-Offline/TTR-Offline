@@ -152,7 +152,6 @@ class TFSafeZoneLoader(SafeZoneLoader):
         self.toonfestDoorsClosed.removeNode()
         self.toonfestDoorsClosedColl1.removeNode()
         self.toonfestDoorsClosedColl2.removeNode()
-        #self.toonfestDoorsClosed.delete()
         try:
             self.base1 = self.towerGeom.find('**/base1')
             self.base2 = self.towerGeom.find('**/base2')
