@@ -1,4 +1,5 @@
 from direct.showbase import PythonUtil
+import traceback
 
 MINIMUM_MAGICWORD_ACCESS = 300
 MINIMUM_AI_OBJ_MW_ACCESS = config.GetInt('mw-minimum-ai-manipulation-access', 500)
