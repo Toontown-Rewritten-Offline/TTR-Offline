@@ -5297,6 +5297,13 @@ def pinkslips():
     spellbook.getTarget().b_setPinkSlips(99)
     return 'Restocked 99 pink slips successfully!'
 
+@magicWord(category=CATEGORY_OVERRIDE)
+def teleportAccess():
+    # Teleport access everywhere (Including CogHQ, excluding Funny Farm.)
+    toon = spellbook.getTarget()
+    toon.b_setHoodsVisited(ToontownGlobals.Hoods)
+    toon.b_setTeleportAccess(ToontownGlobals.HoodsForTeleportAll)
+
 @magicWord(category=CATEGORY_OVERRIDE, types=[int])
 def questTier(tier):
     """
