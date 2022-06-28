@@ -332,6 +332,7 @@ Shirts = [
  'phase_4/maps/tt_t_chr_avt_shirt_pirate.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_supertoon.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_vampire.jpg',
+ 'phase_4/maps/tt_t_chr_avt_shirt_slappy.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_dinosaur.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_fishing04.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_golf03.jpg',
@@ -356,8 +357,7 @@ Shirts = [
  'phase_4/maps/tt_t_chr_avt_shirt_trolley05.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_saveBuilding4.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_saveBuilding05.jpg',
- 'phase_4/maps/tt_t_chr_avt_shirt_anniversary.jpg',
- 'phase_4/maps/tt_t_chr_avt_shirt_slappy.jpg'
+ 'phase_4/maps/tt_t_chr_avt_shirt_anniversary.jpg'
 ]
 BoyShirts = [
  (0, 0),
@@ -537,6 +537,7 @@ Sleeves = [
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_winter03.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_halloween07.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_winter02.jpg',
+ 'phase_4/maps/tt_t_chr_avt_shirtSleeve_slappy.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_fishing06.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_fishing07.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_golf05.jpg',
@@ -548,8 +549,7 @@ Sleeves = [
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_trolley05.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_saveBuilding4.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_saveBuilding05.jpg',
- 'phase_4/maps/tt_t_chr_avt_shirtSleeve_anniversary.jpg',
- 'phase_4/maps/tt_t_chr_avt_shirtSleeve_slappy.jpg']
+ 'phase_4/maps/tt_t_chr_avt_shirtSleeve_anniversary.jpg']
 BoyShorts = [
  'phase_3/maps/desat_shorts_1.jpg',
  'phase_3/maps/desat_shorts_2.jpg',
@@ -2510,7 +2510,7 @@ class ToonDNA(AvatarDNA.AvatarDNA):
         self.cache = ()
         return
 
-    def __tstr__(self):
+    def __str__(self):
         nString = 'type = toon\n'
         nString = nString + 'gender = %s\n' % self.gender
         nString = nString + 'head = %s, torso = %s, legs = %s\n' % (self.head, self.torso, self.legs)

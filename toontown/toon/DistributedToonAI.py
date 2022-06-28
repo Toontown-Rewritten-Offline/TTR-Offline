@@ -5034,16 +5034,19 @@ def dna(part, value):
         if not isValidColor(value):
             return "DNA: Invalid color specified for head."
         dna.headColor = value
+        av.b_setDNAString(dna.makeNetString())
     elif part=='armColor':
         value = int(value)
         if not isValidColor(value):
             return "DNA: Invalid color specified for arms."
         dna.armColor = value
+        av.b_setDNAString(dna.makeNetString())
     elif part=='legColor':
         value = int(value)
         if not isValidColor(value):
             return "DNA: Invalid color specified for legs."
         dna.legColor = value
+        av.b_setDNAString(dna.makeNetString())
     elif part=='color':
         value = int(value)
         if not isValidColor(value):
@@ -5051,6 +5054,7 @@ def dna(part, value):
         dna.headColor = value
         dna.armColor = value
         dna.legColor = value
+        av.b_setDNAString(dna.makeNetString())
     elif part=='gloves': # Incase anyone tries to change glove color for whatever reason...
         return "DNA: Change of glove colors are not allowed."
         # If you ever want to be able to edit gloves, feel free to comment out this return.
@@ -5060,47 +5064,50 @@ def dna(part, value):
         if not 0 <= value <= 38:
             return "DNA: Color index out of range."
         dna.gloveColor = value
-    elif part=='shirtid':
+        av.b_setDNAString(dna.makeNetString())
+    elif part=='toptex':
         value = int(value)
         #if not isValidColor(value):
         #    return "DNA: Invalid shirt if specified."
         dna.topTex = value
-        dna.sleeveTex = value
-    elif part=='shirtcolor':
+        av.b_setDNAString(dna.makeNetString())
+    elif part=='toptexcolor':
         value = int(value)
         #if not isValidColor(value):
         #    return "DNA: Invalid shirt if specified."
         dna.topTexColor = value
-        dna.sleeveTexColor = value
-    elif part=='sleeveid':
+        av.b_setDNAString(dna.makeNetString())
+    elif part=='sleevetex':
         value = int(value)
         #if not isValidColor(value):
         #    return "DNA: Invalid shirt if specified."
         dna.sleeveTex = value
-    elif part=='sleevecolor':
+        av.b_setDNAString(dna.makeNetString())
+    elif part=='sleevetexcolor':
         value = int(value)
         #if not isValidColor(value):
         #    return "DNA: Invalid shirt if specified."
         dna.sleeveTexColor = value
-    elif part=='shortsid':
+        av.b_setDNAString(dna.makeNetString())
+    elif part=='bottex':
         value = int(value)
         #if not isValidColor(value):
         #    return "DNA: Invalid shirt if specified."
         dna.botTex = value
-    elif part=='shortscolor':
+        av.b_setDNAString(dna.makeNetString())
+    elif part=='bottexcolor':
         value = int(value)
         #if not isValidColor(value):
         #    return "DNA: Invalid shirt if specified."
         dna.botTexColor = value
+        av.b_setDNAString(dna.makeNetString())
 
     # Body Sizes, Species & Gender (y u want to change gender pls)
     elif part=='gender':
-        if value=='male':
-            dna.gender = 'm'
-        elif value=='female':
-            dna.gender = 'f'
-        else:
-            return "DNA: Invalid gender. Stick to 'male' or 'female'."
+        if value not in ('m', 'f', 'male', 'female'):
+            return 'Invalid gender: ' + value
+        dna.gender = value[0]
+        av.b_setDNAString(dna.makeNetString())
     elif part=='species':
         species = ['dog', 'cat', 'horse', 'mouse', 'rabbit', 'duck', 'monkey', 'bear', 'pig', 'crocodile', 'deer']
         if value not in species:
@@ -5112,6 +5119,7 @@ def dna(part, value):
         species = dict(map(None, species, ToonDNA.toonSpeciesTypes))
         headSize = dna.head[1:3]
         dna.head = (species.get(value) + headSize)
+        av.b_setDNAString(dna.makeNetString())
     elif part=='headSize':
         sizes = ['ls', 'ss', 'sl', 'll']
         value = int(value)
@@ -5119,6 +5127,7 @@ def dna(part, value):
             return "DNA: Invalid head size index."
         species = dna.head[0]
         dna.head = (species + sizes[value])
+        av.b_setDNAString(dna.makeNetString())
     elif part=='torso':
         value = int(value)
         if dna.gender == 'm':
@@ -5130,11 +5139,13 @@ def dna(part, value):
         else:
             return "DNA: Unable to determine gender. Aborting DNA change."
         dna.torso = ToonDNA.toonTorsoTypes[value]
+        av.b_setDNAString(dna.makeNetString())
     elif part=='legs':
         value = int(value)
         if not 0 <= value <= 2:
             return "DNA: Legs index out of range."
         dna.legs = ToonDNA.toonLegTypes[value]
+        av.b_setDNAString(dna.makeNetString())
 
     # Allow Admins to back up a toons current DNA before making changes.
     elif part=='save':
@@ -5154,8 +5165,47 @@ def dna(part, value):
     else:
         return "DNA: Invalid part specified."
 
-    av.b_setDNAString(dna.makeNetString())
     return "Completed DNA change successfully."
+
+@magicWord(category=CATEGORY_CHARACTERSTATS)
+def slappy():
+    """A secret command leading to the next big update for TTRP..."""
+    toon = spellbook.getTarget()
+    dna = ToonDNA.ToonDNA()
+
+    # Set Slappy's DNA and Name
+    toon.b_setName('Slappy')
+    dna.makeFromNetString(toon.getDNAString())
+    dna.headColor = int(14)
+    dna.armColor = int(14)
+    dna.legColor = int(14)
+    dna.topTex = int(126)
+    dna.topTexColor = int(27)
+    dna.sleeveTex = int(126)
+    dna.sleeveTexColor = int(27)
+    dna.botTex = int(58)
+    dna.botTexColor = int(27)
+    dna.head = 'fls'
+    dna.torso = 'ms'
+    dna.legs = 'l'
+    toon.b_setDNAString(dna.makeNetString())
+
+    # Set Slappy's canonical gag tracks
+    toon.b_setTrackAccess([0, 0, 1, 1, 1, 1, 0])
+    toon.b_setMaxCarry(35)
+    toon.experience.setExp('lure', 100)
+    toon.experience.setExp('sound', 100)
+    toon.experience.setExp('throw', 1000)
+    toon.experience.setExp('squirt', 1000)
+    toon.b_setExperience(toon.experience.makeNetString())
+    toon.inventory.zeroInv()
+    toon.b_setInventory(toon.inventory.makeNetString())
+
+    # Set Slappy's canonical laff
+    toon.b_setMaxHp(42)
+    toon.b_setHp(0)
+
+    return 'A secret command has been unlocked...'
 
 @magicWord(category=CATEGORY_OVERRIDE, types=[int])
 def setTrophyScore(value):
