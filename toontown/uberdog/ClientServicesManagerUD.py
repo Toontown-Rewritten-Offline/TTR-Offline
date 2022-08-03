@@ -7,7 +7,7 @@ from toontown.makeatoon.NameGenerator import NameGenerator
 from toontown.toonbase import TTLocalizer
 from otp.distributed import OtpDoGlobals
 from sys import platform
-from pymongo.errors import AutoReconnect
+import semidbm
 import time
 import hmac
 import hashlib
@@ -23,6 +23,9 @@ REPORT_REASONS = [
 class LocalAccountDB:
     def __init__(self, csm):
         self.csm = csm
+        filename = simbase.config.GetString(
+            'account-bridge-filename', 'astron/databases/account-bridge')
+        self.dbm = semidbm.open(filename, 'c')
 
     def lookup(self, cookie, callback):
         if cookie.startswith(b'.'):
@@ -31,14 +34,26 @@ class LocalAccountDB:
                       'reason': 'Invalid cookie specified!'})
             return
 
-        # databaseId must be a uint32, so we'll use the crc32 of the cookie:
-        import zlib
-        databaseId = zlib.crc32(cookie)&0x7FFFFFFF
+        try:
+            callback({'success': True,
+                      'accountId': int(self.dbm[str(cookie)]),
+                      'databaseId': cookie,
+                      'adminAccess': 507})
+        except KeyError:
+            # Returning KeyError? Seems we can't find the cookie in the DB, creating new account!
+            callback({'success': True,
+                      'accountId': 0,
+                      'databaseId': cookie,
+                      'adminAccess': 507})
 
-        callback({'success': True,
-                  'databaseId': databaseId,
-                  'adminAccess': 507,
-                  'betaKeyQuest': 1})
+    def storeAccountID(self, databaseId, accountId, callback):
+        self.dbm[str(databaseId)] = str(accountId)  # semidbm only allows strings.
+        if getattr(self.dbm, 'sync', None):
+            self.dbm.sync()
+            callback(True)
+        else:
+            self.notify.warning('Unable to associate user %s with account %d!' % (databaseId, accountId))
+            callback(False)
 
 class RemoteAccountDB:
     def __init__(self, csm):
@@ -107,22 +122,20 @@ class LoginAccountFSM(OperationFSM):
 
     def enterStart(self, cookie):
         self.cookie = cookie
-
         self.demand('QueryAccountDB')
 
     def enterQueryAccountDB(self):
         self.csm.accountDB.lookup(self.cookie, self.__handleLookup)
 
     def __handleLookup(self, result):
-        self.created_index = None
         if not result.get('success'):
             self.csm.air.writeServerEvent('cookie-rejected', clientId=self.target, cookie=self.cookie)
             self.demand('Kill', result.get('reason', 'The accounts database rejected your cookie.'))
             return
 
         self.databaseId = result.get('databaseId', 0)
+        self.accountId = result.get('accountId', 0)
         self.adminAccess = result.get('adminAccess', 0)
-        self.betaKeyQuest = result.get('betaKeyQuest', 0)
 
         # Binary bitmask in base10 form, added to the adminAccess.
         # To find out what they have access to, convert the serverAccess to 3-bit binary.
@@ -136,39 +149,11 @@ class LoginAccountFSM(OperationFSM):
             self.demand('Kill', result.get('reason', 'You have insufficient access to login.'))
             return
 
-        # Try to figure out the accountId using the databaseId.
-        # To do this, query the MongoDB backend and ask it for the account:
-        try:
-            if not self.created_index:
-                self.csm.air.mongodb.astron.objects.create_index('fields.ACCOUNT_ID')
-                self.created_index = True
-                account = self.csm.air.mongodb.astron.objects.find_one({'fields.ACCOUNT_ID': self.databaseId})
-        except AutoReconnect:
-            taskMgr.doMethodLater(config.GetInt('mongodb-retry-time', 2), self.__retryLookup, 'retryLookUp-%d' % self.databaseId, extraArgs=[])
-            return
-
-        if account:
-            self.accountId = account['_id']
+        if self.accountId:
             self.demand('RetrieveAccount')
         else:
             self.demand('CreateAccount')
 
-    def __retryLookup(self):
-        self.created_index = None
-        try:
-            if not self.created_index:
-                self.csm.air.mongodb.astron.objects.create_index('fields.ACCOUNT_ID')
-                self.created_index = True
-                account = self.csm.air.mongodb.astron.objects.find_one({'fields.ACCOUNT_ID': self.databaseId})
-        except AutoReconnect:
-            taskMgr.doMethodLater(config.GetInt('mongodb-retry-time', 2), self.__retryLookup, 'retryLookUp-%d' % self.databaseId, extraArgs=[])
-            return
-
-        if account:
-            self.accountId = account['_id']
-            self.demand('RetrieveAccount')
-        else:
-            self.demand('CreateAccount')
     def enterRetrieveAccount(self):
         self.csm.air.dbInterface.queryObject(self.csm.air.dbId, self.accountId,
                                              self.__handleRetrieve)
@@ -182,13 +167,12 @@ class LoginAccountFSM(OperationFSM):
         self.demand('SetAccount')
 
     def enterCreateAccount(self):
-        self.account = {'ACCOUNT_AV_SET': [0]*6,
+        self.account = {'ACCOUNT_AV_SET': [0] * 6,
                         'ESTATE_ID': 0,
                         'ACCOUNT_AV_SET_DEL': [],
                         'CREATED': time.ctime(),
                         'LAST_LOGIN': time.ctime(),
-                        'BETA_KEY_QUEST': self.betaKeyQuest,
-                        'ACCOUNT_ID': self.databaseId,
+                        'ACCOUNT_ID': str(self.databaseId),
                         'ADMIN_ACCESS': self.adminAccess}
 
         self.csm.air.dbInterface.createObject(
@@ -210,6 +194,19 @@ class LoginAccountFSM(OperationFSM):
         self.csm.air.writeServerEvent('account-created', accId=accountId)
 
         self.accountId = accountId
+        self.demand('StoreAccountID')
+
+    def enterStoreAccountID(self):
+        self.csm.accountDB.storeAccountID(
+            self.databaseId,
+            self.accountId,
+            self.__handleStored)
+
+    def __handleStored(self, success=True):
+        if not success:
+            self.demand('Kill', 'The account server could not save your user ID!')
+            return
+
         self.demand('SetAccount')
 
     def enterSetAccount(self):
@@ -266,9 +263,8 @@ class LoginAccountFSM(OperationFSM):
             self.accountId,
             self.csm.air.dclassesByName['AccountUD'],
             {'LAST_LOGIN': time.ctime(),
-             'ACCOUNT_ID': self.databaseId,
-             'ADMIN_ACCESS': self.adminAccess,
-             'BETA_KEY_QUEST': self.betaKeyQuest})
+             'ACCOUNT_ID': str(self.databaseId),
+             'ADMIN_ACCESS': self.adminAccess})
 
         # Add a POST_REMOVE to the connection channel to execute the NetMessenger
         # message when the account connection goes RIP on the Client Agent.
@@ -747,7 +743,6 @@ class LoadAvatarFSM(AvatarOperationFSM):
         self.csm.air.sendActivate(self.avId, 0, 0,
                                   self.csm.air.dclassesByName['DistributedToonUD'],
                                   {'setAdminAccess': [adminAccess],
-                                   'setWantBetaKeyQuest': [self.account.get('BETA_KEY_QUEST', 0)],
                                    'setWebAccountId': [self.account.get('ACCOUNT_ID', 0)]})
 
         # Next, add them to the avatar channel:
@@ -929,7 +924,9 @@ class ClientServicesManagerUD(DistributedObjectGlobalUD):
 
         # Test the signature
         digMod = hashlib.sha256 # REQUIRED NOW PY3.8
-        computedSig = hmac.new(key, cookie, digestmod=digMod).digest()
+        computedSig = hmac.new(key, digestmod=digMod)
+        computedSig.update(cookie)
+        computedSig = computedSig.digest()
         if sig != computedSig:
             self.killConnection(sender, 'The accounts database rejected your cookie')
             return

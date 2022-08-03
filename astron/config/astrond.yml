@@ -71,8 +71,8 @@ roles:
         min: 100000000
         max: 399999999
       backend:
-        type: mongodb
-        server: mongodb://127.0.0.1/astron
+        type: yaml
+        directory: ../databases/astrondb
 
     - type: dbss
       database: 4003

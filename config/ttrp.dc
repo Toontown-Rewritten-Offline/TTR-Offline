@@ -46,7 +46,7 @@ dclass Account {
   AvatarPendingDel ACCOUNT_AV_SET_DEL[] db;
   string CREATED db;
   string LAST_LOGIN db;
-  uint32 ACCOUNT_ID db;
+  string ACCOUNT_ID db;
   uint16 ADMIN_ACCESS db;
   uint8 BETA_KEY_QUEST db;
 };
@@ -956,7 +956,7 @@ typedef int16 pair16[2];
 
 dclass DistributedToon : DistributedPlayer {
   setWantBetaKeyQuest(uint8 = 0) required db airecv;
-  setWebAccountId(uint32 webId = 0) required airecv;
+  setWebAccountId(string) required airecv;
   setDNAString(blob dnaString) required broadcast ownrecv db;
   setGM(uint8 type = 0) required broadcast ownrecv db;
   setMaxBankMoney(int16 maxMoney = 15000) required broadcast ownrecv db;

@@ -121,13 +121,13 @@ class DistributedBuildingMgrAI:
          animBldgBlocks)
 
     def findAllLandmarkBuildings(self):
-        buildings = self.load()
+        backups = simbase.backups.load('block-info', (self.air.districtId, self.branchID), default={})
         blocks, hqBlocks, gagshopBlocks, petshopBlocks, kartshopBlocks, animBldgBlocks = self.getDNABlockLists()
         for block in blocks:
-            self.newBuilding(block, buildings.get(block, None))
+            self.newBuilding(block, blockData=backups.get(block, None))
 
         for block in animBldgBlocks:
-            self.newAnimBuilding(block, buildings.get(block, None))
+            self.newAnimBuilding(block, blockData=backups.get(block, None))
 
         for block in hqBlocks:
             self.newHQBuilding(block)
@@ -232,43 +232,17 @@ class DistributedBuildingMgrAI:
         return building
 
     def save(self):
-        buildings = []
-        for i in list(self.__buildings.values()):
-            if isinstance(i, HQBuildingAI.HQBuildingAI):
-                continue
-            buildings.append(i.getPickleData())
-
-        street = {'ai': self.shard, 'branch': self.branchID}
-        try:
-            self.air.mongodb.toontown.streets.update_many(street,
-                                                     {'$setOnInsert': street,
-                                                      '$set': {'buildings': buildings}},
-                                                     upsert=True)
-        except AutoReconnect: # Something happened to our DB, but we can reconnect and retry.
-            taskMgr.doMethodLater(config.GetInt('mongodb-retry-time', 2), self.save, 'retrySave', extraArgs=[])
-
-    def load(self):
-        blocks = {}
-        self.created_index = None
-
-        # Ensure that toontown.streets is indexed. Doing this at loading time
-        # is a fine way to make sure that we won't upset players with a
-        # lagspike while we wait for the backend to handle the index request.
-        if not self.created_index:
-            self.air.mongodb.toontown.streets.create_index([('ai', 1),
-                                                            ('branch', 1)])
-            self.created_index = True
-
-        street = {'ai': self.shard, 'branch': self.branchID}
-        try:
-            doc = self.air.mongodb.toontown.streets.find_one(street)
-        except AutoReconnect: # We're failing over - normally we'd wait to retry, but this is on AI startup so we might want to retry (or refactor the bldgMgr so we can sanely retry).
-            return blocks
-
-        if not doc:
-            return blocks
-
-        for building in doc.get('buildings', []):
-            blocks[int(building['block'])] = building
-
-        return blocks
+        backups = {}
+        for blockNumber in self.getSuitBlocks():
+            building = self.getBuilding(blockNumber)
+            backup = {
+                'state': building.fsm.getCurrentState().getName(),
+                'block': building.block,
+                'track': building.track,
+                'difficulty': building.difficulty,
+                'numFloors': building.numFloors,
+                'savedBy': building.savedBy,
+                'becameSuitTime': building.becameSuitTime
+            }
+            backups[blockNumber] = backup
+        simbase.backups.save('block-info', (self.air.districtId, self.branchID), backups)

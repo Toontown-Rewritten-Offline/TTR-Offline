@@ -1,8 +1,10 @@
 from panda3d.core import *
 from direct.showbase import PythonUtil
 import builtins
-
+import os
 import argparse
+
+os.makedirs('astron/databases/astrondb', exist_ok = True) 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--base-channel', help='The base channel that the server may use.')

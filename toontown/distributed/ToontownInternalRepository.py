@@ -4,17 +4,8 @@ from otp.rpc.RPCClient import RPCClient
 from direct.distributed.PyDatagram import PyDatagram
 from direct.distributed.MsgTypes import *
 from panda3d.core import *
-import pymongo, urllib.parse
+import urllib.parse
 import signal
-
-mongodb_url = ConfigVariableString('mongodb-url', 'mongodb://localhost',
-                                   'Specifies the URL of the MongoDB server that'
-                                   ' stores all gameserver data.')
-mongodb_replicaset = ConfigVariableString('mongodb-replicaset', '', 'Specifies the replica set of the gameserver data DB.')
-
-ai_watchdog = ConfigVariableInt('ai-watchdog', 15,
-                                'Specifies the maximum amount of time that a'
-                                ' frame may take before the process kills itself.')
 
 class WatchdogError(Exception): pass
 def watchdogExhausted(signum, frame):
@@ -29,15 +20,6 @@ class ToontownInternalRepository(AstronInternalRepository):
         AstronInternalRepository.__init__(self, baseChannel, serverId, dcFileNames,
                                  dcSuffix, connectMethod, threadedNet)
         self._callbacks = {}
-
-        mongourl = mongodb_url.getValue()
-        replicaset = mongodb_replicaset.getValue()
-        db = (urllib.parse.urlparse(mongourl).path or '/astron')[1:]
-        if replicaset:
-            self.mongo = pymongo.MongoClient(mongourl, replicaset=replicaset)
-        else:
-            self.mongo = pymongo.MongoClient(mongourl)
-        self.mongodb = self.mongo[db]
 
         self.rpc = RPCClient()
 

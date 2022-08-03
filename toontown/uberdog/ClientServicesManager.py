@@ -28,7 +28,9 @@ class ClientServicesManager(DistributedObjectGlobal):
 
         # Sign the login cookie
         digMod = hashlib.sha256 # REQUIRED NOW PY3.8
-        sig = hmac.new(key, cookie, digestmod=digMod).digest()
+        sig = hmac.new(key, digestmod=digMod)
+        sig.update(cookie)
+        sig = sig.digest()
 
         self.notify.debug('Sending login cookie: ' .format(cookie))
         self.sendUpdate('login', [cookie, sig])

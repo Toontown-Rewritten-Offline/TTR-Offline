@@ -4,7 +4,7 @@
 
 # Client settings
 window-title Toontown Rewritten [PRIVATE]
-server-version ttrp-beta-v2.8.3a
+server-version ttrp-beta-v2.9.0
 sync-video #f
 want-dev #f
 preload-avatars #t
@@ -51,6 +51,9 @@ want-rpc-server #f
 rpc-server-endpoint http://localhost:8080/
 eventlog-host 127.0.0.1
 want-cheesy-expirations #t
+- Mongo Settings
+want-mongo-client #f
+mongodb-url mongodb://127.0.0.1/astron
 
 
 # Beta Modifications
