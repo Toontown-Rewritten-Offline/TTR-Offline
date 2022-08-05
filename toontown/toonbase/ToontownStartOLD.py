@@ -2,6 +2,8 @@ from panda3d.core import *
 import builtins
 import os
 
+# Start Toontown (post v2.0.0)
+
 # The VirtualFileSystem, which has already initialized, doesn't see the mount
 # directives in the config(s) yet. We have to force it to load those manually:
 from panda3d.core import VirtualFileSystem, ConfigVariableList, Filename
@@ -22,10 +24,10 @@ for file in glob.glob('resources/*.mf'):
             mf.removeSubfile(name)
     vfs.mount(mf, Filename('/'), 0)
 
+# Configure/Start Toontown Client
 class game:
     name = 'toontown'
     process = 'client'
-
 
 builtins.game = game()
 import time
@@ -39,16 +41,12 @@ except:
     launcher = TTRLauncher()
     builtins.launcher = launcher
 
+# Poll for game finished
 pollingDelay = 0.5
 print('TTRPrivate: Ongoing project by RegDogg')
-print('ToontownStart: loading game settings')
-from toontown.settings.ToontownSettings import ToontownSettings
-settings = ToontownSettings()
-settings.loadFromSettings()
 print('ToontownStart: Polling for game2 to finish...')
 while not launcher.getGame2Done():
     time.sleep(pollingDelay)
-
 print('ToontownStart: Game2 is finished.')
 print('ToontownStart: Starting the game.')
 if launcher.isDummy():
@@ -57,6 +55,8 @@ else:
     http = launcher.http
 tempLoader = Loader()
 backgroundNode = tempLoader.loadSync(Filename('phase_3/models/gui/loading-background-old'))
+
+# Prepare GUI Font
 from direct.gui import DirectGuiGlobals
 print('ToontownStart: setting default font')
 from . import ToontownGlobals
@@ -68,6 +68,15 @@ from panda3d.core import *
 if base.win == None:
     print('Unable to open window; aborting.')
     sys.exit()
+from direct.gui.DirectGui import *
+
+# Settings
+print('ToontownStart: loading game settings')
+from toontown.settings.ToontownSettings import ToontownSettings
+settings = ToontownSettings()
+settings.loadFromSettings()
+
+# Prepare startup screen
 launcher.setPandaErrorCode(0)
 launcher.setPandaWindowOpen()
 ConfigVariableDouble('decompressor-step-time').setValue(0.01)
@@ -78,25 +87,36 @@ backgroundNodePath.setScale(render2d, VBase3(1))
 backgroundNodePath.find('**/fg').setBin('fixed', 20)
 backgroundNodePath.find('**/bg').setBin('fixed', 10)
 base.graphicsEngine.renderFrame()
+
+# Framerate meter for TTR Private: Change in 'dev.prc' to toggle
+if ConfigVariableBool('tt-framerate', False):
+    from toontown.toonbase.TTFrameRateMeter import TTFrameRateMeter
+    TTFrameRateMeter()
+
+
+# Prepare GUI Sounds
 DirectGuiGlobals.setDefaultRolloverSound(base.loader.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg'))
 DirectGuiGlobals.setDefaultClickSound(base.loader.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg'))
 DirectGuiGlobals.setDefaultDialogGeom(loader.loadModel('phase_3/models/gui/dialog_box_gui'))
 from . import TTLocalizer
 from otp.otpbase import OTPGlobals
 OTPGlobals.setDefaultProductPrefix(TTLocalizer.ProductPrefix)
+print('ToontownStart: Loading default gui sounds')
+DirectGuiGlobals.setDefaultRolloverSound(base.loader.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg'))
+DirectGuiGlobals.setDefaultClickSound(base.loader.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg'))
+
+# Prepare Music
 if base.musicManagerIsValid:
     music = base.musicManager.getSound('phase_3/audio/bgm/ttr_theme.ogg')
     if music:
         music.setLoop(1)
         music.setVolume(0.9)
         music.play()
-    print('ToontownStart: Loading default gui sounds')
-    DirectGuiGlobals.setDefaultRolloverSound(base.loader.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg'))
-    DirectGuiGlobals.setDefaultClickSound(base.loader.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg'))
 else:
     music = None
+
+# Server Version
 from . import ToontownLoader
-from direct.gui.DirectGui import *
 serverVersion = config.GetString('server-version', 'no_version_set')
 print('ToontownStart: serverVersion: ', serverVersion)
 version = OnscreenText(serverVersion, pos=(-1.3, -0.975), scale=0.06, fg=Vec4(0, 0, 1, 0.6), align=TextNode.ALeft)
@@ -105,14 +125,20 @@ from .ToonBaseGlobal import *
 from direct.showbase.MessengerGlobal import *
 from toontown.distributed import ToontownClientRepository
 cr = ToontownClientRepository.ToontownClientRepository(serverVersion, launcher)
+
+# Exiting Startup Screen
 cr.music = music
 del music
 base.initNametagGlobals()
 base.cr = cr
 loader.endBulkLoad('init')
+
+# Prepare Friends Manager
 from otp.friends import FriendManager
 from otp.distributed.OtpDoGlobals import *
 cr.generateGlobalObject(OTP_DO_ID_FRIEND_MANAGER, 'FriendManager')
+
+# Prepare for new loading screen
 if not launcher.isDummy():
     base.startShow(cr, launcher.getGameServer())
 else:

@@ -1,9 +1,9 @@
 from panda3d.core import *
 from direct.showbase import PythonUtil
 import builtins
-
 import argparse
 
+# Arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('--base-channel', help='The base channel that the server may use.')
 parser.add_argument('--max-channels', help='The number of channels the server may use.')
@@ -22,13 +22,16 @@ if args.astron_ip: localconfig += 'air-connect %s\n' % args.astron_ip
 if args.eventlogger_ip: localconfig += 'eventlog-host %s\n' % args.eventlogger_ip
 loadPrcFileData('Command-line', localconfig)
 
+# Config (for dev only)
 loadPrcFile("config/dev.prc")
 
+# Settings
 print('ServiceStartAI: Loading settings.')
 from toontown.settings.ToontownSettings import ToontownSettings
 settings = ToontownSettings()
 settings.loadFromSettings()
 
+# Configure/Start AI Server
 class game:
     name = 'toontown'
     process = 'server'

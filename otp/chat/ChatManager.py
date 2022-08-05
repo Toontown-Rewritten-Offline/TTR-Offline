@@ -214,34 +214,10 @@ class ChatManager(DirectObject.DirectObject):
     def exitOff(self):
         pass
 
-    def disableMovement(self):
-        self.forceAvForwardToken=inputState.force("forward", 0, 'otp.chat.ChatManager')
-        self.forceAvReverseToken=inputState.force("reverse", 0, 'otp.chat.ChatManager')
-        self.forceAvTurnLeftToken=inputState.force("turnLeft", 0, 'otp.chat.ChatManager')
-        self.forceAvTurnRightToken=inputState.force("turnRight", 0, 'otp.chat.ChatManager')
-        self.forceAvJumpToken=inputState.force("jump", 0, 'otp.chat.ChatManager')
-
-    def enableMovement(self):
-        assert self.forceAvForwardToken is not None
-        assert self.forceAvReverseToken is not None
-        assert self.forceAvTurnLeftToken is not None
-        assert self.forceAvTurnRightToken is not None
-        assert self.forceAvJumpToken is not None
-        self.forceAvForwardToken.release()
-        self.forceAvReverseToken.release()
-        self.forceAvTurnLeftToken.release()
-        self.forceAvTurnRightToken.release()
-        self.forceAvJumpToken.release()
-        self.forceAvForwardToken = None
-        self.forceAvReverseToken = None
-        self.forceAvTurnLeftToken = None
-        self.forceAvTurnRightToken = None
-        self.forceAvJumpToken = None
-
     def startChatTyping(self):
         messenger.send('enterNormalChat')
-        self.disableMovement()
-        self.accept("enter", self.enableMovement)
+        base.localAvatar.disableAvatarControls()
+        self.accept("enter", base.localAvatar.enableAvatarControls)
 
     def enterMainMenu(self):
         self.checkObscurred()
