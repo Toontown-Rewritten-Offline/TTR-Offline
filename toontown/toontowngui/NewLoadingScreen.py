@@ -33,9 +33,10 @@ class NewLoadingScreen(DirectObject.DirectObject):
         musPhase1 = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase1.ogg')
         musPhase2 = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase2.ogg')
         if musPhase1:
-            global mus
             self.musicVolCont1(0.8)
             self.musicVolCont2(0)
+            musPhase1.setLoopStart(2.9)
+            musPhase2.setLoopStart(2.9)
             musPhase1.setLoop(True)
             musPhase2.setLoop(True)
             musPhase1.play()

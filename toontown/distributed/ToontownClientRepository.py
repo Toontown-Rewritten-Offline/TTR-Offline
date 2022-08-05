@@ -220,7 +220,8 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
         if self.music == None and base.musicManagerIsValid:
             self.music = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase2.ogg')
             if self.music:
-                self.music.setLoop(1)
+                self.music.setLoopStart(2.9)
+                self.music.setLoop(True)
                 self.music.setVolume(0.8)
                 self.music.play()
         #base.playMusic(self.music, looping=1, volume=0.8, interrupt=None)
