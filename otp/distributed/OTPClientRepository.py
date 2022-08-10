@@ -301,12 +301,12 @@ class OTPClientRepository(ClientRepositoryBase):
             State('failedToConnect',
                   self.enterFailedToConnect,
                   self.exitFailedToConnect, [
-                      'connect',
+                      'connect2',
                       'shutdown']),
             State('failedToGetServerConstants',
                   self.enterFailedToGetServerConstants,
                   self.exitFailedToGetServerConstants, [
-                      'connect',
+                      'connect2',
                       'shutdown',
                       'noConnection']),
             State('shutdown',
@@ -349,7 +349,7 @@ class OTPClientRepository(ClientRepositoryBase):
                   self.enterNoConnection,
                   self.exitNoConnection, [
                       'login',
-                      'connect',
+                      'connect2',
                       'shutdown']),
             State('afkTimeout',
                   self.enterAfkTimeout,
@@ -700,7 +700,7 @@ class OTPClientRepository(ClientRepositoryBase):
     def __handleFailedToConnectAck(self):
         doneStatus = self.failedToConnectBox.doneStatus
         if doneStatus == 'ok':
-            self.loginFSM.request('connect', [self.serverList])
+            self.loginFSM.request('connect2', [self.serverList])
             messenger.send('connectionRetrying')
         elif doneStatus == 'cancel':
             self.loginFSM.request('shutdown')
@@ -744,7 +744,7 @@ class OTPClientRepository(ClientRepositoryBase):
     def __handleFailedToGetConstantsAck(self):
         doneStatus = self.failedToGetConstantsBox.doneStatus
         if doneStatus == 'ok':
-            self.loginFSM.request('connect', [self.serverList])
+            self.loginFSM.request('connect2', [self.serverList])
             messenger.send('connectionRetrying')
         elif doneStatus == 'cancel':
             self.loginFSM.request('shutdown')
@@ -951,7 +951,7 @@ class OTPClientRepository(ClientRepositoryBase):
     @report(types=['args', 'deltaStamp'], dConfigParam='teleport')
     def __handleLostConnectionAck(self):
         if self.lostConnectionBox.doneStatus == 'ok' and self.loginInterface.supportsRelogin():
-            self.loginFSM.request('connect', [self.serverList])
+            self.loginFSM.request('connect2', [self.serverList])
         else:
             self.loginFSM.request('shutdown')
 
