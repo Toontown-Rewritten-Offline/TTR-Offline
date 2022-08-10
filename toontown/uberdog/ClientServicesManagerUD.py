@@ -23,8 +23,12 @@ REPORT_REASONS = [
 class LocalAccountDB:
     def __init__(self, csm):
         self.csm = csm
-        filename = simbase.config.GetString(
-            'account-bridge-filename', 'astron/databases/account-bridge')
+        if not config.GetBool('want-mongo-client', False):
+            filename = config.GetString(
+                'account-bridge-filename', 'astron/databases/account-bridge-yaml')
+        else:
+            filename = config.GetString(
+                'account-bridge-filename', 'astron/databases/account-bridge-mongodb')
         self.dbm = semidbm.open(filename, 'c')
 
     def lookup(self, cookie, callback):

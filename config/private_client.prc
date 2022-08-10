@@ -52,7 +52,6 @@ rpc-server-endpoint http://localhost:8080/
 eventlog-host 127.0.0.1
 want-cheesy-expirations #t
 - Mongo Settings
-want-mongo-client #f
 mongodb-url mongodb://127.0.0.1/astron
 
 

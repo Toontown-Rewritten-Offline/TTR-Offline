@@ -184,7 +184,7 @@ CRLostConnection = 'Your internet connection to the servers has been unexpectedl
 CRBootedReasons = {1: 'Yikes - An unexpected problem occured.  Your connection has been lost, but you should be able to connect again and go right back into Toontown.',
  100: 'You have been disconnected because someone else just logged in using your account on another computer.',
  120: 'You have been disconnected because of a problem with your authorization to use keyboard chat.',
- 122: 'There was an issue getting you into Toontown.  If the problem persists, please contact Toontown Rewritten Support.',
+ 122: 'There was an issue getting you into Toontown.  Be sure your database has been setup correctly, whether you use MongoDB or YAML. If the problem persists, send in a bug report to the discord server.',
  124: 'Your installed files are out of date!  Use the official launcher to download the newest version, or contact Toontown Rewritten Support if the problem persists.',
  125: 'Your installed files appear to be invalid.  Use the official launcher to download the newest version, or contact Toontown Rewritten Support if the problem persists.',
  126: 'You aren\'t authorized to use administrator privileges. The request has been noted.',

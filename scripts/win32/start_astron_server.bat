@@ -12,10 +12,10 @@ echo [ERROR] Neither databse was chosen...
 goto :main
 
 :YML
-start astrond --loglevel info config/astrond.yml
+astrond --loglevel info config/astrond.yml
 exit
 
 :MDB
 start mongo\Server\5.0\bin\mongod.exe --dbpath mongo\astrondb --logpath mongo\logs\mongodb.log --storageEngine wiredTiger
-start astrond --loglevel info config/astrond-mongo.yml
+astrond --loglevel info config/astrond-mongo.yml
 exit

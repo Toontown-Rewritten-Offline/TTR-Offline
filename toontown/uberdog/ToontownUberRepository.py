@@ -7,24 +7,24 @@ from otp.distributed.OtpDoGlobals import *
 from .ToontownRPCHandler import *
 import urllib
 
-if simbase.config.GetBool('want-mongo-client', True):
+if config.GetBool('want-mongo-client', False):
     import pymongo
 
 class ToontownUberRepository(ToontownInternalRepository):
     def __init__(self, baseChannel, serverId):
         ToontownInternalRepository.__init__(self, baseChannel, serverId, dcSuffix='UD')
+        self.notify.setInfo(True)
 
-        if simbase.config.GetBool('want-mongo-client', True):
-            url = simbase.config.GetString('mongodb-url', 'mongodb://localhost')
-            replicaset = simbase.config.GetString('mongodb-replicaset', '')
+        if config.GetBool('want-mongo-client', False):
+            url = config.GetString('mongodb-url', 'mongodb://localhost')
+            replicaset = config.GetString('mongodb-replicaset', '')
+            self.notify.info('MongoDB Client is enabled.')
             if replicaset:
                 self.mongo = pymongo.MongoClient(url, replicaset=replicaset)
             else:
                 self.mongo = pymongo.MongoClient(url)
             db = (urllib.parse.urlparse(url).path)[1:]
             self.mongodb = self.mongo[db]
-
-        self.notify.setInfo(True)
 
     def handleConnected(self):
         ToontownInternalRepository.handleConnected(self)

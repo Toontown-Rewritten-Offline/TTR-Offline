@@ -19,3 +19,6 @@ class ToontownSettings:
         newTTR = self.settings.getBool('game', 'retro-rewritten', False)
         loadPrcFileData('toonBase Settings Original TTR Start', 'want-retro-rewritten %s' % newTTR)
         self.settings.updateSetting('game', 'retro-rewritten', newTTR)
+        mongoDB = self.settings.getBool('game', 'mongodb-client', False)
+        loadPrcFileData('toonBase Settings MongoDB', 'want-mongo-client %s' % mongoDB)
+        self.settings.updateSetting('game', 'mongodb-client', mongoDB)
