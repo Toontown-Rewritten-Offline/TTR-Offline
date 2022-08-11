@@ -71,24 +71,6 @@ class DedicatedServer:
         if sys.platform == 'win32':
             self.astronProcess = subprocess.Popen('astron\\astrond.exe --loglevel info {0}'.format(astronConfig.replace('/', '\\')),
                                                   stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
-        ''' Linux/Darwin NF
-        elif sys.platform == 'linux2':
-            env = os.environ.copy()
-            env['LD_LIBRARY_PATH'] = os.path.abspath('./astron/libraries')
-
-            self.astronProcess = subprocess.Popen(
-                ['./astron/astrond-linux', '--loglevel', 'info', astronConfig],
-                stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog, env=env)
-        else:
-            if __debug__:
-                self.astronProcess = subprocess.Popen(
-                    ['./astron/astrond-darwin', '--loglevel', 'info', astronConfig],
-                    stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
-            else:
-                self.astronProcess = subprocess.Popen(
-                    ['./astron/astrond', '--loglevel', 'info', astronConfig],
-                    stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
-        Linux/Darwin NF '''
 
         # Setup a Task to start the UberDOG process when Astron is done.
         taskMgr.add(self.startUberDog, 'startUberDog')
@@ -97,12 +79,8 @@ class DedicatedServer:
         self.notify.info('Starting Astron with MongoDB...')
 
         # Start MongoDB Process.
-        mongoLogFile = self.generateLog('mongodb')
-        self.mongoLog = open(mongoLogFile, 'a')
-        self.notify.info('Opened new MongoDB log: %s' % mongoLogFile)
         if sys.platform == 'win32':
-            self.astronProcess = subprocess.Popen('astron\\mongo\\Server\\5.0\\bin\\mongod.exe --dbpath mongo\astrondb --logpath {0} --storageEngine wiredTiger'.format(mongoLogFile),
-                                                  stdin=self.mongoLog, stdout=self.mongoLog, stderr=self.mongoLog)
+            self.mongoProcess = subprocess.Popen('astron\\mongo\\Server\\5.0\\bin\\mongod.exe --dbpath astron\\mongo\\astrondb --logpath astron\\mongo\\logs\\mongodb.log --logappend --storageEngine wiredTiger')
 
         # Create and open the log file to use for Astron.
         astronLogFile = self.generateLog('astron')
@@ -113,30 +91,12 @@ class DedicatedServer:
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesAstron
 
         # Use the Astron config file based on the database.
-        astronConfig = config.GetString('astron-config-path', 'astron/config/astrond-yaml.yml')
+        astronConfig = config.GetString('astron-config-path', 'astron/config/astrond-mongo.yml')
 
         # Start Astron process.
         if sys.platform == 'win32':
             self.astronProcess = subprocess.Popen('astron\\astrond.exe --loglevel info {0}'.format(astronConfig.replace('/', '\\')),
                                                   stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
-        ''' Linux/Darwin NF
-        elif sys.platform == 'linux2':
-            env = os.environ.copy()
-            env['LD_LIBRARY_PATH'] = os.path.abspath('./astron/libraries')
-
-            self.astronProcess = subprocess.Popen(
-                ['./astron/astrond-linux', '--loglevel', 'info', astronConfig],
-                stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog, env=env)
-        else:
-            if __debug__:
-                self.astronProcess = subprocess.Popen(
-                    ['./astron/astrond-darwin', '--loglevel', 'info', astronConfig],
-                    stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
-            else:
-                self.astronProcess = subprocess.Popen(
-                    ['./astron/astrond', '--loglevel', 'info', astronConfig],
-                    stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
-        Linux/Darwin NF '''
 
         # Setup a Task to start the UberDOG process when Astron is done.
         taskMgr.add(self.startUberDog, 'startUberDog')
@@ -315,13 +275,18 @@ class DedicatedServer:
         if self.aiProcess:
             self.aiProcess.terminate()
 
-        # Now for UberDOG.
+        # Next is UberDOG.
         if self.uberDogProcess:
             self.uberDogProcess.terminate()
 
-        # And lastly, Astron.
+        # Next is Astron.
         if self.astronProcess:
             self.astronProcess.terminate()
+
+        # And lastly, MongoDB
+        if config.GetBool('want-mongo-client', False):
+            if self.mongoProcess:
+                self.astronProcess.terminate()
 
     @staticmethod
     def generateLog(logPrefix):
