@@ -123,10 +123,11 @@ from otp.distributed.OtpDoGlobals import *
 cr.generateGlobalObject(OTP_DO_ID_FRIEND_MANAGER, 'FriendManager')
 
 # Prepare for new loading screen
-if not launcher.isDummy():
+if not launcher.isDummy() and not config.GetBool('auto-start-server', False):
     base.startShow(cr, launcher.getGameServer())
 else:
     base.startShow(cr)
+
 time.sleep(0.5)
 backgroundNodePath.reparentTo(hidden)
 backgroundNodePath.removeNode()
@@ -145,6 +146,25 @@ loading.newMusic()
 loading.newVersion()
 loading.connectBackground()
 loading.newLogo()
+
+if config.GetBool('auto-start-server', False):
+    # Start DedicatedServer
+    from otp.otpbase.OTPLocalizer import CRLoadingGameServices
+
+    dialogClass = ToontownGlobals.getGlobalDialogClass()
+    builtins.gameServicesDialog = dialogClass(message=CRLoadingGameServices)
+    builtins.gameServicesDialog.show()
+
+    from toontown.toonbase.DedicatedServer import DedicatedServer
+    builtins.clientServer = DedicatedServer(localServer=True)
+    builtins.clientServer.start()
+
+    def localServerReady():
+        builtins.gameServicesDialog.cleanup()
+        del builtins.gameServicesDialog
+        base.startShow(cr)
+
+    base.accept('localServerReady', localServerReady)
 
 base.loader = base.loader
 builtins.loader = base.loader

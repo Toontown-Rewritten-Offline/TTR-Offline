@@ -40,9 +40,9 @@ builtins.game = game
 from otp.ai.AIBaseGlobal import *
 
 from toontown.uberdog.ToontownUberRepository import ToontownUberRepository
-simbase.air = ToontownUberRepository(config.GetInt('air-base-channel', 400000000),
-                                     config.GetInt('air-stateserver', 10000))
-host = config.GetString('air-connect', '127.0.0.1')
+simbase.air = ToontownUberRepository(config.ConfigVariableInt('air-base-channel', 1000000).getValue(),
+                                     config.ConfigVariableInt('air-stateserver', 4002).getValue())
+host = config.ConfigVariableString('air-connect', '127.0.0.1').getValue()
 port = 7199
 if ':' in host:
     host, port = host.split(':', 1)

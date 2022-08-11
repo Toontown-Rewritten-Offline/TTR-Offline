@@ -110,7 +110,7 @@ if base.musicManagerIsValid:
     music = base.musicManager.getSound('phase_3/audio/bgm/ttr_theme.ogg')
     if music:
         music.setLoop(1)
-        music.setVolume(0.9)
+        music.setVolume(0.8)
         music.play()
 else:
     music = None
@@ -139,10 +139,29 @@ from otp.distributed.OtpDoGlobals import *
 cr.generateGlobalObject(OTP_DO_ID_FRIEND_MANAGER, 'FriendManager')
 
 # Prepare for new loading screen
-if not launcher.isDummy():
+if not launcher.isDummy() and not config.GetBool('auto-start-server', False):
     base.startShow(cr, launcher.getGameServer())
 else:
-    base.startShow(cr)
+    if config.GetBool('auto-start-server', False):
+        # Start DedicatedServer
+        from otp.otpbase.OTPLocalizer import CRLoadingGameServices
+
+        dialogClass = ToontownGlobals.getGlobalDialogClass()
+        builtins.gameServicesDialog = dialogClass(message=CRLoadingGameServices)
+        builtins.gameServicesDialog.show()
+
+        from toontown.toonbase.DedicatedServer import DedicatedServer
+        builtins.clientServer = DedicatedServer(localServer=True)
+        builtins.clientServer.start()
+
+        def localServerReady():
+            builtins.gameServicesDialog.cleanup()
+            del builtins.gameServicesDialog
+            base.startShow(cr)
+
+        base.accept('localServerReady', localServerReady)
+    else:
+        base.startShow(cr)
 backgroundNodePath.reparentTo(hidden)
 backgroundNodePath.removeNode()
 del backgroundNodePath
@@ -150,6 +169,7 @@ del backgroundNode
 del tempLoader
 version.cleanup()
 del version
+
 base.loader = base.loader
 builtins.loader = base.loader
 autoRun = ConfigVariableBool('toontown-auto-run', 1)
