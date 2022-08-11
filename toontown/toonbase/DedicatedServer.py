@@ -125,18 +125,14 @@ class DedicatedServer:
         self.notify.info('Opened new UberDOG log: %s' % uberDogLogFile)
 
         # Setup UberDOG arguments.
-        if __debug__:
-            uberDogArguments = '%s -m ServiceStartUD' % open('PPYTHON_PATH').read()
-        else:
-            os.environ["IS_UD"] = "True"
-            uberDogArguments = 'TTRPEngine.exe'
+        os.environ["IS_UD"] = "True"
+        uberDogArguments = 'TTRPEngine.exe'
 
         if config.GetBool('auto-start-server', True):
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesUberdog
 
         # Start UberDOG process.
-        self.uberDogProcess = subprocess.Popen(uberDogArguments, stdin=self.uberDogLog, stdout=self.uberDogLog,
-                                               stderr=self.uberDogLog)
+        self.uberDogProcess = subprocess.Popen(uberDogArguments, stdin=self.uberDogLog, stdout=self.uberDogLog, stderr=self.uberDogLog)
 
         # Start the AI process when UberDOG is done.
         taskMgr.add(self.startAI, 'startAI')
@@ -160,20 +156,14 @@ class DedicatedServer:
         ''' AI '''
         self.notify.info('Starting AI server...')
 
-        # Generate a log file for the current AI session.
+        # Create and open the log file to use for AI.
         aiLogFile = self.generateLog('ai')
-
-        # Open that log file and use it.
         self.aiLog = open(aiLogFile, 'a')
         self.notify.info('Opened new AI log: %s' % aiLogFile)
 
         # Setup AI arguments.
-        if __debug__:
-            os.environ["IS_AI"] = "True"
-            aiArguments = '%s -m ServiceStartAI' % open('PPYTHON_PATH').read()
-        else:
-            os.environ["IS_AI"] = "True"
-            aiArguments = 'TTRPEngine.exe'
+        os.environ["IS_AI"] = "True"
+        aiArguments = 'TTRPEngine.exe'
 
         if config.GetBool('auto-start-server', True):
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesAI
