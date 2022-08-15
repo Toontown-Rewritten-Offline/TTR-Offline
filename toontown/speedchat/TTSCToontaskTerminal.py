@@ -31,9 +31,11 @@ class TTSCToontaskTerminal(SCTerminal):
     def getDisplayText(self):
         return self.msg
 
-    def handleSelect(self):
-        SCTerminal.handleSelect(self)
-        messenger.send(self.getEventName(TTSCToontaskMsgEvent), [self.taskId,
-         self.toNpcId,
-         self.toonProgress,
-         self.msgIndex])
+    def handleSelect(self, event):
+        event = str(event)
+        if not event.startswith('mouse3'):
+            SCTerminal.handleSelect(self, event)
+            messenger.send(self.getEventName(TTSCToontaskMsgEvent), [self.taskId,
+             self.toNpcId,
+             self.toonProgress,
+             self.msgIndex])

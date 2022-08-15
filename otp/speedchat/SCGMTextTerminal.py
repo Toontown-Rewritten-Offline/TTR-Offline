@@ -10,6 +10,8 @@ class SCGMTextTerminal(SCTerminal):
         self.textId = textId
         self.text = gmHandler.getPhrase(textId)
 
-    def handleSelect(self):
-        SCTerminal.handleSelect(self)
-        messenger.send(self.getEventName(SCGMTextMsgEvent), [self.textId])
+    def handleSelect(self, event):
+        event = str(event)
+        if not event.startswith('mouse3'):
+            SCTerminal.handleSelect(self, event)
+            messenger.send(self.getEventName(SCGMTextMsgEvent), [self.textId])

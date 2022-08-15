@@ -278,22 +278,26 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
             chatFlags |= CFSpeech | CFTimeout
         self.setChatAbsolute(chatString, chatFlags)
 
-    def b_setSC(self, msgIndex):
-        self.setSC(msgIndex)
+    def b_setSC(self, msgIndex, event):
+        self.setSC(msgIndex, event)
         self.d_setSC(msgIndex)
 
     def d_setSC(self, msgIndex):
         messenger.send('wakeup')
         self.sendUpdate('setSC', [msgIndex])
 
-    def setSC(self, msgIndex):
+    def setSC(self, msgIndex, event):
         if base.cr.avatarFriendsManager.checkIgnored(self.doId):
             return
         if self.doId in base.localAvatar.ignoreList:
             return
         chatString = SCDecoders.decodeSCStaticTextMsg(msgIndex)
         if chatString:
-            self.setChatAbsolute(chatString, CFSpeech | CFQuicktalker | CFTimeout, quiet=1)
+            event = str(event)
+            if event.startswith('mouse1'):
+                self.setChatAbsolute(chatString, CFSpeech | CFQuicktalker | CFTimeout, quiet=1)
+            elif event.startswith('mouse3'):
+                self.setChatAbsolute(chatString, CFThought | CFQuicktalker, quiet=1)
         base.talkAssistant.receiveOpenSpeedChat(TalkAssistant.SPEEDCHAT_NORMAL, msgIndex, self.doId)
 
     def b_setSCCustom(self, msgIndex):

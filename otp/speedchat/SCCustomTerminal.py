@@ -13,6 +13,8 @@ class SCCustomTerminal(SCTerminal):
         self.textId = textId
         self.text = CustomSCStrings[self.textId]
 
-    def handleSelect(self):
-        SCTerminal.handleSelect(self)
-        messenger.send(self.getEventName(SCCustomMsgEvent), [self.textId])
+    def handleSelect(self, event):
+        event = str(event)
+        if not event.startswith('mouse3'):
+            SCTerminal.handleSelect(self, event)
+            messenger.send(self.getEventName(SCCustomMsgEvent), [self.textId])

@@ -15,11 +15,13 @@ class TTSCWhiteListTerminal(SCTerminal):
         self.text = SpeedChatStaticText[self.textId]
         print('SpeedText %s %s' % (self.textId, self.text))
 
-    def handleSelect(self):
-        SCTerminal.handleSelect(self)
-        if not self.parentClass.whisperAvatarId:
-            base.localAvatar.chatMgr.fsm.request('whiteListOpenChat')
-        elif self.parentClass.toPlayer:
-            base.localAvatar.chatMgr.fsm.request('whiteListPlayerChat', [self.parentClass.whisperAvatarId])
-        else:
-            base.localAvatar.chatMgr.fsm.request('whiteListAvatarChat', [self.parentClass.whisperAvatarId])
+    def handleSelect(self, event):
+        event = str(event)
+        if not event.startswith('mouse3'):
+            SCTerminal.handleSelect(self, event)
+            if not self.parentClass.whisperAvatarId:
+                base.localAvatar.chatMgr.fsm.request('whiteListOpenChat')
+            elif self.parentClass.toPlayer:
+                base.localAvatar.chatMgr.fsm.request('whiteListPlayerChat', [self.parentClass.whisperAvatarId])
+            else:
+                base.localAvatar.chatMgr.fsm.request('whiteListAvatarChat', [self.parentClass.whisperAvatarId])

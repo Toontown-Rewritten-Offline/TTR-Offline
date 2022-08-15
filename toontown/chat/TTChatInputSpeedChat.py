@@ -541,9 +541,9 @@ class TTChatInputSpeedChat(DirectObject.DirectObject):
             lt.b_setEmoteState(emoteId, animMultiplier=lt.animMultiplier)
         return
 
-    def handleStaticTextMsg(self, textId):
+    def handleStaticTextMsg(self, textId, event):
         if self.whisperAvatarId == None:
-            self.chatMgr.sendSCChatMessage(textId)
+            self.chatMgr.sendSCChatMessage(textId, event)
         else:
             self.chatMgr.sendSCWhisperMessage(textId, self.whisperAvatarId, self.toPlayer)
         self.toPlayer = 0

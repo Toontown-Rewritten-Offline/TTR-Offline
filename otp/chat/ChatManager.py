@@ -179,8 +179,8 @@ class ChatManager(DirectObject.DirectObject):
     def sendWhisperString(self, message, whisperAvatarId):
         pass
 
-    def sendSCChatMessage(self, msgIndex):
-        base.talkAssistant.sendOpenSpeedChat(1, msgIndex)
+    def sendSCChatMessage(self, msgIndex, event):
+        base.talkAssistant.sendOpenSpeedChat(1, msgIndex, event)
 
     def sendSCWhisperMessage(self, msgIndex, whisperAvatarId, toPlayer):
         if toPlayer:
@@ -189,7 +189,8 @@ class ChatManager(DirectObject.DirectObject):
             base.talkAssistant.sendAvatarWhisperSpeedChat(1, msgIndex, whisperAvatarId)
 
     def sendSCCustomChatMessage(self, msgIndex):
-        base.talkAssistant.sendOpenSpeedChat(3, msgIndex)
+        event = None
+        base.talkAssistant.sendOpenSpeedChat(3, msgIndex, event)
 
     def sendSCCustomWhisperMessage(self, msgIndex, whisperAvatarId, toPlayer):
         if toPlayer:
@@ -198,7 +199,8 @@ class ChatManager(DirectObject.DirectObject):
             base.talkAssistant.sendAvatarWhisperSpeedChat(3, msgIndex, whisperAvatarId)
 
     def sendSCEmoteChatMessage(self, emoteId):
-        base.talkAssistant.sendOpenSpeedChat(2, emoteId)
+        event = None
+        base.talkAssistant.sendOpenSpeedChat(2, emoteId, event)
 
     def sendSCEmoteWhisperMessage(self, emoteId, whisperAvatarId, toPlayer):
         if toPlayer:

@@ -17,6 +17,8 @@ class TTSCResistanceTerminal(SCTerminal):
     def isWhisperable(self):
         return False
 
-    def handleSelect(self):
-        SCTerminal.handleSelect(self)
-        messenger.send(self.getEventName(TTSCResistanceMsgEvent), [self.textId])
+    def handleSelect(self, event):
+        event = str(event)
+        if not event.startswith('mouse3'):
+            SCTerminal.handleSelect(self, event)
+            messenger.send(self.getEventName(TTSCResistanceMsgEvent), [self.textId])
