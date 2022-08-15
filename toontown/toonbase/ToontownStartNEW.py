@@ -154,8 +154,11 @@ if config.GetBool('auto-start-server', False):
     dialogClass = ToontownGlobals.getGlobalDialogClass()
     builtins.gameServicesDialog = dialogClass(message=CRLoadingGameServices)
     builtins.gameServicesDialog.show()
-
-    from toontown.toonbase.DedicatedServer import DedicatedServer
+    
+    if __debug__:
+        from DedicatedServer import DedicatedServer
+    else:
+        from toontown.toonbase.DedicatedServer import DedicatedServer
     builtins.clientServer = DedicatedServer(localServer=True)
     builtins.clientServer.start()
 

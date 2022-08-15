@@ -6,7 +6,7 @@
 window-title Toontown Rewritten [DEV BUILD]
 server-version ttrp-beta-v2.9.0
 sync-video #f
-want-dev #f
+want-dev #t
 preload-avatars #t
 texture-anisotropic-degree 16
 want-speedhack-fix #t
