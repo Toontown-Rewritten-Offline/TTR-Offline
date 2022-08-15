@@ -15,6 +15,5 @@ class TTSCIndexedTerminal(SCTerminal):
 
     def handleSelect(self, event):
         event = str(event)
-        if not event.startswith('mouse3'):
-            SCTerminal.handleSelect(self, event)
-            messenger.send(self.getEventName(TTSCIndexedMsgEvent), [self.msgIndex])
+        SCTerminal.handleSelect(self, event)
+        messenger.send(self.getEventName(TTSCIndexedMsgEvent), [self.msgIndex])
