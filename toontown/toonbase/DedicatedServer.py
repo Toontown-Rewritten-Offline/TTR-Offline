@@ -125,8 +125,7 @@ class DedicatedServer:
         self.notify.info('Opened new UberDOG log: %s' % uberDogLogFile)
 
         # Setup UberDOG arguments.
-        os.environ["IS_UD"] = "True"
-        uberDogArguments = 'TTRPEngine.exe'
+        uberDogArguments = 'TTRPEngine.exe --ud'
 
         if config.GetBool('auto-start-server', True):
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesUberdog
@@ -162,8 +161,7 @@ class DedicatedServer:
         self.notify.info('Opened new AI log: %s' % aiLogFile)
 
         # Setup AI arguments.
-        os.environ["IS_AI"] = "True"
-        aiArguments = 'TTRPEngine.exe'
+        aiArguments = 'TTRPEngine.exe --ai'
 
         if config.GetBool('auto-start-server', True):
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesAI

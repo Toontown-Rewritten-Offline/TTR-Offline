@@ -4,7 +4,7 @@
 
 # Client settings
 window-title Toontown Rewritten [DEV BUILD]
-server-version ttrp-beta-v2.9.0
+server-version ttrp-beta-v2.9.1
 sync-video #f
 want-dev #t
 preload-avatars #t
