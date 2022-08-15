@@ -125,7 +125,7 @@ class DedicatedServer:
         self.notify.info('Opened new UberDOG log: %s' % uberDogLogFile)
 
         # Setup UberDOG arguments.
-        uberDogArguments = 'TTRPEngine.exe --ud'
+        uberDogArguments = 'TTRPEngine.exe --uberdog'
 
         if config.GetBool('auto-start-server', True):
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesUberdog
