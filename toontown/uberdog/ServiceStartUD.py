@@ -8,6 +8,7 @@ import argparse
 os.makedirs('astron/databases/astrondb', exist_ok = True) 
 os.makedirs('astron/mongo/astrondb', exist_ok = True) 
 
+''' WIP
 # Arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('--base-channel', help='The base channel that the server may use.')
@@ -24,6 +25,7 @@ if args.stateserver: localconfig += 'air-stateserver %s\n' % args.stateserver
 if args.astron_ip: localconfig += 'air-connect %s\n' % args.astron_ip
 if args.eventlogger_ip: localconfig += 'eventlog-host %s\n' % args.eventlogger_ip
 loadPrcFileData('Command-line', localconfig)
+WIP '''
 
 # Settings
 print('ServiceStartUD: Loading settings.')
