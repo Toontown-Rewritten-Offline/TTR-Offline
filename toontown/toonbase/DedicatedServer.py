@@ -125,7 +125,10 @@ class DedicatedServer:
         self.notify.info('Opened new UberDOG log: %s' % uberDogLogFile)
 
         # Setup UberDOG arguments.
-        uberDogArguments = 'TTRPEngine.exe --uberdog'
+        if __debug__:
+            uberDogArguments = '%s -m toontown.uberdog.ServiceStartUD' % open('PPYTHON_PATH').read()
+        else:
+            uberDogArguments = 'TTRPEngine.exe --uberdog'
 
         if config.GetBool('auto-start-server', True):
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesUberdog
@@ -161,7 +164,10 @@ class DedicatedServer:
         self.notify.info('Opened new AI log: %s' % aiLogFile)
 
         # Setup AI arguments.
-        aiArguments = 'TTRPEngine.exe --ai'
+        if __debug__:
+            aiArguments = '%s -m toontown.ai.ServiceStartAI' % open('PPYTHON_PATH').read()
+        else:
+            aiArguments = 'TTRPEngine.exe --ai'
 
         if config.GetBool('auto-start-server', True):
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesAI

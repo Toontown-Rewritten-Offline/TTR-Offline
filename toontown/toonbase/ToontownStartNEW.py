@@ -2,7 +2,7 @@ from panda3d.core import *
 import builtins
 import os
 
-# Start Toontown (pre v2.0.0) aka. Retro Rewritten
+# Start Toontown (post v2.0.0)
 
 # The VirtualFileSystem, which has already initialized, doesn't see the mount
 # directives in the config(s) yet. We have to force it to load those manually:
@@ -156,13 +156,14 @@ if config.GetBool('auto-start-server', False):
     builtins.gameServicesDialog.show()
 
     from toontown.toonbase.DedicatedServer import DedicatedServer
+
     builtins.clientServer = DedicatedServer(localServer=True)
     builtins.clientServer.start()
 
     def localServerReady():
         builtins.gameServicesDialog.cleanup()
         del builtins.gameServicesDialog
-        base.startShow(cr)
+        messenger.send('AllowPressKey')
 
     base.accept('localServerReady', localServerReady)
 

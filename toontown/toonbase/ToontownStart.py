@@ -1,4 +1,7 @@
-from panda3d.core import ConfigVariableBool
+from panda3d.core import ConfigVariableBool, loadPrcFile
+
+#if __debug__:
+loadPrcFile('config/dev.prc')
 
 from toontown.settings.ToontownSettings import ToontownSettings
 settings = ToontownSettings()

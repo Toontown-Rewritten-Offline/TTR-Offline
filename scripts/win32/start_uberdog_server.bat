@@ -11,7 +11,7 @@ set ASTRON_IP=127.0.0.1:7199
 set EVENT_LOGGER_IP=127.0.0.1:7197
 set BASE_CHANNEL=1000000
 
-%PPYTHON_PATH% -m ServiceStartUD --base-channel %BASE_CHANNEL% ^
+%PPYTHON_PATH% -m toontown.uberdog.ServiceStart --base-channel %BASE_CHANNEL% ^
                --max-channels %MAX_CHANNELS% --stateserver %STATE_SERVER% ^
                --astron-ip %ASTRON_IP% --eventlogger-ip %EVENT_LOGGER_IP%
 

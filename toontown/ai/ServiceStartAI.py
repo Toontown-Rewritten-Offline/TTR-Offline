@@ -24,6 +24,9 @@ if args.eventlogger_ip: localconfig += 'eventlog-host %s\n' % args.eventlogger_i
 loadPrcFileData('Command-line', localconfig)
 WIP '''
 
+if __debug__:
+    loadPrcFile('config/dev.prc')
+
 # Settings
 print('ServiceStartAI: Loading settings.')
 from toontown.settings.ToontownSettings import ToontownSettings

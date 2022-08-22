@@ -1,7 +1,8 @@
 from direct.directnotify import DirectNotifyGlobal
 import string
 from . import LevelConstants
-from direct.showbase.PythonUtil import lineInfo, uniqueElements
+if __debug__:
+    from direct.showbase.PythonUtil import lineInfo, uniqueElements
 import types
 
 class Level:

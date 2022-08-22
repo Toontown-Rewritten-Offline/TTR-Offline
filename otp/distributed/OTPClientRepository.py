@@ -501,8 +501,11 @@ class OTPClientRepository(ClientRepositoryBase):
         else:
             self.pressKeyText = OnscreenText(parent = aspect2d, text = OTPLocalizer.CRPressAnyKey, font = ToontownGlobals.getMickeyFont(), fg = (0.97647059, 0.81568627, 0.13333333, 1), align=TextNode.ACenter, scale=0.15, pos=(0, -0.67))
             self.pressKeyText.show()
-            base.buttonThrowers[0].node().setButtonDownEvent('buttonpress')
-            self.acceptOnce('buttonpress', self.enterConnect)
+            self.accept('AllowPressKey', self.AllowPressKey)
+
+    def AllowPressKey(self):
+        base.buttonThrowers[0].node().setButtonDownEvent('buttonpress')
+        self.acceptOnce('buttonpress', self.enterConnect)
 
     @report(types=['args', 'deltaStamp'], dConfigParam='teleport')
     def enterConnect(self, serverList):
@@ -1942,7 +1945,6 @@ class OTPClientRepository(ClientRepositoryBase):
         else:
             ClientRepositoryBase.replayDeferredGenerate(self, msgType, extra)
 
-    @exceptionLogged(append=False)
     def handleDatagram(self, di):
         if self.notify.getDebug():
             print('ClientRepository received datagram:')
