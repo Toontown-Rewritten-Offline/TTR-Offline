@@ -166,6 +166,8 @@ if config.GetBool('auto-start-server', False):
         messenger.send('AllowPressKey')
 
     base.accept('localServerReady', localServerReady)
+else:
+    messenger.send('AllowPressKey')
 
 base.loader = base.loader
 builtins.loader = base.loader

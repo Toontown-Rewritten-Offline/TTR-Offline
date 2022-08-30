@@ -457,6 +457,7 @@ class TTChatInputSpeedChat(DirectObject.DirectObject):
 
         listenForSCEvent(SpeedChatGlobals.SCTerminalLinkedEmoteEvent, self.handleLinkedEmote)
         listenForSCEvent(SpeedChatGlobals.SCStaticTextMsgEvent, self.handleStaticTextMsg)
+        listenForSCEvent(SpeedChatGlobals.SCStaticTextThoughtEvent, self.handleStaticTextThought)
         listenForSCEvent(SpeedChatGlobals.SCCustomMsgEvent, self.handleCustomMsg)
         listenForSCEvent(SpeedChatGlobals.SCEmoteMsgEvent, self.handleEmoteMsg)
         listenForSCEvent(SpeedChatGlobals.SCEmoteNoAccessEvent, self.handleEmoteNoAccess)
@@ -541,9 +542,17 @@ class TTChatInputSpeedChat(DirectObject.DirectObject):
             lt.b_setEmoteState(emoteId, animMultiplier=lt.animMultiplier)
         return
 
-    def handleStaticTextMsg(self, textId, event):
+    def handleStaticTextMsg(self, textId):
         if self.whisperAvatarId == None:
-            self.chatMgr.sendSCChatMessage(textId, event)
+            self.chatMgr.sendSCChatMessage(textId)
+        else:
+            self.chatMgr.sendSCWhisperMessage(textId, self.whisperAvatarId, self.toPlayer)
+        self.toPlayer = 0
+        return
+
+    def handleStaticTextThought(self, textId):
+        if self.whisperAvatarId == None:
+            self.chatMgr.sendSCChatThought(textId)
         else:
             self.chatMgr.sendSCWhisperMessage(textId, self.whisperAvatarId, self.toPlayer)
         self.toPlayer = 0

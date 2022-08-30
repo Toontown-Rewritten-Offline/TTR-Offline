@@ -179,8 +179,11 @@ class ChatManager(DirectObject.DirectObject):
     def sendWhisperString(self, message, whisperAvatarId):
         pass
 
-    def sendSCChatMessage(self, msgIndex, event):
-        base.talkAssistant.sendOpenSpeedChat(1, msgIndex, event)
+    def sendSCChatMessage(self, msgIndex):
+        base.talkAssistant.sendOpenSpeedChat(1, msgIndex)
+
+    def sendSCChatThought(self, msgIndex):
+        base.talkAssistant.sendOpenSpeedChat(4, msgIndex)
 
     def sendSCWhisperMessage(self, msgIndex, whisperAvatarId, toPlayer):
         if toPlayer:

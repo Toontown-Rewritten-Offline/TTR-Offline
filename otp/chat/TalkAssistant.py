@@ -645,12 +645,12 @@ class TalkAssistant(DirectObject.DirectObject):
             error = ERROR_NO_GUILD_CHAT
         return error
 
-    def sendOpenSpeedChat(self, type, messageIndex, event):
+    def sendOpenSpeedChat(self, type, messageIndex):
         error = None
         if type == SPEEDCHAT_NORMAL:
             messenger.send(SCChatEvent)
             messenger.send('chatUpdateSC', [messageIndex])
-            base.localAvatar.b_setSC(messageIndex, event)
+            base.localAvatar.b_setSC(messageIndex)
         elif type == SPEEDCHAT_EMOTE:
             messenger.send('chatUpdateSCEmote', [messageIndex])
             messenger.send(SCEmoteChatEvent)
@@ -659,6 +659,9 @@ class TalkAssistant(DirectObject.DirectObject):
             messenger.send('chatUpdateSCCustom', [messageIndex])
             messenger.send(SCCustomChatEvent)
             base.localAvatar.b_setSCCustom(messageIndex)
+        elif type == SPEEDCHAT_THOUGHT:
+            messenger.send('chatUpdateSC', [messageIndex])
+            base.localAvatar.b_setSCThought(messageIndex)
         return error
 
     def sendAvatarWhisperSpeedChat(self, type, messageIndex, receiverId):
