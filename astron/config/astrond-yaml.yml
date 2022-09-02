@@ -54,7 +54,7 @@ uberdogs:
 roles:
     - type: clientagent
       bind: 0.0.0.0:7198
-      version: ttrp-beta-v2.8.2
+      version: ttrp-beta-v2.9.2
       client:
        relocate: true
        add_interest: enabled
@@ -71,8 +71,8 @@ roles:
         min: 100000000
         max: 399999999
       backend:
-        type: mongodb
-        server: mongodb://127.0.0.1/astron
+        type: yaml
+        directory: ../databases/astrondb
 
     - type: dbss
       database: 4003

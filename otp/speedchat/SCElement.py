@@ -165,6 +165,7 @@ class SCElement(SCObject, NodePath):
         btn.bind(DGG.ENTER, self.onMouseEnter)
         btn.bind(DGG.EXIT, self.onMouseLeave)
         btn.bind(DGG.B1PRESS, self.onMouseClick)
+        btn.bind(DGG.B3PRESS, self.onMouseClick)
         self.button = btn
         self.lastWidth = self.width
         self.lastHeight = self.height

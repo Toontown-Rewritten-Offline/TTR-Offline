@@ -89,9 +89,11 @@ class SCEmoteTerminal(SCTerminal):
         SCTerminal.exitVisible(self)
         self.ignore(Emote.globalEmote.EmoteEnableStateChanged)
 
-    def handleSelect(self):
-        if not self.__ltHasAccess():
-            messenger.send(self.getEventName(SCEmoteNoAccessEvent))
-        elif self.__emoteEnabled():
-            SCTerminal.handleSelect(self)
-            messenger.send(self.getEventName(SCEmoteMsgEvent), [self.emoteId])
+    def handleSelect(self, event):
+        event = str(event)
+        if not event.startswith('mouse3'):
+            if not self.__ltHasAccess():
+                messenger.send(self.getEventName(SCEmoteNoAccessEvent))
+            elif self.__emoteEnabled():
+                SCTerminal.handleSelect(self, event)
+                messenger.send(self.getEventName(SCEmoteMsgEvent), [self.emoteId])

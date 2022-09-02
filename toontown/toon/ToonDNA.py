@@ -332,6 +332,7 @@ Shirts = [
  'phase_4/maps/tt_t_chr_avt_shirt_pirate.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_supertoon.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_vampire.jpg',
+ 'phase_4/maps/tt_t_chr_avt_shirt_slappy.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_dinosaur.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_fishing04.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_golf03.jpg',
@@ -356,8 +357,7 @@ Shirts = [
  'phase_4/maps/tt_t_chr_avt_shirt_trolley05.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_saveBuilding4.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_saveBuilding05.jpg',
- 'phase_4/maps/tt_t_chr_avt_shirt_anniversary.jpg',
- 'phase_4/maps/tt_t_chr_avt_shirt_slappy.jpg'
+ 'phase_4/maps/tt_t_chr_avt_shirt_anniversary.jpg'
 ]
 BoyShirts = [
  (0, 0),
@@ -537,6 +537,7 @@ Sleeves = [
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_winter03.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_halloween07.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_winter02.jpg',
+ 'phase_4/maps/tt_t_chr_avt_shirtSleeve_slappy.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_fishing06.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_fishing07.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_golf05.jpg',
@@ -548,8 +549,7 @@ Sleeves = [
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_trolley05.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_saveBuilding4.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_saveBuilding05.jpg',
- 'phase_4/maps/tt_t_chr_avt_shirtSleeve_anniversary.jpg',
- 'phase_4/maps/tt_t_chr_avt_shirtSleeve_slappy.jpg']
+ 'phase_4/maps/tt_t_chr_avt_shirtSleeve_anniversary.jpg']
 BoyShorts = [
  'phase_3/maps/desat_shorts_1.jpg',
  'phase_3/maps/desat_shorts_2.jpg',
@@ -1910,10 +1910,31 @@ def getTops(gender, tailorId = MAKE_A_TOON):
 
     return tops
 
-
+def getTopColors(gender, top, tailorId = MAKE_A_TOON):
+    if gender == 'm':
+        collection = TailorCollections[tailorId][BOY_SHIRTS]
+    else:
+        collection = TailorCollections[tailorId][GIRL_SHIRTS]
+    tops = getTopStyles(gender, tailorId)
+    colors = []
+    index = collection[tops.index(top)]
+    for color in ShirtStyles[index][2]:
+        colors.append((color[0], color[1]))
+    return colors
+ 
+def getTopStyles(gender, tailorId = MAKE_A_TOON):
+    if gender == 'm':
+        collection = TailorCollections[tailorId][BOY_SHIRTS]
+    else:
+        collection = TailorCollections[tailorId][GIRL_SHIRTS]
+    tops = []
+    for style in collection:
+        tops.append((ShirtStyles[style][0], ShirtStyles[style][1]))
+    return tops
+ 
 def getAllTops(gender):
     tops = []
-    for style in list(ShirtStyles.keys()):
+    for style in ShirtStyles.keys():
         if gender == 'm':
             if style[0] == 'g' or style[:3] == 'c_g':
                 continue
@@ -1940,10 +1961,32 @@ def getBottoms(gender, tailorId = MAKE_A_TOON):
 
     return bottoms
 
-
+def getBottomStyles(gender, tailorId = MAKE_A_TOON):
+    if gender == 'm':
+        collection = TailorCollections[tailorId][BOY_SHORTS]
+    else:
+        collection = TailorCollections[tailorId][GIRL_BOTTOMS]
+    bottoms = []
+    for style in collection:
+            bottoms.append(BottomStyles[style][0])
+ 
+    return bottoms
+ 
+def getBottomColors(gender, bottom, tailorId = MAKE_A_TOON):
+    if gender == 'm':
+        collection = TailorCollections[tailorId][BOY_SHORTS]
+    else:
+        collection = TailorCollections[tailorId][GIRL_BOTTOMS]
+    bottoms = getBottomStyles(gender, tailorId)
+    colors = []
+    index = collection[bottoms.index(bottom)]
+    for color in BottomStyles[index][1]:
+        colors.append(color)
+    return colors
+ 
 def getAllBottoms(gender, output = 'both'):
     bottoms = []
-    for style in list(BottomStyles.keys()):
+    for style in BottomStyles.keys():
         if gender == 'm':
             if style[0] == 'g' or style[:3] == 'c_g' or style[:4] == 'vd_g' or style[:4] == 'sd_g' or style[:4] == 'j4_g' or style[:4] == 'pj_g' or style[:4] == 'wh_g' or style[:4] == 'sa_g' or style[:4] == 'sc_g' or style[:5] == 'sil_g' or style[:4] == 'hw_g':
                 continue
@@ -2510,7 +2553,7 @@ class ToonDNA(AvatarDNA.AvatarDNA):
         self.cache = ()
         return
 
-    def __tstr__(self):
+    def __str__(self):
         nString = 'type = toon\n'
         nString = nString + 'gender = %s\n' % self.gender
         nString = nString + 'head = %s, torso = %s, legs = %s\n' % (self.head, self.torso, self.legs)

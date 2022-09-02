@@ -48,7 +48,7 @@ class SCTerminal(SCElement):
     def _handleWhisperModeChange(self, whisperMode):
         self.invalidate()
 
-    def handleSelect(self):
+    def handleSelect(self, event):
         messenger.send(self.getEventName(SCTerminalSelectedEvent))
         if self.hasLinkedEmote() and self.linkedEmoteEnabled():
             messenger.send(self.getEventName(SCTerminalLinkedEmoteEvent), [self.linkedEmote])
@@ -87,7 +87,7 @@ class SCTerminal(SCElement):
     def onMouseClick(self, event):
         if not self.isDisabled():
             SCElement.onMouseClick(self, event)
-            self.handleSelect()
+            self.handleSelect(event)
 
     def getMinDimensions(self):
         width, height = SCElement.getMinDimensions(self)

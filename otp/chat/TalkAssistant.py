@@ -659,6 +659,9 @@ class TalkAssistant(DirectObject.DirectObject):
             messenger.send('chatUpdateSCCustom', [messageIndex])
             messenger.send(SCCustomChatEvent)
             base.localAvatar.b_setSCCustom(messageIndex)
+        elif type == SPEEDCHAT_THOUGHT:
+            messenger.send('chatUpdateSC', [messageIndex])
+            base.localAvatar.b_setSCThought(messageIndex)
         return error
 
     def sendAvatarWhisperSpeedChat(self, type, messageIndex, receiverId):

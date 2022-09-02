@@ -296,6 +296,24 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
             self.setChatAbsolute(chatString, CFSpeech | CFQuicktalker | CFTimeout, quiet=1)
         base.talkAssistant.receiveOpenSpeedChat(TalkAssistant.SPEEDCHAT_NORMAL, msgIndex, self.doId)
 
+    def b_setSCThought(self, msgIndex):
+        self.setSCThought(msgIndex)
+        self.d_setSCThought(msgIndex)
+
+    def d_setSCThought(self, msgIndex):
+        messenger.send('wakeup')
+        self.sendUpdate('setSCThought', [msgIndex])
+
+    def setSCThought(self, msgIndex):
+        if base.cr.avatarFriendsManager.checkIgnored(self.doId):
+            return
+        if self.doId in base.localAvatar.ignoreList:
+            return
+        chatString = SCDecoders.decodeSCStaticTextMsg(msgIndex)
+        if chatString:
+            self.setChatAbsolute(chatString, CFThought | CFQuicktalker, quiet=1)
+        base.talkAssistant.receiveOpenSpeedChat(TalkAssistant.SPEEDCHAT_NORMAL, msgIndex, self.doId)
+
     def b_setSCCustom(self, msgIndex):
         self.setSCCustom(msgIndex)
         self.d_setSCCustom(msgIndex)

@@ -13,6 +13,7 @@ class TTSCIndexedTerminal(SCTerminal):
         self.text = msg
         self.msgIndex = msgIndex
 
-    def handleSelect(self):
-        SCTerminal.handleSelect(self)
+    def handleSelect(self, event):
+        event = str(event)
+        SCTerminal.handleSelect(self, event)
         messenger.send(self.getEventName(TTSCIndexedMsgEvent), [self.msgIndex])

@@ -1,6 +1,7 @@
 from otp.avatar import Avatar
 from otp.avatar.Avatar import teleportNotify
 from . import ToonDNA
+from direct.showbase.InputStateGlobal import inputState
 from direct.task.Task import Task
 from toontown.suit import SuitDNA
 from direct.actor import Actor
@@ -526,6 +527,8 @@ class Toon(Avatar.Avatar, ToonHead):
         self.setFont(ToontownGlobals.getToonFont())
         self.setSpeechFont(ToontownGlobals.getToonFont())
         self.soundChatBubble = base.loader.loadSfx('phase_3/audio/sfx/GUI_balloon_popup.ogg')
+        self.forceAvSlideLeftToken=inputState.force("slideLeft", 0, 'toontown.toon.Toon')
+        self.forceAvSlideRightToken=inputState.force("slideRight", 0, 'toontown.toon.Toon')
         self.animFSM = ClassicFSM('Toon', [State('off', self.enterOff, self.exitOff),
          State('neutral', self.enterNeutral, self.exitNeutral),
          State('victory', self.enterVictory, self.exitVictory),

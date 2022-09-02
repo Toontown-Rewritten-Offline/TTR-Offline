@@ -1,15 +1,10 @@
-from direct.gui.DirectGui import *
+from direct.gui.DirectGui import OnscreenGeom, OnscreenImage, OnscreenText
 from direct.gui import DirectGuiGlobals
 from direct.directnotify import DirectNotifyGlobal
 from direct.showbase import DirectObject
-import string
-import time
-from threading import Timer
-from otp.otpbase import OTPGlobals
-from otp.otpbase import OTPLocalizer
-from direct.interval.IntervalGlobal import LerpScaleInterval, Sequence, Func, SoundInterval, LerpFunc
-from panda3d.core import *
+from direct.interval.IntervalGlobal import LerpScaleInterval, Sequence, LerpFunc
 from toontown.toonbase import ToontownGlobals
+from panda3d.core import *
 
 class NewLoadingScreen(DirectObject.DirectObject):
 
@@ -33,9 +28,10 @@ class NewLoadingScreen(DirectObject.DirectObject):
         musPhase1 = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase1.ogg')
         musPhase2 = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase2.ogg')
         if musPhase1:
-            global mus
             self.musicVolCont1(0.8)
             self.musicVolCont2(0)
+            musPhase1.setLoopStart(2.9)
+            musPhase2.setLoopStart(2.9)
             musPhase1.setLoop(True)
             musPhase2.setLoop(True)
             musPhase1.play()

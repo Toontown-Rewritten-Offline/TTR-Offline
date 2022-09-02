@@ -1,5 +1,6 @@
 from direct.showbase.DirectObject import DirectObject
-from direct.showbase.PythonUtil import lineInfo
+if __debug__:
+    from direct.showbase.PythonUtil import lineInfo
 import string
 from direct.directnotify import DirectNotifyGlobal
 

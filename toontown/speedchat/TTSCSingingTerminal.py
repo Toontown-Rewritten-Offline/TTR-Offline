@@ -13,9 +13,11 @@ class TTSCSingingTerminal(SCTerminal):
         self.textId = textId
         self.text = SpeedChatStaticText[self.textId]
 
-    def handleSelect(self):
-        SCTerminal.handleSelect(self)
-        messenger.send(self.getEventName(TTSCSingingMsgEvent), [self.textId])
+    def handleSelect(self, event):
+        event = str(event)
+        if not event.startswith('mouse3'):
+            SCTerminal.handleSelect(self, event)
+            messenger.send(self.getEventName(TTSCSingingMsgEvent), [self.textId])
 
     def finalize(self):
         args = {'rolloverSound': None,

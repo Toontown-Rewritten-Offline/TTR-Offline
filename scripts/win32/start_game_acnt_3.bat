@@ -5,9 +5,9 @@ cd ../../
 rem Read the contents of PPYTHON_PATH into %PPYTHON_PATH%:
 set /P PPYTHON_PATH=<PPYTHON_PATH
 
-set TTR_PLAYCOOKIE=DontDeletePLS
+set TTR_PLAYCOOKIE=Username3
 set TTR_GAMESERVER=127.0.0.1
 
-%PPYTHON_PATH% -m ToontownStart
+%PPYTHON_PATH% -m toontown.toonbase.ToontownStart
 
 pause

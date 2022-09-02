@@ -10,6 +10,12 @@ class ToontownSettings:
         self.loadFromSettings()
 
     def loadFromSettings(self):
+        mongoDB = self.settings.getBool('game', 'mongodb-client', False)
+        loadPrcFileData('toonBase Settings MongoDB', 'want-mongo-client %s' % mongoDB)
+        self.settings.updateSetting('game', 'mongodb-client', mongoDB)
+        localServerAutoStart = self.settings.getBool('game', 'auto-start-server', True)
+        loadPrcFileData('toonBase Auto Start Server', 'auto-start-server %s' % localServerAutoStart)
+        self.settings.updateSetting('game', 'auto-start-server', localServerAutoStart)
         electionEvent = self.settings.getBool('game', 'elections', False)
         loadPrcFileData('toonBase Settings Election', 'want-doomsday %s' % electionEvent)
         self.settings.updateSetting('game', 'elections', electionEvent)

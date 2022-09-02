@@ -13,7 +13,7 @@ set DISTRICT_NAME=Election Acres
 set BASE_CHANNEL=410000000
 
 :main
-%PPYTHON_PATH% -m ServiceStartAI --base-channel %BASE_CHANNEL% ^
+%PPYTHON_PATH% -m toontown.ai.ServiceStartAI --base-channel %BASE_CHANNEL% ^
                --max-channels %MAX_CHANNELS% --stateserver %STATE_SERVER% ^
                --astron-ip %ASTRON_IP% --eventlogger-ip %EVENT_LOGGER_IP% ^
                --district-name "%DISTRICT_NAME%"

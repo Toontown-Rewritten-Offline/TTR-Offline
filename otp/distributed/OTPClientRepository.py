@@ -301,12 +301,12 @@ class OTPClientRepository(ClientRepositoryBase):
             State('failedToConnect',
                   self.enterFailedToConnect,
                   self.exitFailedToConnect, [
-                      'connect',
+                      'connect2',
                       'shutdown']),
             State('failedToGetServerConstants',
                   self.enterFailedToGetServerConstants,
                   self.exitFailedToGetServerConstants, [
-                      'connect',
+                      'connect2',
                       'shutdown',
                       'noConnection']),
             State('shutdown',
@@ -349,7 +349,7 @@ class OTPClientRepository(ClientRepositoryBase):
                   self.enterNoConnection,
                   self.exitNoConnection, [
                       'login',
-                      'connect',
+                      'connect2',
                       'shutdown']),
             State('afkTimeout',
                   self.enterAfkTimeout,
@@ -501,8 +501,11 @@ class OTPClientRepository(ClientRepositoryBase):
         else:
             self.pressKeyText = OnscreenText(parent = aspect2d, text = OTPLocalizer.CRPressAnyKey, font = ToontownGlobals.getMickeyFont(), fg = (0.97647059, 0.81568627, 0.13333333, 1), align=TextNode.ACenter, scale=0.15, pos=(0, -0.67))
             self.pressKeyText.show()
-            base.buttonThrowers[0].node().setButtonDownEvent('buttonpress')
-            self.acceptOnce('buttonpress', self.enterConnect)
+            self.accept('AllowPressKey', self.AllowPressKey)
+
+    def AllowPressKey(self):
+        base.buttonThrowers[0].node().setButtonDownEvent('buttonpress')
+        self.acceptOnce('buttonpress', self.enterConnect)
 
     @report(types=['args', 'deltaStamp'], dConfigParam='teleport')
     def enterConnect(self, serverList):
@@ -700,7 +703,7 @@ class OTPClientRepository(ClientRepositoryBase):
     def __handleFailedToConnectAck(self):
         doneStatus = self.failedToConnectBox.doneStatus
         if doneStatus == 'ok':
-            self.loginFSM.request('connect', [self.serverList])
+            self.loginFSM.request('connect2', [self.serverList])
             messenger.send('connectionRetrying')
         elif doneStatus == 'cancel':
             self.loginFSM.request('shutdown')
@@ -744,7 +747,7 @@ class OTPClientRepository(ClientRepositoryBase):
     def __handleFailedToGetConstantsAck(self):
         doneStatus = self.failedToGetConstantsBox.doneStatus
         if doneStatus == 'ok':
-            self.loginFSM.request('connect', [self.serverList])
+            self.loginFSM.request('connect2', [self.serverList])
             messenger.send('connectionRetrying')
         elif doneStatus == 'cancel':
             self.loginFSM.request('shutdown')
@@ -951,7 +954,7 @@ class OTPClientRepository(ClientRepositoryBase):
     @report(types=['args', 'deltaStamp'], dConfigParam='teleport')
     def __handleLostConnectionAck(self):
         if self.lostConnectionBox.doneStatus == 'ok' and self.loginInterface.supportsRelogin():
-            self.loginFSM.request('connect', [self.serverList])
+            self.loginFSM.request('connect2', [self.serverList])
         else:
             self.loginFSM.request('shutdown')
 
@@ -1942,7 +1945,6 @@ class OTPClientRepository(ClientRepositoryBase):
         else:
             ClientRepositoryBase.replayDeferredGenerate(self, msgType, extra)
 
-    @exceptionLogged(append=False)
     def handleDatagram(self, di):
         if self.notify.getDebug():
             print('ClientRepository received datagram:')
