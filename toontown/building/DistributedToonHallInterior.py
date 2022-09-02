@@ -621,7 +621,6 @@ class DistributedToonHallInterior(DistributedToonInterior):
         interiorRopes = self.interior.find('**/*interior_ropes')
         if interiorRopes == collEntry.getIntoNodePath().getParent():
             return
-        self.restoreCam()
         self.accept('CamChangeColl' + '-exit', self.handleAwayFromWall)
 
     def handleAwayFromWall(self, collEntry):
@@ -631,11 +630,8 @@ class DistributedToonHallInterior(DistributedToonInterior):
             self.oldView = base.localAvatar.cameraIndex
             base.localAvatar.addCameraPosition(self.toonhallView)
             self.firstEnter = 0
-            self.setUpToonHallCam()
             return
         flippy = self.interior.find('**/*Flippy*/*NPCToon*')
-        if flippy == collEntry.getIntoNodePath():
-            self.setUpToonHallCam()
 
     def setupCollisions(self, radius):
         r = base.localAvatar.getClampedAvatarHeight() * radius
@@ -690,20 +686,9 @@ class DistributedToonHallInterior(DistributedToonInterior):
             __cleanUpSound__(self.arrowSfx)
             del self.arrowSfx
 
-    def setUpToonHallCam(self):
-        base.localAvatar.setCameraFov(75)
-        base.localAvatar.setCameraSettings(self.toonhallView)
-
-    def restoreCam(self):
-        base.localAvatar.setCameraFov(ToontownGlobals.DefaultCameraFov)
-        if hasattr(self, 'oldView'):
-            base.localAvatar.setCameraPositionByIndex(self.oldView)
-
     def disable(self):
-        self.setUpToonHallCam()
         base.localAvatar.removeCameraPosition()
         base.localAvatar.resetCameraPosition()
-        self.restoreCam()
         self.ignoreAll()
         self.cleanUpCollisions()
         if hasattr(self, 'sillyFSM'):
