@@ -45,6 +45,8 @@ class BattleCalculatorAI:
         self.traps = {}
         self.npcTraps = {}
         self.suitAtkStats = {}
+        self.roundsToonsHit = 0
+        self.roundsCogsMiss = 0
         self.__clearBonuses(hp=1)
         self.__clearBonuses(hp=0)
         self.delayedUnlures = []
@@ -76,7 +78,7 @@ class BattleCalculatorAI:
             else:
                 return (0, 0)
         if self.toonsAlwaysHit:
-            return (1, 95)
+            return (1, 75)
         elif self.toonsAlwaysMiss:
             return (0, 0)
         debug = self.notify.getDebug()
@@ -1102,7 +1104,10 @@ class BattleCalculatorAI:
         if self.suitsAlwaysHit:
             return 1
         elif self.suitsAlwaysMiss:
-            return 0
+            if random.randint(1, 100) >= 75:
+                return 1
+            else:
+                return 0
         theSuit = self.battle.activeSuits[attackIndex]
         atkType = self.battle.suitAttacks[attackIndex][SUIT_ATK_COL]
         atkInfo = SuitBattleGlobals.getSuitAttack(theSuit.dna.name, theSuit.getLevel(), atkType)
@@ -1155,6 +1160,7 @@ class BattleCalculatorAI:
             elif self.TOONS_TAKE_NO_DAMAGE:
                 result = 0
             elif self.__suitAtkHit(attackIndex):
+                print(self.__suitAtkHit(attackIndex))
                 atkType = attack[SUIT_ATK_COL]
                 theSuit = self.battle.findSuit(attack[SUIT_ID_COL])
                 atkInfo = SuitBattleGlobals.getSuitAttack(theSuit.dna.name, theSuit.getLevel(), atkType)
@@ -1313,13 +1319,27 @@ class BattleCalculatorAI:
         toonsHit = 0
         cogsMiss = 0
         for special in specials:
-            npc_track = NPCToons.getNPCTrack(special[TOON_TGT_COL])
+            npc_track, rounds = NPCToons.getNPCTrackHp(special[TOON_TGT_COL])
             if npc_track == NPC_TOONS_HIT:
-                BattleCalculatorAI.toonsAlwaysHit = 1
-                toonsHit = 1
+                if self.roundsToonsHit < rounds:
+                    self.roundsToonsHit = rounds
+                    self.toonsAlwaysHit = 1
+                    toonsHit = 1
+                else:
+                    self.toonsAlwaysHit = 1
+                    toonsHit = 1
             elif npc_track == NPC_COGS_MISS:
-                BattleCalculatorAI.suitsAlwaysMiss = 1
-                cogsMiss = 1
+                if self.roundsCogsMiss < rounds:
+                    self.roundsCogsMiss = rounds
+                    self.suitsAlwaysMiss = 1
+                    cogsMiss = 1
+                else:
+                    self.suitsAlwaysMiss = 1
+                    cogsMiss = 1
+        if self.roundsToonsHit > 0:
+           toonsHit =1
+        if self.roundsCogsMiss > 0:
+           cogsMiss =1
 
         if self.notify.getDebug():
             self.notify.debug('Toon attack order: ' + str(self.toonAtkOrder))
@@ -1362,10 +1382,14 @@ class BattleCalculatorAI:
         self.__calculateToonAttacks()
         self.__updateLureTimeouts()
         self.__calculateSuitAttacks()
-        if toonsHit == 1:
-            BattleCalculatorAI.toonsAlwaysHit = 0
-        if cogsMiss == 1:
-            BattleCalculatorAI.suitsAlwaysMiss = 0
+        if self.roundsToonsHit > 0:
+            self.roundsToonsHit -= 1
+        if self.roundsCogsMiss > 0:
+            self.roundsCogsMiss -= 1
+        if toonsHit == 1 and self.roundsToonsHit <= 0:
+            self.toonsAlwaysHit = 0
+        if cogsMiss == 1 and self.roundsCogsMiss <= 0:
+            self.suitsAlwaysMiss = 0
         if self.notify.getDebug():
             self.notify.debug('Toon skills gained after this round: ' + repr(self.toonSkillPtsGained))
             self.__printSuitAtkStats()

@@ -12,7 +12,7 @@ echo [ERROR] Neither databse was chosen...
 goto :main
 
 :YML
-astrond --loglevel info config/astrond.yml
+astrond --loglevel info config/astrond-yaml.yml
 exit
 
 :MDB
