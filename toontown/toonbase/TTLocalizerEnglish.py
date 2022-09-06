@@ -4866,6 +4866,7 @@ ShardPageHelpWelcomeValley = '  You are currently in the "Welcome Valley" Distri
 ShardPageHelpMove = '  To move to a new District, click on its name.'
 ShardPagePopulationTotal = 'Total Toontown Population: %d'
 ShardPageScrollTitle = 'Name            Population'
+ShardPageTeleportButton = 'Teleport\nHere!'
 ShardPageLow = 'Quiet'
 ShardPageMed = 'Ideal'
 ShardPageHigh = 'Full'
