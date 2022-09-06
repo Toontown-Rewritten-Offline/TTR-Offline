@@ -129,21 +129,27 @@ def __doSprinkle(attack, recipients, hp = 0):
     if toon == None:
         return
     targets = attack[recipients]
+    print('Target to effect: ', targets)
     level = 4
     battle = attack['battle']
     track = Sequence(teleportIn(attack, toon))
 
     def face90(target, toon, battle):
-        vec = Point3(target.getPos(battle) - toon.getPos(battle))
-        vec.setZ(0)
-        temp = vec[0]
-        vec.setX(-vec[1])
-        vec.setY(temp)
-        targetPoint = Point3(toon.getPos(battle) + vec)
-        toon.headsUp(battle, targetPoint)
+        #vec = Point3(target.getPos(battle) - toon.getPos(battle))
+        #vec.setZ(0)
+        #temp = vec[0]
+        #vec.setX(-vec[1])
+        #vec.setY(temp)
+        #targetPoint = Point3(toon.getPos(battle) + vec)
+        #print(targetPoint)
+        #toon.headsUp(battle, targetPoint)
+        if recipients == 'suits':
+            toon.setHpr(90.0, 0.0, 0.0)
+        else:
+            toon.setHpr(-90.0, 0.0, 0.0)
 
     delay = 2.5
-    effectTrack = Sequence()
+    effectTrack = Parallel()
     for target in targets:
         sprayEffect = BattleParticles.createParticleEffect(file='pixieSpray')
         dropEffect = BattleParticles.createParticleEffect(file='pixieDrop')
@@ -185,7 +191,7 @@ def __doSmooch(attack, hp = 0):
         hand = toon.getRightHands()[0]
         return hand.getPos(render)
 
-    effectTrack = Sequence()
+    effectTrack = Parallel()
     for target in targets:
         lipcopy = MovieUtil.copyProp(lips)
         lipsTrack = Sequence(Wait(tLips), Func(MovieUtil.showProp, lipcopy, render, getLipPos), Func(lipcopy.setBillboardPointWorld), LerpScaleInterval(lipcopy, dScale, Point3(3, 3, 3), startScale=MovieUtil.PNT3_NEARZERO), Wait(tThrow - tLips - dScale), LerpPosInterval(lipcopy, dThrow, Point3(target.getPos() + Point3(0, 0, target.getHeight()))), Func(MovieUtil.removeProp, lipcopy))
