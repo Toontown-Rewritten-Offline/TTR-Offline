@@ -1122,7 +1122,7 @@ class DistributedTargetGame(DistributedMinigame):
 
     def __updatePowerBarTask(self, task):
         powerUp = 0
-        timeDiff = None
+        timeDiff = 0
         if not self.arrowKeys.rightPressed():
             self.canPressRight = 1
         elif self.arrowKeys.rightPressed() and self.canPressRight:

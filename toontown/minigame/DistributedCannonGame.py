@@ -38,7 +38,7 @@ TOWER_HEIGHT = 43.85
 TOWER_RADIUS = 10.5
 BUCKET_HEIGHT = 36
 TOWER_Y_RANGE = CannonGameGlobals.TowerYRange
-TOWER_X_RANGE = int(TOWER_Y_RANGE / 2.0)
+TOWER_X_RANGE = (TOWER_Y_RANGE / 2.0)
 INITIAL_VELOCITY = 94.0
 WHISTLE_SPEED = INITIAL_VELOCITY * 0.55
 
@@ -282,7 +282,7 @@ class DistributedCannonGame(DistributedMinigame):
             else:
                 y = yMax
         else:
-            y = self.randomNumGen.randint(yMin, yMax)
+            y = self.randomNumGen.randint(int(yMin), int(yMax))
         xRange = TOWER_X_RANGE
         if self.DEBUG_TOWER_RANGE:
             if self.DEBUG_TOWER_FAR_LEFT:
@@ -290,7 +290,7 @@ class DistributedCannonGame(DistributedMinigame):
             else:
                 x = xRange
         else:
-            x = self.randomNumGen.randint(0, xRange)
+            x = self.randomNumGen.randint(0, int(xRange))
         x = x - int(xRange / 2.0)
         if base.wantMinigameDifficulty:
             diff = self.getDifficulty()
