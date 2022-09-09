@@ -37,8 +37,12 @@ class ShardPage(ShtikerPage.ShtikerPage):
         self.title = DirectLabel(parent=self, relief=None, text=TTLocalizer.ShardPageTitle, text_scale=title_text_scale, textMayChange=0, pos=(0, 0, 0.6))
         helpText_ycoord = 0.303
         self.helpText = DirectLabel(parent=self, relief=None, text='', text_scale=main_text_scale, text_wordwrap=12, text_align=TextNode.ALeft, textMayChange=1, pos=(0.058, 0, helpText_ycoord))
+        self.iconModels = loader.loadModel('phase_3.5/models/gui/sos_textures')
+        self.iconGeom = self.iconModels.find('**/district')
+        self.icon = OnscreenGeom(parent=self, geom=self.iconGeom, pos=(0.4, 0.0, -0.065), scale=(0.38))
+        self.icon.hide()
         shardPop_ycoord = 0.403 - 0.523
-        totalPop_ycoord = shardPop_ycoord - -0.65
+        totalPop_ycoord = shardPop_ycoord - -0.6375
         self.totalPopulationText = DirectLabel(parent=self, relief=None, text=TTLocalizer.ShardPagePopulationTotal, text_scale=main_text_scale, text_wordwrap=15, textMayChange=1, text_fg=(0.49803922, 0.09803922, 0.09803922, 1), text_align=TextNode.ACenter, pos=(0, 0, totalPop_ycoord))
         self.totalPopulationText.show()
         self.gui = loader.loadModel('phase_3.5/models/gui/friendslist_gui')
@@ -72,7 +76,7 @@ class ShardPage(ShtikerPage.ShtikerPage):
 
             self.scrollList.destroy()
             self.scrollList = None
-        self.scrollList = DirectScrolledList(parent=self, relief=None, pos=(-0.5, 0, 0), incButton_image=(self.gui.find('**/FndsLst_ScrollUp'),
+        self.scrollList = DirectScrolledList(parent=self, relief=None, pos=(-0.5, 0, -0.03), incButton_image=(self.gui.find('**/FndsLst_ScrollUp'),
          self.gui.find('**/FndsLst_ScrollDN'),
          self.gui.find('**/FndsLst_ScrollUp_Rllvr'),
          self.gui.find('**/FndsLst_ScrollUp')), incButton_relief=None, incButton_scale=(self.arrowButtonScale, self.arrowButtonScale, -self.arrowButtonScale), incButton_pos=(self.buttonXstart, 0, self.itemFrameZorigin - 0.999), incButton_image3_color=Vec4(1, 1, 1, 0.2), decButton_image=(self.gui.find('**/FndsLst_ScrollUp'),
@@ -92,19 +96,55 @@ class ShardPage(ShtikerPage.ShtikerPage):
 
     def makeShardButton(self, shardId, shardName, shardPop):
         shardButtonParent = DirectFrame()
-        shardButtonL = DirectButton(parent=shardButtonParent, relief=None, text=shardName, text_scale=0.06, text_align=TextNode.ALeft, text1_bg=self.textDownColor, text2_bg=self.textRolloverColor, text3_fg=self.textDisabledColor, textMayChange=0, command=self.getPopChoiceHandler(shardPop), extraArgs=[shardId])
-        if self.showPop:
-            popText = str(shardPop)
-            if shardPop == None:
-                popText = ''
-            shardButtonR = DirectButton(parent=shardButtonParent, relief=None, text=popText, text_scale=0.06, text_align=TextNode.ALeft, text1_bg=self.textDownColor, text2_bg=self.textRolloverColor, text3_fg=self.textDisabledColor, textMayChange=1, pos=(0.5, 0, 0), command=self.choseShard, extraArgs=[shardId])
-        else:
-            model = loader.loadModel('phase_3.5/models/gui/matching_game_gui')
-            button = model.find('**/minnieCircle')
-            shardButtonR = DirectButton(parent=shardButtonParent, relief=None, image=button, image_scale=(0.3, 1, 0.3), image2_scale=(0.35, 1, 0.35), image_color=self.getPopColor(shardPop), pos=(0.6, 0, 0.0125), text=self.getPopText(shardPop), text_scale=0.06, text_align=TextNode.ACenter, text_pos=(-0.0125, -0.0125), text_fg=Vec4(0, 0, 0, 0), text1_fg=Vec4(0, 0, 0, 0), text2_fg=Vec4(0, 0, 0, 1), text3_fg=Vec4(0, 0, 0, 0), command=self.getPopChoiceHandler(shardPop), extraArgs=[shardId])
-            del model
-            del button
+        teleportButtonModel = loader.loadModel('phase_4/models/parties/schtickerbookHostingGUI')
+        pos = teleportButtonModel.find('**/startParty_text_locator').getPos()
+        self.teleportButton = DirectButton(parent=self, relief=None, geom=(teleportButtonModel.find('**/startPartyButton_up'),
+         teleportButtonModel.find('**/startPartyButton_down'),
+         teleportButtonModel.find('**/startPartyButton_rollover'),
+         teleportButtonModel.find('**/startPartyButton_inactive')), text=TTLocalizer.ShardPageTeleportButton, pos=(-0.125, 0, -0.925), scale=1.35, text_scale=0.0335, text_pos=(0.395, 0.325), command=self.choseShard, extraArgs=[shardId])
+        shardButtonL = DirectButton(parent=shardButtonParent, relief=None, text=shardName, text_scale=0.06, text_align=TextNode.ALeft, text1_bg=self.textDownColor, text2_bg=self.textRolloverColor, text3_fg=self.textDisabledColor, textMayChange=0, command=self.getPopChoiceHandler(shardPop), extraArgs=[shardId, shardName, shardPop])
+        model = loader.loadModel('phase_3.5/models/gui/matching_game_gui')
+        button = model.find('**/minnieCircle')
+        shardButtonR = DirectButton(parent=shardButtonParent, relief=None, image=button, image_scale=(0.3, 1, 0.3), image2_scale=(0.35, 1, 0.35), image_color=self.getPopColor(shardPop), pos=(0.6, 0, 0.0125), text=self.getPopText(shardPop), text_scale=0.06, text_align=TextNode.ACenter, text_pos=(-0.0125, -0.0125), text_fg=Vec4(0, 0, 0, 0), text1_fg=Vec4(0, 0, 0, 0), text2_fg=Vec4(0, 0, 0, 1), text3_fg=Vec4(0, 0, 0, 0), command=self.getPopChoiceHandler(shardPop), extraArgs=[shardId, shardName, shardPop])
+        del model
+        del button
         return (shardButtonParent, shardButtonR, shardButtonL)
+
+    def selectShard(self, shardId, shardName, shardPop):
+        try:
+            self.districtName.hide()
+            self.districtPop.hide()
+        except:
+            pass
+        currentShardId = self.getCurrentShardId()
+        zoneId = self.getCurrentZoneId()
+        canonicalHoodId = ZoneUtil.getCanonicalHoodId(base.localAvatar.lastHood)
+        selectedShardName = shardName
+        self.teleportButton['extraArgs'] = [shardId]
+
+        pop = base.cr.activeDistrictMap[shardId].avatarCount
+
+        self.districtPop['text'] = ('Population: %s' % str(pop))
+        self.districtName = OnscreenText(parent=self, text=shardName, pos=(0.4, 0.3, 0), scale=0.1)
+        self.districtName.hide()
+        self.helpText.hide()
+        if shardName != None:
+            self.icon.show()
+            self.districtName.show()
+            self.districtPop.show()
+        else:
+            pass
+        if selectedShardName == shardName:
+            if shardId == currentShardId:
+                self.teleportButton['state'] = DGG.DISABLED
+                return
+            elif shardId == ToontownGlobals.WelcomeValleyToken:
+                self.teleportButton['state'] = DGG.NORMAL
+                return
+            elif shardId != currentShardId:
+                self.teleportButton['state'] = DGG.NORMAL
+        else:
+            self.districtName['text'] = shardName
 
     def getPopColor(self, pop):
         if config.GetBool('want-lerping-pop-colors', False):
@@ -140,17 +180,18 @@ class ShardPage(ShtikerPage.ShtikerPage):
         return popText
 
     def getPopChoiceHandler(self, pop):
-        if base.cr.productName == 'JP':
-            handler = self.choseShard
-        elif pop <= self.midPop:
-            if self.noTeleport and not self.showPop:
-                handler = self.shardChoiceReject
-            else:
-                handler = self.choseShard
-        elif self.showPop:
-            handler = self.choseShard
-        else:
-            handler = self.shardChoiceReject
+        #if base.cr.productName == 'JP':
+        #    handler = self.choseShard
+        #elif pop <= self.midPop:
+        #    if self.noTeleport and not self.showPop:
+        #        handler = self.shardChoiceReject
+        #    else:
+        #        handler = self.choseShard
+        #elif self.showPop:
+        #    handler = self.choseShard
+        #else:
+        #    handler = self.shardChoiceReject
+        handler = self.selectShard
         return handler
 
     def getCurrentZoneId(self):
@@ -207,7 +248,12 @@ class ShardPage(ShtikerPage.ShtikerPage):
                 self.shardButtonMap[shardId] = buttonTuple
                 anyChanges = 1
             elif self.showPop:
-                buttonTuple[1]['text'] = str(pop)
+                buttonTuple[3]['text'] = ('Population: %s' % str(pop))
+                buttonTuple[1]['image_color'] = self.getPopColor(pop)
+                if not base.cr.productName == 'JP':
+                    buttonTuple[1]['text'] = self.getPopText(pop)
+                    buttonTuple[1]['command'] = self.getPopChoiceHandler(pop)
+                    buttonTuple[2]['command'] = self.getPopChoiceHandler(pop)
             else:
                 buttonTuple[1]['image_color'] = self.getPopColor(pop)
                 if not base.cr.productName == 'JP':
@@ -215,12 +261,12 @@ class ShardPage(ShtikerPage.ShtikerPage):
                     buttonTuple[1]['command'] = self.getPopChoiceHandler(pop)
                     buttonTuple[2]['command'] = self.getPopChoiceHandler(pop)
             self.shardButtons.append(buttonTuple[0])
-            if shardId == currentShardId or self.book.safeMode:
-                buttonTuple[1]['state'] = DGG.DISABLED
-                buttonTuple[2]['state'] = DGG.DISABLED
-            else:
-                buttonTuple[1]['state'] = DGG.NORMAL
-                buttonTuple[2]['state'] = DGG.NORMAL
+            #if shardId == currentShardId or self.book.safeMode:
+            #    buttonTuple[1]['state'] = DGG.DISABLED
+            #    buttonTuple[2]['state'] = DGG.DISABLED
+            #else:
+            #    buttonTuple[1]['state'] = DGG.NORMAL
+            #    buttonTuple[2]['state'] = DGG.NORMAL
 
         for shardId, buttonTuple in list(self.shardButtonMap.items()):
             if shardId not in currentMap:
@@ -231,7 +277,7 @@ class ShardPage(ShtikerPage.ShtikerPage):
         buttonTuple = self.shardButtonMap.get(ToontownGlobals.WelcomeValleyToken)
         if buttonTuple:
             if self.showPop:
-                buttonTuple[1]['text'] = str(totalWVPop)
+                buttonTuple[3]['text'] = ('Population: %s' % str(totalWVPop))
             else:
                 buttonTuple[1]['image_color'] = self.getPopColor(totalWVPop)
                 if not base.cr.productName == 'JP':
@@ -258,6 +304,16 @@ class ShardPage(ShtikerPage.ShtikerPage):
     def enter(self):
         self.askForShardInfoUpdate()
         self.updateScrollList()
+        self.districtPop = OnscreenText(parent=self, text=(''), pos=(0.4, 0.2, 0), scale=0.06)
+        self.districtPop.hide()
+        self.helpText.show()
+        self.teleportButton['state'] = DGG.DISABLED
+        self.icon.hide()
+        try:
+            self.districtName.hide()
+            self.districtPop.hide()
+        except:
+            pass
         currentShardId = self.getCurrentShardId()
         buttonTuple = self.shardButtonMap.get(currentShardId)
         if buttonTuple:
@@ -267,6 +323,8 @@ class ShardPage(ShtikerPage.ShtikerPage):
         self.accept('shardInfoUpdated', self.updateScrollList)
 
     def exit(self):
+        self.districtPop.hide()
+        self.districtPop = None
         self.ignore('shardInfoUpdated')
         self.ignore('confirmDone')
         taskMgr.remove('ShardPageUpdateTask-doLater')

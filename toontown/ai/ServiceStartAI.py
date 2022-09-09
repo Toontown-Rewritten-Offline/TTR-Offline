@@ -3,7 +3,6 @@ from direct.showbase import PythonUtil
 import builtins
 import argparse
 
-''' WIP
 if not ConfigVariableBool('auto-start-server', False):
     # Arguments
     parser = argparse.ArgumentParser()
@@ -23,7 +22,6 @@ if not ConfigVariableBool('auto-start-server', False):
     if args.astron_ip: localconfig += 'air-connect %s\n' % args.astron_ip
     if args.eventlogger_ip: localconfig += 'eventlog-host %s\n' % args.eventlogger_ip
     loadPrcFileData('Command-line', localconfig)
-WIP '''
 
 if __debug__:
     loadPrcFile('config/dev.prc')

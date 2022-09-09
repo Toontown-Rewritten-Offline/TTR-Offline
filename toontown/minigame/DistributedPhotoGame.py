@@ -297,10 +297,10 @@ class DistributedPhotoGame(DistributedMinigame, PhotoGameBase.PhotoGameBase):
         self.queue = CollisionHandlerQueue()
         self.traverser = CollisionTraverser('traverser name')
         self.rayArray = []
-        vRange = (GOODROWS - BADROWS) / 2
-        for row in range(-(GOODROWS / 2), GOODROWS / 2 + 1):
-            for column in range(-(GOODROWS / 2), GOODROWS / 2 + 1):
-                goodRange = list(range(-((GOODROWS - BADROWS) / 2), (GOODROWS - BADROWS) / 2 + 1))
+        vRange = (GOODROWS - BADROWS) // 2
+        for row in range(-(GOODROWS // 2), GOODROWS // 2 + 1):
+            for column in range(-(GOODROWS // 2), GOODROWS // 2 + 1):
+                goodRange = list(range(-((GOODROWS - BADROWS) // 2), (GOODROWS - BADROWS) // 2 + 1))
                 rayQuality = 'g'
                 if row not in goodRange or column not in goodRange:
                     rayQuality = 'l'

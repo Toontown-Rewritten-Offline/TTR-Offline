@@ -221,8 +221,8 @@ class ChatManager(DirectObject.DirectObject):
 
     def startChatTyping(self):
         messenger.send('enterNormalChat')
-        base.localAvatar.disableAvatarControls()
-        self.accept("enter", base.localAvatar.enableAvatarControls)
+        #base.localAvatar.disableAvatarControls()
+        #self.accept("enter", base.localAvatar.enableAvatarControls)
 
     def enterMainMenu(self):
         self.checkObscurred()

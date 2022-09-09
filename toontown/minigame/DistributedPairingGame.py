@@ -521,7 +521,7 @@ class DistributedPairingGame(DistributedMinigame):
 
     def calcBonusTraversal(self):
         self.bonusTraversal = []
-        halfRow = self.cardsPerRow / 2
+        halfRow = self.cardsPerRow // 2
         if self.cardsPerRow % 2:
             halfRow += 1
         for i in range(halfRow):

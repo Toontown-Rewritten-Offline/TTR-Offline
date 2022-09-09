@@ -70,6 +70,7 @@ class ToontownLoadingScreen:
         self.starring.reparentTo(self.gui)
         self.title.reparentTo(self.gui)
         self.gui.reparentTo(hidden)
+        base.setBackgroundColor(ToontownGlobals.DefaultBackgroundColor)
         if self.head:
             self.head.delete()
             self.head = None        
