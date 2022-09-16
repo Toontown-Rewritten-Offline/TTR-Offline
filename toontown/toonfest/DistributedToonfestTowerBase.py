@@ -3,6 +3,7 @@ from panda3d.core import *
 from direct.task.Task import Task
 from direct.distributed.ClockDelta import *
 from direct.interval.IntervalGlobal import *
+from direct.gui.DirectGui import OnscreenText
 from direct.distributed import DistributedObject
 from panda3d.core import NodePath
 from toontown.toonbase import ToontownGlobals
@@ -15,13 +16,16 @@ class DistributedToonfestTowerBase(DistributedObject.DistributedObject):
         DistributedObject.DistributedObject.__init__(self, cr)
         self.spinStartTime = 0.0
         self.rpm = 5.0
-        self.degreesPerSecond = self.rpm / 60.0 * 360.0
+        self.degreesPerSecond1 = self.rpm / 60.0 * 360.0
+        self.degreesPerSecond2 = self.rpm / 60.0 * 360.0
+        self.degreesPerSecond3 = self.rpm / 60.0 * 360.0
         self.offset = 0.0
         self.oldOffset = 0.0
         self.lerpStart = 0.0
         self.lerpFinish = 1.0
-        self.speedUpSound = None
-        self.changeDirectionSound = None
+        self.speedUpSequence = None
+        self.slowDownSequence = None
+        self.reverseSequence = None
         self.lastChangeDirection = 0.0
         self.cr.tfb = self
         return
@@ -39,8 +43,9 @@ class DistributedToonfestTowerBase(DistributedObject.DistributedObject):
         self.accept('exitbase2_collision', self.__handleOffBase2)
         self.accept('enterbase3_collision', self.__handleOnBase3)
         self.accept('exitbase3_collision', self.__handleOffBase3)
-        self.speedUpSound = base.loader.loadSfx('phase_6/audio/sfx/SZ_MM_gliss.ogg')
-        self.changeDirectionSound = base.loader.loadSfx('phase_6/audio/sfx/SZ_MM_cymbal.ogg')
+        self.speedUpSound = base.loader.loadSfx('phase_4/audio/sfx/MG_Tag_C.ogg')
+        self.slowDownSound = base.loader.loadSfx('phase_4/audio/sfx/MG_Tag_A.ogg')
+        self.changeDirectionSound = base.loader.loadSfx('phase_3/audio/sfx/clock03.ogg')
         self.__setupSpin()
         DistributedObject.DistributedObject.generate(self)
 
@@ -59,10 +64,12 @@ class DistributedToonfestTowerBase(DistributedObject.DistributedObject):
             offset = self.oldOffset + t * (self.offset - self.oldOffset)
         else:
             offset = self.oldOffset
-        heading = self.degreesPerSecond * (now - self.spinStartTime) + offset
-        self.base1.setHprScale(heading % 360.0, 0.0, 0.0, 1.0, 1.0, 1.0)
-        self.base2.setHprScale(heading % 360.0, 0.0, 0.0, 1.0, 1.0, 1.0)
-        self.base3.setHprScale(heading % 360.0, 0.0, 0.0, 1.0, 1.0, 1.0)
+        heading1 = self.degreesPerSecond1 * (now - self.spinStartTime) + offset
+        heading2 = self.degreesPerSecond2 * (now - self.spinStartTime) + offset
+        heading3 = self.degreesPerSecond3 * (now - self.spinStartTime) + offset
+        self.base1.setHprScale(heading1 % 360.0, 0.0, 0.0, 1.0, 1.0, 1.0)
+        self.base2.setHprScale(heading2 % 360.0, 0.0, 0.0, 1.0, 1.0, 1.0)
+        self.base3.setHprScale(heading3 % 360.0, 0.0, 0.0, 1.0, 1.0, 1.0)
         return Task.cont
 
     def disable(self):
@@ -79,31 +86,65 @@ class DistributedToonfestTowerBase(DistributedObject.DistributedObject):
         self.ignore('enterbase3_collision')
         self.ignore('exitbase3_collision')
         self.speedUpSound = None
+        self.slowDownSound= None
         self.changeDirectionSound = None
         self.__stopSpin()
         DistributedObject.DistributedObject.disable(self)
         return
 
-    def setSpeed(self, rpm, offset, timestamp):
-        timestamp = globalClockDelta.networkToLocalTime(timestamp)
-        degreesPerSecond = rpm / 60.0 * 360.0
-        now = globalClock.getFrameTime()
-        oldHeading = self.degreesPerSecond * (now - self.spinStartTime) + self.offset
-        oldHeading = oldHeading % 360.0
-        oldOffset = oldHeading - degreesPerSecond * (now - timestamp)
-        self.rpm = rpm
-        self.degreesPerSecond = degreesPerSecond
-        self.offset = offset
-        self.spinStartTime = timestamp
-        while oldOffset - offset < -180.0:
-            oldOffset += 360.0
+    def setSpeed(self, degreesPerSecond1, degreesPerSecond2, degreesPerSecond3):
+        self.degreesPerSecond1 = degreesPerSecond1
+        self.degreesPerSecond2 = degreesPerSecond2
+        self.degreesPerSecond3 = degreesPerSecond3
 
-        while oldOffset - offset > 180.0:
-            oldOffset -= 360.0
+    def cleanupTowerMessage(self):
+        self.towerMessage.hide()
+        if self.speedUpSequence:
+            if self.speedUpSequence.isPlaying():
+                self.speedUpSequence.finish()
+        if self.slowDownSequence:
+            if self.slowDownSequence.isPlaying():
+                self.slowDownSequence.finish()
+        if self.reverseSequence:
+            if self.reverseSequence.isPlaying():
+                self.reverseSequence.finish()
 
-        self.oldOffset = oldOffset
-        self.lerpStart = now
-        self.lerpFinish = timestamp + ChangeDirectionTime
+    def playSfxMessage(self, operation, avatarName):
+        self.towerMessage = OnscreenText(parent = aspect2d, text='', font = ToontownGlobals.getMickeyFontMaximum(), fg = (0.97647059, 0.81568627, 0.13333333, 1), align=TextNode.ACenter, scale=0, pos=(0, 0.75))
+        self.towerMessage.hide()
+        tpMgr = TextPropertiesManager.getGlobalPtr()
+        avName = TextProperties()
+        avName.setTextColor(0, 0.871, 0.498, 1)
+        avName.setTextScale(1.1)
+        towerText = TextProperties()
+        towerText.setTextColor(1, 0.906, 0.224, 1)
+        towerText.setTextScale(0.8)
+        tpMgr.setProperties('avName', avName)
+        tpMgr.setProperties('towerText', towerText)
+
+        def setScale(t):
+            self.towerMessage['scale'] = t
+        fadeOut = self.towerMessage.colorScaleInterval(0.5, Vec4(1.0, 1.0, 1.0, 0.0))
+
+        bouncyTextMsg = Sequence(LerpFunc(setScale, duration=0.5, fromData=0, toData=0.15, blendType='easeInOut', extraArgs=[], name='bouncyTextMsg'), LerpFunc(setScale, duration=0.2, fromData=0.15, toData=0.12, blendType='easeInOut', extraArgs=[], name='bouncyTextMsg'))
+        if operation == 'SpeedUp':
+            self.cleanupTowerMessage()
+            self.towerMessage['text'] = '\1avName\1%s\1towerText\1\nhas sped up part of the ToonFest Tower!' % avatarName
+            self.towerMessage.show()
+            self.speedUpSequence = Sequence(bouncyTextMsg, Func(self.speedUpSound.play), Wait(10), fadeOut, Func(self.towerMessage.hide))
+            self.speedUpSequence.start()
+        elif operation == 'SlowDown':
+            self.cleanupTowerMessage()
+            self.towerMessage['text'] = '\1avName\1%s\1towerText\1\nhas slowed down part of the ToonFest Tower!' % avatarName
+            self.towerMessage.show()
+            self.slowDownSequence = Sequence(bouncyTextMsg, Func(self.slowDownSound.play), Wait(10), fadeOut, Func(self.towerMessage.hide))
+            self.slowDownSequence.start()
+        elif operation == 'Reverse':
+            self.cleanupTowerMessage()
+            self.towerMessage['text'] = '\1avName\1%s\1towerText\1\nhas reversed part of the ToonFest Tower!' % avatarName
+            self.towerMessage.show()
+            self.reverseSequence = Sequence(bouncyTextMsg, Func(self.changeDirectionSound.play), Wait(10), fadeOut, Func(self.towerMessage.hide))
+            self.reverseSequence.start()
 
     def playSpeedUp(self, avId, base):
         if avId != base.localAvatar.doId:

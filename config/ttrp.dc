@@ -556,7 +556,7 @@ from toontown.election import DistributedHotAirBalloon/AI
 from toontown.toonfest import DistributedToonfestBalloon/AI
 from toontown.toonfest import DistributedToonfestTower/AI
 from toontown.toonfest import DistributedToonfestTowerBase/AI
-//from toontown.toonfest import DistributedToonfestCog/AI
+from toontown.toonfest import DistributedToonfestCog/AI
 from toontown.toonfest import DistributedToonfestActivity/AI
 from toontown.toonfest import DistributedToonfestTrampolineActivity/AI
 from toontown.toonfest import DistributedToonfestVictoryTrampolineActivity/AI
@@ -1526,15 +1526,21 @@ dclass DistributedToonfestTower : DistributedObject {
 };
 
 dclass DistributedToonfestCog : DistributedObject {
-  updateTower() clsend airecv;
-  setPosThroughAI(int16, int16, int16) broadcast;
-  setIdThroughAI(int16) broadcast;
+  generateRequest() clsend airecv;
+  toggleCog(string) broadcast;
+  setCogPosId(int16, int16, int16, int16) broadcast;
+  setCogId(int16) broadcast;
+  setCogPos(int16, int16, int16) broadcast;
+  enterDown() clsend airecv;
+  enterUp() clsend airecv;
+  updateTower(string) clsend airecv;
 };
 
 dclass DistributedToonfestTowerBase : DistributedObject {
   requestSpeedUp() airecv clsend;
   requestChangeDirection() airecv clsend;
-  setSpeed(int16/1000, uint16/100, int16) broadcast ram;
+  playSfxMessage(string, string) broadcast;
+  setSpeed(int16, int16, int16) broadcast ram;
   playSpeedUp(uint32) broadcast;
   playChangeDirection(uint32) broadcast;
 };

@@ -1,5 +1,5 @@
-# Embedded file name: toontown.election.DistributedToonfestCog
 from panda3d.core import *
+from direct.task import Task
 from otp.avatar import Avatar
 from otp.nametag.NametagConstants import *
 from direct.distributed.ClockDelta import *
@@ -30,9 +30,13 @@ class DistributedToonfestCog(DistributedObject, FSM):
     def __init__(self, cr):
         DistributedObject.__init__(self, cr)
         FSM.__init__(self, 'ToonfestCogFSM')
-        self.load()
-        self.request('Down')
-        self.cogid = 1
+        taskMgr.add(self.d_generateRequest, 'GenerateRequest')
+        taskMgr.add(self.load, 'LoadCogs')
+        self.root = NodePath('ToonfestCog')
+        self.parentNode = NodePath('Parent')
+        self.requestSent = False
+        self.state = 'Down'
+        self.cogid = 0
         self.accept('localPieSplat', self.__localPieSplat)
         self.targetDistance = 0.0
         self.targetFacing = 0.0
@@ -44,14 +48,22 @@ class DistributedToonfestCog(DistributedObject, FSM):
         self.netTimeSentToStartByHit = 0
         self.currentFacing = 0.0
 
-    def setIdThroughAI(self, cogid):
-        self.cogid = cogid
+    def d_generateRequest(self, task):
+        if self.isGenerated():
+            self.sendUpdate('generateRequest', [])
+            self.requestSent = True
+            return Task.done
+        else:
+            return Task.cont
 
-    def load(self):
-        self.root = NodePath('ToonfestCog')
-        self.root.setPos(139, -94, 4.579)
-        self.parentNode = NodePath('Parent')
-        self.parentNode.setPos(139, -94, 4.579)
+    def load(self, task):
+        if self.requestSent:
+            self.setCogProperties()
+            return Task.done
+        else:
+            return Task.cont
+
+    def setCogProperties(self):
         self.parentNode.reparentTo(render)
         self.root.reparentTo(render)
         path = 'phase_13/models/parties/cogPinata_'
@@ -62,7 +74,7 @@ class DistributedToonfestCog(DistributedObject, FSM):
          'bodyHitFront': path + 'bodyHitFront_anim',
          'headHitBack': path + 'headHitBack_anim',
          'headHitFront': path + 'headHitFront_anim'})
-        self.actor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.actor.setBlend(ConfigVariableBool('smoothanimations', False))
         self.actor.reparentTo(self.root)
         self.temp_transform = Mat4()
         self.head_locator = self.actor.attachNewNode('temphead')
@@ -106,20 +118,36 @@ class DistributedToonfestCog(DistributedObject, FSM):
         self.hole.setScale(3)
         self.hole.setBin('ground', 3)
         self.hole.reparentTo(self.parentNode)
-        taskMgr.doMethodLater(10, self.toggleCog, 'toggle-cog', extraArgs=[])
+        #taskMgr.doMethodLater(10, self.toggleCog, 'toggle-cog', extraArgs=[])
         self.kaboomTrack = None
         self.hitInterval = None
         self.resetRollIval = None
 
-    def toggleCog(self):
-        if self.state == 'Down':
+    def setCogPosId(self, x, y, z, cogid):
+        self.root.setPos(x, y, z)
+        self.parentNode.setPos(x, y, z)
+        self.cogid = cogid
+        print('Position set!')
+
+    def setCogPos(self, x, y, z):
+        self.root.setPos(x, y, z)
+        self.parentNode.setPos(x, y, z)
+
+    def setCogId(self, cogid):
+        self.cogid = cogid
+
+    def toggleCog(self, state):
+        if state == 'Down':
+            self.state = 'Up'
             self.request('Up')
-        else:
+        elif state == 'Up':
+            self.state = 'Down'
             self.request('Down')
-        taskMgr.doMethodLater(10, self.toggleCog, 'toggle-cog', extraArgs=[])
 
     def unload(self):
+        taskMgr.remove('GenerateRequest')
         taskMgr.remove('toggle-cog')
+        taskMgr.remove('LoadCogs')
         self.request('Off')
         self.clearHitInterval()
         if self.hole is not None:
@@ -176,10 +204,6 @@ class DistributedToonfestCog(DistributedObject, FSM):
         self.hitInterval = Sequence(LerpScaleInterval(self.hole, duration=0.175, scale=endScale, startScale=startScale, blendType='easeIn'), Parallel(SoundInterval(self.upSound, volume=0.6, node=self.actor, cutOff=PartyGlobals.PARTY_COG_CUTOFF), ActorInterval(self.actor, 'up', loop=0)), Func(self.actor.loop, 'idle'), LerpScaleInterval(self.hole, duration=0.175, scale=Point3(3, 3, 3), startScale=endScale, blendType='easeOut'))
         self.hitInterval.start()
 
-    def setPosThroughAI(self, x, y, z):
-        self.root.setPos(x, y, z)
-        self.parentNode.setPos(x, y, z)
-
     def __localPieSplat(self, pieCode, entry):
         if self.state == 'Up':
             if pieCode == ToontownGlobals.PieCodeToonfestCog:
@@ -188,8 +212,8 @@ class DistributedToonfestCog(DistributedObject, FSM):
     def respondToPieHit(self, timestamp, position, hot = False, direction = 1.0):
         if self.netTimeSentToStartByHit < timestamp:
             self.__showSplat(position, direction, hot)
-            self.sendUpdate('updateTower', [])
-            OnscreenText(parent = aspect2d, text=self.avName + '\nSped up part of the ToonFest Tower!', font = ToontownGlobals.getMickeyFontMaximum(), fg = (0.97647059, 0.81568627, 0.13333333, 1), align=TextNode.ACenter, scale=0.15, pos=(0, 0))
+            avName = base.localAvatar.name
+            self.sendUpdate('updateTower', [avName])
         else:
             print('respondToPieHit self.netTimeSentToStartByHit = %s' % self.netTimeSentToStartByHit)
 
