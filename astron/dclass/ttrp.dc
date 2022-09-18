@@ -553,6 +553,7 @@ from toontown.safezone import DistributedDGFlower/AI
 from toontown.election import DistributedElectionEvent/AI
 from toontown.election import DistributedFlippyStand/AI
 from toontown.election import DistributedHotAirBalloon/AI
+from toontown.toonfest import DistributedToonfestDayNight/AI
 from toontown.toonfest import DistributedToonfestBalloon/AI
 from toontown.toonfest import DistributedToonfestTower/AI
 from toontown.toonfest import DistributedToonfestTowerBase/AI
@@ -1519,6 +1520,9 @@ dclass DistributedElectionEvent : DistributedObject {
 
 dclass DistributedFlippyStand : DistributedObject {
   wheelbarrowAvatarEnter() clsend airecv;
+};
+
+dclass DistributedToonfestDayNight : DistributedObject {
 };
 
 dclass DistributedToonfestTower : DistributedObject {

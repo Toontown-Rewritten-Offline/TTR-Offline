@@ -6,7 +6,6 @@ from direct.directnotify.DirectNotifyGlobal import directNotify
 from toontown.toonbase import ToontownGlobals
 from toontown.safezone.TFSafeZoneLoader import TFSafeZoneLoader
 from toontown.town.TTTownLoader import TTTownLoader
-from toontown.toonfest import DistributedToonfestCog
 from . import SkyUtil
 
 class TFHood(ToonHood):

@@ -28,8 +28,7 @@ if not ConfigVariableBool('auto-start-server', False):
     loadPrcFileData('Command-line', localconfig)
 WIP '''
 
-if __debug__:
-    loadPrcFile('config/dev.prc')
+loadPrcFile('config/dev.prc')
 
 # Settings
 print('ServiceStartUD: Loading settings.')

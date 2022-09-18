@@ -6,6 +6,7 @@ from toontown.toonbase import ToontownGlobals
 from toontown.safezone.DistributedPicnicBasketAI import DistributedPicnicBasketAI
 from toontown.safezone.DistributedPicnicTableAI import DistributedPicnicTableAI
 from toontown.distributed.DistributedTimerAI import DistributedTimerAI
+from toontown.toonfest import DistributedToonfestDayNightAI
 from toontown.toonfest import DistributedToonfestTowerAI
 from toontown.toonfest import DistributedToonfestTowerBaseAI
 from toontown.toonfest import DistributedToonfestVictoryTrampolineActivityAI
@@ -31,6 +32,8 @@ class TFHoodAI(SZHoodAI):
         self.toonfestTowerBase.generateWithRequired(self.HOOD)
         self.toonfestTramp = DistributedToonfestVictoryTrampolineActivityAI.DistributedToonfestVictoryTrampolineActivityAI(self.air)
         self.toonfestTramp.generateWithRequired(self.HOOD)
+        self.toonfestDayNight = DistributedToonfestDayNightAI.DistributedToonfestDayNightAI(self.air)
+        self.toonfestDayNight.generateWithRequired(self.HOOD)
         #self.cannonActivity = DistributedToonfestCannonActivityAI.DistributedToonfestCannonActivityAI(self.air)
         #self.cannonActivity.generateWithRequired(self.HOOD)
         #self.act = DistributedToonfestCannonAI(self.air)
