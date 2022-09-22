@@ -561,8 +561,8 @@ from toontown.toonfest import DistributedToonfestCog/AI
 from toontown.toonfest import DistributedToonfestActivity/AI
 from toontown.toonfest import DistributedToonfestTrampolineActivity/AI
 from toontown.toonfest import DistributedToonfestVictoryTrampolineActivity/AI
-//from toontown.toonfest import DistributedToonfestCannon/AI
-//from toontown.toonfest import DistributedToonfestCannonActivity/AI
+from toontown.toonfest import DistributedToonfestCannon/AI
+from toontown.toonfest import DistributedToonfestCannonActivity/AI
 from toontown.election import DistributedSafezoneInvasion/AI
 from toontown.election import DistributedElectionCamera/AI
 from toontown.election import DistributedElectionCameraManager/AI

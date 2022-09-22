@@ -8,6 +8,7 @@ class SZTreasurePlannerAI(RegenTreasurePlannerAI):
         self.zoneId = zoneId
         self.spawnPoints = spawnPoints
         self.healAmount = healAmount
+        self.treasureType = treasureType
         RegenTreasurePlannerAI.__init__(self, zoneId, treasureType, 'SZTreasurePlanner-%d' % zoneId, spawnRate, maxTreasures)
 
     def initSpawnPoints(self):
@@ -15,8 +16,12 @@ class SZTreasurePlannerAI(RegenTreasurePlannerAI):
 
     def validAvatar(self, treasure, av):
         # Avatars can only heal if they are missing some health, but aren't sad.
-        if av.getHp() < av.getMaxHp() and av.getHp() > 0:
-            av.toonUp(self.healAmount)
+        if self.treasureType == 10:
+            av.addMoney(self.healAmount)
             return True
         else:
-            return False
+            if av.getHp() < av.getMaxHp() and av.getHp() > 0:
+                av.toonUp(self.healAmount)
+                return True
+            else:
+                return False

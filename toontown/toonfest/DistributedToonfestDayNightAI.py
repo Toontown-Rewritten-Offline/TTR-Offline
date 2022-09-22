@@ -1,5 +1,5 @@
 from direct.directnotify import DirectNotifyGlobal
-from direct.distributed import DistributedObjectAI
+from direct.distributed.DistributedObjectAI import DistributedObjectAI
 
-class DistributedToonfestDayNightAI(DistributedObjectAI.DistributedObjectAI):
+class DistributedToonfestDayNightAI(DistributedObjectAI):
     notify = DirectNotifyGlobal.directNotify.newCategory("DistributedToonfestDayNightAI")

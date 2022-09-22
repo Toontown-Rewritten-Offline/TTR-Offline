@@ -10,6 +10,7 @@ TreasureDL = 5
 TreasureOZ = 6
 TreasureE = 7
 TreasureEF = 9
+TreasureTF = 10
 TreasureModels = {TreasureTT: ('phase_4/models/props/icecream', 'phase_4/audio/sfx/SZ_DD_treasure.ogg'),
  TreasureDD: ('phase_6/models/props/starfish_treasure', 'phase_4/audio/sfx/SZ_DD_treasure.ogg'),
  TreasureDG: ('phase_8/models/props/flower_treasure', 'phase_4/audio/sfx/SZ_DD_treasure.ogg'),
@@ -18,7 +19,8 @@ TreasureModels = {TreasureTT: ('phase_4/models/props/icecream', 'phase_4/audio/s
  TreasureDL: ('phase_8/models/props/zzz_treasure', 'phase_4/audio/sfx/SZ_DD_treasure.ogg'),
  TreasureOZ: ('phase_6/models/props/acorn_treasure', 'phase_4/audio/sfx/SZ_DD_treasure.ogg'),
  TreasureE: ('phase_5.5/models/props/popsicle_treasure', 'phase_4/audio/sfx/SZ_DD_treasure.ogg'),
- TreasureEF: ('phase_5.5/models/props/popsicle_treasure', 'phase_4/audio/sfx/SZ_DD_treasure.ogg')}
+ TreasureEF: ('phase_5.5/models/props/popsicle_treasure', 'phase_4/audio/sfx/SZ_DD_treasure.ogg'),
+ TreasureTF: ('phase_6/models/events/ttr_m_ww_beanBag', 'phase_4/audio/sfx/SZ_DD_treasure.ogg')}
 SafeZoneTreasureSpawns = {ToontownGlobals.ToontownCentral: (TreasureTT,
                                    3,
                                    [(-61.3, -9.1, 1.2),
@@ -44,7 +46,7 @@ SafeZoneTreasureSpawns = {ToontownGlobals.ToontownCentral: (TreasureTT,
                                     (-132.528, 31.255, 0.525)],
                                    10,
                                    5),
- ToontownGlobals.ToonFest: (random.randrange(0, 8),
+ ToontownGlobals.ToonFest: (TreasureTF,
                             random.randrange(2, 13),
                             [(-61.3, -9.1, 1.2),
                              (-90.7, -5.7, -0.58),
@@ -68,7 +70,7 @@ SafeZoneTreasureSpawns = {ToontownGlobals.ToontownCentral: (TreasureTT,
                              (-110.613, 86.1727, 0.525),
                              (-132.528, 31.255, 0.525)],
                             10,
-                            5),
+                            20),
  ToontownGlobals.DonaldsDock: (TreasureDD,
                                10,
                                [(52.9072, -23.4768, -12.308),

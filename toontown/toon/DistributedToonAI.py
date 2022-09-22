@@ -4799,6 +4799,14 @@ def setMaxMoney(moneyVal):
     return 'maxMoney set to %s' % moneyVal
 
 @magicWord(category=CATEGORY_CHARACTERSTATS, types=[int])
+def setMoney(moneyVal):
+    """Set target's money and maxMoney values."""
+    if not 40 <= moneyVal <= 250:
+        return 'Money value must be between 40 and 250.'
+    spellbook.getTarget().b_setMoney(moneyVal)
+    return 'maxMoney set to %s' % moneyVal
+
+@magicWord(category=CATEGORY_CHARACTERSTATS, types=[int])
 def setFishingRod(rodVal):
     """Set target's fishing rod value."""
     if not 0 <= rodVal <= 4:

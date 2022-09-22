@@ -51,7 +51,7 @@ class DistributedToonfestCannon(DistributedObject, Cannon):
         self.toonInsideAvId = 0
         self.sign = None
         self.controllingToonAvId = None
-        self.load()
+        #self.load()
         return
 
     def generateInit(self):
@@ -62,26 +62,11 @@ class DistributedToonfestCannon(DistributedObject, Cannon):
         print('Cannon loaded!')
         self.notify.debug('load')
         Cannon.load(self, self.uniqueName('Cannon'))
-        if base.cr and base.cr.partyManager and base.cr.partyManager.getShowDoid():
-            nameText = TextNode('nameText')
-            nameText.setCardAsMargin(0.1, 0.1, 0.1, 0.1)
-            nameText.setCardDecal(True)
-            nameText.setCardColor(1.0, 1.0, 1.0, 0.0)
-            r = 232.0 / 255.0
-            g = 169.0 / 255.0
-            b = 23.0 / 255.0
-            nameText.setTextColor(r, g, b, 1)
-            nameText.setAlign(nameText.ACenter)
-            nameText.setShadowColor(0, 0, 0, 1)
-            nameText.setText(str(self.doId))
-            namePlate = self.parentNode.attachNewNode(nameText)
-            namePlate.setDepthWrite(0)
-            namePlate.setPos(0, 0, 8)
-            namePlate.setScale(3)
 
     def announceGenerate(self):
         self.sign = self.activity.sign.instanceUnderNode(self.activity.getParentNodePath(), self.uniqueName('sign'))
         self.sign.reparentTo(self.activity.getParentNodePath())
+        self.parentNode.setPos(130, -94, 4.579)
         self.sign.setPos(self.parentNode, self.sign.getPos())
 
     def unload(self):

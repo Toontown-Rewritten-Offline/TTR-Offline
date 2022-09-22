@@ -2,6 +2,7 @@
 from panda3d.core import *
 from .SafeZoneLoader import SafeZoneLoader
 from . import TFPlayground
+from toontown.battle import BattleParticles
 from toontown.hood import ZoneUtil
 from toontown.toonbase import ToontownGlobals
 from toontown.effects import Bubbles
@@ -11,8 +12,6 @@ from direct.actor import Actor
 from direct.interval.IntervalGlobal import *
 from direct.distributed.DistributedObject import DistributedObject
 from otp.nametag.NametagConstants import *
-from toontown.pets import Pet
-from toontown.pets import PetDNA
 import math
 import random
 
@@ -31,8 +30,77 @@ class TFSafeZoneLoader(SafeZoneLoader):
         self.clouds = []
         return
 
+    def load(self):
+        SafeZoneLoader.load(self)
+        self.flippy = NPCToons.createLocalNPC(2001)
+        self.flippy.reparentTo(render)
+        self.flippy.setPickable(0)
+        self.flippy.setPos(188, -260, 4.597)
+        self.flippy.setH(108.411)
+        self.flippy.initializeBodyCollisions('toon')
+        self.flippy.addActive()
+        self.flippy.startBlink()
+        self.flippyBlatherSequence = Sequence(Wait(10), Func(self.flippy.setChatAbsolute, 'Welcome Toons, far and wide!', CFSpeech | CFTimeout), Func(self.flippy.play, 'wave'), Func(self.flippy.loop, 'neutral'), Wait(5), Func(self.flippy.setChatAbsolute, "It's been an amazing year at Toontown, and we're glad you could join us!", CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, "Oh, don't mind the little guy back there. That's my new pet, Fluffy.", CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, "He's a real rascal, but he already has the Cog-fighting down to a science!", CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, 'Doctor Surlee says he\'s some sort of creature called a "Doodle". Funny name, right?', CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, 'Anyway, what are you waiting for?', CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, 'Grab some pies, catch some fish, and go for a spin. ToonFest is in full swing!', CFSpeech | CFTimeout))
+        self.flippyBlatherSequence.loop()
+        self.npctest = NPCToons.createLocalNPC(91000)
+        self.npctest.setPickable(0)
+        self.npctest.setPos(109, -329, 8.35)
+        self.npctest.setH(60)
+        self.npctest.reparentTo(render)
+        self.npctest.initializeBodyCollisions('toon')
+        self.npctest.addActive()
+        self.npctest.startBlink()
+        self.towerGeom = self.geom.find('**/toonfest_tower_DNARoot')
+        self.toonfestDoorsClosed = self.towerGeom.find('**/tf_tower_doors_closed')
+        self.toonfestDoorsClosedColl1 = self.towerGeom.find('**/collision_walls_closed_1')
+        self.toonfestDoorsClosedColl2 = self.towerGeom.find('**/collision_walls_closed_2')
+        self.toonfestDoorsClosed.removeNode()
+        self.toonfestDoorsClosedColl1.removeNode()
+        self.toonfestDoorsClosedColl2.removeNode()
+        try:
+            self.base1 = self.towerGeom.find('**/base1')
+            self.base2 = self.towerGeom.find('**/base2')
+            self.base3 = self.towerGeom.find('**/base3')
+        except:
+            self.notify.warning('Something messed up loading the tower bases!')
+        self.confetti_1 = BattleParticles.loadParticleFile('tf_confetti_1.ptf')
+        self.confetti_1.setPos(0, 0, 5)
+        self.confetti_2 = BattleParticles.loadParticleFile('tf_confetti_2.ptf')
+        self.confetti_2.setPos(0, 0, 5)
+        self.confettiRender = self.geom.attachNewNode('confettiRender')
+        self.confettiRender.setDepthWrite(0)
+        self.confettiRender.setBin('fixed', 1)
+
+    def unload(self):
+        SafeZoneLoader.unload(self)
+        del self.confetti_1
+        del self.confetti_2
+        del self.confettiRender
+        self.flippyBlatherSequence.finish()
+        if self.flippy:
+            self.flippy.stopBlink()
+            self.flippy.removeActive()
+            self.flippy.cleanup()
+            self.flippy.removeNode()
+        if self.npctest:
+            self.npctest.stopBlink()
+            self.npctest.removeActive()
+            self.npctest.cleanup()
+            self.npctest.removeNode()
+
+    def enter(self, requestStatus):
+        SafeZoneLoader.enter(self, requestStatus)
+        self.confetti_1.start(camera, self.confettiRender)
+        self.confetti_2.start(camera, self.confettiRender)
+
+    def exit(self):
+        SafeZoneLoader.exit(self)
+        self.confetti_1.cleanup()
+        self.confetti_2.cleanup()
+
     def loadClouds(self):
         self.loadCloudPlatforms()
+        self.startCloudPlatforms()
         if base.cloudPlatformsEnabled and 0:
             self.setCloudSwitch(1)
         if self.cloudSwitch:
@@ -86,17 +154,18 @@ class TFSafeZoneLoader(SafeZoneLoader):
 
     def loadCloudPlatforms(self):
         self.cloudOrigin = self.geom.attachNewNode('cloudOrigin')
-        self.cloudOrigin.setZ(30)
+        #self.cloudOrigin.setZ(30)
+        self.cloudOrigin.setPos(221, -61, 60)
         self.loadSkyCollision()
-        self.numClouds = 12
+        self.numClouds = 24
         for i in range(self.numClouds):
-            self.loadCloud(i, 50, 0)
+            self.loadCloud(i, 100, 0)
 
         for i in range(self.numClouds):
-            self.loadCloud(i, 70, 30)
+            self.loadCloud(i, 120, 30)
 
         for i in range(self.numClouds):
-            self.loadCloud(i, 30, 60)
+            self.loadCloud(i, 100, 60)
 
         self.cloudOrigin.stash()
 
@@ -124,58 +193,3 @@ class TFSafeZoneLoader(SafeZoneLoader):
                 self.cloudOrigin.unstash()
             else:
                 self.cloudOrigin.stash()
-
-    def load(self):
-        SafeZoneLoader.load(self)
-        self.flippy = NPCToons.createLocalNPC(2001)
-        self.flippy.reparentTo(render)
-        self.flippy.setPickable(0)
-        self.flippy.setPos(188, -260, 4.597)
-        self.flippy.setH(108.411)
-        self.flippy.initializeBodyCollisions('toon')
-        self.flippy.addActive()
-        self.flippy.startBlink()
-        self.flippyBlatherSequence = Sequence(Wait(10), Func(self.flippy.setChatAbsolute, 'Welcome Toons, far and wide!', CFSpeech | CFTimeout), Func(self.flippy.play, 'wave'), Func(self.flippy.loop, 'neutral'), Wait(5), Func(self.flippy.setChatAbsolute, "It's been an amazing year at Toontown, and we're glad you could join us!", CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, "Oh, don't mind the little guy back there. That's my new pet, Fluffy.", CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, "He's a real rascal, but he already has the Cog-fighting down to a science!", CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, 'Doctor Surlee says he\'s some sort of creature called a "Doodle". Funny name, right?', CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, 'Anyway, what are you waiting for?', CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, 'Grab some pies, catch some fish, and go for a spin. ToonFest is in full swing!', CFSpeech | CFTimeout))
-        self.flippyBlatherSequence.loop()
-        self.npctest = NPCToons.createLocalNPC(91000)
-        self.npctest.setPickable(0)
-        self.npctest.setPos(109, -329, 8.35)
-        self.npctest.setH(60)
-        self.npctest.reparentTo(render)
-        self.npctest.initializeBodyCollisions('toon')
-        self.npctest.addActive()
-        self.npctest.startBlink()
-        self.towerGeom = self.geom.find('**/toonfest_tower_DNARoot')
-        self.toonfestDoorsClosed = self.towerGeom.find('**/tf_tower_doors_closed')
-        self.toonfestDoorsClosedColl1 = self.towerGeom.find('**/collision_walls_closed_1')
-        self.toonfestDoorsClosedColl2 = self.towerGeom.find('**/collision_walls_closed_2')
-        self.toonfestDoorsClosed.removeNode()
-        self.toonfestDoorsClosedColl1.removeNode()
-        self.toonfestDoorsClosedColl2.removeNode()
-        try:
-            self.base1 = self.towerGeom.find('**/base1')
-            self.base2 = self.towerGeom.find('**/base2')
-            self.base3 = self.towerGeom.find('**/base3')
-        except:
-            self.notify.warning('Something messed up loading the tower bases!')
-
-
-    def unload(self):
-        SafeZoneLoader.unload(self)
-        self.flippyBlatherSequence.finish()
-        if self.flippy:
-            self.flippy.stopBlink()
-            self.flippy.removeActive()
-            self.flippy.cleanup()
-            self.flippy.removeNode()
-        if self.npctest:
-            self.npctest.stopBlink()
-            self.npctest.removeActive()
-            self.npctest.cleanup()
-            self.npctest.removeNode()
-
-    def enter(self, requestStatus):
-        SafeZoneLoader.enter(self, requestStatus)
-
-    def exit(self):
-        SafeZoneLoader.exit(self)
