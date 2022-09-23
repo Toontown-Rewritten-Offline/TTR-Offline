@@ -115,10 +115,10 @@ class DistributedToonfestTowerBase(DistributedObject.DistributedObject):
         tpMgr = TextPropertiesManager.getGlobalPtr()
         avName = TextProperties()
         avName.setTextColor(0, 0.871, 0.498, 1)
-        avName.setTextScale(1.1)
+        avName.setTextScale(1.25)
         towerText = TextProperties()
         towerText.setTextColor(1, 0.906, 0.224, 1)
-        towerText.setTextScale(0.8)
+        towerText.setTextScale(0.95)
         tpMgr.setProperties('avName', avName)
         tpMgr.setProperties('towerText', towerText)
 
@@ -131,19 +131,19 @@ class DistributedToonfestTowerBase(DistributedObject.DistributedObject):
             self.cleanupTowerMessage()
             self.towerMessage['text'] = '\1avName\1%s\1towerText\1\nhas sped up part of the ToonFest Tower!' % avatarName
             self.towerMessage.show()
-            self.speedUpSequence = Sequence(bouncyTextMsg, Func(self.speedUpSound.play), Wait(10), fadeOut, Func(self.towerMessage.hide))
+            self.speedUpSequence = Sequence(Func(self.speedUpSound.play), bouncyTextMsg, Wait(10), fadeOut, Func(self.towerMessage.hide))
             self.speedUpSequence.start()
         elif operation == 'SlowDown':
             self.cleanupTowerMessage()
             self.towerMessage['text'] = '\1avName\1%s\1towerText\1\nhas slowed down part of the ToonFest Tower!' % avatarName
             self.towerMessage.show()
-            self.slowDownSequence = Sequence(bouncyTextMsg, Func(self.slowDownSound.play), Wait(10), fadeOut, Func(self.towerMessage.hide))
+            self.slowDownSequence = Sequence(Func(self.slowDownSound.play), bouncyTextMsg, Wait(10), fadeOut, Func(self.towerMessage.hide))
             self.slowDownSequence.start()
         elif operation == 'Reverse':
             self.cleanupTowerMessage()
             self.towerMessage['text'] = '\1avName\1%s\1towerText\1\nhas reversed part of the ToonFest Tower!' % avatarName
             self.towerMessage.show()
-            self.reverseSequence = Sequence(bouncyTextMsg, Func(self.changeDirectionSound.play), Wait(10), fadeOut, Func(self.towerMessage.hide))
+            self.reverseSequence = Sequence(Func(self.changeDirectionSound.play), bouncyTextMsg, Wait(10), fadeOut, Func(self.towerMessage.hide))
             self.reverseSequence.start()
 
     def playSpeedUp(self, avId, base):

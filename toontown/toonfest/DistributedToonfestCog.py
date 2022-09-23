@@ -174,7 +174,6 @@ class DistributedToonfestCog(DistributedObject, FSM):
         return
 
     def delete(self):
-        self.demand('Off')
         self.unload()
         DistributedObject.delete(self)
 
