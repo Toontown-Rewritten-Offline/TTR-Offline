@@ -32,10 +32,10 @@ class Elevator(StateData.StateData):
 
     def load(self):
         self.elevatorState.addChild(self.fsm)
-        self.buttonModels = loader.loadModel('phase_3.5/models/gui/inventory_gui')
-        self.upButton = self.buttonModels.find('**//InventoryButtonUp')
-        self.downButton = self.buttonModels.find('**/InventoryButtonDown')
-        self.rolloverButton = self.buttonModels.find('**/InventoryButtonRollover')
+        self.buttonModels = loader.loadModel('phase_3.5/models/gui/ttr_m_gui_bat_inventoryGUI')
+        self.upButton = self.buttonModels.find('**/gagButton/ttr_t_gui_bat_inventoryGUI_gagButton_base_up_card')
+        self.downButton = self.buttonModels.find('**/gagButton/ttr_t_gui_bat_inventoryGUI_gagButton_base_down_card')
+        self.rolloverButton = self.buttonModels.find('**/gagButton/ttr_t_gui_bat_inventoryGUI_gagButton_base_hover_card')
 
     def unload(self):
         self.elevatorState.removeChild(self.fsm)
@@ -115,7 +115,7 @@ class Elevator(StateData.StateData):
         self.disableExitButton()
 
     def enableExitButton(self):
-        self.exitButton = DirectButton(relief=None, text=TTLocalizer.ElevatorHopOff, text_fg=(0.9, 0.9, 0.9, 1), text_pos=(0, -0.23), text_scale=TTLocalizer.EexitButton, image=(self.upButton, self.downButton, self.rolloverButton), image_color=(0.5, 0.5, 0.5, 1), image_scale=(20, 1, 11), pos=(0, 0, 0.8), scale=0.15, command=lambda self = self: self.fsm.request('requestExit'))
+        self.exitButton = DirectButton(relief=None, text=TTLocalizer.ElevatorHopOff, text_fg=(0.9, 0.9, 0.9, 1), text_pos=(0, -0.23), text_scale=TTLocalizer.EexitButton, image=(self.upButton, self.downButton, self.rolloverButton), image_color=(0.5, 0.5, 0.5, 1), image_scale=(20, 1, 11), pos=(0, 0, 0.8), scale=0.024, command=lambda self = self: self.fsm.request('requestExit'))
         if hasattr(localAvatar, 'boardingParty') and localAvatar.boardingParty and localAvatar.boardingParty.getGroupLeader(localAvatar.doId) and localAvatar.boardingParty.getGroupLeader(localAvatar.doId) != localAvatar.doId:
             self.exitButton['command'] = None
             self.exitButton.hide()

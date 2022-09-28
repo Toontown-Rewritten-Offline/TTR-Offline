@@ -29,9 +29,9 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
     ShadowBuffedColor = Vec4(1, 1, 1, 1)
     UnpressableShadowBuffedColor = Vec4(1, 1, 1, 0.3)
     TrackYOffset = 0.0
-    TrackYSpacing = -0.12
-    ButtonXOffset = -0.31
-    ButtonXSpacing = 0.18
+    TrackYSpacing = -0.16
+    ButtonXOffset = -1.4
+    ButtonXSpacing = 0.785
 
     def __init__(self, toon, invStr = None, ShowSuperGags = 1):
         InventoryBase.InventoryBase.__init__(self, toon, invStr)
@@ -186,12 +186,17 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
 
         invModel.removeNode()
         del invModel
-        self.buttonModels = loader.loadModel('phase_3.5/models/gui/inventory_gui')
-        self.rowModel = self.buttonModels.find('**/InventoryRow')
-        self.upButton = self.buttonModels.find('**/InventoryButtonUp')
-        self.downButton = self.buttonModels.find('**/InventoryButtonDown')
-        self.rolloverButton = self.buttonModels.find('**/InventoryButtonRollover')
-        self.flatButton = self.buttonModels.find('**/InventoryButtonFlat')
+        self.buttonModels = loader.loadModel('phase_3.5/models/gui/ttr_m_gui_bat_battleMenu')
+        self.etcModels = loader.loadModel('phase_3.5/models/gui/ttr_m_gui_bat_inventoryGUI')
+        self.rowModel = self.etcModels.find('**/gagStrip')
+        self.rowModel.find('ttr_t_gui_bat_inventoryGUI_gagStrip_highlight_card').setColorOff()
+        self.rowModel.find('**/ttr_t_gui_bat_inventoryGUI_lockedOut_card').removeNode()
+        self.gagButtons = self.etcModels.find('**/gagButton')
+        self.upButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_up_card')
+        self.downButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_down_card')
+        self.rolloverButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_hover_card')
+        self.flatButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_up_card')
+        self.flatButton.find('ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card').setColorOff()
         self.invFrame = DirectFrame(relief=None, parent=self)
         self.battleFrame = None
         self.purchaseFrame = None
@@ -215,19 +220,19 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
         self.trackBars = []
         self.buttons = []
         for track in range(0, len(Tracks)):
-            trackFrame = DirectFrame(parent=self.invFrame, image=self.rowModel, scale=(1.0, 1.0, 1.1), pos=(0, 0.3, self.TrackYOffset + track * self.TrackYSpacing), image_color=(TrackColors[track][0],
+            trackFrame = DirectFrame(parent=self.invFrame, image=self.rowModel, scale=(0.25, 0.25, 0.275), pos=(0, 0.3, self.TrackYOffset + track * self.TrackYSpacing), image_color=(TrackColors[track][0],
              TrackColors[track][1],
              TrackColors[track][2],
              1), state=DGG.NORMAL, relief=None)
             trackFrame.bind(DGG.WITHIN, self.enterTrackFrame, extraArgs=[track])
             trackFrame.bind(DGG.WITHOUT, self.exitTrackFrame, extraArgs=[track])
             self.trackRows.append(trackFrame)
-            adjustLeft = -0.065
-            self.trackNameLabels.append(DirectLabel(text=TextEncoder.upper(Tracks[track]), parent=self.trackRows[track], pos=(-0.72 + adjustLeft, -0.1, 0.01), scale=TTLocalizer.INtrackNameLabels, relief=None, text_fg=(0.2, 0.2, 0.2, 1), text_font=getInterfaceFont(), text_align=TextNode.ALeft, textMayChange=0))
-            self.trackBars.append(DirectWaitBar(parent=self.trackRows[track], pos=(-0.58 + adjustLeft, -0.1, -0.025), relief=DGG.SUNKEN, frameSize=(-0.6,
+            adjustLeft = -0.26
+            self.trackNameLabels.append(DirectLabel(text=TextEncoder.upper(Tracks[track]), parent=self.trackRows[track], pos=(-3.1 + adjustLeft, -0.1, 0.01), scale=TTLocalizer.INtrackNameLabels, relief=None, text_fg=(0.2, 0.2, 0.2, 1), text_font=getInterfaceFont(), text_align=TextNode.ALeft, textMayChange=0))
+            self.trackBars.append(DirectWaitBar(parent=self.trackRows[track], pos=(-2.54 + adjustLeft, -0.1, -0.1), relief=DGG.SUNKEN, frameSize=(-0.6,
              0.6,
              -0.1,
-             0.1), borderWidth=(0.02, 0.02), scale=0.25, frameColor=(TrackColors[track][0] * 0.6,
+             0.1), borderWidth=(0.02, 0.02), scale=1, frameColor=(TrackColors[track][0] * 0.6,
              TrackColors[track][1] * 0.6,
              TrackColors[track][2] * 0.6,
              1), barColor=(TrackColors[track][0] * 0.9,
@@ -239,7 +244,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
                 button = DirectButton(parent=self.trackRows[track], image=(self.upButton,
                  self.downButton,
                  self.rolloverButton,
-                 self.flatButton), geom=self.invModels[track][item], text='50', text_scale=0.04, text_align=TextNode.ARight, geom_scale=0.7, geom_pos=(-0.01, -0.1, 0), text_fg=Vec4(1, 1, 1, 1), text_pos=(0.07, -0.04), textMayChange=1, relief=None, image_color=(0, 0.6, 1, 1), pos=(self.ButtonXOffset + item * self.ButtonXSpacing + adjustLeft, -0.1, 0), command=self.__handleSelection, extraArgs=[track, item])
+                 self.flatButton), geom=self.invModels[track][item], text='50', text_scale=0.16, text_align=TextNode.ARight, geom_scale=2.8, geom_pos=(-0.01, -0.1, 0), text_fg=Vec4(1, 1, 1, 1), text_pos=(0.28, -0.16), textMayChange=1, relief=None, image_color=(0, 0.6, 1, 1), pos=(self.ButtonXOffset + item * self.ButtonXSpacing + adjustLeft, -0.1, 0), command=self.__handleSelection, extraArgs=[track, item])
                 button.bind(DGG.ENTER, self.showDetail, extraArgs=[track, item])
                 button.bind(DGG.EXIT, self.hideDetail)
                 self.buttons[track].append(button)
@@ -460,7 +465,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
         self.deleteExitButton.setScale(0.75)
         self.invFrame.reparentTo(self)
         self.invFrame.setPos(0, 0, 0)
-        self.invFrame.setScale(1)
+        self.invFrame.setScale(0.8)
         self.deleteEnterButton['command'] = self.setActivateMode
         self.deleteEnterButton['extraArgs'] = ['bookDelete']
         for track in range(len(Tracks)):
@@ -1099,6 +1104,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
             shadowColor = self.ShadowColor
         button.configure(text_shadow=shadowColor, geom_color=self.BookUnpressableGeomColor, image_image=self.flatButton, commandButtons=())
         button.configure(image0_color=self.BookUnpressableImage0Color, image2_color=self.BookUnpressableImage2Color)
+        
 
     def hideTrack(self, trackIndex):
         self.trackNameLabels[trackIndex].show()
@@ -1136,9 +1142,9 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
         propBonus = self.checkPropBonus(track)
         bonus = organicBonus or propBonus
         if bonus:
-            textScale = 0.05
+            textScale = 0.20
         else:
-            textScale = 0.04
+            textScale = 0.16
         button.configure(text_scale=textScale)
 
     def buttonBoing(self, track, level):

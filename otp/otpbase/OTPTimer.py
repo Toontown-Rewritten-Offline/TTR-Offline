@@ -29,8 +29,8 @@ class OTPTimer(DirectFrame):
 
     def getImage(self):
         if OTPTimer.ClockImage == None:
-            model = loader.loadModel('phase_3.5/models/gui/clock_gui')
-            OTPTimer.ClockImage = model.find('**/alarm_clock')
+            model = loader.loadModel('phase_3.5/models/gui/ttr_m_gui_gen_alarmClock')
+            OTPTimer.ClockImage = model.find('**/ttr_t_gui_gen_alarmClock')
             model.removeNode()
         return OTPTimer.ClockImage
 
