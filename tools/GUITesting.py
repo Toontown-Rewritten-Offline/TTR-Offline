@@ -2,7 +2,6 @@ from direct.showbase.MessengerGlobal import *
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import loadPrcFile
 from direct.gui import DirectGuiGlobals
-from toontown.toonfest import TokenRewardGui
 
 loadPrcFile('config/dev.prc')
 

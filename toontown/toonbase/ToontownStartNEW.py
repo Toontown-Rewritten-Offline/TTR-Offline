@@ -2,8 +2,6 @@ from panda3d.core import *
 import builtins
 import os
 
-# Start Toontown (post v2.0.0)
-
 # The VirtualFileSystem, which has already initialized, doesn't see the mount
 # directives in the config(s) yet. We have to force it to load those manually:
 from panda3d.core import VirtualFileSystem, ConfigVariableList, Filename
@@ -13,6 +11,7 @@ for mount in mounts:
     mountfile, mountpoint = (mount.split(' ', 2) + [None, None, None])[:2]
     vfs.mount(Filename(mountfile), Filename(mountpoint), 0)
 
+# Temporary Content Pack Loader (put Multifiles in "resources" folder)
 import glob
 for file in glob.glob('resources/*.mf'):
     mf = Multifile()
@@ -95,7 +94,7 @@ from . import TTLocalizer
 from otp.otpbase import OTPGlobals
 OTPGlobals.setDefaultProductPrefix(TTLocalizer.ProductPrefix)
 
-
+# Prepare GUI Sounds
 print('ToontownStart: Loading default gui sounds')
 DirectGuiGlobals.setDefaultRolloverSound(base.loader.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg'))
 DirectGuiGlobals.setDefaultClickSound(base.loader.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg'))
