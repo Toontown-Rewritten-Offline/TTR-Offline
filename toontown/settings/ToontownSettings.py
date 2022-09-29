@@ -19,7 +19,7 @@ class ToontownSettings:
         electionEvent = self.settings.getBool('game', 'elections', False)
         loadPrcFileData('toonBase Settings Election', 'want-doomsday %s' % electionEvent)
         self.settings.updateSetting('game', 'elections', electionEvent)
-        smoothAnimations = self.settings.getBool('game', 'smoothanimations', False)
+        smoothAnimations = self.settings.getBool('game', 'smoothanimations', True)
         loadPrcFileData('toonBase Settings Smooth Animations', 'want-smooth-animations %s' % smoothAnimations)
         self.settings.updateSetting('game', 'smoothanimations', smoothAnimations)
         newTTR = self.settings.getBool('game', 'retro-rewritten', False)
