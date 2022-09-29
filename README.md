@@ -4,7 +4,7 @@ Toontown Rewritten Private DEVELOPMENT Repository
 
 Launcher: https://github.com/RegDogg/ToontownRewrittenPrivate-Launcher/
 
-Resources: https://github.com/RegDogg/TTR-Private-Resources
+Resources: https://github.com/RegDogg/resources
 
 Panda3D: https://github.com/RegDogg/panda3d
 
