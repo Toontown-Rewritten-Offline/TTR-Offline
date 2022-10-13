@@ -1065,6 +1065,8 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
     def __handleClarabelleConfirm(self):
         self.confirmFrame = TTDialog.TTDialog(style=TTDialog.YesNo, text=TTLocalizer.TeleportPanelEstate, text_wordwrap=12, command=self.__handleClarabelleButton)
         self.confirmFrame.show()
+        base.localAvatar.disableAvatarControls()
+
     def __handleClarabelleButton(self, value):
         if self.confirmFrame:
             self.confirmFrame.destroy()
@@ -1081,7 +1083,9 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
             if config.GetBool('want-qa-regression', 0):
                 self.notify.info('QA-REGRESSION: VISITESTATE: Visit estate')
             place.goHomeNow(self.lastHood)
-            return                                   
+            return
+        else:
+            base.localAvatar.enableAvatarControls()
 
 
     def toonfestClarabelleCollision(self, show = True):
@@ -1130,6 +1134,7 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
     def __handleToonFestConfirm(self):
         self.confirmFrame = TTDialog.TTDialog(style=TTDialog.YesNo, text=TTLocalizer.TeleportPanelToonFest, text_wordwrap=12, command=self.__handleToonFestButton)
         self.confirmFrame.show()
+        base.localAvatar.disableAvatarControls()
 
     def __handleToonFestButton(self, value):
         if self.confirmFrame:
@@ -1150,6 +1155,8 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
             avId = 0
             place.requestTeleport(hoodId, zoneId, shardId, avId)
             return
+        else:
+            base.localAvatar.enableAvatarControls()
 
     def __startMoveFurniture(self):
         self.oldPos = self.getPos()
