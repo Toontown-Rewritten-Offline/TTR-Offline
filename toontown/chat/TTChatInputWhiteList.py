@@ -103,6 +103,7 @@ class TTChatInputWhiteList(ChatInputWhiteListFrame):
             return
         else:
             ChatInputWhiteListFrame.sendChat(self, self.chatEntry.get())
+            base.localAvatar.enableAvatarControls()
 
     def sendChatByData(self, text):
         if self.trueFriendChat:
@@ -135,6 +136,7 @@ class TTChatInputWhiteList(ChatInputWhiteListFrame):
         print('chatButtonPressed')
         if self.okayToSubmit:
             self.sendChat(self.chatEntry.get())
+            base.localAvatar.enableAvatarControls()
         else:
             self.sendFailed(self.chatEntry.get())
 

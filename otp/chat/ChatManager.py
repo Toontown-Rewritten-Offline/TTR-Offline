@@ -221,8 +221,6 @@ class ChatManager(DirectObject.DirectObject):
 
     def startChatTyping(self):
         messenger.send('enterNormalChat')
-        #base.localAvatar.disableAvatarControls()
-        #self.accept("enter", base.localAvatar.enableAvatarControls)
 
     def enterMainMenu(self):
         self.checkObscurred()
@@ -435,6 +433,7 @@ class ChatManager(DirectObject.DirectObject):
 
     def enterNormalChat(self):
         result = self.chatInputNormal.activateByData()
+        base.localAvatar.disableAvatarControls()
         return result
 
     def exitNormalChat(self):
