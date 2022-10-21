@@ -11,15 +11,14 @@ preload-avatars #t
 texture-anisotropic-degree 16
 want-speedhack-fix #t
 load-display pandagl
+default-directnotify-level info
 
 
 # New Addons!
 want-WASD #t
 tt-framerate #t
-want-new-ttrloader #t
 want-new-toonhall #t
 want-max-font #t
-want-smooth-animations #f
 
 
 # Resource settings

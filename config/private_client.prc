@@ -16,10 +16,8 @@ load-display pandagl
 # New Addons!
 want-WASD #t
 tt-framerate #t
-want-new-ttrloader #t
 want-new-toonhall #t
 want-max-font #t
-want-smooth-animations #f
 
 
 # Resource settings

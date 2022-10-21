@@ -28,10 +28,11 @@ class NewLoadingScreen(DirectObject.DirectObject):
         musPhase1 = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase1.ogg')
         musPhase2 = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase2.ogg')
         if musPhase1:
-            self.musicVolCont1(0.8)
+            self.musicVolCont1(1)
             self.musicVolCont2(0)
-            #musPhase1.setLoopStart(2.9)
-            #musPhase2.setLoopStart(2.9)
+            if not __debug__:
+                musPhase1.setLoopStart(2.9)
+                musPhase2.setLoopStart(2.9)
             musPhase1.setLoop(True)
             musPhase2.setLoop(True)
             musPhase1.play()
@@ -40,7 +41,7 @@ class NewLoadingScreen(DirectObject.DirectObject):
 
     def musicLoadIn(self):
         phase1 = LerpFunc(self.musicVolCont1,
-                    fromData=0.8,
+                    fromData=1,
                     toData=0,
                     duration=2,
                     blendType='easeIn',
@@ -49,7 +50,7 @@ class NewLoadingScreen(DirectObject.DirectObject):
         
         phase2 = LerpFunc(self.musicVolCont2,
                     fromData=0,
-                    toData=0.8,
+                    toData=1,
                     duration=2,
                     blendType='easeIn',
                     extraArgs=[],
