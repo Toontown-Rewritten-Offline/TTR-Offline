@@ -20,10 +20,10 @@ from . import FADoorCodes
 from toontown.hood import ZoneUtil
 import random
 import time
-from toontown.cogdominium.DistributedCogdoInteriorAI import DistributedCogdoInteriorAI
-from toontown.cogdominium.SuitPlannerCogdoInteriorAI import SuitPlannerCogdoInteriorAI
-from toontown.cogdominium.CogdoLayout import CogdoLayout
-from toontown.cogdominium.DistributedCogdoElevatorExtAI import DistributedCogdoElevatorExtAI
+#from toontown.cogdominium.DistributedCogdoInteriorAI import DistributedCogdoInteriorAI
+#from toontown.cogdominium.SuitPlannerCogdoInteriorAI import SuitPlannerCogdoInteriorAI
+#from toontown.cogdominium.CogdoLayout import CogdoLayout
+#from toontown.cogdominium.DistributedCogdoElevatorExtAI import DistributedCogdoElevatorExtAI
 
 class DistributedBuildingAI(DistributedObjectAI.DistributedObjectAI):
 

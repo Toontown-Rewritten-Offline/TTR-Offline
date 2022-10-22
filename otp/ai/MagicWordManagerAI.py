@@ -32,7 +32,7 @@ class MagicWordManagerAI(DistributedObjectAI):
         if execute:
             response = spellbook.process(invoker, target, word)
             if response[0]:
-                self.sendUpdateToAvatarId(invokerId, 'sendMagicWordResponse', [response])
+                self.sendUpdateToAvatarId(invokerId, 'sendMagicWordResponse', [response[0]])
         else:
             response = ('Client MW executed.',)
             
