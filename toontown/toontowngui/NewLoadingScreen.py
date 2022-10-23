@@ -30,8 +30,9 @@ class NewLoadingScreen(DirectObject.DirectObject):
         if musPhase1:
             self.musicVolCont1(0.8)
             self.musicVolCont2(0)
-            #musPhase1.setLoopStart(2.9)
-            #musPhase2.setLoopStart(2.9)
+            if not __debug__:
+                musPhase1.setLoopStart(2.9)
+                musPhase2.setLoopStart(2.9)
             musPhase1.setLoop(True)
             musPhase2.setLoop(True)
             musPhase1.play()

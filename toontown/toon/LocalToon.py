@@ -1092,16 +1092,13 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
         if self.__toonfestButton == None:
             return
         toonfestXPos = ToonFestBaseXPos
-        notifyXPos = CatalogNotifyDialog.CatalogNotifyBaseXPos
         if show:
             toonfestXPos += AdjustmentForClarabelleButton
-            notifyXPos += AdjustmentForClarabelleButton
         newPos = (toonfestXPos - 1.1, 1.0, -0.125)
         self.__toonfestButton.setPos(newPos)
         if self.__toonfestNotifyDialog == None or self.__toonfestNotifyDialog.frame == None:
             return
         notifyPos = self.__toonfestNotifyDialog.frame.getPos()
-        notifyPos[0] = notifyXPos
         self.__toonfestNotifyDialog.frame.setPos(notifyPos)
         return
 
