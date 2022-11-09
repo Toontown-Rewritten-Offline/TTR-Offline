@@ -1810,4 +1810,13 @@ class DistributedBattleBaseAI(DistributedObjectAI.DistributedObjectAI, BattleBas
         self.serialNum += 1
         return num
 
-#VERIFICATION FAILED - in __init__ LOAD_GLOBAL 40(None) needs to be changed to a LOAD_CONST
+@magicWord(category=CATEGORY_CHARACTERSTATS)
+def skipMovie():
+    battleId = spellbook.getInvoker().getBattleId()
+    if not battleId:
+        return "You cannot skip a movie if you are not currently in battle!"
+    battle = simbase.air.doId2do.get(battleId)
+    if not battle:
+        return "{} is not a valid battle!".format(battleId)
+    battle._DistributedBattleBaseAI__movieDone()
+    return "Successfully skipped Battle movie!"
