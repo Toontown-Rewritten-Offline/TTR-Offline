@@ -2,7 +2,7 @@
 
 Toontown Rewritten Private DEVELOPMENT Repository
 
-Resources: https://github.com/RegDogg/resources
+Resources: https://github.com/Toontown-Rewritten-Private/TTRPrivate-Resources
 
 Panda3D: https://github.com/panda3d/panda3d/tree/v1.10.12
 
