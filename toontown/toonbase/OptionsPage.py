@@ -79,7 +79,9 @@ class OptionsPage(DirectFrame):
         geom=self.OptionsGUIGameplayActive, geom_scale=(0.15), geom_pos=(-0.6075, 0, 0.58125), pos=(0, 0, 0.11))
 
         self.OptionsPageGameplayTitle = OnscreenText(parent=self.OptionsPageGameplay, font=ToontownGlobals.getMickeyFontMaximum(), text=TTLocalizer.NewOptionsTabGameplayTitle, fg=self.TextTitleColor, pos=(0, 0.31, 0), scale=(0.15))
-        self.OptionsPageGameplayScrollFrame = DirectScrolledFrame(parent=self.OptionsPageGameplay, pos=(0, 0, -0.25), canvasSize=(-0.75, 0.75, -2, 2), frameSize=(-0.8, 0.8, -0.45, 0.5), verticalScroll_relief=None, verticalScroll_thumb_relief=None, verticalScroll_incButton_relief=None,  verticalScroll_decButton_relief=None, verticalScroll_geom=self.OptionsGUIScrollBar, verticalScroll_geom_pos=(0.8, 0, 0.05), verticalScroll_geom_scale=(0.225, 0.15, 0.15), verticalScroll_thumb_geom=self.OptionsGUIScrollThumb, verticalScroll_thumb_geom_scale=(0.05), verticalScroll_incButton_state=DGG.DISABLED, verticalScroll_decButton_state=DGG.DISABLED)
+        self.OptionsPageGameplayScrollFrame = DirectScrolledFrame(parent=self.OptionsPageGameplay, pos=(0, 0, -0.25), canvasSize=(-0.75, 0.75, -2, 2), frameSize=(-0.8, 0.8, -0.45, 0.5), verticalScroll_relief=None, verticalScroll_thumb_relief=None,  verticalScroll_decButton_relief=None, verticalScroll_geom=self.OptionsGUIScrollBar, verticalScroll_geom_pos=(0.8, 0, 0.05), verticalScroll_geom_scale=(0.225, 0.15, 0.15), verticalScroll_thumb_geom=self.OptionsGUIScrollThumb, verticalScroll_thumb_geom_pos=(0.04, 0, 0), verticalScroll_thumb_geom_scale=(0.05))
+        self.OptionsPageGameplayScrollFrame['verticalScroll_incButton_state'] = DGG.DISABLED
+        self.OptionsPageGameplayScrollFrame['verticalScroll_decButton_state'] = DGG.DISABLED
 
         # Controls
         self.OptionsPageControls = DirectFrame(parent=self, relief=None, image=self.OptionsGUIPageControls, image_scale=(0.15),
