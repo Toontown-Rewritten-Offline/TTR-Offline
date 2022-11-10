@@ -193,21 +193,28 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
         self.rowModel.find('**/ttr_t_gui_bat_inventoryGUI_lockedOut_card').removeNode()
         self.gagButtons = self.etcModels.find('**/gagButton')
 
-        self.upButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_up_card')
-        self.downButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_down_card')
-        self.rolloverButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_hover_card')
-        self.flatButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_up_card')
 
+        self.upButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_up_card')
         self.upButtonHighlight = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card')
         self.upButtonHighlight.reparentTo(self.upButton)
-        self.downButtonHighlight = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card')
+        self.upButtonHighlight.setColorOff()
+
+        self.downButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_down_card')
+        self.downButtonHighlight = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_highlight_down_card')
         self.downButtonHighlight.reparentTo(self.downButton)
-        self.rolloverButtonHighlight = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card')
+        self.downButtonHighlight.setColorOff()
+
+        self.rolloverButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_hover_card')
+        self.rolloverButtonHighlight = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_highlight_hover_card')
         self.rolloverButtonHighlight.reparentTo(self.rolloverButton)
+        self.rolloverButtonHighlight.setColorOff()
+
+        self.flatButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_up_card')
         self.flatButtonHighlight = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card')
         self.flatButtonHighlight.reparentTo(self.flatButton)
+        self.flatButtonHighlight.setColorOff()
 
-        self.flatButton.find('ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card').setColorOff()
+
         self.invFrame = DirectFrame(relief=None, parent=self)
         self.battleFrame = None
         self.purchaseFrame = None
