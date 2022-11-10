@@ -13,7 +13,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
     notify = DirectNotifyGlobal.directNotify.newCategory('InventoryNew')
     PressableTextColor = Vec4(1, 1, 1, 1)
     PressableGeomColor = Vec4(1, 1, 1, 1)
-    PressableImageColor = Vec4(0, 0.6, 1, 1)
+    PressableImageColor = Vec4(0, 0.52, 0.86, 1)
     PropBonusPressableImageColor = Vec4(1.0, 0.6, 0.0, 1)
     NoncreditPressableImageColor = Vec4(0.3, 0.6, 0.6, 1)
     PropBonusNoncreditPressableImageColor = Vec4(0.6, 0.6, 0.3, 1)
@@ -192,10 +192,21 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
         self.rowModel.find('ttr_t_gui_bat_inventoryGUI_gagStrip_highlight_card').setColorOff()
         self.rowModel.find('**/ttr_t_gui_bat_inventoryGUI_lockedOut_card').removeNode()
         self.gagButtons = self.etcModels.find('**/gagButton')
+
         self.upButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_up_card')
         self.downButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_down_card')
         self.rolloverButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_hover_card')
         self.flatButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_up_card')
+
+        self.upButtonHighlight = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card')
+        self.upButtonHighlight.reparentTo(self.upButton)
+        self.downButtonHighlight = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card')
+        self.downButtonHighlight.reparentTo(self.downButton)
+        self.rolloverButtonHighlight = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card')
+        self.rolloverButtonHighlight.reparentTo(self.rolloverButton)
+        self.flatButtonHighlight = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card')
+        self.flatButtonHighlight.reparentTo(self.flatButton)
+
         self.flatButton.find('ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card').setColorOff()
         self.invFrame = DirectFrame(relief=None, parent=self)
         self.battleFrame = None
