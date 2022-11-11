@@ -1176,7 +1176,8 @@ class LocalAvatar(DistributedAvatar.DistributedAvatar, DistributedSmoothNode.Dis
 
     def d_broadcastPositionNow(self):
         self.d_clearSmoothing()
-        self.d_broadcastPosHpr()
+        if self.d_broadcastPosHpr:
+            self.d_broadcastPosHpr()
 
     def travCollisionsLOS(self, n = None):
         if n == None:

@@ -27,7 +27,7 @@ class TTWhiteList(WhiteList):
         if not found:
             self.notify.info("Couldn't find whitelist data file!")
         data = vfs.readFile(filename, 1)
-        data = data.decode('ANSI') # PY3
+        data = data.decode() # PY3
         lines = data.split('\n')
         WhiteList.__init__(self, lines)
         if self.WhitelistOverHttp:
