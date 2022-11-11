@@ -1,0 +1,7 @@
+
+.DS_Store
+*.pyc
+resources/
+settings.json
+*.json
+*.log
