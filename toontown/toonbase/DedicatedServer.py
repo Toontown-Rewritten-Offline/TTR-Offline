@@ -60,7 +60,7 @@ class DedicatedServer:
         # get current dir
         
         if sys.platform == 'win32':
-            self.astronProcess = subprocess.Popen(f'astron\\astrond.exe --loglevel info {astronConfig.replace}'.format(astronConfig.replace('/', '\\')),
+            self.astronProcess = subprocess.Popen('astron\\astrond.exe --loglevel info {astronConfig.replace}'.format(astronConfig.replace('/', '\\')),
                                                   stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
         elif sys.platform == 'darwin':
             self.astronProcess = subprocess.Popen(f'astron/astrondmac --loglevel info {astronConfig}',
