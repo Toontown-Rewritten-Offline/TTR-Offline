@@ -32,7 +32,7 @@ class LocalAccountDB:
         self.dbm = semidbm.open(filename, 'c')
 
     def lookup(self, cookie, callback):
-        if cookie.startswith(b'.'):
+        if cookie.startswith('.'):
             # Beginning a cookie with . symbolizes "invalid"
             callback({'success': False,
                       'reason': 'Invalid cookie specified!'})
@@ -940,7 +940,7 @@ class ClientServicesManagerUD(DistributedObjectGlobalUD):
             return
 
         self.connection2fsm[sender] = LoginAccountFSM(self, sender)
-        self.connection2fsm[sender].request('Start', cookie)
+        self.connection2fsm[sender].request('Start', cookie.decode('utf-8')) 
 
     def requestAvatars(self):
         self.notify.debug('Received avatar list request from %d' % (self.air.getMsgSender()))

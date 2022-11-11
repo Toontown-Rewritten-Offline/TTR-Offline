@@ -33,7 +33,7 @@ class ClientServicesManager(DistributedObjectGlobal):
         sig = sig.digest()
 
         self.notify.debug('Sending login cookie: ' .format(cookie))
-        self.sendUpdate('login', [cookie, sig])
+        self.sendUpdate('login', [cookie.decode('utf-8'), sig])
 
     def acceptLogin(self):
         messenger.send(self.doneEvent, [{'mode': 'success'}])
