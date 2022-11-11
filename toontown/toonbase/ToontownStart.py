@@ -244,6 +244,10 @@ if ConfigVariableBool('want-retro-rewritten', False):
     version.cleanup()
     del version
 
+# Options Button
+from .OptionsPage import OptionsPage
+__builtins__.OptionsButton = OptionsPage()
+
 base.loader = base.loader
 builtins.loader = base.loader
 autoRun = ConfigVariableBool('toontown-auto-run', 1)

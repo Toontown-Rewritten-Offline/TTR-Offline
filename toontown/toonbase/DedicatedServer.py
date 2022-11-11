@@ -57,17 +57,14 @@ class DedicatedServer:
             taskMgr.add(self.startAstronYAML, 'startAstronYAML')
 
     def openAstronProcess(self, astronConfig):
-        # get current dir
-        
         if sys.platform == 'win32':
-            self.astronProcess = subprocess.Popen(f'astron\\astrond.exe --loglevel info {astronConfig.replace}'.format(astronConfig.replace('/', '\\')),
+            self.astronProcess = subprocess.Popen('astron/astrond.exe --loglevel info %s' % astronConfig,
                                                   stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
         elif sys.platform == 'darwin':
-            self.astronProcess = subprocess.Popen(f'astron/astrondmac --loglevel info {astronConfig}',
+            self.astronProcess = subprocess.Popen('astron/astrondmac --loglevel info %s' % astronConfig,
                                                   stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog, shell=True)
         elif sys.platform in ['linux', 'linux2']:
-            # Linux
-            self.astronProcess = subprocess.Popen(f'astron/astrond --loglevel info {astronConfig}',
+            self.astronProcess = subprocess.Popen('astron/astrond --loglevel info %s' % astronConfig,
                                                     stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
 
     def startAstronYAML(self, task):
