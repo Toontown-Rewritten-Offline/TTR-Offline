@@ -124,7 +124,7 @@ class BingoCardBase:
         return 0
 
     def onRow(self, row, id):
-        if int(id / self.rowSize) == row:
+        if int(id // self.rowSize) == row:
             return 1
         return 0
 

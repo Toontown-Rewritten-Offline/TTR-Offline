@@ -3,7 +3,7 @@ from toontown.toonbase import ToontownGlobals
 from toontown.toonbase import TTLocalizer
 from direct.gui.DirectGui import *
 from panda3d.core import *
-CatalogNotifyBaseXPos = -0.93
+CatalogNotifyBaseXPos = -1.28
 
 class CatalogNotifyDialog:
     notify = DirectNotifyGlobal.directNotify.newCategory('CatalogNotifyDialog')
