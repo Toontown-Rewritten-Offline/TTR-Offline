@@ -15,6 +15,6 @@ Panda3D Pre-built Wheel: https://download.rewrittenoffline.com/panda3d/panda3d-1
 
 To install panda3d to Python 3.9, you can just use this command...
 
-'''sh
+```sh
 pip install panda3d-1.11.0-cp39-cp39-win_amd64.whl
-'''
+```
