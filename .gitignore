@@ -1,0 +1,5 @@
+*.pyc
+backups/
+logs/
+screenshots/
+astron/databases/
