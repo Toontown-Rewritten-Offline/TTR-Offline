@@ -1,5 +1,15 @@
+<<<<<<< HEAD
 *.pyc
 backups/
 logs/
 screenshots/
 astron/databases/
+=======
+
+.DS_Store
+*.pyc
+resources/
+settings.json
+*.json
+*.log
+>>>>>>> 7c6e085e3a23e7a1b3e8bf2fbaf581b4cb9ba13a

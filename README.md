@@ -2,16 +2,24 @@
 
 Toontown Rewritten Private DEVELOPMENT Repository
 
-Launcher: https://github.com/RegDogg/ToontownRewrittenPrivate-Launcher/
+Resources: https://github.com/Toontown-Rewritten-Private/TTRPrivate-Resources
 
-Resources: https://github.com/RegDogg/resources
-
-Panda3D: https://github.com/panda3d/panda3d/tree/v1.10.12
+Panda3D: https://github.com/RegDogg/panda3d
 
 Astron: https://github.com/RegDogg/Astron/tree/c5bcdba42f496dedcc22265198ee292069716ad5
 
-CONFIDENTIAL MODULES FOR NUITKA-PYTHON
 
-Nuitka-Python: https://github.com/RegDogg/Nuitka-Python
+# Dependancies
+Python 3.9: https://www.python.org/ftp/python/3.9.13/python-3.9.13-amd64.exe
 
-Nuitka-Python-Packages: https://github.com/RegDogg/Nuitka-Python-packages-TTRP
+Panda3D Pre-built Wheel: https://download.rewrittenoffline.com/panda3d/panda3d-1.11.0-cp39-cp39-win_amd64.whl
+
+To install panda3d to Python 3.9, you can just use this command...
+
+```sh
+pip install panda3d-1.11.0-cp39-cp39-win_amd64.whl
+```
+And you can install the dependencies with this command...
+```sh
+pip install -r requirements.txt
+```

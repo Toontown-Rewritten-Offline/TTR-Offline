@@ -6,6 +6,9 @@ from direct.distributed.MsgTypes import *
 from panda3d.core import *
 import urllib.parse
 import signal
+ai_watchdog = ConfigVariableInt('ai-watchdog', 15,
+                                'Specifies the maximum amount of time that a'
+                                ' frame may take before the process kills itself.')
 
 class WatchdogError(Exception): pass
 def watchdogExhausted(signum, frame):
