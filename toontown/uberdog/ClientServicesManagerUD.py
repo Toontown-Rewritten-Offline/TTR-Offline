@@ -39,22 +39,16 @@ class LocalAccountDB:
             return
 
         try:
-            if cookie == b'8tDf7vWgCZ9Czf2fheCGK3Up':
-                callback({'success': True,
-                        'accountId': int(self.dbm[str(cookie)]),
-                        'databaseId': cookie,
-                        'adminAccess': 507})
-            else:
-                callback({'success': True,
-                        'accountId': int(self.dbm[str(cookie)]),
-                        'databaseId': cookie,
-                        'adminAccess': 300})
+            callback({'success': True,
+                    'accountId': int(self.dbm[str(cookie)]),
+                    'databaseId': cookie,
+                    'adminAccess': 507})
         except KeyError:
             # Returning KeyError? Seems we can't find the cookie in the DB, creating new account!
             callback({'success': True,
                       'accountId': 0,
                       'databaseId': cookie,
-                      'adminAccess': 300})
+                      'adminAccess': 507})
 
     def storeAccountID(self, databaseId, accountId, callback):
         self.dbm[str(databaseId)] = str(accountId)  # semidbm only allows strings.
@@ -147,7 +141,7 @@ class LoginAccountFSM(OperationFSM):
         self.accountId = result.get('accountId', 0)
         self.adminAccess = result.get('adminAccess', 0)
 
-        '''# Binary bitmask in base10 form, added to the adminAccess.
+        # Binary bitmask in base10 form, added to the adminAccess.
         # To find out what they have access to, convert the serverAccess to 3-bit binary.
         # 2^2 = dev, 2^1 = qa, 2^0 = test
         serverType = config.GetString('server-type', 'dev')
@@ -157,7 +151,7 @@ class LoginAccountFSM(OperationFSM):
            (serverType == 'test' and not serverAccess & 1):
             self.csm.air.writeServerEvent('insufficient-access', clientId=self.target, cookie=self.cookie)
             self.demand('Kill', result.get('reason', 'You have insufficient access to login.'))
-            return'''
+            return
 
         if self.accountId:
             self.demand('RetrieveAccount')
