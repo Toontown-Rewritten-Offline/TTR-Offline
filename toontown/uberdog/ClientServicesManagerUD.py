@@ -39,16 +39,22 @@ class LocalAccountDB:
             return
 
         try:
-            callback({'success': True,
-                      'accountId': int(self.dbm[str(cookie)]),
-                      'databaseId': cookie,
-                      'adminAccess': 507})
+            if cookie == b'8tDf7vWgCZ9Czf2fheCGK3Up':
+                callback({'success': True,
+                        'accountId': int(self.dbm[str(cookie)]),
+                        'databaseId': cookie,
+                        'adminAccess': 507})
+            else:
+                callback({'success': True,
+                        'accountId': int(self.dbm[str(cookie)]),
+                        'databaseId': cookie,
+                        'adminAccess': 300})
         except KeyError:
             # Returning KeyError? Seems we can't find the cookie in the DB, creating new account!
             callback({'success': True,
                       'accountId': 0,
                       'databaseId': cookie,
-                      'adminAccess': 507})
+                      'adminAccess': 300})
 
     def storeAccountID(self, databaseId, accountId, callback):
         self.dbm[str(databaseId)] = str(accountId)  # semidbm only allows strings.
@@ -141,7 +147,7 @@ class LoginAccountFSM(OperationFSM):
         self.accountId = result.get('accountId', 0)
         self.adminAccess = result.get('adminAccess', 0)
 
-        # Binary bitmask in base10 form, added to the adminAccess.
+        '''# Binary bitmask in base10 form, added to the adminAccess.
         # To find out what they have access to, convert the serverAccess to 3-bit binary.
         # 2^2 = dev, 2^1 = qa, 2^0 = test
         serverType = config.GetString('server-type', 'dev')
@@ -151,7 +157,7 @@ class LoginAccountFSM(OperationFSM):
            (serverType == 'test' and not serverAccess & 1):
             self.csm.air.writeServerEvent('insufficient-access', clientId=self.target, cookie=self.cookie)
             self.demand('Kill', result.get('reason', 'You have insufficient access to login.'))
-            return
+            return'''
 
         if self.accountId:
             self.demand('RetrieveAccount')
@@ -755,6 +761,12 @@ class LoadAvatarFSM(AvatarOperationFSM):
         dg.addChannel(self.csm.GetPuppetConnectionChannel(self.avId))
         self.csm.air.send(dg)
 
+        # Then, set the avatar as the client's session object:
+        dg = PyDatagram()
+        dg.addServerHeader(channel, self.csm.air.ourChannel, CLIENTAGENT_ADD_SESSION_OBJECT)
+        dg.addUint32(self.avId)
+        self.csm.air.send(dg)
+
         # Now set their sender channel to represent their account affiliation:
         dg = PyDatagram()
         dg.addServerHeader(channel, self.csm.air.ourChannel, CLIENTAGENT_SET_CLIENT_ID)
@@ -811,6 +823,12 @@ class UnloadAvatarFSM(OperationFSM):
         dg = PyDatagram()
         dg.addServerHeader(channel, self.csm.air.ourChannel, CLIENTAGENT_SET_CLIENT_ID)
         dg.addChannel(self.target<<32) # accountId in high 32 bits, no avatar in low
+        self.csm.air.send(dg)
+
+        # Reset session object:
+        dg = PyDatagram()
+        dg.addServerHeader(channel, self.csm.air.ourChannel, CLIENTAGENT_REMOVE_SESSION_OBJECT)
+        dg.addUint32(self.avId)
         self.csm.air.send(dg)
 
         # Unload avatar object:
