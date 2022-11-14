@@ -2,6 +2,6 @@
 cd ../../
 
 export TTR_PLAYCOOKIE=Username2
-export TTR_GAMESERVER="192.168.12.156"
+export TTR_GAMESERVER="127.0.0.1"
 
-/usr/bin/python2 -m toontown.toonbase.ToontownStart
+/usr/bin/python3 -m toontown.toonbase.ToontownStart

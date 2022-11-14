@@ -65,7 +65,7 @@ class DedicatedServer:
                                                   stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog, shell=True)
         elif sys.platform in ['linux', 'linux2']:
             self.astronProcess = subprocess.Popen('astron/astrond --loglevel info %s' % astronConfig,
-                                                    stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
+                                                  stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
 
     def startAstronYAML(self, task):
         self.notify.info('Starting Astron with YAML...')
