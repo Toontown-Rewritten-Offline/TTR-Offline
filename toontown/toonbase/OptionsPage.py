@@ -81,33 +81,46 @@ class OptionsPage(DirectFrame):
         '''Page Frames'''
         # Gameplay
         self.OptionsPageGameplay = DirectFrame(parent=self, relief=None, image=self.OptionsGUIPageGameplay, image_scale=(0.15),
-        geom=self.OptionsGUIGameplayActive, geom_scale=(0.15), geom_pos=(-0.6075, 0, 0.58125), pos=(0, 0, 0.11))
+                                               geom=self.OptionsGUIGameplayActive, geom_scale=(0.15), geom_pos=(-0.6075, 0, 0.58125), pos=(0, 0, 0.11))
 
-        self.OptionsPageGameplayTitle = OnscreenText(parent=self.OptionsPageGameplay, font=ToontownGlobals.getMickeyFontMaximum(), text=TTLocalizer.NewOptionsTabGameplayTitle, fg=self.TextTitleColor, pos=(0, 0.31, 0), scale=(0.15))
-        self.OptionsPageGameplayScrollFrame = DirectScrolledFrame(parent=self.OptionsPageGameplay, state=DGG.NORMAL, pos=(0, 0, -0.25), canvasSize=(-0.75, 0.75, -2, 2), frameSize=(-0.8, 0.8, -0.45, 0.5), scrollBarWidth=0.04, verticalScroll_geom=self.OptionsGUIScrollBar, verticalScroll_geom_scale=(0.25, 0, 0.15), verticalScroll_thumb_geom=self.OptionsGUIScrollThumb, verticalScroll_resizeThumb=False, verticalScroll_thumb_geom_pos=(0, 0, 0), verticalScroll_thumb_geom_scale=(0.05))
-        self.OptionsPageGameplayScrollFrame.verticalScroll.incButton.destroy()
-        self.OptionsPageGameplayScrollFrame.verticalScroll.decButton.destroy()
-        self.OptionsPageGameplayScrollFrame.bind(SCROLL_UP, mouseScrollValue, [self.OptionsPageGameplayScrollFrame.verticalScroll, 0.2])
-        self.OptionsPageGameplayScrollFrame.bind(SCROLL_DOWN, mouseScrollValue, [self.OptionsPageGameplayScrollFrame.verticalScroll, -0.2])
+        self.GameplayTitle = OnscreenText(parent=self.OptionsPageGameplay, font=ToontownGlobals.getMickeyFontMaximum(), text=TTLocalizer.NewOptionsTabGameplayTitle,
+                                                     fg=self.TextTitleColor, pos=(0, 0.31, 0), scale=(0.15))
+
+        self.GameplayScrollFrame = DirectScrolledFrame(parent=self.OptionsPageGameplay, state=DGG.NORMAL, pos=(0, 0, -0.25), canvasSize=(-0.75, 0.75, -2, 2), frameSize=(-0.8, 0.8, -0.45, 0.5), scrollBarWidth=0.04)
+
+        self.GameplayScrollFrame.verticalScroll['geom'] = self.OptionsGUIScrollBar
+        self.GameplayScrollFrame.verticalScroll['geom_scale'] = (0.25, 0, 0.15)
+        self.GameplayScrollFrame.verticalScroll['thumb_geom'] = self.OptionsGUIScrollThumb
+        self.GameplayScrollFrame.verticalScroll['resizeThumb'] = False
+        self.GameplayScrollFrame.verticalScroll['thumb_geom_pos'] = (0, 0, 0)
+        self.GameplayScrollFrame.verticalScroll['thumb_geom_scale'] = 0.05
+        self.GameplayScrollFrame.verticalScroll.incButton.destroy()
+        self.GameplayScrollFrame.verticalScroll.decButton.destroy()
+        self.GameplayScrollFrame.bind(SCROLL_UP, mouseScrollValue, [self.GameplayScrollFrame.verticalScroll, 0.2])
+        self.GameplayScrollFrame.bind(SCROLL_DOWN, mouseScrollValue, [self.GameplayScrollFrame.verticalScroll, -0.2])
 
         # Gameplay Components
-        self.OptionsPageGameplayPlacholderText = OnscreenText(parent=self.OptionsPageGameplayScrollFrame.getCanvas(), text='Test!')
-        self.OptionsPageGameplayPlacholderText.setPos(0, 1.9)
+        self.GameplayPlacholderText = OnscreenText(parent=self.GameplayScrollFrame.getCanvas(), text='Test!')
+        self.GameplayPlacholderText.setPos(0, 1.9)
+
 
         # Controls
         self.OptionsPageControls = DirectFrame(parent=self, relief=None, image=self.OptionsGUIPageControls, image_scale=(0.15),
         geom=self.OptionsGUIControlsActive, geom_scale=(0.15), geom_pos=(-0.20125, 0, 0.58125), pos=(0, 0, 0.11))
         self.OptionsPageControls.hide()
 
+
         # Audio
         self.OptionsPageAudio = DirectFrame(parent=self, relief=None, image=self.OptionsGUIPageAudio, image_scale=(0.15),
         geom=self.OptionsGUIAudioActive, geom_scale=(0.15), geom_pos=(0.205, 0, 0.58125), pos=(0, 0, 0.11))
         self.OptionsPageAudio.hide()
 
+
         # Video
         self.OptionsPageVideo = DirectFrame(parent=self, relief=None, image=self.OptionsGUIPageVideo, image_scale=(0.15),
         geom=self.OptionsGUIVideoActive, geom_scale=(0.15), geom_pos=(0.61, 0, 0.58125), pos=(0, 0, 0.11))
         self.OptionsPageVideo.hide()
+
 
         # Page Buttons
         self.OptionsButtonGameplay = DirectButton(parent=self, relief=None, image=self.OptionsGUITabButton,
