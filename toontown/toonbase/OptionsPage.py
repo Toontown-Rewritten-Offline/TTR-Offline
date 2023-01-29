@@ -43,7 +43,6 @@ class OptionsPage(DirectFrame):
         self.OptionsGUIImages = loader.loadModel('phase_3/models/gui/ttr_m_gui_gen_buttons')
         self.OptionsX = self.OptionsGUIImages.find('**/ttr_t_gui_gen_buttons_xButton')
         self.OptionsXHover = self.OptionsGUIImages.find('**/ttr_t_gui_gen_buttons_xButton')
-        self.OptionsXHover.setScale(1.2)
         self.OptionsGUIGameplayActive = self.OptionsGUIImages.find('**/ttr_t_gui_gen_buttons_playActive')
         self.OptionsGUIGameplayInactive = self.OptionsGUIImages.find('**/ttr_t_gui_gen_buttons_playInactive')
         self.OptionsGUIControlsActive = self.OptionsGUIImages.find('**/ttr_t_gui_gen_buttons_controlsActive')
@@ -58,11 +57,17 @@ class OptionsPage(DirectFrame):
         self.OptionsGUIScrollBar = self.OptionsGUIImages.find('**/ttr_t_gui_gen_buttons_lineSkinny')
         self.OptionsGUIScrollThumb = self.OptionsGUIImages.find('**/ttr_t_gui_gen_buttons_slider1')
         self.OptionsGUIScrollBar.setR(90)
+        self.OptionsGUIScrollBar.setPos(0.78, 0, 0.025)
 
         self.setupGUI()
 
     def setupGUI(self):
         self.frame = DirectFrame(parent=self, geom=self.OptionsGUIPanel, geom_pos=(0.0, 0.0, 0.0), geom_scale=0.15, relief=None)
+        SCROLL_UP = PGButton.getReleasePrefix() + MouseButton.wheelUp().getName() + "-"
+        SCROLL_DOWN = PGButton.getReleasePrefix() + MouseButton.wheelDown().getName() + "-"
+
+        def mouseScrollValue(scrollBar, direction, value):
+            scrollBar.setValue(scrollBar.getValue() + direction*scrollBar["pageSize"])
 
         # Options Icon
         self.OptionsButton = DirectButton(parent=aspect2d, relief=None, geom=(self.OptionsIconUp,
@@ -70,7 +75,7 @@ class OptionsPage(DirectFrame):
          self.OptionsIconHover), pos=(0.75, 0, 0), geom_scale=(0.05, 0.05, 0.05), command=self.show)
 
         # Options Exit
-        self.OptionsButtonX = DirectButton(parent=self, relief=None, image=(self.OptionsX, self.OptionsXHover),
+        self.OptionsButtonX = DirectButton(parent=self, relief=None, scale=(1), pressEffect=0, image=(self.OptionsX, self.OptionsXHover),
         pos=(0.9, 0, 0.6), image_scale=(0.1), command=self.hide)
 
         '''Page Frames'''
@@ -79,9 +84,15 @@ class OptionsPage(DirectFrame):
         geom=self.OptionsGUIGameplayActive, geom_scale=(0.15), geom_pos=(-0.6075, 0, 0.58125), pos=(0, 0, 0.11))
 
         self.OptionsPageGameplayTitle = OnscreenText(parent=self.OptionsPageGameplay, font=ToontownGlobals.getMickeyFontMaximum(), text=TTLocalizer.NewOptionsTabGameplayTitle, fg=self.TextTitleColor, pos=(0, 0.31, 0), scale=(0.15))
-        self.OptionsPageGameplayScrollFrame = DirectScrolledFrame(parent=self.OptionsPageGameplay, pos=(0, 0, -0.25), canvasSize=(-0.75, 0.75, -2, 2), frameSize=(-0.8, 0.8, -0.45, 0.5), verticalScroll_relief=None, verticalScroll_thumb_relief=None,  verticalScroll_decButton_relief=None, verticalScroll_geom=self.OptionsGUIScrollBar, verticalScroll_geom_pos=(0.8, 0, 0.05), verticalScroll_geom_scale=(0.225, 0.15, 0.15), verticalScroll_thumb_geom=self.OptionsGUIScrollThumb, verticalScroll_thumb_geom_pos=(0.04, 0, 0), verticalScroll_thumb_geom_scale=(0.05))
-        self.OptionsPageGameplayScrollFrame['verticalScroll_incButton_state'] = DGG.DISABLED
-        self.OptionsPageGameplayScrollFrame['verticalScroll_decButton_state'] = DGG.DISABLED
+        self.OptionsPageGameplayScrollFrame = DirectScrolledFrame(parent=self.OptionsPageGameplay, state=DGG.NORMAL, pos=(0, 0, -0.25), canvasSize=(-0.75, 0.75, -2, 2), frameSize=(-0.8, 0.8, -0.45, 0.5), scrollBarWidth=0.04, verticalScroll_geom=self.OptionsGUIScrollBar, verticalScroll_geom_scale=(0.25, 0, 0.15), verticalScroll_thumb_geom=self.OptionsGUIScrollThumb, verticalScroll_resizeThumb=False, verticalScroll_thumb_geom_pos=(0, 0, 0), verticalScroll_thumb_geom_scale=(0.05))
+        self.OptionsPageGameplayScrollFrame.verticalScroll.incButton.destroy()
+        self.OptionsPageGameplayScrollFrame.verticalScroll.decButton.destroy()
+        self.OptionsPageGameplayScrollFrame.bind(SCROLL_UP, mouseScrollValue, [self.OptionsPageGameplayScrollFrame.verticalScroll, 0.2])
+        self.OptionsPageGameplayScrollFrame.bind(SCROLL_DOWN, mouseScrollValue, [self.OptionsPageGameplayScrollFrame.verticalScroll, -0.2])
+
+        # Gameplay Components
+        self.OptionsPageGameplayPlacholderText = OnscreenText(parent=self.OptionsPageGameplayScrollFrame.getCanvas(), text='Test!')
+        self.OptionsPageGameplayPlacholderText.setPos(0, 1.9)
 
         # Controls
         self.OptionsPageControls = DirectFrame(parent=self, relief=None, image=self.OptionsGUIPageControls, image_scale=(0.15),
