@@ -1,7 +1,12 @@
+import sys
+sys.path.insert(0, 'C:/Users/Drew/Downloads/TTRPrivate/TTR-Private-Options-Update')
+
 from direct.showbase.MessengerGlobal import *
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import loadPrcFile
 from direct.gui import DirectGuiGlobals
+
+from toontown.toonbase import OptionsPage
 
 loadPrcFile('config/dev.prc')
 
@@ -25,5 +30,7 @@ DirectGuiGlobals.setDefaultDialogGeom(base.loader.loadModel('phase_3/models/gui/
 DirectGuiGlobals.setDefaultRolloverSound(base.loader.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg'))
 DirectGuiGlobals.setDefaultClickSound(base.loader.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg'))
 DirectGuiGlobals.setDefaultFont(base.loader.loadFont('phase_3/fonts/ImpressBT.ttf'))
+
+OptionsPage.OptionsPage()
 
 base.run()
