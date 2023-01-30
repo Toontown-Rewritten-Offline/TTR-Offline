@@ -57,7 +57,7 @@ class OptionsPage(DirectFrame):
         self.OptionsGUIScrollBar = self.OptionsGUIImages.find('**/ttr_t_gui_gen_buttons_lineSkinny')
         self.OptionsGUIScrollThumb = self.OptionsGUIImages.find('**/ttr_t_gui_gen_buttons_slider1')
         self.OptionsGUIScrollBar.setR(90)
-        self.OptionsGUIScrollBar.setPos(0.78, 0, 0.025)
+        self.OptionsGUIScrollBar.setPos(0.78, 0, 0.04)
 
         self.setupGUI()
 
@@ -65,14 +65,18 @@ class OptionsPage(DirectFrame):
         self.frame = DirectFrame(parent=self, geom=self.OptionsGUIPanel, geom_pos=(0.0, 0.0, 0.0), geom_scale=0.15, relief=None)
         SCROLL_UP = PGButton.getReleasePrefix() + MouseButton.wheelUp().getName() + "-"
         SCROLL_DOWN = PGButton.getReleasePrefix() + MouseButton.wheelDown().getName() + "-"
-
         def mouseScrollValue(scrollBar, direction, value):
             scrollBar.setValue(scrollBar.getValue() + direction*scrollBar["pageSize"])
 
+        # Global Values
+        self.SectionTextXOffset = -0.225
+        self.SectionTextScale = 0.09
+        self.SectionTextFont = ToontownGlobals.getMinnieFont()
+
         # Options Icon
-        self.OptionsButton = DirectButton(parent=aspect2d, relief=None, geom=(self.OptionsIconUp,
+        self.OptionsButton = DirectButton(parent=base.a2dBottomRight, relief=None, geom=(self.OptionsIconUp,
          self.OptionsIconDown,
-         self.OptionsIconHover), pos=(0.75, 0, 0), geom_scale=(0.05, 0.05, 0.05), command=self.show)
+         self.OptionsIconHover), pos=(-0.158, 0, 0.5), geom_scale=(0.05, 0.05, 0.05), command=self.show)
 
         # Options Exit
         self.OptionsButtonX = DirectButton(parent=self, relief=None, scale=(1), pressEffect=0, image=(self.OptionsX, self.OptionsXHover),
@@ -86,22 +90,22 @@ class OptionsPage(DirectFrame):
         self.GameplayTitle = OnscreenText(parent=self.OptionsPageGameplay, font=ToontownGlobals.getMickeyFontMaximum(), text=TTLocalizer.NewOptionsTabGameplayTitle,
                                                      fg=self.TextTitleColor, pos=(0, 0.31, 0), scale=(0.15))
 
-        self.GameplayScrollFrame = DirectScrolledFrame(parent=self.OptionsPageGameplay, state=DGG.NORMAL, pos=(0, 0, -0.25), canvasSize=(-0.75, 0.75, -2, 2), frameSize=(-0.8, 0.8, -0.45, 0.5), scrollBarWidth=0.04)
+        self.GameplayScrollFrame = DirectScrolledFrame(parent=self.OptionsPageGameplay, state=DGG.NORMAL, pos=(0, 0, -0.25), canvasSize=(-0.75, 0.75, -2, 2), frameSize=(-0.8, 0.8, -0.45, 0.525), scrollBarWidth=0.04)
 
         self.GameplayScrollFrame.verticalScroll['geom'] = self.OptionsGUIScrollBar
-        self.GameplayScrollFrame.verticalScroll['geom_scale'] = (0.25, 0, 0.15)
+        self.GameplayScrollFrame.verticalScroll['geom_scale'] = (0.225, 0, 0.135)
         self.GameplayScrollFrame.verticalScroll['thumb_geom'] = self.OptionsGUIScrollThumb
         self.GameplayScrollFrame.verticalScroll['resizeThumb'] = False
         self.GameplayScrollFrame.verticalScroll['thumb_geom_pos'] = (0, 0, 0)
-        self.GameplayScrollFrame.verticalScroll['thumb_geom_scale'] = 0.05
+        self.GameplayScrollFrame.verticalScroll['thumb_geom_scale'] = 0.1
+        self.GameplayScrollFrame.verticalScroll['range'] = (0, 1)
         self.GameplayScrollFrame.verticalScroll.incButton.destroy()
         self.GameplayScrollFrame.verticalScroll.decButton.destroy()
-        self.GameplayScrollFrame.bind(SCROLL_UP, mouseScrollValue, [self.GameplayScrollFrame.verticalScroll, 0.2])
-        self.GameplayScrollFrame.bind(SCROLL_DOWN, mouseScrollValue, [self.GameplayScrollFrame.verticalScroll, -0.2])
+        self.GameplayScrollFrame.bind(SCROLL_UP, mouseScrollValue, [self.GameplayScrollFrame.verticalScroll, -0.2])
+        self.GameplayScrollFrame.bind(SCROLL_DOWN, mouseScrollValue, [self.GameplayScrollFrame.verticalScroll, 0.2])
 
         # Gameplay Components
-        self.GameplayPlacholderText = OnscreenText(parent=self.GameplayScrollFrame.getCanvas(), text='Test!')
-        self.GameplayPlacholderText.setPos(0, 1.9)
+        self.GameplayPlacholderText = OnscreenText(parent=self.GameplayScrollFrame.getCanvas(), text=TTLocalizer.NewOptionsTabGameplayToon, font=self.SectionTextFont, scale=self.SectionTextScale, pos=(self.SectionTextXOffset, 1.9))
 
 
         # Controls
