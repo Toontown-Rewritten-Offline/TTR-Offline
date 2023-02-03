@@ -57,21 +57,34 @@ class OptionsPage(DirectFrame):
         self.OptionsGUIScrollBar = self.OptionsGUIImages.find('**/ttr_t_gui_gen_buttons_lineSkinny')
         self.OptionsGUIScrollThumb = self.OptionsGUIImages.find('**/ttr_t_gui_gen_buttons_slider1')
         self.OptionsGUIScrollBar.setR(90)
-        self.OptionsGUIScrollBar.setPos(0.78, 0, 0.04)
+        #self.OptionsGUIScrollBar.setPos(0.78, 0, 0.04)
 
         self.setupGUI()
 
     def setupGUI(self):
         self.frame = DirectFrame(parent=self, geom=self.OptionsGUIPanel, geom_pos=(0.0, 0.0, 0.0), geom_scale=0.15, relief=None)
+
+        # Scroll Wheel
         SCROLL_UP = PGButton.getReleasePrefix() + MouseButton.wheelUp().getName() + "-"
         SCROLL_DOWN = PGButton.getReleasePrefix() + MouseButton.wheelDown().getName() + "-"
         def mouseScrollValue(scrollBar, direction, value):
             scrollBar.setValue(scrollBar.getValue() + direction*scrollBar["pageSize"])
 
-        # Global Values
+        '''Global Values'''
+        # Section Text Titles
         self.SectionTextXOffset = -0.225
         self.SectionTextScale = 0.09
         self.SectionTextFont = ToontownGlobals.getMinnieFont()
+
+        # Scroll Frame Globals
+        self.ScrollBarWidth = 0.04
+        self.ScrollBarPos = (0.825, 0, -0.18)
+        self.ScrollBarFrameSize = (-self.ScrollBarWidth / 2.0, self.ScrollBarWidth / 2.0, -0.45, 0.45)
+        self.ScrollBarGeom = self.OptionsGUIScrollBar
+        self.ScrollBarGeomScale = (0.225, 0, 0.15)
+        self.ScrollBarThumbGeom = self.OptionsGUIScrollThumb
+        self.ScrollBarThumbGeomScale = 0.085
+        self.ScrollBarResizeThumb = False
 
         # Options Icon
         self.OptionsButton = DirectButton(parent=base.a2dBottomRight, relief=None, geom=(self.OptionsIconUp,
@@ -90,22 +103,27 @@ class OptionsPage(DirectFrame):
         self.GameplayTitle = OnscreenText(parent=self.OptionsPageGameplay, font=ToontownGlobals.getMickeyFontMaximum(), text=TTLocalizer.NewOptionsTabGameplayTitle,
                                                      fg=self.TextTitleColor, pos=(0, 0.31, 0), scale=(0.15))
 
-        self.GameplayScrollFrame = DirectScrolledFrame(parent=self.OptionsPageGameplay, state=DGG.NORMAL, pos=(0, 0, -0.25), canvasSize=(-0.75, 0.75, -2, 2), frameSize=(-0.8, 0.8, -0.45, 0.525), scrollBarWidth=0.04)
+        self.GameplayScrollCanvasSize = (-0.75, 0.75, -2, 2)
+        self.GameplayScrollFrame = DirectFrame(parent=self.OptionsPageGameplay, state=DGG.NORMAL, pos=(0, 0, -0.25), frameSize=(-0.8, 0.8, -0.45, 0.525), pgFunc=PGScrollFrame)
+        self.GameplayScrollCanvas = NodePath(self.GameplayScrollFrame.guiItem.getCanvasNode())
+        self.GameplayScrollFrame.guiItem.setVirtualFrame(self.GameplayScrollCanvasSize)
 
-        self.GameplayScrollFrame.verticalScroll['geom'] = self.OptionsGUIScrollBar
-        self.GameplayScrollFrame.verticalScroll['geom_scale'] = (0.225, 0, 0.135)
-        self.GameplayScrollFrame.verticalScroll['thumb_geom'] = self.OptionsGUIScrollThumb
-        self.GameplayScrollFrame.verticalScroll['resizeThumb'] = False
-        self.GameplayScrollFrame.verticalScroll['thumb_geom_pos'] = (0, 0, 0)
-        self.GameplayScrollFrame.verticalScroll['thumb_geom_scale'] = 0.1
-        self.GameplayScrollFrame.verticalScroll['range'] = (0, 1)
-        self.GameplayScrollFrame.verticalScroll.incButton.destroy()
-        self.GameplayScrollFrame.verticalScroll.decButton.destroy()
-        self.GameplayScrollFrame.bind(SCROLL_UP, mouseScrollValue, [self.GameplayScrollFrame.verticalScroll, -0.2])
-        self.GameplayScrollFrame.bind(SCROLL_DOWN, mouseScrollValue, [self.GameplayScrollFrame.verticalScroll, 0.2])
+        self.GameplayScrollBar = DirectScrollBar(parent=self.OptionsPageGameplay, orientation=DGG.VERTICAL, relief=None thumb_relief=None)
+        self.GameplayScrollFrame.guiItem.setVerticalSlider(self.GameplayScrollBar.guiItem)
+        self.GameplayScrollBar['pos'] = self.ScrollBarPos
+        self.GameplayScrollBar['frameSize'] = self.ScrollBarFrameSize
+        self.GameplayScrollBar['geom'] = self.ScrollBarGeom
+        self.GameplayScrollBar['geom_scale'] = self.ScrollBarGeomScale
+        self.GameplayScrollBar['thumb_geom'] = self.ScrollBarThumbGeom
+        self.GameplayScrollBar['thumb_geom_scale'] = self.ScrollBarThumbGeomScale
+        self.GameplayScrollBar['resizeThumb'] = self.ScrollBarResizeThumb
+        self.GameplayScrollBar.incButton.destroy()
+        self.GameplayScrollBar.decButton.destroy()
+        self.GameplayScrollFrame.bind(SCROLL_UP, mouseScrollValue, [self.GameplayScrollBar, -0.325])
+        self.GameplayScrollFrame.bind(SCROLL_DOWN, mouseScrollValue, [self.GameplayScrollBar, 0.325])
 
         # Gameplay Components
-        self.GameplayPlacholderText = OnscreenText(parent=self.GameplayScrollFrame.getCanvas(), text=TTLocalizer.NewOptionsTabGameplayToon, font=self.SectionTextFont, scale=self.SectionTextScale, pos=(self.SectionTextXOffset, 1.9))
+        self.GameplayPlacholderText = OnscreenText(parent=self.GameplayScrollCanvas, text=TTLocalizer.NewOptionsTabGameplayToon, font=self.SectionTextFont, scale=self.SectionTextScale, pos=(self.SectionTextXOffset, 1.9))
 
 
         # Controls
