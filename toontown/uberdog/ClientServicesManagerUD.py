@@ -40,9 +40,9 @@ class LocalAccountDB:
 
         try:
             callback({'success': True,
-                      'accountId': int(self.dbm[str(cookie)]),
-                      'databaseId': cookie,
-                      'adminAccess': 507})
+                    'accountId': int(self.dbm[str(cookie)]),
+                    'databaseId': cookie,
+                    'adminAccess': 507})
         except KeyError:
             # Returning KeyError? Seems we can't find the cookie in the DB, creating new account!
             callback({'success': True,
@@ -755,6 +755,12 @@ class LoadAvatarFSM(AvatarOperationFSM):
         dg.addChannel(self.csm.GetPuppetConnectionChannel(self.avId))
         self.csm.air.send(dg)
 
+        # Then, set the avatar as the client's session object:
+        dg = PyDatagram()
+        dg.addServerHeader(channel, self.csm.air.ourChannel, CLIENTAGENT_ADD_SESSION_OBJECT)
+        dg.addUint32(self.avId)
+        self.csm.air.send(dg)
+
         # Now set their sender channel to represent their account affiliation:
         dg = PyDatagram()
         dg.addServerHeader(channel, self.csm.air.ourChannel, CLIENTAGENT_SET_CLIENT_ID)
@@ -811,6 +817,12 @@ class UnloadAvatarFSM(OperationFSM):
         dg = PyDatagram()
         dg.addServerHeader(channel, self.csm.air.ourChannel, CLIENTAGENT_SET_CLIENT_ID)
         dg.addChannel(self.target<<32) # accountId in high 32 bits, no avatar in low
+        self.csm.air.send(dg)
+
+        # Reset session object:
+        dg = PyDatagram()
+        dg.addServerHeader(channel, self.csm.air.ourChannel, CLIENTAGENT_REMOVE_SESSION_OBJECT)
+        dg.addUint32(self.avId)
         self.csm.air.send(dg)
 
         # Unload avatar object:

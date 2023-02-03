@@ -8,6 +8,6 @@ ASTRON_IP="127.0.0.1:7199"
 EVENT_LOGGER_IP="127.0.0.1:7197"
 BASE_CHANNEL=1000000
 
-/usr/bin/python2 -m toontown.ai.ServiceStart --base-channel $BASE_CHANNEL \
+/usr/bin/python3 -m toontown.uberdog.ServiceStartUD --base-channel $BASE_CHANNEL \
                --max-channels $MAX_CHANNELS --stateserver $STATE_SERVER \
                --astron-ip $ASTRON_IP --eventlogger-ip $EVENT_LOGGER_IP

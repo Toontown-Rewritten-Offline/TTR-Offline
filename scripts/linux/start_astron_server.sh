@@ -1,3 +1,3 @@
 cd ../../astron
 
-./astrond --loglevel info config/astrond.yml
+./astrond --loglevel info config/astrond-yaml.yml
