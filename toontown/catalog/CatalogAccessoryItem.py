@@ -19,7 +19,7 @@ class CatalogAccessoryItem(CatalogItem.CatalogItem):
         return 1
 
     def notOfferedTo(self, avatar):
-        if config.GetBool('want-accessories', 1):
+        if config.ConfigVariableBool('want-accessories', 1).getValue():
             article = AccessoryTypes[self.accessoryType][ATArticle]
             if article in [AHat,
              AGlasses,

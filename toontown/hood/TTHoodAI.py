@@ -16,7 +16,7 @@ class TTHoodAI(SZHoodAI):
         self.butterflies = []
         self.createButterflies()
 
-        if self.air.config.GetBool('want-doomsday', False):
+        if self.air.config.ConfigVariableBool('want-doomsday', False).getValue():
             self.spawnElection()
     
     def spawnElection(self):
@@ -25,7 +25,7 @@ class TTHoodAI(SZHoodAI):
             election = DistributedElectionEventAI(self.air)
             election.generateWithRequired(self.HOOD)
         election.b_setState('Idle')
-        if self.air.config.GetBool('want-hourly-doomsday', False):
+        if self.air.config.ConfigVariableBool('want-hourly-doomsday', False).getValue():
             self.__startElectionTick()
         
     def __startElectionTick(self):

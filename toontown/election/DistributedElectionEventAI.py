@@ -41,7 +41,7 @@ class DistributedElectionEventAI(DistributedObjectAI, FSM):
         if self.balloon == None:
             self.balloon = DistributedHotAirBalloonAI(self.air)
             self.balloon.generateWithRequired(self.zoneId)
-        if config.GetBool('want-doomsday', False):
+        if config.ConfigVariableBool('want-doomsday', False).getValue():
             self.balloon.b_setState('ElectionIdle')
             if not hasattr(simbase.air, 'cameraManager'):
                 camMgr = DistributedElectionCameraManagerAI(simbase.air)
@@ -196,7 +196,7 @@ def election(state):
     if not hasattr(event, 'enter' + state):
         return 'Invalid state'
     else:
-        if not config.GetBool('want-doomsday', False):
+        if not config.ConfigVariableBool('want-doomsday', False).getValue():
             if not state == 'Idle':
                 return 'These states will crash the game when Elections are disabled!'
         event.b_setState(state)

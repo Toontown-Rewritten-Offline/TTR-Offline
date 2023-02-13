@@ -1173,7 +1173,7 @@ def getAllClosets():
 
 
 def get50ItemTrunk(avatar, duplicateItems):
-    if config.GetBool('want-accessories', 1):
+    if config.ConfigVariableBool('want-accessories', 1).getValue():
         if avatar.getStyle().getGender() == 'm':
             index = 0
         else:

@@ -167,7 +167,7 @@ Phase6AnimList = (('headdown-putt', 'headdown-putt'),
 Phase9AnimList = (('push', 'push'),)
 Phase10AnimList = (('leverReach', 'leverReach'), ('leverPull', 'leverPull'), ('leverNeutral', 'leverNeutral'))
 Phase12AnimList = ()
-if not config.GetBool('want-new-anims', 1):
+if not config.ConfigVariableBool('want-new-anims', 1).getValue():
     LegDict = {'s': '/models/char/dogSS_Shorts-legs-',
      'm': '/models/char/dogMM_Shorts-legs-',
      'l': '/models/char/dogLL_Shorts-legs-'}
@@ -193,7 +193,7 @@ else:
 
 def loadModels():
     global Preloaded
-    preloadAvatars = config.GetBool('preload-avatars', 0)
+    preloadAvatars = config.ConfigVariableBool('preload-avatars', 0).getValue()
     if preloadAvatars:
 
         def loadTex(path):
@@ -476,7 +476,7 @@ def unloadDialog():
 
 class Toon(Avatar.Avatar, ToonHead):
     notify = DirectNotifyGlobal.directNotify.newCategory('Toon')
-    afkTimeout = config.GetInt('afk-timeout', 600)
+    afkTimeout = config.ConfigVariableInt('afk-timeout', 600).getValue()
 
     def __init__(self):
         try:
@@ -522,7 +522,7 @@ class Toon(Avatar.Avatar, ToonHead):
         self.isDisguised = 0
         self.defaultColorScale = None
         self.jar = None
-        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.setTag('pieCode', str(ToontownGlobals.PieCodeToon))
         self.setFont(ToontownGlobals.getToonFont())
         self.setSpeechFont(ToontownGlobals.getToonFont())
@@ -652,7 +652,7 @@ class Toon(Avatar.Avatar, ToonHead):
             self.sendLogSuspiciousEvent('nakedToonDNA %s was requested' % newDNA.torso)
             newDNA.torso = newDNA.torso + 's'
         self.setDNA(newDNA)
-        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
 
     def setDNA(self, dna):
         if hasattr(self, 'isDisguised'):
@@ -669,7 +669,7 @@ class Toon(Avatar.Avatar, ToonHead):
     def parentToonParts(self):
         if self.hasLOD():
             for lodName in self.getLODNames():
-                if config.GetBool('want-new-anims', 1):
+                if config.ConfigVariableBool('want-new-anims', 1).getValue():
                     if not self.getPart('torso', lodName).find('**/def_head').isEmpty():
                         self.attach('head', 'torso', 'def_head', lodName)
                     else:
@@ -696,12 +696,12 @@ class Toon(Avatar.Avatar, ToonHead):
 
     def setLODs(self):
         self.setLODNode()
-        levelOneIn = config.GetInt('lod1-in', 20)
-        levelOneOut = config.GetInt('lod1-out', 0)
-        levelTwoIn = config.GetInt('lod2-in', 80)
-        levelTwoOut = config.GetInt('lod2-out', 20)
-        levelThreeIn = config.GetInt('lod3-in', 280)
-        levelThreeOut = config.GetInt('lod3-out', 80)
+        levelOneIn = config.ConfigVariableInt('lod1-in', 20).getValue()
+        levelOneOut = config.ConfigVariableInt('lod1-out', 0).getValue()
+        levelTwoIn = config.ConfigVariableInt('lod2-in', 80).getValue()
+        levelTwoOut = config.ConfigVariableInt('lod2-out', 20).getValue()
+        levelThreeIn = config.ConfigVariableInt('lod3-in', 280).getValue()
+        levelThreeOut = config.ConfigVariableInt('lod3-out', 80).getValue()
         self.addLOD(1000, levelOneIn, levelOneOut)
         self.addLOD(500, levelTwoIn, levelTwoOut)
         self.addLOD(250, levelThreeIn, levelThreeOut)
@@ -716,7 +716,7 @@ class Toon(Avatar.Avatar, ToonHead):
         self.rescaleToon()
         self.resetHeight()
         self.setupToonNodes()
-        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
 
     def setupToonNodes(self):
         rightHand = NodePath('rightHand')
@@ -727,14 +727,14 @@ class Toon(Avatar.Avatar, ToonHead):
         self.leftHand = None
         for lodName in self.getLODNames():
             hand = self.getPart('torso', lodName).find('**/joint_Rhold')
-            if config.GetBool('want-new-anims', 1):
+            if config.ConfigVariableBool('want-new-anims', 1).getValue():
                 if not self.getPart('torso', lodName).find('**/def_joint_right_hold').isEmpty():
                     hand = self.getPart('torso', lodName).find('**/def_joint_right_hold')
             else:
                 hand = self.getPart('torso', lodName).find('**/joint_Rhold')
             self.rightHands.append(hand)
             rightHand = rightHand.instanceTo(hand)
-            if config.GetBool('want-new-anims', 1):
+            if config.ConfigVariableBool('want-new-anims', 1).getValue():
                 if not self.getPart('torso', lodName).find('**/def_joint_left_hold').isEmpty():
                     hand = self.getPart('torso', lodName).find('**/def_joint_left_hold')
             else:
@@ -761,11 +761,11 @@ class Toon(Avatar.Avatar, ToonHead):
         if self.__bookActors:
             return self.__bookActors
         bookActor = Actor.Actor('phase_3.5/models/props/book-mod', {'book': 'phase_3.5/models/props/book-chan'})
-        bookActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        bookActor.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         bookActor2 = Actor.Actor(other=bookActor)
-        bookActor2.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        bookActor2.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         bookActor3 = Actor.Actor(other=bookActor)
-        bookActor3.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        bookActor3.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.__bookActors = [bookActor, bookActor2, bookActor3]
         hands = self.getRightHands()
         for bookActor, hand in zip(self.__bookActors, hands):
@@ -778,11 +778,11 @@ class Toon(Avatar.Avatar, ToonHead):
         if self.__holeActors:
             return self.__holeActors
         holeActor = Actor.Actor('phase_3.5/models/props/portal-mod', {'hole': 'phase_3.5/models/props/portal-chan'})
-        holeActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        holeActor.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         holeActor2 = Actor.Actor(other=holeActor)
-        holeActor2.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        holeActor2.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         holeActor3 = Actor.Actor(other=holeActor)
-        holeActor3.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        holeActor3.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.__holeActors = [holeActor, holeActor2, holeActor3]
         for ha in self.__holeActors:
             if hasattr(self, 'uniqueName'):
@@ -2138,7 +2138,7 @@ class Toon(Avatar.Avatar, ToonHead):
         self.startLookAround()
         self.openEyes()
         self.startBlink()
-        if config.GetBool('stuck-sleep-fix', 1):
+        if config.ConfigVariableBool('stuck-sleep-fix', 1).getValue():
             doClear = SLEEP_STRING in (self.nametag.getChat(), self.nametag.getStompText())
         else:
             doClear = self.nametag.getChat() == SLEEP_STRING

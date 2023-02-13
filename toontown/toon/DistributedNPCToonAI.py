@@ -5,7 +5,7 @@ from toontown.quest import Quests
 from direct.directnotify import DirectNotifyGlobal
 
 class DistributedNPCToonAI(DistributedNPCToonBaseAI):
-    FourthGagVelvetRopeBan = config.GetBool('want-ban-fourth-gag-velvet-rope', 0)
+    FourthGagVelvetRopeBan = config.ConfigVariableBool('want-ban-fourth-gag-velvet-rope', 0).getValue()
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedNPCToonAI')
 
     def __init__(self, air, npcId, questCallback = None, hq = 0):

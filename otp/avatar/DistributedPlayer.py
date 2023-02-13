@@ -15,7 +15,7 @@ from otp.otpbase import OTPGlobals
 from otp.avatar.Avatar import teleportNotify
 from otp.distributed.TelemetryLimited import TelemetryLimited
 from otp.ai.MagicWordGlobal import *
-if config.GetBool('want-chatfilter-hacks', 0):
+if config.ConfigVariableBool('want-chatfilter-hacks', 0).getValue():
     from otp.switchboard import badwordpy
     import os
     badwordpy.init(os.environ.get('OTP') + '\\src\\switchboard\\', '')
@@ -45,7 +45,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
             self.DISLid = 0
             self.adminAccess = 0
             self.autoRun = 0
-            self.whiteListEnabled = config.GetBool('whitelist-chat-enabled', 1)
+            self.whiteListEnabled = config.ConfigVariableBool('whitelist-chat-enabled', 1).getValue()
 
         return
 
@@ -225,8 +225,8 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
         if self.cr.wantMagicWords and len(chatString) > 0 and chatString[0] == '~':
             messenger.send('magicWord', [chatString])
         else:
-            if config.GetBool('want-chatfilter-hacks', 0):
-                if config.GetBool('want-chatfilter-drop-offending', 0):
+            if config.ConfigVariableBool('want-chatfilter-hacks', 0).getValue():
+                if config.ConfigVariableBool('want-chatfilter-drop-offending', 0).getValue():
                     if badwordpy.test(chatString):
                         return
                 else:
@@ -374,7 +374,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
                     teleportNotify.debug('party is ending')
                     self.d_teleportResponse(self.doId, 0, 0, 0, 0, sendToId=requesterId)
                     return
-            if self.__teleportAvailable and not self.ghostMode and config.GetBool('can-be-teleported-to', 1):
+            if self.__teleportAvailable and not self.ghostMode and config.ConfigVariableBool('can-be-teleported-to', 1).getValue():
                 teleportNotify.debug('teleport initiation successful')
                 self.setSystemMessage(requesterId, OTPLocalizer.WhisperComingToVisit % avatar.getName())
                 messenger.send('teleportQuery', [avatar, self])

@@ -28,27 +28,27 @@ class DivingFishSpawn(DirectObject):
         loadBase = 'phase_4/models/char/'
         if fishcode == 0:
             fish = Actor.Actor('phase_4/models/char/clownFish-zero', {'anim': loadBase + 'clownFish-swim'})
-            fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+            fish.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
             fish.name = 'clown'
         elif fishcode == 1:
             fish = Actor.Actor('phase_4/models/char/PBJfish-zero', {'anim': 'phase_4/models/char/PBJfish-swim'})
-            fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+            fish.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
             fish.name = 'pbj'
         elif fishcode == 2:
             fish = Actor.Actor('phase_4/models/char/BearAcuda-zero', {'anim': 'phase_4/models/char/BearAcuda-swim'})
-            fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+            fish.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
             fish.name = 'bear'
         elif fishcode == 3:
             fish = Actor.Actor(loadBase + 'balloonFish-zero', {'anim': loadBase + 'balloonFish-swim'})
-            fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+            fish.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
             fish.name = 'balloon'
         elif fishcode == 4:
             fish = Actor.Actor(loadBase + 'nurseShark-zero', {'anim': loadBase + 'nurseShark-swim'})
-            fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+            fish.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
             fish.name = 'nurse'
         elif fishcode == 5:
             fish = Actor.Actor(loadBase + 'pianoTuna-zero', {'anim': loadBase + 'pianoTuna-swim'})
-            fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+            fish.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
             fish.name = 'piano'
         else:
             return

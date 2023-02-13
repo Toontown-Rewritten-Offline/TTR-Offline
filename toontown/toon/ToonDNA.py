@@ -5,7 +5,7 @@ from direct.distributed.PyDatagram import PyDatagram
 from direct.distributed.PyDatagramIterator import PyDatagramIterator
 from otp.avatar import AvatarDNA
 notify = directNotify.newCategory('ToonDNA')
-mergeMATTailor = config.GetBool('want-mat-all-tailors', 1)
+mergeMATTailor = config.ConfigVariableBool('want-mat-all-tailors', 1).getValue()
 toonSpeciesTypes = ['d',
  'c',
  'h',
@@ -2653,7 +2653,7 @@ class ToonDNA(AvatarDNA.AvatarDNA):
         if armColor >= len(allColorsList):
             return False
 
-        if gloveColor != 0 and not config.GetBool('want-glove-colors', False):
+        if gloveColor != 0 and not config.ConfigVariableBool('want-glove-colors', False).getValue():
             return False
 
         if legColor >= len(allColorsList):
@@ -2843,7 +2843,7 @@ class ToonDNA(AvatarDNA.AvatarDNA):
             generator = random
         # We want colors to shuffle all parts of the body sometimes, but we want some solid
         # colors thrown in there as well. We'll increase the chances of that happening.
-        if config.GetBool('want-shuffle-colors', 1) and random.random() <= 0.3:
+        if config.ConfigVariableBool('want-shuffle-colors', 1).getValue() and random.random() <= 0.3:
             colorArm = generator.choice(choices)
             colorLeg = generator.choice(choices)
             colorHead = generator.choice(choices)

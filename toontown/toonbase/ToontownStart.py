@@ -137,7 +137,7 @@ if not ConfigVariableBool('want-retro-rewritten', False):
     music = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase2.ogg')
     from . import ToontownLoader
     from direct.gui.DirectGui import *
-    serverVersion = config.GetString('server-version', 'no_version_set')
+    serverVersion = config.ConfigVariableString('server-version', 'no_version_set').getValue()
     print('ToontownStart: serverVersion: ', serverVersion)
     from .ToonBaseGlobal import *
     from direct.showbase.MessengerGlobal import *
@@ -162,7 +162,7 @@ else:
 
     # Server Version
     from . import ToontownLoader
-    serverVersion = config.GetString('server-version', 'no_version_set')
+    serverVersion = config.ConfigVariableString('server-version', 'no_version_set').getValue()
     print('ToontownStart: serverVersion: ', serverVersion)
     version = OnscreenText(serverVersion, pos=(-1.3, -0.975), scale=0.06, fg=Vec4(0, 0, 1, 0.6), align=TextNode.ALeft)
     loader.beginBulkLoad('init', TTLocalizer.LoaderLabel, 138, 0, TTLocalizer.TIP_NONE)
@@ -185,7 +185,7 @@ cr.generateGlobalObject(OTP_DO_ID_FRIEND_MANAGER, 'FriendManager')
 
 if not ConfigVariableBool('want-retro-rewritten', False):
     # Prepare for new loading screen
-    if not launcher.isDummy() and not config.GetBool('auto-start-server', False):
+    if not launcher.isDummy() and not config.ConfigVariableBool('auto-start-server', False).getValue():
         base.startShow(cr, launcher.getGameServer())
     else:
         base.startShow(cr)
@@ -209,7 +209,7 @@ if not ConfigVariableBool('want-retro-rewritten', False):
     loading.connectBackground()
     loading.newLogo()
 
-if config.GetBool('auto-start-server', False):
+if config.ConfigVariableBool('auto-start-server', False).getValue():
     # Start DedicatedServer
     from otp.otpbase.OTPLocalizer import CRLoadingGameServices
 

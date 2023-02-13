@@ -10,7 +10,7 @@ class DistributedBBElevatorAI(DistributedBossElevatorAI.DistributedBossElevatorA
 
     def checkBoard(self, av):
         result = 0
-        if config.GetBool('allow-ceo-elevator', True):
+        if config.ConfigVariableBool('allow-ceo-elevator', True).getValue():
             result = DistributedBossElevatorAI.DistributedBossElevatorAI.checkBoard(self, av)
         else:
             result = REJECT_NOT_YET_AVAILABLE

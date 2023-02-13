@@ -90,7 +90,7 @@ class DistributedPhone(DistributedFurnitureItem.DistributedFurnitureItem):
          'LL_takePhone': 'phase_5.5/models/estate/prop_phone-LL_takePhone',
          'LL_phoneNeutral': 'phase_5.5/models/estate/prop_phone-LL_phoneNeutral',
          'LL_phoneBack': 'phase_5.5/models/estate/prop_phone-LL_phoneBack'})
-        self.model.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.model.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.model.pose('SS_phoneOut', 0)
         self.receiverJoint = self.model.find('**/joint_receiver')
         self.receiverGeom = self.receiverJoint.getChild(0)
@@ -176,7 +176,7 @@ class DistributedPhone(DistributedFurnitureItem.DistributedFurnitureItem):
             return
         if self.hasLocalAvatar:
             self.freeAvatar()
-        if config.GetBool('want-pets', 1):
+        if config.ConfigVariableBool('want-pets', 1).getValue():
             base.localAvatar.lookupPetDNA()
         self.notify.debug('Entering Phone Sphere....')
         taskMgr.remove(self.uniqueName('ringDoLater'))

@@ -64,7 +64,7 @@ class NewLoadingScreen(DirectObject.DirectObject):
         musPhase2.stop()
 
     def newVersion(self):
-        serverVersion = config.GetString('server-version', 'no_version_set')
+        serverVersion = config.ConfigVariableString('server-version', 'no_version_set').getValue()
         global version
         version = OnscreenText(serverVersion, pos=(-1, -1.2), scale=0.055, font=loader.loadFont('phase_3/fonts/ImpressBT.ttf'), fg=Vec4(1, 1, 1, 1), align=TextNode.ALeft)
         version.setPos(0.12,0.045)

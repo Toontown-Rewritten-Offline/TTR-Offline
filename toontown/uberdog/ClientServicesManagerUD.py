@@ -23,7 +23,7 @@ REPORT_REASONS = [
 class LocalAccountDB:
     def __init__(self, csm):
         self.csm = csm
-        if not config.GetBool('want-mongo-client', False):
+        if not config.ConfigVariableBool('want-mongo-client', False).getValue():
             filename = config.GetString(
                 'account-bridge-filename', 'astron/databases/account-bridge-yaml')
         else:
@@ -144,7 +144,7 @@ class LoginAccountFSM(OperationFSM):
         # Binary bitmask in base10 form, added to the adminAccess.
         # To find out what they have access to, convert the serverAccess to 3-bit binary.
         # 2^2 = dev, 2^1 = qa, 2^0 = test
-        serverType = config.GetString('server-type', 'dev')
+        serverType = config.ConfigVariableString('server-type', 'dev').getValue()
         serverAccess = self.adminAccess % 10 # Get the last digit in their access.
         if (serverType == 'dev' and not serverAccess & 4) or \
            (serverType == 'qa' and not serverAccess & 2) or \
@@ -853,7 +853,7 @@ class ClientServicesManagerUD(DistributedObjectGlobalUD):
         self.nameGenerator = NameGenerator()
 
         # Instantiate our account DB interface using config:
-        dbtype = config.GetString('accountdb-type', 'local')
+        dbtype = config.ConfigVariableString('accountdb-type', 'local').getValue()
         if dbtype == 'local':
             self.accountDB = LocalAccountDB(self)
         elif dbtype == 'remote':
@@ -935,7 +935,7 @@ class ClientServicesManagerUD(DistributedObjectGlobalUD):
         # Encode the login info
         cookie = cookie.encode('utf-8') # PY3
 
-        key = config.GetString('csmud-secret', 'streetlamps') + config.GetString('server-version', 'no_version_set') + FIXED_KEY
+        key = config.ConfigVariableString('csmud-secret', 'streetlamps').getValue() + config.ConfigVariableString('server-version', 'no_version_set').getValue() + FIXED_KEY
         key = key.encode('utf-8') # PY3
 
         # Test the signature

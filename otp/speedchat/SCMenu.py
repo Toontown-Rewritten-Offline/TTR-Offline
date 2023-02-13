@@ -11,7 +11,7 @@ import types
 class SCMenu(SCObject, NodePath):
     config = DConfig
     SpeedChatRolloverTolerance = config.GetFloat('speedchat-rollover-tolerance', 0.08)
-    WantFade = config.GetBool('want-speedchat-fade', 0)
+    WantFade = config.ConfigVariableBool('want-speedchat-fade', 0).getValue()
     FadeDuration = config.GetFloat('speedchat-fade-duration', 0.2)
     SerialNum = 0
     BackgroundModelName = None

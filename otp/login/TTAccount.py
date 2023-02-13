@@ -9,7 +9,7 @@ import copy
 accountServer = ''
 accountServer = launcher.getAccountServer()
 print('TTAccount: accountServer from launcher: ', accountServer)
-configAccountServer = config.GetString('account-server', '')
+configAccountServer = config.ConfigVariableString('account-server', '').getValue()
 if configAccountServer:
     accountServer = configAccountServer
     print('TTAccount: overriding accountServer from config: ', accountServer)

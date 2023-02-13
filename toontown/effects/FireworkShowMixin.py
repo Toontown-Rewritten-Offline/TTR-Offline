@@ -27,7 +27,7 @@ class FireworkShowMixin:
         if self.currentShow:
             self.currentShow.pause()
             self.currentShow = None
-            if base.cr.config.GetBool('want-old-fireworks', 0):
+            if base.cr.config.ConfigVariableBool('want-old-fireworks', 0).getValue():
                 ivalMgr.finishIntervalsMatching('shootFirework*')
             else:
                 self.destroyFireworkShow()
@@ -61,7 +61,7 @@ class FireworkShowMixin:
         self.timestamp = timestamp
         self.showMusic = None
         self.eventId = eventId
-        if config.GetBool('want-old-fireworks', False):
+        if config.ConfigVariableBool('want-old-fireworks', False).getValue():
             self.currentShow = self.getFireworkShowIval(eventId, style, songId, t)
             if self.currentShow:
                 self.currentShow.start(t)

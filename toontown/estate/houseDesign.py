@@ -508,7 +508,7 @@ class ObjectManager(NodePath, DirectObject):
             self.atticRoof.hide()
 
             # In case we dont want to move the Closet, Phone, Bank or Trunk to the attic
-            if config.GetBool('want-permanent-interactables', False):
+            if config.ConfigVariableBool('want-permanent-interactables', False).getValue():
                 if selectedObject.dfitem.item.getFlags() & CatalogFurnitureItem.FLCloset or \
                     selectedObject.dfitem.item.getFlags() & CatalogFurnitureItem.FLPhone or \
                     selectedObject.dfitem.item.getFlags() & CatalogFurnitureItem.FLBank or \
@@ -1165,7 +1165,7 @@ class ObjectManager(NodePath, DirectObject):
         return
 
     def sendItemToAttic(self):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: ESTATE:  Send Item to Attic')
         messenger.send('wakeup')
         if self.selectedObject:
@@ -1267,7 +1267,7 @@ class ObjectManager(NodePath, DirectObject):
         return
 
     def bringItemFromAttic(self, item, itemIndex):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: ESTATE: Place Item in Room')
         messenger.send('wakeup')
         self.__enableItemButtons(0)
@@ -1485,7 +1485,7 @@ class ObjectManager(NodePath, DirectObject):
         return
 
     def __handleVerifyDeleteOK(self):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: ESTATE:  Send Item to Trash')
         deleteFunction = self.verifyItems[0]
         deleteFunctionArgs = self.verifyItems[1:]
@@ -1596,7 +1596,7 @@ class ObjectManager(NodePath, DirectObject):
         self.verifyItems = (item, itemIndex)
 
     def __handleVerifyReturnFromTrashOK(self):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: ESTATE:  Send Item to Attic')
         item, itemIndex = self.verifyItems
         self.__cleanupVerifyDelete()

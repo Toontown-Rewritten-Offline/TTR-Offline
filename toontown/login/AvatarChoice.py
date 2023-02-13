@@ -240,7 +240,7 @@ class AvatarChoice(DirectButton):
             self.deleteWithPasswordFrame.hide()
             base.transitions.noTransitions()
             messenger.send(self.doneEvent, ['delete', self.position])
-            if config.GetBool('want-qa-regression', 0):
+            if config.ConfigVariableBool('want-qa-regression', 0).getValue():
                 self.notify.info('QA-REGRESSION: DELETEATOON: Deleting A Toon')
         else:
             if errorMsg != None:
@@ -259,7 +259,7 @@ class AvatarChoice(DirectButton):
             self.deleteWithPasswordFrame.hide()
             base.transitions.noTransitions()
             messenger.send(self.doneEvent, ['delete', self.position])
-            if config.GetBool('want-qa-regression', 0):
+            if config.ConfigVariableBool('want-qa-regression', 0).getValue():
                 self.notify.info('QA-REGRESSION: DELETEATOON: Deleting A Toon')
         else:
             self.deleteWithPasswordFrame['text'] = TTLocalizer.AvatarChoiceDeleteWrongConfirm % {'name': self.name,

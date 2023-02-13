@@ -20,7 +20,7 @@ from toontown.estate import HouseGlobals
 from toontown.toonbase import TTLocalizer
 from direct.interval.IntervalGlobal import *
 from otp.nametag import NametagGlobals
-visualizeZones = config.GetBool('visualize-zones', 0)
+visualizeZones = config.ConfigVariableBool('visualize-zones', 0).getValue()
 
 class Street(BattlePlace.BattlePlace):
     notify = DirectNotifyGlobal.directNotify.newCategory('Street')

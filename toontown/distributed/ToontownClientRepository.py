@@ -103,9 +103,9 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
         self.ttrFriendsManager = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_TTR_FRIENDS_MANAGER, 'TTRFriendsManager')
         self.speedchatRelay = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_TOONTOWN_SPEEDCHAT_RELAY, 'TTSpeedchatRelay')
         self.deliveryManager = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_TOONTOWN_DELIVERY_MANAGER, 'DistributedDeliveryManager')
-        if config.GetBool('want-code-redemption', 1):
+        if config.ConfigVariableBool('want-code-redemption', 1).getValue():
             self.codeRedemptionManager = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_TOONTOWN_CODE_REDEMPTION_MANAGER, 'TTCodeRedemptionMgr')
-        if config.GetBool('want-arg-manager', 0):
+        if config.ConfigVariableBool('want-arg-manager', 0).getValue():
             self.argManager = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_TTR_ARG_MANAGER, 'ARGManager')
 
         self.streetSign = None
@@ -138,9 +138,9 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
         state = self.loginFSM.getStateNamed('playingGame')
         state.addTransition('credits')
 
-        self.wantCogdominiums = config.GetBool('want-cogdominiums', 1)
-        self.wantEmblems = config.GetBool('want-emblems', 0)
-        if config.GetBool('tt-node-check', 0):
+        self.wantCogdominiums = config.ConfigVariableBool('want-cogdominiums', 1).getValue()
+        self.wantEmblems = config.ConfigVariableBool('want-emblems', 0).getValue()
+        if config.ConfigVariableBool('tt-node-check', 0).getValue():
             for species in ToonDNA.toonSpeciesTypes:
                 for head in ToonDNA.getHeadList(species):
                     for torso in ToonDNA.toonTorsoTypes:
@@ -231,7 +231,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
         self.avChoice.load(self.isPaid())
         self.avChoice.enter()
         self.accept(self.avChoiceDoneEvent, self.__handleAvatarChooserDone, [avList])
-        if config.GetBool('want-gib-loader', 1):
+        if config.ConfigVariableBool('want-gib-loader', 1).getValue():
             self.loadingBlocker = ToontownLoadingBlocker.ToontownLoadingBlocker(avList)
         return
 

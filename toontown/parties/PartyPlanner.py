@@ -58,7 +58,7 @@ class PartyPlanner(DirectFrame, FSM):
          'minute': (15, -15),
          'ampm': (1, -1)}
         self.partyInfo = None
-        self.asapMinuteRounding = config.GetInt('party-asap-minute-rounding', PartyGlobals.PartyPlannerAsapMinuteRounding)
+        self.asapMinuteRounding = config.ConfigVariableInt('party-asap-minute-rounding', PartyGlobals.PartyPlannerAsapMinuteRounding).getValue()
         self.load()
         self.request('Welcome')
         return

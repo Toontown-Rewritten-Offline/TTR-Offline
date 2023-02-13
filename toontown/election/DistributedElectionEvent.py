@@ -53,7 +53,7 @@ class DistributedElectionEvent(DistributedObject, FSM):
         ropeCollision.node().addSolid(rc)
         ropeCollision.node().addSolid(rc2)
         self.flippyStand = Actor.Actor('phase_4/models/events/election_flippyStand-mod', {'idle': 'phase_4/models/events/election_flippyStand-idle'})
-        self.flippyStand.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.flippyStand.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.flippyStand.reparentTo(self.showFloor)
         self.flippyStand.setPosHprScale(-43.6, -24.5, 0.01, 200, 0, 0, 0.55, 0.55, 0.55)
         self.flippyStand.exposeJoint(None, 'modelRoot', 'LInnerShoulder')
@@ -65,7 +65,7 @@ class DistributedElectionEvent(DistributedObject, FSM):
         self.slappyStand = Actor.Actor('phase_4/models/events/election_slappyStand-mod', {'idle': 'phase_4/models/events/election_slappyStand-idle',
          'watch-idle': 'phase_4/models/events/election_slappyStand-watch-idle',
          'sad': 'phase_4/models/events/election_slappyStand-reaction'})
-        self.slappyStand.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.slappyStand.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.slappyStand.reparentTo(self.showFloor)
         self.slappyStand.setPosHprScale(-62.45, 14.39, 0.01, 325, 0, 0, 0.55, 0.55, 0.55)
         pie = loader.loadModel('phase_3.5/models/props/tart')
@@ -85,14 +85,14 @@ class DistributedElectionEvent(DistributedObject, FSM):
         csSlappy = CollisionBox(Point3(-4.2, 0, 0), 9.5, 5.5, 18)
         self.goopCollision = self.slappyStand.attachNewNode(CollisionNode('goop_collision'))
         self.goopCollision.node().addSolid(csSlappy)
-        if not config.GetBool('want-doomsday', False):
+        if not config.ConfigVariableBool('want-doomsday', False).getValue():
             self.accept('enter' + self.goopCollision.node().getName(), self.handleSlappyCollisionSphereEnter)
         self.alec = NPCToons.createLocalNPC(2022)
         self.slappy = NPCToons.createLocalNPC(2021)
         self.flippy = NPCToons.createLocalNPC(2001)
-        if config.GetBool('want-doomsday', False):
+        if config.ConfigVariableBool('want-doomsday', False).getValue():
             self.characters = [self.alec, self.slappy, self.flippy]
-        if not config.GetBool('want-doomsday', False):
+        if not config.ConfigVariableBool('want-doomsday', False).getValue():
             self.startInteractiveFlippy()
         self.flippyStand.loop('idle')
         self.slappyStand.loop('idle')
@@ -127,7 +127,7 @@ class DistributedElectionEvent(DistributedObject, FSM):
         self.surleeR.setH(110)
         self.surleeR.head = self.surleeR.find('**/__Actor_head')
         self.surleeR.initializeBodyCollisions('toon')
-        if config.GetBool('want-doomsday', False):
+        if config.ConfigVariableBool('want-doomsday', False).getValue():
             self.prepostera = NPCToons.createLocalNPC(20201)
             self.prepostera.useLOD(1000)
             self.prepostera.find('**/250').removeNode()
@@ -208,7 +208,7 @@ class DistributedElectionEvent(DistributedObject, FSM):
         self.showFloor.reparentTo(render)
 
     def __cleanupNPCs(self):
-        if config.GetBool('want-doomsday', False):
+        if config.ConfigVariableBool('want-doomsday', False).getValue():
             npcs = [self.flippy,
              self.slappy,
              self.alec,
@@ -217,7 +217,7 @@ class DistributedElectionEvent(DistributedObject, FSM):
              self.prepostera,
              self.dimm,
              self.suit]
-        if not config.GetBool('want-doomsday', False):
+        if not config.ConfigVariableBool('want-doomsday', False).getValue():
             npcs = [self.flippy,
              self.slappy,
              self.alec,
@@ -239,7 +239,7 @@ class DistributedElectionEvent(DistributedObject, FSM):
         DistributedObject.delete(self)
 
     def enterIdle(self, offset):
-        if config.GetBool('want-doomsday', False):
+        if config.ConfigVariableBool('want-doomsday', False).getValue():
             self.surlee.show()
             self.surlee.addActive()
             self.surlee.startBlink()
@@ -251,7 +251,7 @@ class DistributedElectionEvent(DistributedObject, FSM):
         self.counterRight.pose('body', 0)
 
     def exitIdle(self):
-        if config.GetBool('want-doomsday', False):
+        if config.ConfigVariableBool('want-doomsday', False).getValue():
             self.surleeIntroInterval.finish()
 
     def startInteractiveFlippy(self):

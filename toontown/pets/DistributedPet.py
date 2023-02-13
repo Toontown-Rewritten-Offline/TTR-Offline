@@ -42,7 +42,7 @@ class DistributedPet(DistributedSmoothNode.DistributedSmoothNode, Pet.Pet, PetBa
         self.__generateDistMoodFuncs()
         self.trickAptitudes = []
         self.avDelayDelete = None
-        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         return
 
     def generate(self):
@@ -54,7 +54,7 @@ class DistributedPet(DistributedSmoothNode.DistributedSmoothNode, Pet.Pet, PetBa
         self.movieTrack = None
         self.traitList = [0] * PetTraits.PetTraits.NumTraits
         self.requiredMoodComponents = {}
-        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         return
 
     def b_setLocation(self, parentId, zoneId):
@@ -273,7 +273,7 @@ class DistributedPet(DistributedSmoothNode.DistributedSmoothNode, Pet.Pet, PetBa
 
     def delete(self):
         DistributedPet.notify.debug('delete(), fake=%s' % self.bFake)
-        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         if self.trickIval != None:
             self.trickIval.finish()
             del self.trickIval

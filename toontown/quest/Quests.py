@@ -18620,7 +18620,7 @@ def getNextRewards(numChoices, tier, av):
     if av.getGameAccess() == OTPGlobals.AccessFull and tier == TT_TIER + 3:
         optRewards = []
     if av.getWantBetaKeyQuest():
-        if tier >= DG_TIER or config.GetBool('want-bkq-pre-dg', False):
+        if tier >= DG_TIER or config.ConfigVariableBool('want-bkq-pre-dg', False).getValue():
             # Offer them the beta key quest.
             optRewards = [5000]
         else:

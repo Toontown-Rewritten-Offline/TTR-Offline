@@ -424,7 +424,7 @@ class PetBrain(DirectObject.DirectObject):
             return
 
         def _handleDoTrick(trickId, avId, self = self):
-            looked = self.lookedAtBy(avId) or config.GetBool('pet-brain-ignore-looked-tricks', True)
+            looked = self.lookedAtBy(avId) or config.ConfigVariableBool('pet-brain-ignore-looked-tricks', True).getValue()
             avatar = simbase.air.doId2do.get(avId)
             if avatar:
                 if looked:

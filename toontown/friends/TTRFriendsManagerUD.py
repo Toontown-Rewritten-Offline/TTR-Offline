@@ -37,7 +37,7 @@ class GetToonDataFSM(FSM):
     def enterFinished(self):
         # We want to cache the basic information we got for GetFriendsListFSM.
         self.mgr.avBasicInfoCache[self.avId] = {
-            'expire' : time() + config.GetInt('friend-detail-cache-expire', 3600),
+            'expire' : time() + config.ConfigVariableInt('friend-detail-cache-expire', 3600).getValue(),
             'toonInfo' : [self.avId, self.fields['setName'][0], self.fields['setDNAString'][0], self.fields['setPetId'][0]],
         }
         self.callback(success=True, requesterId=self.requesterId, fields=self.fields)

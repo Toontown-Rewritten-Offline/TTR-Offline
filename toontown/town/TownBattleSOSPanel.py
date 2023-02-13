@@ -160,7 +160,7 @@ class TownBattleSOSPanel(DirectFrame, StateData.StateData):
 
     def __updateScrollList(self):
         newFriends = []
-        battlePets = config.GetBool('want-pets-in-battle', 1)
+        battlePets = config.ConfigVariableBool('want-pets-in-battle', 1).getValue()
         if base.wantPets and battlePets == 1 and base.localAvatar.hasPet():
             newFriends.append((base.localAvatar.getPetId(), 0))
         if not self.bldg or self.factoryToonIdList != None:

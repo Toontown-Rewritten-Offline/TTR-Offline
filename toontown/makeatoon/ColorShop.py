@@ -220,7 +220,7 @@ class ColorShop(StateData.StateData):
         self.__swapHeadColor(newHeadColorIndex - oldHeadColorIndex)
         # We want colors to shuffle all parts of the body sometimes, but we want some solid
         # colors thrown in there as well. We'll increase the chances of that happening.
-        if config.GetBool('want-shuffle-colors', 1) and random() <= 0.4:
+        if config.ConfigVariableBool('want-shuffle-colors', 1).getValue() and random() <= 0.4:
             self.__swapArmColor(newArmColorIndex - oldArmColorIndex)
             self.__swapLegColor(newLegColorIndex - oldLegColorIndex)
         else:

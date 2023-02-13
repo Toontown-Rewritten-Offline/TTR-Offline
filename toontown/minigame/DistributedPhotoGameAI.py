@@ -55,7 +55,7 @@ class DistributedPhotoGameAI(DistributedMinigameAI, PhotoGameBase.PhotoGameBase)
 
     def enterPlay(self):
         self.notify.debug('enterPlay')
-        if not config.GetBool('endless-photo-game', 0):
+        if not config.ConfigVariableBool('endless-photo-game', 0).getValue():
             taskMgr.doMethodLater(self.data['TIME'], self.timerExpired, self.taskName('gameTimer'))
 
     def timerExpired(self, task = None):
