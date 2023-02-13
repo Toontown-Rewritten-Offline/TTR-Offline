@@ -143,7 +143,7 @@ class DistributedStageRoom(DistributedLevel.DistributedLevel, StageRoomBase.Stag
         StageRoom.StageRoom.enterLtPresent(self)
         if __dev__:
             bboard.post(EditorGlobals.EditTargetPostName, self)
-        if self.stage is not None:
+        if self.stage != None:
             self.stage.currentRoomName = StageRoomSpecs.CashbotStageRoomId2RoomName[self.roomId]
 
         def printPos(self = self):
@@ -152,7 +152,7 @@ class DistributedStageRoom(DistributedLevel.DistributedLevel, StageRoomBase.Stag
             h = base.localAvatar.getH(thisZone)
             roomName = StageRoomSpecs.CashbotStageRoomId2RoomName[self.roomId]
             print('stage pos: %s, h: %s, room: %s' % (repr(pos), h, roomName))
-            if self.stage is not None:
+            if self.stage != None:
                 floorNum = self.stage.floorNum
             else:
                 floorNum = '???'

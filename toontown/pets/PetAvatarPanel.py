@@ -213,7 +213,7 @@ class PetAvatarPanel(AvatarPanel.AvatarPanel):
     def __ownerDetailsLoaded(self, avatar):
         self.notify.debug('__ownerDetailsLoaded(): doId=%s' % self.avatar.doId)
         self.cleanup()
-        if avatar is not None:
+        if avatar != None:
             messenger.send('clickedNametag', [avatar])
         return
 
@@ -223,7 +223,7 @@ class PetAvatarPanel(AvatarPanel.AvatarPanel):
         self.notify.debug('__handleCall(): doId=%s' % self.avatar.doId)
         base.localAvatar.b_setPetMovie(self.avId, PetConstants.PET_MOVIE_CALL)
         base.panel.disableInteractionButtons()
-        if self.avatar.trickIval is not None and self.avatar.trickIval.isPlaying():
+        if self.avatar.trickIval != None and self.avatar.trickIval.isPlaying():
             self.avatar.trickIval.finish()
         base.cr.playGame.getPlace().setState('pet')
         base.localAvatar.lock()
@@ -235,7 +235,7 @@ class PetAvatarPanel(AvatarPanel.AvatarPanel):
         self.notify.debug('__handleFeed(): doId=%s' % self.avatar.doId)
         base.localAvatar.b_setPetMovie(self.avId, PetConstants.PET_MOVIE_FEED)
         base.panel.disableInteractionButtons()
-        if self.avatar.trickIval is not None and self.avatar.trickIval.isPlaying():
+        if self.avatar.trickIval != None and self.avatar.trickIval.isPlaying():
             self.avatar.trickIval.finish()
         base.cr.playGame.getPlace().setState('pet')
         base.localAvatar.lock()
@@ -247,7 +247,7 @@ class PetAvatarPanel(AvatarPanel.AvatarPanel):
         self.notify.debug('__handleScratch(): doId=%s' % self.avatar.doId)
         base.localAvatar.b_setPetMovie(self.avId, PetConstants.PET_MOVIE_SCRATCH)
         base.panel.disableInteractionButtons()
-        if self.avatar.trickIval is not None and self.avatar.trickIval.isPlaying():
+        if self.avatar.trickIval != None and self.avatar.trickIval.isPlaying():
             self.avatar.trickIval.finish()
         base.cr.playGame.getPlace().setState('pet')
         base.localAvatar.lock()

@@ -394,7 +394,7 @@ class LocationBasedQuest(Quest):
 
     def isLocationMatch(self, zoneId):
         loc = self.getLocation()
-        if loc is Anywhere:
+        if loc == Anywhere:
             return 1
         if ZoneUtil.isPlayground(loc):
             if loc == ZoneUtil.getCanonicalHoodId(zoneId):
@@ -17739,7 +17739,7 @@ def getStartingQuests(tier = None):
     startingQuests = []
     for questId in list(QuestDict.keys()):
         if isStartingQuest(questId):
-            if tier is None:
+            if tier == None:
                 startingQuests.append(questId)
             elif questId in Tier2QuestsDict[tier]:
                 startingQuests.append(questId)
@@ -18023,7 +18023,7 @@ def chooseBestQuests(tier, currentNpc, av):
             break
         rewardId = rewards.pop(0)
         bestQuestId = chooseMatchingQuest(tier, validQuestPool, rewardId, currentNpc, av)
-        if bestQuestId is None:
+        if bestQuestId == None:
             continue
         validQuestPool.remove(bestQuestId)
         bestQuestToNpcId = getQuestToNpcId(bestQuestId)
@@ -19845,7 +19845,7 @@ def checkReward(questId, forked = 0):
          AnyCashbotSuitPart,
          AnyLawbotSuitPart,
          OBSOLETE]
-        if reward is OBSOLETE:
+        if reward == OBSOLETE:
             print('warning: quest %s is obsolete' % questId)
         return reward
     else:

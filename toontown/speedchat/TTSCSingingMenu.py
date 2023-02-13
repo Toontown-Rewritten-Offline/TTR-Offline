@@ -45,7 +45,7 @@ class TTSCSingingMenu(SCMenu):
                         print('warning: tried to link a singing phrase %s which does not seem to exist' % phrase)
                         break
                     terminal = TTSCSingingTerminal(phrase)
-                    if emote is not None:
+                    if emote != None:
                         terminal.setLinkedEmote(emote)
                     self.append(terminal)
 

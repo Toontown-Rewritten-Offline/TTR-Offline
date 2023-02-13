@@ -566,7 +566,7 @@ class TTEmote(Emote.Emote):
         if isinstance(index, bytes):
             index = OTPLocalizer.EmoteFuncDict[index]
         self.emoteFunc[index][1] = self.emoteFunc[index][1] + 1
-        if toon is base.localAvatar:
+        if toon == base.localAvatar:
             if self.emoteFunc[index][1] == 1:
                 self.emoteEnableStateChanged()
 
@@ -574,7 +574,7 @@ class TTEmote(Emote.Emote):
         if isinstance(index, bytes):
             index = OTPLocalizer.EmoteFuncDict[index]
         self.emoteFunc[index][1] = self.emoteFunc[index][1] - 1
-        if toon is base.localAvatar:
+        if toon == base.localAvatar:
             if self.emoteFunc[index][1] == 0:
                 self.emoteEnableStateChanged()
 

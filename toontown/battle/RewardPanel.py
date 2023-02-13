@@ -574,7 +574,7 @@ class RewardPanel(DirectFrame):
         intervalList = []
         toonShortList = []
         for t in toonList:
-            if t is not None:
+            if t != None:
                 toonShortList.append(t)
 
         cogList = []
@@ -586,7 +586,7 @@ class RewardPanel(DirectFrame):
             activeToonIds = []
             for j in range(8):
                 if activeToonBits & 1 << j:
-                    if toonList[j] is not None:
+                    if toonList[j] != None:
                         activeToonIds.append(toonList[j].getDoId())
 
             isSkelecog = flags & ToontownBattleGlobals.DLF_SKELECOG
@@ -763,7 +763,7 @@ class RewardPanel(DirectFrame):
             track.append(Func(self.vanishFrames))
             track.append(Fanfare.makeFanfare(0, toon)[0])
             for i in range(len(endTracks)):
-                if endTracks[i] is 1:
+                if endTracks[i] == 1:
                     track += self.getEndTrackIntervalList(toon, toonList, i)
 
             track.append(Func(self.cleanupEndTrack))

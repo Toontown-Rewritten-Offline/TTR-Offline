@@ -291,7 +291,7 @@ class ShtikerBook(DirectFrame, StateData.StateData):
         return
 
     def setPage(self, page, enterPage = True):
-        if self.currPageIndex is not None:
+        if self.currPageIndex != None:
             self.pages[self.currPageIndex].exit()
         self.currPageIndex = self.pages.index(page)
         self.setPageTabIndex(self.currPageIndex)
@@ -309,7 +309,7 @@ class ShtikerBook(DirectFrame, StateData.StateData):
         self.accept(ToontownGlobals.OptionsPageHotkey, self.__close)
 
     def setPageTabIndex(self, pageTabIndex):
-        if self.currPageTabIndex is not None and pageTabIndex != self.currPageTabIndex:
+        if self.currPageTabIndex != None and pageTabIndex != self.currPageTabIndex:
             self.pageTabs[self.currPageTabIndex]['relief'] = DGG.RAISED
         self.currPageTabIndex = pageTabIndex
         self.pageTabs[self.currPageTabIndex]['relief'] = DGG.SUNKEN
@@ -317,7 +317,7 @@ class ShtikerBook(DirectFrame, StateData.StateData):
 
     def isOnPage(self, page):
         result = False
-        if self.currPageIndex is not None:
+        if self.currPageIndex != None:
             curPage = self.pages[self.currPageIndex]
             if curPage == page:
                 result = True

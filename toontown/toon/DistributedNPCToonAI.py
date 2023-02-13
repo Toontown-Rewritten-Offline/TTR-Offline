@@ -39,7 +39,7 @@ class DistributedNPCToonAI(DistributedNPCToonBaseAI):
         if self.pendingAvId != avId:
             self.notify.warning('chooseQuest: not expecting an answer from this avatar: %s' % avId)
             return
-        if self.pendingQuests is None:
+        if self.pendingQuests == None:
             self.notify.warning('chooseQuest: not expecting a quest choice from this avatar: %s' % avId)
             self.air.writeServerEvent('suspicious', avId=avId, issue='unexpected chooseQuest')
             return
@@ -81,7 +81,7 @@ class DistributedNPCToonAI(DistributedNPCToonBaseAI):
         if self.pendingAvId != avId:
             self.notify.warning('chooseTrack: not expecting an answer from this avatar: %s' % avId)
             return
-        if self.pendingTracks is None:
+        if self.pendingTracks == None:
             self.notify.warning('chooseTrack: not expecting a track choice from this avatar: %s' % avId)
             self.air.writeServerEvent('suspicious', avId=avId, issue='unexpected chooseTrack')
             return

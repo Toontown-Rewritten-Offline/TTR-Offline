@@ -76,13 +76,13 @@ class FireworkEffect(NodePath):
 
     def getTrailEffectsIval(self):
         if not self.trailEffectsIval:
-            if self.trailTypeId is None:
+            if self.trailTypeId == None:
                 self.effectNode.setPos(self.velocity)
                 self.trailEffectsIval = Wait(self.burstDelay)
                 return self.trailEffectsIval
             self.trailEffectsIval = Parallel()
             self.trailEffectsIval.append(ProjectileInterval(self.effectsNode, startVel=self.velocity, duration=self.burstDelay, gravityMult=self.gravityMult))
-            if self.trailTypeId is None:
+            if self.trailTypeId == None:
                 return self.trailEffectsIval
             self.trailEffectsIval.append(Func(random.choice(self.trailSfx).play))
             if config.GetInt('toontown-sfx-setting', 1) == 0:
@@ -165,7 +165,7 @@ class FireworkEffect(NodePath):
     def getBurstEffectsIval(self):
         if not self.burstEffectsIval:
             self.burstEffectsIval = Parallel()
-            if self.burstTypeId is None:
+            if self.burstTypeId == None:
                 return self.burstEffectsIval
             self.burstEffectsIval.append(Wait(0.5))
             self.burstEffectsIval.append(Func(random.choice(self.burstSfx).play))

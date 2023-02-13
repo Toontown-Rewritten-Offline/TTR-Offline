@@ -171,7 +171,7 @@ class CogdoMazeGame(DirectObject):
         del self._movie
         for player in self.players:
             self.placePlayer(player)
-            if player.toon is localAvatar:
+            if player.toon == localAvatar:
                 localAvatar.sendCurrentPosition()
             player.request('Ready')
 
@@ -194,7 +194,7 @@ class CogdoMazeGame(DirectObject):
     def initPlayers(self):
         for toonId in self.distGame.getToonIds():
             toon = self.distGame.getToon(toonId)
-            if toon is not None:
+            if toon != None:
                 if toon.isLocal():
                     player = CogdoMazeLocalPlayer(len(self.players), base.localAvatar, self, self.guiMgr)
                     self.localPlayer = player
@@ -461,7 +461,7 @@ class CogdoMazeGame(DirectObject):
         heading = h
         pos = Point3(x, y, 0)
         gag = player.showToonThrowingGag(heading, pos)
-        if gag is not None:
+        if gag != None:
             self.gags.append(gag)
         return
 

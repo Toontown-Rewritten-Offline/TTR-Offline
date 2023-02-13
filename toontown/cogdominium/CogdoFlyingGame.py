@@ -44,7 +44,7 @@ class CogdoFlyingGame(DirectObject):
         for toonId in self.distGame.getToonIds():
             toon = self.distGame.getToon(toonId)
             i = self.distGame.getToonIds().index(toon.doId)
-            if toon is not None:
+            if toon != None:
                 if toon.isLocal():
                     player = CogdoFlyingLocalPlayer(toon, self, self.level, self.guiMgr)
                     self.localPlayer = player
@@ -247,31 +247,31 @@ class CogdoFlyingGame(DirectObject):
 
     def toonDied(self, toonId, elapsedTime):
         player = self.toonId2Player[toonId]
-        if player is not None:
+        if player != None:
             player.died(elapsedTime)
         return
 
     def toonSpawn(self, toonId, elapsedTime):
         player = self.toonId2Player[toonId]
-        if player is not None:
+        if player != None:
             player.spawn(elapsedTime)
         return
 
     def toonResetBlades(self, toonId):
         player = self.toonId2Player[toonId]
-        if player is not None:
+        if player != None:
             player.resetBlades()
         return
 
     def toonSetBlades(self, toonId, fuelState):
         player = self.toonId2Player[toonId]
-        if player is not None:
+        if player != None:
             player.setBlades(fuelState)
         return
 
     def toonBladeLost(self, toonId):
         player = self.toonId2Player[toonId]
-        if player is not None:
+        if player != None:
             player.bladeLost()
         return
 
@@ -292,7 +292,7 @@ class CogdoFlyingGame(DirectObject):
         self.notify.debugCall()
         player = self.toonId2Player[toonId]
         gatherable = self.level.getGatherable(pickupNum)
-        if gatherable is not None:
+        if gatherable != None:
             if not gatherable.isPowerUp() and not gatherable.wasPickedUp() or gatherable.isPowerUp() and not gatherable.wasPickedUpByToon(player.toon):
                 gatherable.pickUp(player.toon, elapsedTime)
                 player.handleEnterGatherable(gatherable, elapsedTime)

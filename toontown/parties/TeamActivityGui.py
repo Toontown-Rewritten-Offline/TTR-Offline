@@ -41,21 +41,21 @@ class TeamActivityGui:
 
     def unload(self):
         self.hideWaitToStartCountdown()
-        if self.exitButton is not None:
+        if self.exitButton != None:
             self.exitButton.destroy()
             self.exitButton = None
-        if self.switchButton is not None:
+        if self.switchButton != None:
             self.switchButton.destroy()
             self.switchButton = None
-        if self.countdownText is not None:
+        if self.countdownText != None:
             self.countdownText.destroy()
             self.countdownText.removeNode()
             self.countdownText = None
-        if self.statusText is not None:
+        if self.statusText != None:
             self.statusText.destroy()
             self.statusText.removeNode()
             self.statusText = None
-        if self.timer is not None:
+        if self.timer != None:
             self.timer.destroy()
             del self.timer
         return
@@ -82,7 +82,7 @@ class TeamActivityGui:
         self.switchButton.show()
 
     def disableSwitchButton(self):
-        if self.switchButton is not None:
+        if self.switchButton != None:
             self.switchButton.hide()
         return
 
@@ -106,7 +106,7 @@ class TeamActivityGui:
     def hideWaitToStartCountdown(self):
         taskMgr.remove(TeamActivityGui.COUNTDOWN_TASK_NAME)
         self._countdownAlmostDoneCallback = None
-        if self.countdownText is not None:
+        if self.countdownText != None:
             self.countdownText.hide()
         return
 
@@ -115,7 +115,7 @@ class TeamActivityGui:
         seconds = str(countdownTime)
         if self.countdownText['text'] != seconds:
             self.countdownText['text'] = seconds
-            if countdownTime == 3 and self._countdownAlmostDoneCallback is not None:
+            if countdownTime == 3 and self._countdownAlmostDoneCallback != None:
                 self._countdownAlmostDoneCallback()
                 self._countdownAlmostDoneCallback = None
         if task.time >= task.duration:

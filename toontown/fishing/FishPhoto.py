@@ -149,7 +149,7 @@ class FishPhoto(NodePath):
             self.background.setScale(11)
             self.background.reparentTo(self.fishFrame)
         self.sound, loop, delay, playRate = self.fish.getSound()
-        if playRate is not None:
+        if playRate != None:
             self.actor.setPlayRate(playRate, 'intro')
             self.actor.setPlayRate(playRate, 'swim')
         introDuration = self.actor.getDuration('intro')

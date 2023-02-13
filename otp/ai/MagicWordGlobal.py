@@ -72,7 +72,7 @@ class Spellbook:
                 raise MagicError('Target must have lower access')
 
         result = word.run(args)
-        if result is not None:
+        if result != None:
             return (str(result), True)
         return ('Magic word executed successfully!', True)
 
@@ -200,7 +200,7 @@ class MagicWordDecorator:
         self.name = name
         self.types = types
         self.category = category
-        if access is not None:
+        if access != None:
             self.access = access
         else:
             self.access = self.category.defaultAccess
@@ -213,7 +213,7 @@ class MagicWordDecorator:
         # time.
 
         name = self.name
-        if name is None:
+        if name == None:
             name = mw.__name__
 
         config_access = config.GetInt('mw-word-' + name.lower(), 0)

@@ -21,7 +21,7 @@ class TTHoodAI(SZHoodAI):
     
     def spawnElection(self):
         election = self.air.doFind('ElectionEvent')
-        if election is None:
+        if election == None:
             election = DistributedElectionEventAI(self.air)
             election.generateWithRequired(self.HOOD)
         election.b_setState('Idle')

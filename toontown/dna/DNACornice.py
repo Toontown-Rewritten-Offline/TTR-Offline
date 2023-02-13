@@ -13,7 +13,7 @@ class DNACornice(DNANode):
 
     def _makeNode(self, storage, parent):
         node = storage.findNode(self.code)
-        if node is None:
+        if node == None:
             raise DNAError('DNACornice uses unknown code %s' % self.code)
 
         np = node.copyTo(parent)

@@ -361,7 +361,7 @@ class TownLoader(StateData.StateData):
                 classObj = getattr(symbols[className], className)
                 interactivePropObj = classObj(interactivePropNode)
                 animPropList = self.animPropDict.get(i)
-                if animPropList is None:
+                if animPropList == None:
                     animPropList = self.animPropDict.setdefault(i, [])
                 animPropList.append(interactivePropObj)
                 if interactivePropObj.getCellIndex() == 0:
@@ -385,7 +385,7 @@ class TownLoader(StateData.StateData):
                 classObj = getattr(symbols[className], className)
                 animatedBuildingObj = classObj(animatedBuildingNode)
                 animPropList = self.animPropDict.get(i)
-                if animPropList is None:
+                if animPropList == None:
                     animPropList = self.animPropDict.setdefault(i, [])
                 animPropList.append(animatedBuildingObj)
 

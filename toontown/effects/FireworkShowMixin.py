@@ -121,7 +121,7 @@ class FireworkShowMixin:
 
         def __lightDecorationOn__():
             place = base.cr.playGame.getPlace()
-            if place is None:
+            if place == None:
                 return
             if hasattr(place, 'halloweenLights'):
                 if not self.__checkStreetValidity():
@@ -271,7 +271,7 @@ class FireworkShowMixin:
 
     def getFireworkShowIval(self, eventId, index, songId, startT):
         show = FireworkShows.getShow(eventId, index)
-        if show is None:
+        if show == None:
             FireworkShowMixin.notify.warning('could not find firework show: index: %s' % index)
             return
         preShow = self.preShow(eventId, songId, startT)

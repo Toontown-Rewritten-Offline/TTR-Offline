@@ -71,11 +71,11 @@ class DistributedToonfestCannon(DistributedObject, Cannon):
 
     def unload(self):
         self.notify.debug('unload')
-        if self.gui is not None:
+        if self.gui != None:
             self.gui.unload()
             del self.gui
         Cannon.unload(self)
-        if self.sign is not None:
+        if self.sign != None:
             self.sign.removeNode()
             self.sign = None
         self.ignoreAll()

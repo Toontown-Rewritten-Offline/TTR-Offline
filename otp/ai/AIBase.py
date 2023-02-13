@@ -136,9 +136,9 @@ class AIBase:
             return False
         if PStatClient.isConnected():
             PStatClient.disconnect()
-        if hostname is None:
+        if hostname == None:
             hostname = ''
-        if port is None:
+        if port == None:
             port = -1
         PStatClient.connect(hostname, port)
         return PStatClient.isConnected()

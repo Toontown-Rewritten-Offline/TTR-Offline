@@ -891,7 +891,7 @@ class Movie(DirectObject.DirectObject):
                     track.append(ival)
                     camTrack.append(camIval)
                 targetField = a.get('target')
-                if targetField is None:
+                if targetField == None:
                     continue
                 if a['group'] == ATK_TGT_GROUP:
                     for target in targetField:

@@ -150,23 +150,23 @@ class DistributedToonfestCog(DistributedObject, FSM):
         taskMgr.remove('LoadCogs')
         self.request('Off')
         self.clearHitInterval()
-        if self.hole is not None:
+        if self.hole != None:
             self.hole.removeNode()
             self.hole = None
-        if self.actor is not None:
+        if self.actor != None:
             self.actor.cleanup()
             self.actor.removeNode()
             self.actor = None
-        if self.root is not None:
+        if self.root != None:
             self.root.removeNode()
             self.root = None
-        if self.kaboomTrack is not None and self.kaboomTrack.isPlaying():
+        if self.kaboomTrack != None and self.kaboomTrack.isPlaying():
             self.kaboomTrack.finish()
         self.kaboomTrack = None
-        if self.resetRollIval is not None and self.resetRollIval.isPlaying():
+        if self.resetRollIval != None and self.resetRollIval.isPlaying():
             self.resetRollIval.finish()
         self.resetRollIval = None
-        if self.hitInterval is not None and self.hitInterval.isPlaying():
+        if self.hitInterval != None and self.hitInterval.isPlaying():
             self.hitInterval.finish()
         self.hitInterval = None
         del self.upSound
@@ -217,12 +217,12 @@ class DistributedToonfestCog(DistributedObject, FSM):
             print('respondToPieHit self.netTimeSentToStartByHit = %s' % self.netTimeSentToStartByHit)
 
     def clearHitInterval(self):
-        if self.hitInterval is not None and self.hitInterval.isPlaying():
+        if self.hitInterval != None and self.hitInterval.isPlaying():
             self.hitInterval.clearToInitial()
         return
 
     def __showSplat(self, position, direction, hot = False):
-        if self.kaboomTrack is not None and self.kaboomTrack.isPlaying():
+        if self.kaboomTrack != None and self.kaboomTrack.isPlaying():
             self.kaboomTrack.finish()
         self.clearHitInterval()
         if not direction == 1.0:

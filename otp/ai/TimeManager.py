@@ -327,7 +327,7 @@ class TimeManager(DistributedObject.DistributedObject):
         else:
             key = re.search('<key>ProductUserVisibleVersion</key>\\s*' + '<string>(.*?)</string>', theFile.read())
             theFile.close()
-            if key is not None:
+            if key != None:
                 try:
                     verString = key.group(1)
                     parts = verString.split('.')

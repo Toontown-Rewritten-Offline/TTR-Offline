@@ -120,7 +120,7 @@ class DistributedSellbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         self.loadEnvironment()
         self.__makeCagedToon()
         self.__loadMopaths()
-        if OneBossCog is not None:
+        if OneBossCog != None:
             self.notify.warning('Multiple BossCogs visible.')
         OneBossCog = self
 

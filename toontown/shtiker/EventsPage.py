@@ -229,7 +229,7 @@ class EventsPage(ShtikerPage.ShtikerPage):
                 if partyInfo.partyId == inviteInfo.partyId:
                     break
 
-            if inviteInfo is None:
+            if inviteInfo == None:
                 EventsPage.notify.error('No invitation info for party id %d' % partyInfo.partyId)
                 return
             if inviteInfo.status == PartyGlobals.InviteStatus.NotRead:
@@ -251,7 +251,7 @@ class EventsPage(ShtikerPage.ShtikerPage):
             self.invitePartyGoButton['state'] = DirectGuiGlobals.NORMAL
         else:
             self.invitePartyGoButton['state'] = DirectGuiGlobals.DISABLED
-        if self.selectedInvitationItem is not None:
+        if self.selectedInvitationItem != None:
             self.selectedInvitationItem['state'] = DirectGuiGlobals.NORMAL
             self.selectedInvitationItem['text_bg'] = Vec4(0.0, 0.0, 0.0, 0.0)
         self.selectedInvitationItem = item
@@ -283,7 +283,7 @@ class EventsPage(ShtikerPage.ShtikerPage):
         return
 
     def _inviteStartParty(self):
-        if self.selectedInvitationItem is None:
+        if self.selectedInvitationItem == None:
             self.invitePartyGoButton['state'] = DirectGuiGlobals.DISABLED
             return
         self.doneStatus = {'mode': 'startparty',
@@ -301,7 +301,7 @@ class EventsPage(ShtikerPage.ShtikerPage):
         self.confirmCancelPartyGui.hide()
         self.cancelPartyResultGui.doneStatus = ''
         self.cancelPartyResultGui.hide()
-        if base.localAvatar.hostedParties is not None and len(base.localAvatar.hostedParties) > 0:
+        if base.localAvatar.hostedParties != None and len(base.localAvatar.hostedParties) > 0:
             for partyInfo in base.localAvatar.hostedParties:
                 if partyInfo.status == PartyGlobals.PartyStatus.Pending or partyInfo.status == PartyGlobals.PartyStatus.CanStart or partyInfo.status == PartyGlobals.PartyStatus.NeverStarted or partyInfo.status == PartyGlobals.PartyStatus.Started:
                     self.hostedPartyInfo = partyInfo
@@ -545,7 +545,7 @@ class EventsPage(ShtikerPage.ShtikerPage):
             self.calendarDisplay.hide()
             self.newsDisplay.hide()
             self.loadHostedPartyInfo()
-            if self.hostedPartyInfo is None:
+            if self.hostedPartyInfo == None:
                 self.titleLabel['text'] = TTLocalizer.EventsPageHostTabTitleNoParties
             else:
                 self.titleLabel['text'] = TTLocalizer.EventsPageHostTabTitle

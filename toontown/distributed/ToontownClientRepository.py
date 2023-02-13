@@ -666,7 +666,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
                 ignoredClass = obj.__class__.__name__ in ignoredClasses
                 if not ignoredClass and obj.parentId != localAvatar.defaultShard:
                     self.notify.info('dumpAllSubShardObjects: %s %s parent %s is not defaultShard' % (obj.__class__.__name__, obj.doId, obj.parentId))
-            if obj.parentId == localAvatar.defaultShard and obj is not localAvatar:
+            if obj.parentId == localAvatar.defaultShard and obj != localAvatar:
                 if obj.neverDisable:
                     if isNotLive:
                         if not ignoredClass:
@@ -692,7 +692,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
             self.notify.info('dumpAllSubShardObjects: doIds left: %s' % list(self.doId2do.keys()))
 
     def _removeCurrentShardInterest(self, callback):
-        if self.old_setzone_interest_handle is None:
+        if self.old_setzone_interest_handle == None:
             self.notify.warning('removeToontownShardInterest: no shard interest open')
             callback()
             return
@@ -787,7 +787,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
         else:
             self.notify.warning("Don't know who friend %s is." % doId)
             return
-        if not ((isinstance(avatar, DistributedToon.DistributedToon) and avatar.__class__ is DistributedToon.DistributedToon) or isinstance(avatar, DistributedPet.DistributedPet)):
+        if not ((isinstance(avatar, DistributedToon.DistributedToon) and avatar.__class__ == DistributedToon.DistributedToon) or isinstance(avatar, DistributedPet.DistributedPet)):
             self.notify.warning('friendsNotify%s: invalid friend object %s' % (choice(source, '(%s)' % source, ''), doId))
             return
         if base.wantPets:
@@ -984,7 +984,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
         self.sendSetLocation(base.localAvatar.doId, parentId, zoneId)
         localAvatar.setLocation(parentId, zoneId)
         interestZones = zoneId
-        if visibleZoneList is not None:
+        if visibleZoneList != None:
             interestZones = visibleZoneList
         self._addInterestOpToQueue(ToontownClientRepository.SetInterest, [parentId, interestZones, 'OldSetZoneEmulator'], event)
         return
@@ -1022,7 +1022,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
     def _handleEmuSetZoneDone(self):
         op, args, event = self.setZoneQueue.pop()
         queueIsEmpty = self.setZoneQueue.isEmpty()
-        if event is not None:
+        if event != None:
             if not base.killInterestResponse:
                 messenger.send(event)
             elif not hasattr(self, '_dontSendSetZoneDone'):
@@ -1105,7 +1105,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
 
     def _abandonShard(self):
         for doId, obj in list(self.doId2do.items()):
-            if obj.parentId == localAvatar.defaultShard and obj is not localAvatar:
+            if obj.parentId == localAvatar.defaultShard and obj != localAvatar:
                 self.deleteObject(doId)
 
     def askAvatarKnown(self, avId):

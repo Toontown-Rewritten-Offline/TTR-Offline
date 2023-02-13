@@ -131,7 +131,7 @@ class CalendarGuiDay(DirectFrame):
                 self.numberWidget.setColorScale(1, 1, 1, 1)
         if self.myDate.month != self.startDate.month:
             self.setColorScale(0.75, 0.75, 0.75, 1.0)
-            if self.dayClickCallback is not None:
+            if self.dayClickCallback != None:
                 self.numberWidget['state'] = DirectGuiGlobals.DISABLED
         else:
             self.setColorScale(1, 1, 1, 1)
@@ -144,7 +144,7 @@ class CalendarGuiDay(DirectFrame):
         return
 
     def destroy(self):
-        if self.dayClickCallback is not None:
+        if self.dayClickCallback != None:
             self.numberWidget.destroy()
         self.dayClickCallback = None
         self.notify.debug('desroying %s' % self.myDate)

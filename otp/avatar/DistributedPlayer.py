@@ -96,14 +96,14 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
         return None
 
     def isGeneratedOnDistrict(self, districtId = None):
-        if districtId is None:
+        if districtId == None:
             return self._districtWeAreGeneratedOn is not None
         else:
             return self._districtWeAreGeneratedOn == districtId
         return
 
     def getArrivedOnDistrictEvent(self, districtId = None):
-        if districtId is None:
+        if districtId == None:
             return 'arrivedOnDistrict'
         else:
             return 'arrivedOnDistrict-%s' % districtId
@@ -125,7 +125,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
         return
 
     def hasParentingRules(self):
-        if self is localAvatar:
+        if self == localAvatar:
             return True
 
     def setAccountName(self, accountName):
@@ -451,7 +451,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
         avatar = base.cr.getDo(avId)
         if isinstance(avatar, Avatar.Avatar):
             self.setChatAbsolute(OTPLocalizer.TeleportGreeting % avatar.getName(), CFSpeech | CFTimeout)
-        elif avatar is not None:
+        elif avatar != None:
             self.notify.warning('got teleportGreeting from %s referencing non-toon %s' % (self.doId, avId))
         return
 

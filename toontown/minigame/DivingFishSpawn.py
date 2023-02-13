@@ -26,27 +26,27 @@ class DivingFishSpawn(DirectObject):
 
     def createFish(self, fishcode):
         loadBase = 'phase_4/models/char/'
-        if fishcode is 0:
+        if fishcode == 0:
             fish = Actor.Actor('phase_4/models/char/clownFish-zero', {'anim': loadBase + 'clownFish-swim'})
             fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             fish.name = 'clown'
-        elif fishcode is 1:
+        elif fishcode == 1:
             fish = Actor.Actor('phase_4/models/char/PBJfish-zero', {'anim': 'phase_4/models/char/PBJfish-swim'})
             fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             fish.name = 'pbj'
-        elif fishcode is 2:
+        elif fishcode == 2:
             fish = Actor.Actor('phase_4/models/char/BearAcuda-zero', {'anim': 'phase_4/models/char/BearAcuda-swim'})
             fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             fish.name = 'bear'
-        elif fishcode is 3:
+        elif fishcode == 3:
             fish = Actor.Actor(loadBase + 'balloonFish-zero', {'anim': loadBase + 'balloonFish-swim'})
             fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             fish.name = 'balloon'
-        elif fishcode is 4:
+        elif fishcode == 4:
             fish = Actor.Actor(loadBase + 'nurseShark-zero', {'anim': loadBase + 'nurseShark-swim'})
             fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             fish.name = 'nurse'
-        elif fishcode is 5:
+        elif fishcode == 5:
             fish = Actor.Actor(loadBase + 'pianoTuna-zero', {'anim': loadBase + 'pianoTuna-swim'})
             fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             fish.name = 'piano'
@@ -92,7 +92,7 @@ class DivingFishSpawn(DirectObject):
             fish.setScale(1.4)
             cSphere = CollisionSphere(0, 0, 0, 1)
             fishSoundName = 'Piano_Tuna.ogg'
-            if self.direction is -1:
+            if self.direction == -1:
                 fish.setH(0)
             else:
                 fish.setH(180)

@@ -105,12 +105,12 @@ class AIZoneDataObj:
         return self._parentMgr
 
     def hasCollTrav(self, name = None):
-        if name is None:
+        if name == None:
             name = AIZoneDataObj.DefaultCTravName
         return name in self._collTravs
 
     def getCollTrav(self, name = None):
-        if name is None:
+        if name == None:
             name = AIZoneDataObj.DefaultCTravName
         if name not in self._collTravs:
             self._collTravs[name] = CollisionTraverser('cTrav-%s-%s-%s' % (name, self._parentId, self._zoneId))
@@ -121,7 +121,7 @@ class AIZoneDataObj:
             del self._collTravs[name]
 
     def _getCTravTaskName(self, name = None):
-        if name is None:
+        if name == None:
             name = AIZoneDataObj.DefaultCTravName
         return 'collTrav-%s-%s-%s' % (name, self._parentId, self._zoneId)
 
@@ -129,12 +129,12 @@ class AIZoneDataObj:
         render = self.getRender()
         curTime = globalClock.getFrameTime()
         render.setTag('lastTraverseTime', str(curTime))
-        if topNode is not None:
+        if topNode != None:
             if not render.isAncestorOf(topNode):
                 self.notify.warning('invalid topNode for collision traversal in %s: %s' % (self.getLocation(), topNode))
         else:
             topNode = render
-        if cTravName is None:
+        if cTravName == None:
             cTravName = AIZoneDataObj.DefaultCTravName
         collTrav = self._collTravs[cTravName]
         messenger.send('preColl-' + collTrav.getName())
@@ -147,7 +147,7 @@ class AIZoneDataObj:
         self._doCollisions(topNode=topNode, cTravName=cTravName)
 
     def startCollTrav(self, respectPrevTransform = 1, cTravName = None):
-        if cTravName is None:
+        if cTravName == None:
             cTravName = AIZoneDataObj.DefaultCTravName
         if cTravName not in self._collTravsStarted:
             self.getCollTrav(name=cTravName)
@@ -157,7 +157,7 @@ class AIZoneDataObj:
         return
 
     def stopCollTrav(self, cTravName = None):
-        if cTravName is None:
+        if cTravName == None:
             cTravName = AIZoneDataObj.DefaultCTravName
         self.notify.debug('stopCollTrav(%s, %s, %s)' % (cTravName, self._parentId, self._zoneId))
         if cTravName in self._collTravsStarted:
@@ -167,13 +167,13 @@ class AIZoneDataObj:
         return
 
     def setRespectPrevTransform(self, flag, cTravName = None):
-        if cTravName is None:
+        if cTravName == None:
             cTravName = AIZoneDataObj.DefaultCTravName
         self._collTravs[cTravName].setRespectPrevTransform(flag)
         return
 
     def getRespectPrevTransform(self, cTravName = None):
-        if cTravName is None:
+        if cTravName == None:
             cTravName = AIZoneDataObj.DefaultCTravName
         return self._collTravs[cTravName].getRespectPrevTransform()
 

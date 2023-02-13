@@ -205,7 +205,7 @@ class Street(BattlePlace.BattlePlace):
     def _elevInWaitBldgTask(self, bldgDoId, task):
         bldg = base.cr.doId2do.get(bldgDoId)
         if bldg:
-            if bldg.elevatorNodePath is not None:
+            if bldg.elevatorNodePath != None:
                 if self._enterElevatorGotElevator():
                     return Task.done
         return Task.cont
@@ -403,7 +403,7 @@ class Street(BattlePlace.BattlePlace):
         if not hasattr(base.cr, 'playGame'):
             return
         place = base.cr.playGame.getPlace()
-        if place is None:
+        if place == None:
             return
         geom = base.cr.playGame.getPlace().loader.geom
         signs = geom.findAllMatches('**/*tunnelAheadSign*;+s')

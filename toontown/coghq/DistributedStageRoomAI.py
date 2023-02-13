@@ -28,7 +28,7 @@ class DistributedStageRoomAI(DistributedLevelAI.DistributedLevelAI, StageRoomBas
 
     def getFloorNum(self):
         stage = self.air.getDo(self.stageDoId)
-        if stage is None:
+        if stage == None:
             self.notify.warning('getFloorNum: could not find stage %s' % self.stageDoId)
             return 0
         return stage.floorNum
@@ -110,7 +110,7 @@ class DistributedStageRoomAI(DistributedLevelAI.DistributedLevelAI, StageRoomBas
         activeVictorIds = []
         for victorId in victorIds:
             toon = self.air.doId2do.get(victorId)
-            if toon is not None:
+            if toon != None:
                 activeVictors.append(toon)
                 activeVictorIds.append(victorId)
 
@@ -136,7 +136,7 @@ class DistributedStageRoomAI(DistributedLevelAI.DistributedLevelAI, StageRoomBas
         DistributedLevelAI.DistributedLevelAI.allToonsGone(self, toonsThatCleared)
         if self.roomNum == 0:
             stage = simbase.air.doId2do.get(self.stageDoId)
-            if stage is not None:
+            if stage != None:
                 stage.allToonsGone()
             else:
                 self.notify.warning('no stage %s in allToonsGone' % self.stageDoId)

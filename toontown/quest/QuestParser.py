@@ -68,7 +68,7 @@ def readFile(filename):
             continue
         if line[0] == 'ID':
             parseId(line)
-        elif curId is None:
+        elif curId == None:
             notify.error('Every script must begin with an ID')
         else:
             lineDict[curId].append(line)
@@ -216,7 +216,7 @@ class NPCMoviePlayer(DirectObject.DirectObject):
         lineNum = 0
         self.currentEvent = 'start'
         lines = lineDict.get(self.scriptId)
-        if lines is None:
+        if lines == None:
             notify.error('No movie defined for scriptId: %s' % self.scriptId)
         chapterList = []
         timeoutList = []

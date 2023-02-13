@@ -544,7 +544,7 @@ class TalkAssistant(DirectObject.DirectObject):
         return
 
     def receiveGuildUpdate(self, memberId, memberName, isOnline):
-        if base.cr.identifyFriend(memberId) is None:
+        if base.cr.identifyFriend(memberId) == None:
             if isOnline:
                 onlineMessage = OTPLocalizer.GuildMemberOnline
             else:

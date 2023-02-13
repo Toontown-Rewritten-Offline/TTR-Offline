@@ -619,7 +619,7 @@ class DistributedPartyTrampolineActivity(DistributedPartyActivity):
     def _showFlashMessage(self, message):
         if self.isDisabled():
             return
-        if self.flashTextInterval is not None and self.flashTextInterval.isPlaying():
+        if self.flashTextInterval != None and self.flashTextInterval.isPlaying():
             self.flashTextInterval.finish()
         self.flashText.setText(message)
         self.flashText.setAlphaScale(1.0)

@@ -30,7 +30,7 @@ class CogdoGameExit(NodePath):
 
     def destroy(self):
         self._cleanToonTracks()
-        if self._ival is not None:
+        if self._ival != None:
             self._ival.clearToInitial()
         del self._ival
         self._model.removeNode()
@@ -74,7 +74,7 @@ class CogdoGameExit(NodePath):
         self._open = False
 
     def _finishIval(self):
-        if self._ival is not None and self._ival.isPlaying():
+        if self._ival != None and self._ival.isPlaying():
             self._ival.finish()
         return
 
@@ -113,7 +113,7 @@ class CogdoGameExit(NodePath):
 
     def _clearToonTrack(self, toon):
         oldTrack = self._toon2track.get(toon)
-        if oldTrack is not None:
+        if oldTrack != None:
             oldTrack.pause()
             del self._toon2track[toon]
         return

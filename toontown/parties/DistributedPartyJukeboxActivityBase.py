@@ -46,7 +46,7 @@ class DistributedPartyJukeboxActivityBase(DistributedPartyActivity):
     def unload(self):
         DistributedPartyActivity.unload(self)
         self.gui.unload()
-        if self.music is not None:
+        if self.music != None:
             self.music.stop()
         self.jukebox.stop()
         self.jukebox.delete()
@@ -102,7 +102,7 @@ class DistributedPartyJukeboxActivityBase(DistributedPartyActivity):
     def __activateGui(self):
         self.gui.enable(timer=JUKEBOX_TIMEOUT)
         self.gui.disableAddSongButton()
-        if self.currentSongData is not None:
+        if self.currentSongData != None:
             self.gui.setSongCurrentlyPlaying(self.currentSongData[0], self.currentSongData[1])
         self.d_queuedSongsRequest()
         return
@@ -147,7 +147,7 @@ class DistributedPartyJukeboxActivityBase(DistributedPartyActivity):
             filename = songInfo[1]
             data = self.getMusicData(phase, filename)
             if data:
-                if self.localQueuedSongListItem is not None:
+                if self.localQueuedSongListItem != None:
                     self.localQueuedSongListItem['text'] = data[0]
                 else:
                     self.__addSongToQueue(songInfo, isLocalQueue=True)
@@ -204,7 +204,7 @@ class DistributedPartyJukeboxActivityBase(DistributedPartyActivity):
             localAvatar.setSystemMessage(0, TTLocalizer.PartyJukeboxNowPlaying)
 
     def __handleMoveSongToTop(self):
-        if self.isUserHost() and self.localQueuedSongListItem is not None:
+        if self.isUserHost() and self.localQueuedSongListItem != None:
             self.d_moveHostSongToTopRequest()
         return
 

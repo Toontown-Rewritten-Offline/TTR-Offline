@@ -1196,7 +1196,7 @@ class OTPClientRepository(ClientRepositoryBase):
          'garbageCollectStates',
          'RedownloadNewsTask',
          TelemetryLimiter.TaskName]
-        if extraTasks is not None:
+        if extraTasks != None:
             allowedTasks.extend(extraTasks)
         problems = []
         for task in taskMgr.getTasks():
@@ -1257,7 +1257,7 @@ class OTPClientRepository(ClientRepositoryBase):
          'gotExtraFriendHandles']
         if hasattr(loader, 'hook'):
             allowedHooks.append(loader.hook)
-        if extraHooks is not None:
+        if extraHooks != None:
             allowedHooks.extend(extraHooks)
         problems = []
         for hook in messenger.getEvents():
@@ -1346,13 +1346,13 @@ class OTPClientRepository(ClientRepositoryBase):
         self.handlerArgs = {'hoodId': hoodId,
          'zoneId': zoneId,
          'avId': avId}
-        if shardId is not None:
+        if shardId != None:
             district = self.activeDistrictMap.get(shardId)
         else:
             district = None
         if not district:
             self.distributedDistrict = self.getStartingDistrict()
-            if self.distributedDistrict is None:
+            if self.distributedDistrict == None:
                 self.loginFSM.request('noShards')
                 return
             shardId = self.distributedDistrict.doId
@@ -1408,7 +1408,7 @@ class OTPClientRepository(ClientRepositoryBase):
     @report(types=['args', 'deltaStamp'], dConfigParam='teleport')
     def enterCloseShard(self, loginState = None):
         self.notify.info('Exiting shard')
-        if loginState is None:
+        if loginState == None:
             loginState = 'waitForAvatarList'
         self._closeShardLoginState = loginState
         base.cr.setNoNewInterests(True)
@@ -1684,20 +1684,20 @@ class OTPClientRepository(ClientRepositoryBase):
             for s in list(self.activeDistrictMap.values()):
                 if s.available and s.avatarCount < lowPop:
                     self.notify.debug('%s: pop %s' % (s.name, s.avatarCount))
-                    if district is None:
+                    if district == None:
                         district = s
                     elif s.avatarCount > district.avatarCount or s.avatarCount == district.avatarCount and s.name > district.name:
                         district = s
 
-        if district is None:
+        if district == None:
             self.notify.debug('all shards over cutoff, picking lowest-population shard')
             for s in list(self.activeDistrictMap.values()):
                 if s.available:
                     self.notify.debug('%s: pop %s' % (s.name, s.avatarCount))
-                    if district is None or s.avatarCount < district.avatarCount:
+                    if district == None or s.avatarCount < district.avatarCount:
                         district = s
 
-        if district is not None:
+        if district != None:
             self.notify.debug('chose %s: pop %s' % (district.name, district.avatarCount))
         return district
 
@@ -1732,7 +1732,7 @@ class OTPClientRepository(ClientRepositoryBase):
 
     def queryObjectField(self, dclassName, fieldName, doId, context = 0):
         dclass = self.dclassesByName.get(dclassName)
-        if dclass is not None:
+        if dclass != None:
             fieldId = dclass.getFieldByName(fieldName).getNumber()
             self.queryObjectFieldId(doId, fieldId, context)
         return

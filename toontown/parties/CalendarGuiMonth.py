@@ -200,7 +200,7 @@ class CalendarGuiMonth(DirectFrame):
         self.monthLeftArrow.destroy()
         self.monthRightArrow.destroy()
         for day in self.guiDays:
-            if day is not None:
+            if day != None:
                 day.destroy()
             day = None
 

@@ -790,7 +790,7 @@ class DistributedCogThiefGame(DistributedMinigame):
 
     def __updateRewardCountdown(self, task):
         curTime = self.getCurrentGameTime()
-        if self.clockStopTime is not None:
+        if self.clockStopTime != None:
             if self.clockStopTime < curTime:
                 self.notify.debug('self.clockStopTime < curTime %s %s' % (self.clockStopTime, curTime))
                 self.__killRewardCountdown()

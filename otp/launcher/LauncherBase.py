@@ -1123,7 +1123,7 @@ class LauncherBase(DirectObject):
             self.curMultifileRetry = 0
             self.getMultifile(self.currentMfname)
         else:
-            if self.currentMfname is None:
+            if self.currentMfname == None:
                 self.notify.warning('no multifile found! See below for debug info:')
                 for i in range(self.dldb.getServerNumMultifiles()):
                     mfname = self.dldb.getServerMultifileName(i)

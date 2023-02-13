@@ -1229,7 +1229,7 @@ class DistributedBattleBaseAI(DistributedObjectAI.DistributedObjectAI, BattleBas
         for toonId in self.toons:
             if bboard.get('autoRestock-%s' % toonId, False):
                 toon = self.air.doId2do.get(toonId)
-                if toon is not None:
+                if toon != None:
                     toon.doRestock(0)
 
         return

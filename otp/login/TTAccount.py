@@ -95,7 +95,7 @@ class TTAccount:
 
     def requestPwdReminder(self, email = None, acctName = None):
         data = {}
-        if email is not None:
+        if email != None:
             data['email'] = email
         else:
             data['accountName'] = acctName

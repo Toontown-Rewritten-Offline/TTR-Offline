@@ -59,7 +59,7 @@ class DistributedFactory(DistributedLevel.DistributedLevel, FactoryBase.FactoryB
         if avId == base.localAvatar.doId:
             return
         av = base.cr.identifyFriend(avId)
-        if av is None:
+        if av == None:
             return
         base.localAvatar.setSystemMessage(avId, TTLocalizer.ForemanConfrontedMsg % av.getName())
         return

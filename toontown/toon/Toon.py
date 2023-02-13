@@ -823,7 +823,7 @@ class Toon(Avatar.Avatar, ToonHead):
     def generateToonLegs(self, copy = 1):
         legStyle = self.style.legs
         filePrefix = LegDict.get(legStyle)
-        if filePrefix is None:
+        if filePrefix == None:
             self.notify.error('unknown leg style: %s' % legStyle)
         self.loadModel('phase_3' + filePrefix + '1000', 'legs', '1000', copy)
         self.loadModel('phase_3' + filePrefix + '500', 'legs', '500', copy)
@@ -861,7 +861,7 @@ class Toon(Avatar.Avatar, ToonHead):
     def generateToonTorso(self, copy = 1, genClothes = 1):
         torsoStyle = self.style.torso
         filePrefix = TorsoDict.get(torsoStyle)
-        if filePrefix is None:
+        if filePrefix == None:
             self.notify.error('unknown torso style: %s' % torsoStyle)
         self.loadModel('phase_3' + filePrefix + '1000', 'torso', '1000', copy)
         if len(torsoStyle) == 1:
@@ -983,7 +983,7 @@ class Toon(Avatar.Avatar, ToonHead):
                 texName = ToonDNA.Shirts[0]
 
             shirtTex = loader.loadTexture(texName, okMissing=True)
-            if shirtTex is None:
+            if shirtTex == None:
                 self.sendLogSuspiciousEvent('failed to load texture %s' % texName)
                 shirtTex = loader.loadTexture(ToonDNA.Shirts[0])
             shirtTex.setMinfilter(Texture.FTLinearMipmapLinear)
@@ -999,7 +999,7 @@ class Toon(Avatar.Avatar, ToonHead):
                 texName = ToonDNA.Sleeves[0]
 
             sleeveTex = loader.loadTexture(texName, okMissing=True)
-            if sleeveTex is None:
+            if sleeveTex == None:
                 self.sendLogSuspiciousEvent('failed to load texture %s' % texName)
                 sleeveTex = loader.loadTexture(ToonDNA.Sleeves[0])
             sleeveTex.setMinfilter(Texture.FTLinearMipmapLinear)
@@ -1022,7 +1022,7 @@ class Toon(Avatar.Avatar, ToonHead):
                     texName = ToonDNA.GirlBottoms[0][0]
 
             bottomTex = loader.loadTexture(texName, okMissing=True)
-            if bottomTex is None:
+            if bottomTex == None:
                 self.sendLogSuspiciousEvent('failed to load texture %s' % texName)
                 if self.style.getGender() == 'm':
                     bottomTex = loader.loadTexture(ToonDNA.BoyShorts[0])
@@ -1075,7 +1075,7 @@ class Toon(Avatar.Avatar, ToonHead):
                 if hat[1] != 0:
                     texName = ToonDNA.HatTextures[hat[1]]
                     tex = loader.loadTexture(texName, okMissing=True)
-                    if tex is None:
+                    if tex == None:
                         self.sendLogSuspiciousEvent('failed to load texture %s' % texName)
                     else:
                         tex.setMinfilter(Texture.FTLinearMipmapLinear)
@@ -1086,9 +1086,9 @@ class Toon(Avatar.Avatar, ToonHead):
                 transOffset = None
                 if AccessoryGlobals.ExtendedHatTransTable.get(hat[0]):
                     transOffset = AccessoryGlobals.ExtendedHatTransTable[hat[0]].get(self.style.head[:2])
-                if transOffset is None:
+                if transOffset == None:
                     transOffset = AccessoryGlobals.HatTransTable.get(self.style.head[:2])
-                    if transOffset is None:
+                    if transOffset == None:
                         return
                 hatGeom.setPos(transOffset[0][0], transOffset[0][1], transOffset[0][2])
                 hatGeom.setHpr(transOffset[1][0], transOffset[1][1], transOffset[1][2])
@@ -1120,7 +1120,7 @@ class Toon(Avatar.Avatar, ToonHead):
                 if glasses[1] != 0:
                     texName = ToonDNA.GlassesTextures[glasses[1]]
                     tex = loader.loadTexture(texName, okMissing=True)
-                    if tex is None:
+                    if tex == None:
                         self.sendLogSuspiciousEvent('failed to load texture %s' % texName)
                     else:
                         tex.setMinfilter(Texture.FTLinearMipmapLinear)
@@ -1131,9 +1131,9 @@ class Toon(Avatar.Avatar, ToonHead):
                 transOffset = None
                 if AccessoryGlobals.ExtendedGlassesTransTable.get(glasses[0]):
                     transOffset = AccessoryGlobals.ExtendedGlassesTransTable[glasses[0]].get(self.style.head[:2])
-                if transOffset is None:
+                if transOffset == None:
                     transOffset = AccessoryGlobals.GlassesTransTable.get(self.style.head[:2])
-                    if transOffset is None:
+                    if transOffset == None:
                         return
                 glassesGeom.setPos(transOffset[0][0], transOffset[0][1], transOffset[0][2])
                 glassesGeom.setHpr(transOffset[1][0], transOffset[1][1], transOffset[1][2])
@@ -1162,7 +1162,7 @@ class Toon(Avatar.Avatar, ToonHead):
                 if backpack[1] != 0:
                     texName = ToonDNA.BackpackTextures[backpack[1]]
                     tex = loader.loadTexture(texName, okMissing=True)
-                    if tex is None:
+                    if tex == None:
                         self.sendLogSuspiciousEvent('failed to load texture %s' % texName)
                     else:
                         tex.setMinfilter(Texture.FTLinearMipmapLinear)
@@ -1173,9 +1173,9 @@ class Toon(Avatar.Avatar, ToonHead):
                 transOffset = None
                 if AccessoryGlobals.ExtendedBackpackTransTable.get(backpack[0]):
                     transOffset = AccessoryGlobals.ExtendedBackpackTransTable[backpack[0]].get(self.style.torso[:1])
-                if transOffset is None:
+                if transOffset == None:
                     transOffset = AccessoryGlobals.BackpackTransTable.get(self.style.torso[:1])
-                    if transOffset is None:
+                    if transOffset == None:
                         return
                 geom.setPos(transOffset[0][0], transOffset[0][1], transOffset[0][2])
                 geom.setHpr(transOffset[1][0], transOffset[1][1], transOffset[1][2])
@@ -1207,7 +1207,7 @@ class Toon(Avatar.Avatar, ToonHead):
                 if self.style.legs == 'l' and shoes[0] == 3:
                     texName = texName[:-4] + 'LL.jpg'
                 tex = loader.loadTexture(texName, okMissing=True)
-                if tex is None:
+                if tex == None:
                     self.sendLogSuspiciousEvent('failed to load texture %s' % texName)
                 else:
                     tex.setMinfilter(Texture.FTLinearMipmapLinear)

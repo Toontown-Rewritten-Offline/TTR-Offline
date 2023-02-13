@@ -163,10 +163,10 @@ class TownBattleSOSPanel(DirectFrame, StateData.StateData):
         battlePets = config.GetBool('want-pets-in-battle', 1)
         if base.wantPets and battlePets == 1 and base.localAvatar.hasPet():
             newFriends.append((base.localAvatar.getPetId(), 0))
-        if not self.bldg or self.factoryToonIdList is not None:
+        if not self.bldg or self.factoryToonIdList != None:
             for friendPair in base.localAvatar.friendsList:
                 if base.cr.isFriendOnline(friendPair[0]):
-                    if self.factoryToonIdList is None or friendPair[0] in self.factoryToonIdList:
+                    if self.factoryToonIdList == None or friendPair[0] in self.factoryToonIdList:
                         newFriends.append(friendPair)
 
             if hasattr(base.cr, 'playerFriendsManager'):

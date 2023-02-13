@@ -64,7 +64,7 @@ class DistCogdoGame(DistCogdoGameBase, DistributedObject):
 
     def getToonIds(self):
         interior = self.getInterior()
-        if interior is not None:
+        if interior != None:
             return interior.getToonIds()
         else:
             return []
@@ -134,14 +134,14 @@ class DistCogdoGame(DistCogdoGameBase, DistributedObject):
         return
 
     def getDifficulty(self):
-        if self.difficultyOverride is not None:
+        if self.difficultyOverride != None:
             return self.difficultyOverride
         if hasattr(base, 'cogdoGameDifficulty'):
             return float(base.cogdoGameDifficulty)
         return CogdoGameConsts.getDifficulty(self.getSafezoneId())
 
     def getSafezoneId(self):
-        if self.exteriorZoneOverride is not None:
+        if self.exteriorZoneOverride != None:
             return self.exteriorZoneOverride
         if hasattr(base, 'cogdoGameSafezoneId'):
             return CogdoGameConsts.getSafezoneId(base.cogdoGameSafezoneId)

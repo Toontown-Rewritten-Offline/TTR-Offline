@@ -289,7 +289,7 @@ class ToonBase(OTPBase.OTPBase):
         )
         self.flashTrack.start()
         if coordOnScreen:
-            if strTextLabel is not None:
+            if strTextLabel != None:
                 strTextLabel.destroy()
             coordTextLabel.destroy()
         return

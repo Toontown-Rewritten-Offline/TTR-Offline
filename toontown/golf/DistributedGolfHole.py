@@ -673,7 +673,7 @@ class DistributedGolfHole(DistributedPhysicsWorld.DistributedPhysicsWorld, FSM, 
         return
 
     def _adjustCamera(self, task=None, first=True):
-        if task is None and first:
+        if task == None and first:
             while 1:
                 self._adjustCamera(first=False)
                 if self._camAdjust.iters == 0:
@@ -710,14 +710,14 @@ class DistributedGolfHole(DistributedPhysicsWorld.DistributedPhysicsWorld, FSM, 
         self._camAdjust.iters += 1
         if self._camAdjust.iters >= MaxIters:
             self.targetCamPivot.setP(self._camAdjust.upper)
-            if task is None:
+            if task == None:
                 self.curCamPivot.setP(finalP)
             self._camAdjust.iters = 0
             self._camAdjust.lower = self.DefaultCamP
             self._camAdjust.upper = self.MaxCamP
             self.camPivot.setP(self.DefaultCamP)
 
-        if task is not None:
+        if task != None:
             self.curCamPivot.setP(self.curCamPivot,
                 self.targetCamPivot.getP(self.curCamPivot)*min(1.0, 1.0*globalClock.getDt()))
 

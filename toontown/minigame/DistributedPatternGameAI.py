@@ -161,7 +161,7 @@ class DistributedPatternGameAI(DistributedMinigameAI):
         patterns = [[]] * 4
         for i in range(0, len(self.results)):
             patterns[i] = self.results[i]
-            if patterns[i] is None:
+            if patterns[i] == None:
                 patterns[i] = []
 
         self.sendUpdate('setPlayerPatterns', patterns + [self.fastestAvId])

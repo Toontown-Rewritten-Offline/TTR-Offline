@@ -66,7 +66,7 @@ class DNAFurnitureReaderAI:
                 continue
 
             itemId = DNA2Furniture[code]
-            if itemId is None:
+            if itemId == None:
                 continue
 
             x, y, z = child.getPos()

@@ -196,7 +196,7 @@ class Estate(Place.Place):
         self.notify.info('add estate-check-toon-underwater to TaskMgr in exitPetTutorial()')
         if hasattr(self, 'fsm'):
             taskMgr.add(self.__checkToonUnderwater, 'estate-check-toon-underwater')
-        if hasattr(self, 'petTutorial') and self.petTutorial is not None:
+        if hasattr(self, 'petTutorial') and self.petTutorial != None:
             self.petTutorial.destroy()
         return
 
@@ -250,7 +250,7 @@ class Estate(Place.Place):
     def teleportInDone(self):
         self.notify.debug('teleportInDone')
         self.toonSubmerged = -1
-        if self.nextState is not 'petTutorial':
+        if self.nextState != 'petTutorial':
             self.notify.info('add estate-check-toon-underwater to TaskMgr in teleportInDone()')
             if hasattr(self, 'fsm'):
                 taskMgr.add(self.__checkToonUnderwater, 'estate-check-toon-underwater')

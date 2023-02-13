@@ -99,7 +99,7 @@ class SuitInvasionManagerAI:
             self.numSuits, self.specialSuit
         ])
         # Remove the invasion timeout.
-        if task is not None:
+        if task != None:
             task.remove()
         else:
             taskMgr.remove('invasion-timeout')

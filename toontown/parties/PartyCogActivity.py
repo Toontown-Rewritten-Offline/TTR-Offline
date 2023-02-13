@@ -171,20 +171,20 @@ class PartyCogActivity(DirectObject):
     def unload(self):
         self.disable()
         self._cleanupResultsIval()
-        if self.winText is not None:
+        if self.winText != None:
             for pair in self.winText:
                 pair[1].reparentTo(hidden)
                 pair[1].removeNode()
 
             self.winText = None
-        if self.winStatus is not None:
+        if self.winStatus != None:
             self.winStatus[1].reparentTo(hidden)
             self.winStatus[1].removeNode()
             self.winStatus = None
-        if self.cogManager is not None:
+        if self.cogManager != None:
             self.cogManager.unload()
             self.cogManager = None
-        if self.arrows is not None:
+        if self.arrows != None:
             for pair in self.arrows:
                 for arrow in pair:
                     arrow.destroy()
@@ -193,7 +193,7 @@ class PartyCogActivity(DirectObject):
                 pair = None
 
             self.arrows = None
-        if self.distanceLabels is not None:
+        if self.distanceLabels != None:
             for pair in self.distanceLabels:
                 for node, text in pair:
                     node.removeNode()
@@ -208,7 +208,7 @@ class PartyCogActivity(DirectObject):
 
         self.players.clear()
         self.player = None
-        if self.arena is not None:
+        if self.arena != None:
             self.leftEntranceLocator = None
             self.rightEntranceLocator = None
             self.leftExitLocator = None
@@ -220,7 +220,7 @@ class PartyCogActivity(DirectObject):
             self.arena.removeNode()
             self.arena = None
         for ival in list(self.toonPieTracks.values()):
-            if ival is not None and ival.isPlaying():
+            if ival != None and ival.isPlaying():
                 try:
                     ival.finish()
                 except Exception as theException:
@@ -228,7 +228,7 @@ class PartyCogActivity(DirectObject):
 
         self.toonPieTracks = {}
         for ival in self.pieIvals:
-            if ival is not None and ival.isPlaying():
+            if ival != None and ival.isPlaying():
                 try:
                     ival.finish()
                 except Exception as theException:
@@ -257,7 +257,7 @@ class PartyCogActivity(DirectObject):
 
     def _playArenaDoorIval(self, team, opening = True):
         ival = self._arenaDoorIvals[team]
-        if ival is not None and ival.isPlaying():
+        if ival != None and ival.isPlaying():
             ival.pause()
         if not opening:
             pos = self._doorStartPos[team]
@@ -356,7 +356,7 @@ class PartyCogActivity(DirectObject):
     def handleToonSwitchedTeams(self, toon):
         toonId = toon.doId
         player = self.players.get(toonId)
-        if player is None:
+        if player == None:
             self.notify.warning('handleToonSwitchedTeams: toonId %s not found' % toonId)
             return
         team = self.activity.getTeam(toonId)
@@ -375,7 +375,7 @@ class PartyCogActivity(DirectObject):
             spot = self.activity.getIndex(toonId, player.team)
             pos = self.getPlayerStartPos(player.team, spot)
             player.setToonStartPosition(pos)
-            if self.player is not None and toon == self.player.toon:
+            if self.player != None and toon == self.player.toon:
                 self.playToonIval(base.localAvatar.doId, self.player.getRunToStartPositionIval())
         return
 
@@ -383,7 +383,7 @@ class PartyCogActivity(DirectObject):
         self.finishToonIval(toonId)
         self.finishPieIvals(toonId)
         player = self.players.get(toonId)
-        if player is not None:
+        if player != None:
             player.disable()
             if player == self.player:
                 self.player = None
@@ -408,7 +408,7 @@ class PartyCogActivity(DirectObject):
         self.playToonIval(base.localAvatar.doId, ival)
 
     def finishToonIval(self, toonId):
-        if self.toonIdsToAnimIntervals.get(toonId) is not None and self.toonIdsToAnimIntervals[toonId].isPlaying():
+        if self.toonIdsToAnimIntervals.get(toonId) != None and self.toonIdsToAnimIntervals[toonId].isPlaying():
             self.toonIdsToAnimIntervals[toonId].finish()
         return
 
@@ -420,7 +420,7 @@ class PartyCogActivity(DirectObject):
     def startActivity(self, timestamp):
         self.pieHandler = CollisionHandlerEvent()
         self.pieHandler.setInPattern('pieHit-%fn')
-        if self.player is not None:
+        if self.player != None:
             self.player.resetScore()
             self.hideTeamFlags(self.player.team)
         for player in list(self.players.values()):
@@ -464,7 +464,7 @@ class PartyCogActivity(DirectObject):
 
     def pieThrow(self, avId, timestamp, heading, pos, power):
         toon = self.activity.getAvatar(avId)
-        if toon is None:
+        if toon == None:
             return
         tossTrack, pieTrack, flyPie = self.getTossPieInterval(toon, pos[0], pos[1], pos[2], heading, 0, 0, power)
         if avId == base.localAvatar.doId:
@@ -482,7 +482,7 @@ class PartyCogActivity(DirectObject):
             self.accept(self.toonPieEventNames[collNP], self.handlePieCollision)
         else:
             player = self.players.get(avId)
-            if player is not None:
+            if player != None:
                 player.faceForward()
 
         def matchRunningAnim(toon = toon):
@@ -532,14 +532,14 @@ class PartyCogActivity(DirectObject):
         return (toss, fly, flyPie)
 
     def handlePieCollision(self, colEntry):
-        if not self.activity.isState('Active') or self.player is None:
+        if not self.activity.isState('Active') or self.player == None:
             return
         handled = False
         into = colEntry.getIntoNodePath()
         intoName = into.getName()
         timestamp = globalClockDelta.localToNetworkTime(globalClock.getFrameTime(), bits=32)
         if 'PartyCog' in intoName:
-            if self.toonPieTracks.get(base.localAvatar.doId) is not None:
+            if self.toonPieTracks.get(base.localAvatar.doId) != None:
                 self.toonPieTracks[base.localAvatar.doId].finish()
                 self.toonPieTracks[base.localAvatar.doId] = None
             parts = intoName.split('-')
@@ -564,13 +564,13 @@ class PartyCogActivity(DirectObject):
             parts = intoName.split('-')
             hitToonId = int(parts[1])
             toon = base.cr.doId2do.get(hitToonId)
-            if toon is not None and self.activity.getTeam(hitToonId) != self.player.team:
+            if toon != None and self.activity.getTeam(hitToonId) != self.player.team:
                 point = colEntry.getSurfacePoint(toon)
                 self.activity.b_pieHitsToon(hitToonId, timestamp, point)
                 handled = True
         if handled:
             eventName = self.toonPieEventNames.get(colEntry.getFromNodePath())
-            if eventName is not None:
+            if eventName != None:
                 self.ignore(eventName)
                 del self.toonPieEventNames[colEntry.getFromNodePath()]
 
@@ -580,7 +580,7 @@ class PartyCogActivity(DirectObject):
 
     def pieHitsToon(self, toonId, timestamp, pos):
         player = self.players.get(toonId)
-        if player is not None:
+        if player != None:
             player.respondToPieHit(timestamp, pos)
         return
 
@@ -596,7 +596,7 @@ class PartyCogActivity(DirectObject):
             cog.request('Down')
 
     def showResults(self, resultsText, winner, totals):
-        if self.player is None:
+        if self.player == None:
             return
         base.localAvatar.showName()
         self.resultsIval = Sequence(Wait(0.1), Func(self.activity.setStatus, TTLocalizer.PartyCogTimeUp), Func(self.activity.showStatus), Wait(2.0), Func(self.activity.hideStatus), Wait(0.5), Func(self.player.lookAtArena), Func(self.showTeamFlags, self.activity.getTeam(base.localAvatar.doId)), Wait(1.0), Func(self.showArrow, 0), Wait(1.3), Func(self.showArrow, 1), Wait(1.3), Func(self.showArrow, 2), Wait(1.3), Func(self.showTotals, totals), Wait(1.0), Func(self.showWinner, resultsText, winner), Func(self._cleanupResultsIval), name='PartyCog-conclusionSequence')

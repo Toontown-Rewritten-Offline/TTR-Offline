@@ -119,7 +119,7 @@ class FurnitureItemPanel(DirectButton):
     def bindHelpText(self, category):
         self.unbind(DGG.ENTER)
         self.unbind(DGG.EXIT)
-        if category is None:
+        if category == None:
             category = self.origHelpCategory
         self.bind(DGG.ENTER, base.cr.objectManager.showHelpText, extraArgs=[category, self.item.getName()])
         self.bind(DGG.EXIT, base.cr.objectManager.hideHelpText)
@@ -1261,7 +1261,7 @@ class ObjectManager(NodePath, DirectObject):
         if self.selectedObject != None and self.selectedObject.get_key() == objectId:
             self.selectedObject.detachNode()
             self.deselectObject()
-        if self.inRoomPicker and itemIndex is not None:
+        if self.inRoomPicker and itemIndex != None:
             del self.inRoomPanels[itemIndex]
             self.regenerateInRoomPicker()
         return

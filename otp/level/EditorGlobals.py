@@ -26,7 +26,7 @@ def checkNotReadyToEdit():
 
 def assertReadyToEdit():
     msg = checkNotReadyToEdit()
-    if msg is not None:
+    if msg != None:
         pass
     return
 

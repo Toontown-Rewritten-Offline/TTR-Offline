@@ -142,7 +142,7 @@ class DistributedMintRoom(DistributedLevel.DistributedLevel, MintRoomBase.MintRo
         MintRoom.MintRoom.enterLtPresent(self)
         if __dev__:
             bboard.post(EditorGlobals.EditTargetPostName, self)
-        if self.mint is not None:
+        if self.mint != None:
             self.mint.currentRoomName = MintRoomSpecs.CashbotMintRoomId2RoomName[self.roomId]
 
         def printPos(self = self):
@@ -151,7 +151,7 @@ class DistributedMintRoom(DistributedLevel.DistributedLevel, MintRoomBase.MintRo
             h = base.localAvatar.getH(thisZone)
             roomName = MintRoomSpecs.CashbotMintRoomId2RoomName[self.roomId]
             print('mint pos: %s, h: %s, room: %s' % (repr(pos), h, roomName))
-            if self.mint is not None:
+            if self.mint != None:
                 floorNum = self.mint.floorNum
             else:
                 floorNum = '???'

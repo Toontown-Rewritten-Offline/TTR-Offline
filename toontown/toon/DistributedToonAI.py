@@ -2917,7 +2917,7 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
 
     def toonUpTask(self, task):
         considered = self.considerToonUp(self.zoneId)
-        if not considered and considered is not None:
+        if not considered and considered != None:
             return Task.done
         self.toonUp(1)
         self.__waitForNextToonUp()
@@ -3406,7 +3406,7 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         def setPetMovie(self, petId, flag):
             self.notify.debug('setPetMovie: petId: %s, flag: %s' % (petId, flag))
             pet = simbase.air.doId2do.get(petId)
-            if pet is not None:
+            if pet != None:
                 if pet.__class__.__name__ == 'DistributedPetAI':
                     pet.handleAvPetInteraction(flag, self.getDoId())
                 else:
@@ -4441,10 +4441,10 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         return False
 
     def _updateGMName(self, formerType = None):
-        if formerType is None:
+        if formerType == None:
             formerType = self._gmType
         name = self.name
-        if formerType is not None:
+        if formerType != None:
             gmPrefix = TTLocalizer.GM_NAMES[formerType] + ' '
             if self._nameIsPrefixed(gmPrefix):
                 name = self.name[len(gmPrefix):]
@@ -5600,7 +5600,7 @@ def animations():
 
     for emote in ALPHA_EMOTES:
         emoteId = OTPLocalizer.EmoteFuncDict.get(emote)
-        if emoteId is None: continue
+        if emoteId == None: continue
         emotes[emoteId] = 1
 
     av.b_setEmoteAccess(emotes)

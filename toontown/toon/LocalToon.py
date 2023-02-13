@@ -1973,7 +1973,7 @@ class LocalToon(DistributedToon.DistributedToon, LocalAvatar.LocalAvatar):
         av = base.cr.identifyAvatar(fromId)
         if isinstance(av, DistributedToon.DistributedToon):
             base.localAvatar.setSystemMessage(0, TTLocalizer.sleep_auto_reply % av.getName(), WhisperPopup.WTToontownBoardingGroup)
-        elif av is not None:
+        elif av != None:
             self.notify.warning('setSleepAutoReply from non-toon %s' % fromId)
         return
 

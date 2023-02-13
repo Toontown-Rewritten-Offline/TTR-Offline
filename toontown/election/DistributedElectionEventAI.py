@@ -38,7 +38,7 @@ class DistributedElectionEventAI(DistributedObjectAI, FSM):
         self.requestDelete()
 
     def enterIdle(self):
-        if self.balloon is None:
+        if self.balloon == None:
             self.balloon = DistributedHotAirBalloonAI(self.air)
             self.balloon.generateWithRequired(self.zoneId)
         if config.GetBool('want-doomsday', False):
@@ -89,10 +89,10 @@ class DistributedElectionEventAI(DistributedObjectAI, FSM):
 
     def enterEvent(self):
         event = simbase.air.doFind('ElectionEvent')
-        if event is None:
+        if event == None:
             event = DistributedElectionEventAI(simbase.air)
             event.generateWithRequired(2000)
-        if self.balloon is None:
+        if self.balloon == None:
             self.balloon = DistributedHotAirBalloonAI(self.air)
             self.balloon.generateWithRequired(self.zoneId)
         self.eventSequence = Sequence(Func(event.b_setState, 'PreShow'), Wait(34), Func(event.b_setState, 'Begin'), Wait(10), Func(event.b_setState, 'AlecSpeech'), Wait(128), Func(event.b_setState, 'VoteBuildup'), Wait(44), Func(event.b_setState, 'WinnerAnnounce'), Wait(12), Func(event.b_setState, 'CogLanding'), Wait(117), Func(event.b_setState, 'Invasion'))
@@ -142,7 +142,7 @@ class DistributedElectionEventAI(DistributedObjectAI, FSM):
 
     def spawnInvasion(self):
         invasion = simbase.air.doFind('SafezoneInvasion')
-        if invasion is None:
+        if invasion == None:
             invasion = DistributedSafezoneInvasionAI(simbase.air, self)
             invasion.generateWithRequired(2000)
         return

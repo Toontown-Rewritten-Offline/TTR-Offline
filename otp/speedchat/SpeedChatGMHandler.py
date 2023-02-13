@@ -7,7 +7,7 @@ class SpeedChatGMHandler(DirectObject.DirectObject):
     scList = {}
 
     def __init__(self):
-        if SpeedChatGMHandler.scStructure is None:
+        if SpeedChatGMHandler.scStructure == None:
             self.generateSCStructure()
         return
 

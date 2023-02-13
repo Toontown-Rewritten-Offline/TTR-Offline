@@ -4,7 +4,7 @@ from direct.showbase.RandomNumGen import RandomNumGen
 class MazeBase:
 
     def __init__(self, model, mazeData, cellWidth, parent = None):
-        if parent is None:
+        if parent == None:
             parent = render
         self.width = mazeData['width']
         self.height = mazeData['height']

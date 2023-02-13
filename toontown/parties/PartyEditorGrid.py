@@ -347,23 +347,23 @@ class PartyEditorGrid:
         for y in range(int(gridSquare.y - size[1] / 2), int(gridSquare.y + size[1] / 2) + yOffset):
             for x in range(int(gridSquare.x - size[0] / 2) + xOffsetLow, int(gridSquare.x + size[0] / 2) + xOffsetHigh):
                 testGridSquare = self.getGridSquare(x, y)
-                if testGridSquare is None:
+                if testGridSquare == None:
                     return False
-                if testGridSquare.gridElement is not None:
+                if testGridSquare.gridElement != None:
                     return False
 
         return True
 
     def getClearGridSquare(self, size, desiredXY = None):
-        if desiredXY is not None:
+        if desiredXY != None:
             x = desiredXY[0]
             y = desiredXY[1]
-            if self.grid[y][x] is not None:
+            if self.grid[y][x] != None:
                 if self.checkGridSquareForAvailability(self.grid[y][x], size):
                     return self.grid[y][x]
         for y in range(PartyGlobals.PartyEditorGridSize[1]):
             for x in range(PartyGlobals.PartyEditorGridSize[0]):
-                if self.grid[y][x] is not None:
+                if self.grid[y][x] != None:
                     if self.checkGridSquareForAvailability(self.grid[y][x], size):
                         return self.grid[y][x]
 
@@ -387,9 +387,9 @@ class PartyEditorGrid:
         for y in range(int(centerGridSquare.y - size[1] / 2), int(centerGridSquare.y + size[1] / 2) + yOffset):
             for x in range(int(centerGridSquare.x - size[0] / 2) + xOffsetLow, int(centerGridSquare.x + size[0] / 2) + xOffsetHigh):
                 testGridSquare = self.getGridSquare(x, y)
-                if testGridSquare is None:
+                if testGridSquare == None:
                     return False
-                if testGridSquare.gridElement is not None:
+                if testGridSquare.gridElement != None:
                     return False
                 else:
                     testGridSquare.gridElement = gridElement
@@ -403,9 +403,9 @@ class PartyEditorGrid:
         for y in range(int(centerGridSquare.y - size[1] / 2), int(centerGridSquare.y + size[1] / 2) + yOffset):
             for x in range(int(centerGridSquare.x - size[0] / 2) + xOffsetLow, int(centerGridSquare.x + size[0] / 2) + xOffsetHigh):
                 testGridSquare = self.getGridSquare(x, y)
-                if testGridSquare is None:
+                if testGridSquare == None:
                     return False
-                if testGridSquare.gridElement is None:
+                if testGridSquare.gridElement == None:
                     return False
                 else:
                     testGridSquare.gridElement = None

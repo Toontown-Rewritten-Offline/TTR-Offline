@@ -35,7 +35,7 @@ class EntityTypeRegistry:
         getPyExtVersion = None
         classes = []
         for key, value in list(entityTypeModule.__dict__.items()):
-            if type(value) is type:
+            if type(value) == type:
                 if issubclass(value, EntityTypeDesc.EntityTypeDesc):
                     classes.append(value)
 

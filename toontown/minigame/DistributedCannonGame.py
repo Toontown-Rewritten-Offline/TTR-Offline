@@ -886,7 +886,7 @@ class DistributedCannonGame(DistributedMinigame):
         if not hasattr(self, 'rewardPanel'):
             return Task.cont
         curTime = self.getCurrentGameTime()
-        if self.clockStopTime is not None:
+        if self.clockStopTime != None:
             if self.clockStopTime < curTime:
                 self.__killRewardCountdown()
                 curTime = self.clockStopTime

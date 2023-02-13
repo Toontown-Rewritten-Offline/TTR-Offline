@@ -252,7 +252,7 @@ class FactoryInterior(BattlePlace.BattlePlace):
         FactoryInterior.notify.info('enterDied')
 
         def diedDone(requestStatus, self = self, callback = callback):
-            if callback is not None:
+            if callback != None:
                 callback()
             messenger.send('leavingFactory')
             self.doneStatus = requestStatus

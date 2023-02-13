@@ -190,7 +190,7 @@ class CatalogScreen(DirectFrame):
         self.setMaxPageIndex(self.numNewPages)
         if self.numNewPages == 0:
             self.setPageIndex(-1)
-        elif index is not None:
+        elif index != None:
             self.setPageIndex(index)
         else:
             self.setPageIndex(0)
@@ -207,7 +207,7 @@ class CatalogScreen(DirectFrame):
         self.setMaxPageIndex(self.numBackPages)
         if self.numBackPages == 0:
             self.setPageIndex(-1)
-        elif index is not None:
+        elif index != None:
             self.setPageIndex(index)
         else:
             self.setPageIndex(0)
@@ -224,7 +224,7 @@ class CatalogScreen(DirectFrame):
         self.setMaxPageIndex(self.numLoyaltyPages)
         if self.numLoyaltyPages == 0:
             self.setPageIndex(-1)
-        elif index is not None:
+        elif index != None:
             self.setPageIndex(index)
         else:
             self.setPageIndex(0)
@@ -241,7 +241,7 @@ class CatalogScreen(DirectFrame):
         self.setMaxPageIndex(self.numEmblemPages)
         if self.numEmblemPages == 0:
             self.setPageIndex(-1)
-        elif index is not None:
+        elif index != None:
             self.setPageIndex(index)
         else:
             self.setPageIndex(0)

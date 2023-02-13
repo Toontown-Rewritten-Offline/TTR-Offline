@@ -14,15 +14,15 @@ class LevelSpec:
 
     def __init__(self, spec = None, scenario = 0):
         newSpec = 0
-        if type(spec) is types.ModuleType:
+        if type(spec) == types.ModuleType:
             if __dev__:
                 importlib.reload(spec)
             self.specDict = spec.levelSpec
             if __dev__:
                 self.setFilename(spec.__file__)
-        elif type(spec) is dict:
+        elif type(spec) == dict:
             self.specDict = spec
-        elif spec is None:
+        elif spec == None:
             if __dev__:
                 newSpec = 1
                 self.specDict = {'globalEntities': {},
@@ -72,7 +72,7 @@ class LevelSpec:
         return list(self.privGetGlobalEntityDict().keys())
 
     def getScenarioEntIds(self, scenario = None):
-        if scenario is None:
+        if scenario == None:
             scenario = self.scenario
         return list(self.privGetScenarioEntityDict(scenario).keys())
 
@@ -229,7 +229,7 @@ class LevelSpec:
             return '%s.bak' % filename
 
         def saveToDisk(self, filename = None, makeBackup = 1):
-            if filename is None:
+            if filename == None:
                 filename = self.filename
                 if filename.endswith('.pyc'):
                     filename = filename.replace('.pyc', '.py')
@@ -369,7 +369,7 @@ class LevelSpec:
                 return 0
 
         def testPrettyString(self, prettyString = None):
-            if prettyString is None:
+            if prettyString == None:
                 prettyString = self.getPrettyString()
             exec(prettyString)
             if self._recurKeyTest(levelSpec, self.specDict):
@@ -383,7 +383,7 @@ class LevelSpec:
                 for id in self.getScenarioEntIds(i):
                     entIds[id] = None
 
-            if self.entTypeReg is not None:
+            if self.entTypeReg != None:
                 allEntIds = entIds
                 for entId in allEntIds:
                     spec = self.getEntitySpec(entId)

@@ -65,7 +65,7 @@ class RemoteAccountDB:
 
     def lookup(self, cookie, callback):
         def rpcCallback(result=None):
-            if result is None:
+            if result == None:
                 # This is an errback:
                 callback({'success': False,
                           'reason': 'Could not contact the account server'})

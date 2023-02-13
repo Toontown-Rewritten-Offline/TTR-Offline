@@ -1814,7 +1814,7 @@ def getRandomBottom(gender, tailorId = MAKE_A_TOON, generator = None, girlBottom
     collection = TailorCollections[tailorId]
     if gender == 'm':
         style = generator.choice(collection[BOY_SHORTS])
-    elif girlBottomType is None:
+    elif girlBottomType == None:
         style = generator.choice(collection[GIRL_BOTTOMS])
     elif girlBottomType == SKIRT:
         skirtCollection = [style for style in collection[GIRL_BOTTOMS] if GirlBottoms[BottomStyles[style][0]][1] == SKIRT]

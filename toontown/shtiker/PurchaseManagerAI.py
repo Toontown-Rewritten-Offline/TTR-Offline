@@ -138,7 +138,7 @@ class PurchaseManagerAI(DistributedObjectAI.DistributedObjectAI):
     def requestExit(self):
         avId = self.air.getAvatarIdFromSender()
         avIndex = self.findAvIndex(avId)
-        if avIndex is None:
+        if avIndex == None:
             self.air.writeServerEvent('suspicious', avId=avId, issue='PurchaseManager.requestExit: unknown avatar: %s' % (avId,))
             return
         if self.receivingButtons:

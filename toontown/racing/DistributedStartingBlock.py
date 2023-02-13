@@ -502,7 +502,7 @@ class DistributedStartingBlock(DistributedObject.DistributedObject, FSM):
         kartTrack = self.generateKartAppearTrack()
         jumpTrack = self.generateToonJumpTrack()
         name = self.av.uniqueName('EnterRaceTrack')
-        if self.av is not None and self.localToonKarting:
+        if self.av != None and self.localToonKarting:
             kartAppearSfx = base.loader.loadSfx(self.SFX_KartAppear)
             cameraTrack = self.generateCameraMoveTrack()
             engineStartTrack = self.kart.generateEngineStartTrack()
@@ -531,7 +531,7 @@ class DistributedStartingBlock(DistributedObject.DistributedObject, FSM):
         kartTrack = self.generateKartDisappearTrack()
         self.finishMovie()
         self.movieTrack = Sequence(Func(self.kart.kartLoopSfx.stop), jumpTrack, kartTrack, name=self.av.uniqueName('ExitRaceTrack'), autoFinish=1)
-        if self.av is not None and self.localToonKarting:
+        if self.av != None and self.localToonKarting:
             cameraTrack = self.generateCameraReturnMoveTrack()
             self.movieTrack.append(cameraTrack)
             self.movieTrack.append(Func(self.d_movieFinished))
@@ -576,7 +576,7 @@ class DistributedViewingBlock(DistributedStartingBlock):
         return
 
     def delete(self):
-        if self.timer is not None:
+        if self.timer != None:
             self.timer.destroy()
             del self.timer
         DistributedStartingBlock.delete(self)
@@ -647,7 +647,7 @@ class DistributedViewingBlock(DistributedStartingBlock):
 
     def makeGui(self):
         self.notify.debugStateCall(self)
-        if self.timer is not None:
+        if self.timer != None:
             return
         self.timer = ToontownTimer()
         self.timer.setScale(0.3)
@@ -663,7 +663,7 @@ class DistributedViewingBlock(DistributedStartingBlock):
 
     def hideGui(self):
         self.notify.debugStateCall(self)
-        if not hasattr(self, 'timer') or self.timer is None:
+        if not hasattr(self, 'timer') or self.timer == None:
             return
         self.timer.reset()
         self.timer.hide()
@@ -688,7 +688,7 @@ class DistributedViewingBlock(DistributedStartingBlock):
         kartTrack = self.generateKartAppearTrack()
         jumpTrack = self.generateToonJumpTrack()
         name = self.av.uniqueName('EnterRaceTrack')
-        if self.av is not None and self.localToonKarting:
+        if self.av != None and self.localToonKarting:
             cameraTrack = self.generateCameraMoveTrack()
             self.finishMovie()
             self.movieTrack = Sequence(Parallel(cameraTrack, Sequence()), kartTrack, jumpTrack, Func(self.makeGui), Func(self.showGui), Func(self.countdown), Func(self.request, 'Waiting'), Func(self.d_movieFinished), name=name, autoFinish=1)

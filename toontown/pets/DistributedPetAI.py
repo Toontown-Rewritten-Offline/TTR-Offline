@@ -82,7 +82,7 @@ class DistributedPetAI(DistributedSmoothNodeAI.DistributedSmoothNodeAI, PetLooke
 
     def _initDBVals(self, ownerId, name = None, traitSeed = 0, dna = None, safeZone = ToontownGlobals.ToontownCentral):
         self.b_setOwnerId(ownerId)
-        if name is None:
+        if name == None:
             name = 'pet%s' % self.doId
         self.b_setPetName(name)
         self.b_setTraitSeed(traitSeed)
@@ -812,7 +812,7 @@ class DistributedPetAI(DistributedSmoothNodeAI.DistributedSmoothNodeAI, PetLooke
         return self.zoneId == simbase.air.doId2do[self.ownerId].zoneId
 
     def _getOwnerDict(self):
-        if self.owner is not None:
+        if self.owner != None:
             if self.ownerIsInSameZone():
                 return {self.ownerId: self.owner}
         return {}
@@ -877,7 +877,7 @@ class DistributedPetAI(DistributedSmoothNodeAI.DistributedSmoothNodeAI, PetLooke
 
     def avatarInteract(self, avId):
         av = self.air.doId2do.get(avId)
-        if av is None:
+        if av == None:
             self.notify.warning('Avatar: %s not found' % avId)
             return 0
         elif self.isBusy():

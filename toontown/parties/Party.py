@@ -78,7 +78,7 @@ class Party(Place.Place):
         self.fog = Fog('PartyFog')
         Place.Place.load(self)
         if hasattr(base.localAvatar, 'aboutToPlanParty') and base.localAvatar.aboutToPlanParty:
-            if not hasattr(self, 'partyPlanner') or self.partyPlanner is None:
+            if not hasattr(self, 'partyPlanner') or self.partyPlanner == None:
                 self.partyPlanner = PartyPlanner.PartyPlanner(self.partyPlannerDoneEvent)
         self.parentFSMState.addChild(self.fsm)
         return

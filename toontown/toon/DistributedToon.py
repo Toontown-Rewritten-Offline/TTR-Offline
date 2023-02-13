@@ -384,7 +384,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         nearbyToons = []
         toonIds = self.cr.getObjectsOfExactClass(DistributedToon)
         for toonId, toon in list(toonIds.items()):
-            if toon is not self:
+            if toon != self:
                 dist = toon.getDistance(self)
                 if dist < radius:
                     nearbyToons.append(toonId)
@@ -406,7 +406,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         avatar = base.cr.identifyAvatar(requesterId)
         if isinstance(avatar, DistributedToon) or isinstance(avatar, FriendHandle.FriendHandle):
             self.setSystemMessage(requesterId, TTLocalizer.MovieSOSWhisperHelp % avatar.getName(), whisperType=WhisperPopup.WTBattleSOS)
-        elif avatar is not None:
+        elif avatar != None:
             self.notify.warning('got battleSOS from non-toon %s' % requesterId)
         return
 
@@ -2228,7 +2228,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         return '%s\n%s (%s)' % (self.getName(), self.doId, paidStr)
 
     def playCurrentDialogue(self, dialogue, chatFlags, interrupt = 1):
-        if interrupt and self.__currentDialogue is not None:
+        if interrupt and self.__currentDialogue != None:
             self.__currentDialogue.stop()
         self.__currentDialogue = dialogue
         if dialogue:

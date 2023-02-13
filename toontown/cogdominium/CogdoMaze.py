@@ -184,7 +184,7 @@ class CogdoMazeFactory:
             dirs = getAvailableDirections(x, y)
             for dir in dirs:
                 next = tryVisitNeighbor(x, y, dir)
-                if next is not None:
+                if next != None:
                     openBarriers(*next)
 
             return

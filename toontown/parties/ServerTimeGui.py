@@ -38,7 +38,7 @@ class ServerTimeGui(DirectFrame):
         else:
         	self.hour = '%I'
         	self.ampm = '%p'
-        if self.hourCallback is not None:
+        if self.hourCallback != None:
             if curServerDate.hour != self.lastHour and self.lastHour != -1:
                 self.lastHour = curServerDate.hour
                 self.hourCallback(curServerDate.hour)

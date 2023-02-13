@@ -165,7 +165,7 @@ class Avatar(Actor, ShadowCaster):
         elif base.cr.getFriendFlags(self.doId) & OTPGlobals.FriendChat:
             self.understandable = 1
             self.setPlayerType(NametagGroup.CCFreeChat)
-        elif base.cr.playerFriendsManager.findPlayerIdFromAvId(self.doId) is not None:
+        elif base.cr.playerFriendsManager.findPlayerIdFromAvId(self.doId) != None:
             playerInfo = base.cr.playerFriendsManager.findPlayerInfoFromAvId(self.doId)
             if playerInfo.openChatFriendshipYesNo:
                 self.understandable = 1
@@ -272,7 +272,7 @@ class Avatar(Actor, ShadowCaster):
         return None
 
     def playCurrentDialogue(self, dialogue, chatFlags, interrupt = 1):
-        if interrupt and self.__currentDialogue is not None:
+        if interrupt and self.__currentDialogue != None:
             self.__currentDialogue.stop()
         self.__currentDialogue = dialogue
         if dialogue:
@@ -435,7 +435,7 @@ class Avatar(Actor, ShadowCaster):
         self.__chatPageNumber = None
         self.__chatParagraph = paragraph
         self.__chatMessage = message
-        if extraChatFlags is None:
+        if extraChatFlags == None:
             self.__chatFlags = CFSpeech
         else:
             self.__chatFlags = CFSpeech | extraChatFlags
@@ -458,7 +458,7 @@ class Avatar(Actor, ShadowCaster):
         self.__chatPageNumber = None
         self.__chatParagraph = None
         self.__chatMessage = message
-        if extraChatFlags is None:
+        if extraChatFlags == None:
             self.__chatFlags = CFSpeech
         else:
             self.__chatFlags = CFSpeech | extraChatFlags

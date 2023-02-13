@@ -309,7 +309,7 @@ class Pet(Avatar.Avatar):
         else:
             self.clearChat()
         mood = Component2IconDict[mood]
-        if mood is None:
+        if mood == None:
             moodModel = None
         else:
             moodModel = self.moodIcons.find('**/*' + mood + '*')

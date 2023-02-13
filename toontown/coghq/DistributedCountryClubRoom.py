@@ -143,7 +143,7 @@ class DistributedCountryClubRoom(DistributedLevel.DistributedLevel, CountryClubR
         CountryClubRoom.CountryClubRoom.enterLtPresent(self)
         if __dev__:
             bboard.post(EditorGlobals.EditTargetPostName, self)
-        if self.countryClub is not None:
+        if self.countryClub != None:
             self.countryClub.currentRoomName = CountryClubRoomSpecs.BossbotCountryClubRoomId2RoomName[self.roomId]
 
         def printPos(self = self):
@@ -152,7 +152,7 @@ class DistributedCountryClubRoom(DistributedLevel.DistributedLevel, CountryClubR
             h = base.localAvatar.getH(thisZone)
             roomName = CountryClubRoomSpecs.BossbotCountryClubRoomId2RoomName[self.roomId]
             print('countryClub pos: %s, h: %s, room: %s' % (repr(pos), h, roomName))
-            if self.countryClub is not None:
+            if self.countryClub != None:
                 floorNum = self.countryClub.floorNum
             else:
                 floorNum = '???'
