@@ -35,7 +35,7 @@ vfs-mount resources/phase_10 /phase_10
 vfs-mount resources/phase_11 /phase_11
 vfs-mount resources/phase_12 /phase_12
 vfs-mount resources/phase_13 /phase_13
-model-path /
+model-path /c/Users/Ryan/Desktop/GitHub/TTR-Private/resources
 default-model-extension .bam
 
 

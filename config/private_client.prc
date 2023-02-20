@@ -21,7 +21,7 @@ want-max-font #t
 
 
 # Resource settings
-model-path /
+model-path /c/Users/Ryan/Desktop/GitHub/TTR-Private/resources
 model-cache-models #f
 model-cache-textures #f
 vfs-mount phase_3.mf /
