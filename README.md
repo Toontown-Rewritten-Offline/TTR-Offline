@@ -8,8 +8,8 @@ Panda3D: https://github.com/Toontown-Rewritten-Private/TTRPrivate-Panda3D
 
 Astron: https://github.com/Astron/Astron/
 
-# Dependancies
-Python 3.9: https://www.python.org/downloads/release/python-3108/
+# Dependencies
+Python 3.10: https://www.python.org/downloads/release/python-3108/
 
 Panda3D Pre-built Wheel (Windows): https://download.rewrittenoffline.com/panda3d/panda3d-1.11.0-cp310-cp310-win_amd64.whl
 
