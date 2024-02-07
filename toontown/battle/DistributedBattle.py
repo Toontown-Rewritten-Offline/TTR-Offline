@@ -65,10 +65,10 @@ class DistributedBattle(DistributedBattleBase.DistributedBattleBase):
         if self.battleCleanedUp():
             return
         oldtoons = DistributedBattleBase.DistributedBattleBase.setMembers(self, suits, suitsJoining, suitsPending, suitsActive, suitsLured, suitTraps, toons, toonsJoining, toonsPending, toonsActive, toonsRunning, timestamp)
-        if len(self.toons) == 4 and len(oldtoons) < 4:
+        if len(self.toons) == 5 and len(oldtoons) < 5:
             self.notify.debug('setMembers() - battle is now full of toons')
             self.closeBattleCollision()
-        elif len(self.toons) < 4 and len(oldtoons) == 4:
+        elif len(self.toons) < 5 and len(oldtoons) == 5:
             self.openBattleCollision()
 
     def __faceOff(self, ts, name, callback):

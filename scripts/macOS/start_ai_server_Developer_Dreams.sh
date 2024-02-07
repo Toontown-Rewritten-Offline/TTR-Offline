@@ -1,6 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env sudo /Library/Frameworks/Python.framework/Versions/3.9/bin/python3.9
 cd ../../
-
 
 MAX_CHANNELS=999999
 STATE_SERVER=4002
