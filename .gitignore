@@ -6,7 +6,7 @@ screenshots/
 astron/databases/
 .DS_Store
 *.pyc
-resources/*
+resources/
 settings.json
 *.json
 *.log
