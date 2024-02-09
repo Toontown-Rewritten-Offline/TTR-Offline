@@ -4,6 +4,7 @@ from direct.directnotify import DirectNotifyGlobal
 from direct.fsm import StateData
 from direct.fsm import ClassicFSM, State
 from direct.fsm import State
+from toontown.toon.sora import makeSoraSwim, makeSoraStopSwim
 
 class Walk(StateData.StateData):
     notify = DirectNotifyGlobal.directNotify.newCategory('Walk')
@@ -96,6 +97,9 @@ class Walk(StateData.StateData):
         self.swimSoundPlaying = 0
         base.localAvatar.b_setAnimState('swim', base.localAvatar.animMultiplier)
         base.localAvatar.startSleepSwimTest()
+
+        makeSoraSwim()
+
         taskMgr.add(self.__swim, 'localToonSwimming')
 
     def exitSwimming(self):
@@ -104,6 +108,8 @@ class Walk(StateData.StateData):
         del self.swimSound
         self.swimSoundPlaying = 0
         base.localAvatar.stopSleepSwimTest()
+
+        makeSoraStopSwim()
 
     def __swim(self, task):
         speed = base.mouseInterfaceNode.getSpeed()

@@ -36,6 +36,8 @@ from direct.distributed.MsgTypes import *
 import shlex
 from functools import reduce
 
+from toontown.toon.sora import createSoraActor, removeSoraActor
+
 def teleportDebug(requestStatus, msg, onlyIfToAv = True):
     if teleportNotify.getDebug():
         teleport = 'teleport'
@@ -43,6 +45,7 @@ def teleportDebug(requestStatus, msg, onlyIfToAv = True):
             if not onlyIfToAv or 'avId' in requestStatus and requestStatus['avId'] > 0:
                 teleportNotify.debug(msg)
 
+#global soraActor
 
 SLEEP_STRING = TTLocalizer.ToonSleepString
 DogDialogueArray = []
@@ -494,7 +497,7 @@ def unloadDialog():
 class Toon(Avatar.Avatar, ToonHead):
     notify = DirectNotifyGlobal.directNotify.newCategory('Toon')
     afkTimeout = config.ConfigVariableInt('afk-timeout', 600).getValue()
-
+    
     def __init__(self):
         try:
             self.Toon_initialized
@@ -3298,18 +3301,10 @@ def sora():
     originalToon = base.localAvatar.getGeomNode()
     originalToon.hide()
 
-    soraActor = Actor.Actor('/Users/ryandemboski/Desktop/GitHub/TTPorkheffley/resources/phase_3/models/char/sora_model.bam', 
-                            {'idle': '/Users/ryandemboski/Desktop/GitHub/TTPorkheffley/resources/phase_3/models/char/sora-idle.bam', 
-                             'walk': '/Users/ryandemboski/Desktop/GitHub/TTPorkheffley/resources/phase_3/models/char/sora-walk.bam'})
+    soraActor = createSoraActor()
     
     soraActor.setBlend(frameBlend=config.ConfigVariableBool('want-smooth-animations', False).getValue())
     soraActor.reparentTo(originalToon.getParent())
-
-    soraActor.setPos(0, 0, 0)
-    soraActor.setScale(0.03)
-    soraActor.setH(180)
-
-    soraActor.loop('idle')
 
     base.accept("w", startWalk, [soraActor])
     base.accept("w-up", stopWalk, [soraActor])
@@ -3321,11 +3316,22 @@ def sora():
 
     return 'You transformed into Sora!'
 
+@magicWord(category=CATEGORY_UNKNOWN)
+def rmsora():
+    originalToon = base.localAvatar.getGeomNode()
+    originalToon.show()
+
+    removeSoraActor()
+
+    return 'You reverted back to your toon!'
+
 def startWalk(actor):
-    actor.loop('walk')
+    if actor.getCurrentAnim() != 'swim':
+        actor.loop('walk')
 
 def stopWalk(actor):
-    actor.loop('idle')
-    
+    if actor.getCurrentAnim() != 'swim':
+        actor.loop('idle')
+
 loadModels()
 compileGlobalAnimList()

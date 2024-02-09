@@ -7,6 +7,7 @@ from direct.directnotify import DirectNotifyGlobal
 import types
 from otp.nametag.NametagConstants import *
 from otp.nametag import NametagGlobals
+from toontown.toon.sora import makeSoraDance
 notify = DirectNotifyGlobal.directNotify.newCategory('MovieToonVictory')
 
 def __findToonReward(rewards, toon):
@@ -74,6 +75,7 @@ class ToonVictorySkipper(DirectObject):
 
 
 def doToonVictory(localToonActive, toons, rewardToonIds, rewardDicts, deathList, rpanel, allowGroupShot = 1, uberList = [], helpfulToonsList = [], noSkip = False):
+    makeSoraDance()
     track = Sequence()
     if localToonActive == 1:
         track.append(Func(rpanel.show))

@@ -15,6 +15,7 @@ from . import RingTrackGroups
 from toontown.toonbase import ToontownGlobals
 from toontown.toonbase import TTLocalizer
 from functools import reduce
+from toontown.toon.sora import makeSoraSwim, makeSoraStopSwimAndIdle
 
 class DistributedRingGame(DistributedMinigame):
     UPDATE_ENVIRON_TASK = 'RingGameUpdateEnvironTask'
@@ -127,6 +128,7 @@ class DistributedRingGame(DistributedMinigame):
         toon = base.localAvatar
         toon.reparentTo(render)
         toon.setAnimState('swim', 1.0)
+        makeSoraSwim()
         toon.stopBobSwimTask()
         toon.useLOD(self.TOON_LOD)
         self.__placeToon(self.localAvId)
@@ -265,6 +267,7 @@ class DistributedRingGame(DistributedMinigame):
                 toon.reparentTo(render)
                 self.__placeToon(avId)
                 toon.setAnimState('swim', 1.0)
+                makeSoraSwim()
                 toon.stopBobSwimTask()
                 toon.useLOD(self.TOON_LOD)
                 toon.dropShadow.hide()
@@ -284,6 +287,7 @@ class DistributedRingGame(DistributedMinigame):
         self.notify.debug('setGameStart')
         DistributedMinigame.setGameStart(self, timestamp)
         self.gameFSM.request('swim')
+        makeSoraSwim()
         base.playMusic(self.music, looping=0, volume=0.8)
 
     def enterOff(self):
@@ -811,6 +815,7 @@ class DistributedRingGame(DistributedMinigame):
 
     def __endGameDolater(self, task):
         self.gameOver()
+        makeSoraStopSwimAndIdle()
         return Task.done
 
     def setTimeBase(self, timestamp):

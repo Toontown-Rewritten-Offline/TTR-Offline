@@ -32,6 +32,8 @@ from toontown.toonbase import TTLocalizer
 from toontown.toon import NPCToons
 from otp.nametag.NametagConstants import *
 from otp.nametag import NametagGlobals
+from toontown.toon.sora import makeSoraStopDance
+
 camPos = Point3(14, 0, 10)
 camHpr = Vec3(89, -30, 0)
 randomBattleTimestamp = config.ConfigVariableBool('random-battle-timestamp', 0).getValue()
@@ -64,6 +66,7 @@ class Movie(DirectObject.DirectObject):
             self.rewardPanel.cleanup()
         self.rewardPanel = None
         self.rewardCallback = None
+        makeSoraStopDance()
         return
 
     def needRestoreColor(self):
