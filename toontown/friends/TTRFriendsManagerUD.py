@@ -2,6 +2,7 @@ from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobal
 from direct.distributed.PyDatagram import *
 from direct.task import Task
 from direct.directnotify.DirectNotifyGlobal import directNotify
+from direct.distributed.MsgTypes import *
 from direct.fsm.FSM import FSM
 import functools
 from time import time
