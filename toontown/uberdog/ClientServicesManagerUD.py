@@ -1,5 +1,6 @@
 from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobalUD
 from direct.directnotify.DirectNotifyGlobal import directNotify
+from direct.distributed.MsgTypes import *
 from direct.fsm.FSM import FSM
 from direct.distributed.PyDatagram import *
 from toontown.toon.ToonDNA import ToonDNA
