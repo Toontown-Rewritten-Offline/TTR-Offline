@@ -4,7 +4,7 @@
 
 # Client settings
 window-title Toontown Porkheffley
-server-version ttrp-beta-v2.11.4
+server-version ttporkheffley-v1.0.0
 sync-video #t
 want-dev #f
 preload-avatars #t
@@ -35,6 +35,7 @@ vfs-mount resources/phase_10 /phase_10
 vfs-mount resources/phase_11 /phase_11
 vfs-mount resources/phase_12 /phase_12
 vfs-mount resources/phase_13 /phase_13
+vfs-mount resources/custom /custom
 model-path /Users/ryandemboski/Desktop/GitHub/TTPorkheffley/resources
 default-model-extension .bam
 

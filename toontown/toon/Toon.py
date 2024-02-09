@@ -29,6 +29,13 @@ from . import AccessoryGlobals
 import types
 import importlib
 
+# Magic Word imports
+from otp.ai.MagicWordGlobal import *
+from direct.distributed.PyDatagram import PyDatagram
+from direct.distributed.MsgTypes import *
+import shlex
+from functools import reduce
+
 def teleportDebug(requestStatus, msg, onlyIfToAv = True):
     if teleportNotify.getDebug():
         teleport = 'teleport'
@@ -53,7 +60,7 @@ LegsAnimDict = {}
 TorsoAnimDict = {}
 HeadAnimDict = {}
 Preloaded = []
-Phase3AnimList = (('neutral', 'neutral'), ('run', 'run'))
+Phase3AnimList = (('neutral', 'neutral'), ('run', 'run'), ('idle', 'idle'))
 Phase3_5AnimList = (('walk', 'walk'),
  ('teleport', 'teleport'),
  ('book', 'book'),
@@ -167,6 +174,7 @@ Phase6AnimList = (('headdown-putt', 'headdown-putt'),
 Phase9AnimList = (('push', 'push'),)
 Phase10AnimList = (('leverReach', 'leverReach'), ('leverPull', 'leverPull'), ('leverNeutral', 'leverNeutral'))
 Phase12AnimList = ()
+CustomAnimList = (('idle', 'idle'))
 if not config.ConfigVariableBool('want-new-anims', 1).getValue():
     LegDict = {'s': '/models/char/dogSS_Shorts-legs-',
      'm': '/models/char/dogMM_Shorts-legs-',
@@ -298,6 +306,11 @@ def loadBossbotHQAnims():
 def unloadBossbotHQAnims():
     loadPhaseAnims('phase_12', 0)
 
+def loadCustomAnims():
+    loadPhaseAnims('custom')
+
+def unloadCustomAnims():
+    loadPhaseAnims('custom', 0)
 
 def loadPhaseAnims(phaseStr = 'phase_3', loadFlag = 1):
     if phaseStr == 'phase_3':
@@ -318,6 +331,8 @@ def loadPhaseAnims(phaseStr = 'phase_3', loadFlag = 1):
         animList = Phase10AnimList
     elif phaseStr == 'phase_12':
         animList = Phase12AnimList
+    elif phaseStr == 'custom':
+        animList = CustomAnimList
     else:
         self.notify.error('Unknown phase string %s' % phaseStr)
     for key in list(LegDict.keys()):
@@ -357,7 +372,8 @@ def compileGlobalAnimList():
      Phase6AnimList,
      Phase9AnimList,
      Phase10AnimList,
-     Phase12AnimList]
+     Phase12AnimList,
+     CustomAnimList]
     phaseStrList = ['phase_3',
      'phase_3.5',
      'phase_4',
@@ -366,7 +382,8 @@ def compileGlobalAnimList():
      'phase_6',
      'phase_9',
      'phase_10',
-     'phase_12']
+     'phase_12',
+     'custom']
     for animList in phaseList:
         phaseStr = phaseStrList[phaseList.index(animList)]
         for key in list(LegDict.keys()):
@@ -3276,6 +3293,39 @@ class Toon(Avatar.Avatar, ToonHead):
     def exitScientistPlay(self):
         self.stop()
 
+@magicWord(category=CATEGORY_UNKNOWN)
+def sora():
+    originalToon = base.localAvatar.getGeomNode()
+    originalToon.hide()
 
+    soraActor = Actor.Actor('/Users/ryandemboski/Desktop/GitHub/TTPorkheffley/resources/phase_3/models/char/sora_model.bam', 
+                            {'idle': '/Users/ryandemboski/Desktop/GitHub/TTPorkheffley/resources/phase_3/models/char/sora-idle.bam', 
+                             'walk': '/Users/ryandemboski/Desktop/GitHub/TTPorkheffley/resources/phase_3/models/char/sora-walk.bam'})
+    
+    soraActor.setBlend(frameBlend=config.ConfigVariableBool('want-smooth-animations', False).getValue())
+    soraActor.reparentTo(originalToon.getParent())
+
+    soraActor.setPos(0, 0, 0)
+    soraActor.setScale(0.03)
+    soraActor.setH(180)
+
+    soraActor.loop('idle')
+
+    base.accept("w", startWalk, [soraActor])
+    base.accept("w-up", stopWalk, [soraActor])
+
+    base.accept("s", startWalk, [soraActor])
+    base.accept("s-up", stopWalk, [soraActor])
+
+    base.localAvatar.setName('Sora')
+
+    return 'You transformed into Sora!'
+
+def startWalk(actor):
+    actor.loop('walk')
+
+def stopWalk(actor):
+    actor.loop('idle')
+    
 loadModels()
 compileGlobalAnimList()
