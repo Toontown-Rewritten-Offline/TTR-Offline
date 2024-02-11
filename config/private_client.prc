@@ -21,7 +21,7 @@ want-max-font #t
 
 
 # Resource settings
-model-path /Users/ryandemboski/Desktop/GitHub/TTPorkheffley/resources
+model-path /c/Users/ryand/OneDrive/Desktop/GitHubStuff/TTPorkheffley/resources
 model-cache-models #f
 model-cache-textures #f
 vfs-mount phase_3.mf /

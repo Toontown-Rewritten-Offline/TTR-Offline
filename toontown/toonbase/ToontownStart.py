@@ -113,7 +113,6 @@ else:
     backgroundNodePath.find('**/bg').setBin('fixed', 10)
     base.graphicsEngine.renderFrame()
 
-
 # Framerate meter for TTR Private: Change in 'dev.prc' to toggle
 if ConfigVariableBool('tt-framerate', False):
     from toontown.toonbase.TTFrameRateMeter import TTFrameRateMeter
@@ -245,8 +244,8 @@ if ConfigVariableBool('want-retro-rewritten', False):
     del version
 
 # Options Button
-from .OptionsPage import OptionsPage
-__builtins__.OptionsButton = OptionsPage()
+# from .OptionsPage import OptionsPage
+# __builtins__.OptionsButton = OptionsPage()
 
 base.loader = base.loader
 builtins.loader = base.loader

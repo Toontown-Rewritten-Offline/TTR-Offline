@@ -1,0 +1,1400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scene zone="5100">
+    <group name="daisysGarden">
+        <visgroup zone="5119" vis="5119 5118 5117 5116 5115 5114 5113 5120 5121 5122 5123 5124 5125 5126 5127">
+            <suit_edge a="78" b="80" />
+            <suit_edge a="81" b="79" />
+            <battle_cell width="20" height="20" x="253.135" y="63.253" z="-0.5" />
+            <group name="streets">
+                <street name="street_20x40_15_DNARoot" code="street_20x40_15">
+                    <pos x="278.14" y="53.25" z="0" />
+                    <nhpr h="90" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                </street>
+            </group>
+            <group name="buildings">
+                <flat_building id="tb26:random25_DNARoot" width="25">
+                    <pos x="228.14" y="48.25" z="0" />
+                    <nhpr h="90" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.69" g="0.31" b="0.83" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="22" code="wall_md_blank_ur">
+                        <color r="1" g="1" b="0.39" a="1" />
+                        <windows code="window_flower_porthole_ur" count="4">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_brick_ur">
+                            <color r="0.8" g="0.53" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_daisys_flowerbox_pink_DNARoot" code="prop_daisys_flowerbox_pink">
+                        <pos x="21.75" y="-1.87" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                        <scale x="1.4" y="1.4" z="1.4" />
+                    </prop>
+                    <prop name="neighborhood_sign_DG_DNARoot" code="neighborhood_sign_DG">
+                        <pos x="6.71" y="-1.16" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                        <scale x="1.5" y="1.5" z="1.5" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb10:random25_DNARoot" width="20">
+                    <pos x="278.14" y="73.25" z="0" />
+                    <nhpr h="-90" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.22" g="0.74" b="0.61" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_pillars_ur">
+                        <color r="1" g="1" b="0.86" a="1" />
+                        <windows code="window_sm_pointed_DG_ul" count="2">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_md_pillars_ur">
+                        <color r="1" g="1" b="0.86" a="1" />
+                        <windows code="window_sm_pointed_DG_ul" count="2">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_shinglesDG_ur">
+                            <color r="1" g="1" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_daisys_flowerbox_pink_DNARoot" code="prop_daisys_flowerbox_pink">
+                        <pos x="10" y="-2" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                        <scale x="1.4" y="1.4" z="1.4" />
+                    </prop>
+                </flat_building>
+            </group>
+            <group name="props" />
+        </visgroup>
+        <visgroup zone="5120" vis="5120 5119 5118 5117 5116 5115 5114 5121 5122 5123 5124 5125 5126 5127 5128">
+            <suit_edge a="80" b="82" />
+            <suit_edge a="84" b="81" />
+            <suit_edge a="85" b="84" />
+            <suit_edge a="82" b="86" />
+            <suit_edge a="82" b="114" />
+            <suit_edge a="114" b="82" />
+            <suit_edge a="84" b="114" />
+            <suit_edge a="114" b="84" />
+            <suit_edge a="186" b="86" />
+            <suit_edge a="86" b="186" />
+            <suit_edge a="186" b="85" />
+            <suit_edge a="85" b="186" />
+            <battle_cell width="20" height="20" x="261.135" y="35.253" z="-0.5" />
+            <group name="streets">
+                <street name="street_curved_corner_15_DNARoot" code="street_curved_corner_15">
+                    <pos x="278.14" y="13.25" z="0" />
+                    <nhpr h="90" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                </street>
+            </group>
+            <group name="buildings">
+                <flat_building id="tb26:random25_DNARoot" width="15">
+                    <pos x="243.14" y="3.25" z="0" />
+                    <nhpr h="-180" p="0" r="-0" />
+                    <wall height="4" code="wall_basement_brick_ur">
+                        <color r="0.53" g="0.48" b="0.82" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_sm_brick_pink_ur">
+                        <color r="0.75" g="0.7" b="1" a="1" />
+                        <windows code="window_sm_curved_ul" count="2">
+                            <color r="0.85" g="0.91" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="8" code="wall_sm_brick_pink_ur">
+                        <color r="0.75" g="0.7" b="1" a="1" />
+                        <windows code="window_sm_curved_ul" count="2">
+                            <color r="0.85" g="0.91" b="1" a="1" />
+                        </windows>
+                    </wall>
+                </flat_building>
+                <landmark_building id="tb26:toon_landmark_DG_C1_DNARoot" code="toon_landmark_DG_C1">
+                    <title>Pine Needle Crafts</title>
+                    <pos x="227.14" y="28.25" z="0" />
+                    <nhpr h="90" p="0" r="-0" />
+                    <door code="door_double_curved_ur">
+                        <color r="0.05" g="0.75" b="0.27" a="1" />
+                    </door>
+                    <prop name="prop_stairs_DG_DNARoot" code="prop_stairs_DG">
+                        <pos x="5.43767" y="-3.0914" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                        <scale x="0.863594" y="0.863594" z="0.863594" />
+                        <color r="0.68" g="0.42" b="0.74" a="1" />
+                    </prop>
+                    <sign code="DG_sign2">
+                        <pos x="0" y="0" z="-4.5" />
+                        <scale x="1" y="1" z="1.3" />
+                        <baseline code="DG_Ironwork" width="19.8535" height="19.8535" flags="d">
+                            <color r="0.403922" g="0.0588235" b="0.443137" a="1" />
+                            <pos x="0" y="0" z="1.72" />
+                            <scale x="0.8" y="1" z="1" />
+                            <text>PINE NEEDLE</text>
+                        </baseline>
+                        <baseline code="DG_Ironwork" kern="0.207605" width="18.6331" height="18.6331" flags="d">
+                            <color r="0" g="0.501961" b="0" a="1" />
+                            <pos x="0" y="0" z="0.22" />
+                            <scale x="2.1" y="1" z="1.7" />
+                            <text>CRAFTS</text>
+                        </baseline>
+                    </sign>
+                </landmark_building>
+                <flat_building id="tb26:random25_DNARoot" width="20">
+                    <pos x="278.14" y="3.25" z="0" />
+                    <nhpr h="-180" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.64" g="1" b="0.68" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_board_ur">
+                        <color r="0.48" g="1" b="0.7" a="1" />
+                        <flat_door code="door_single_square_ur">
+                            <color r="0.18" g="0.78" b="0.69" a="1" />
+                        </flat_door>
+                    </wall>
+                    <wall height="9" code="wall_md_blank_ur">
+                        <color r="1" g="1" b="0.52" a="1" />
+                        <windows code="window_sm_square_ul" count="2">
+                            <color r="1" g="1" b="0.75" a="1" />
+                        </windows>
+                        <cornice code="cornice_shinglesDG_ur">
+                            <color r="0.53" g="0.92" b="0.81" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_stairs_DG_DNARoot" code="prop_stairs_DG">
+                        <pos x="6.09424" y="-0.05" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                        <scale x="0.767331" y="0.767331" z="0.767331" />
+                        <color r="0.22" g="0.58" b="0.65" a="1" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb26:random25_DNARoot" width="15">
+                    <pos x="258.14" y="3.25" z="0" />
+                    <nhpr h="-180" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_brick_ur">
+                        <color r="0.22" g="0.58" b="0.65" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_pillars_ur">
+                        <color r="0.44" g="0.96" b="1" a="1" />
+                        <windows code="window_flower_porthole_ul" count="1">
+                            <color r="0.35" g="0.9" b="0.98" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_md_pillars_ur">
+                        <color r="0.44" g="0.96" b="1" a="1" />
+                        <windows code="window_flower_porthole_ul" count="1">
+                            <color r="0.35" g="0.9" b="0.98" a="1" />
+                        </windows>
+                        <cornice code="cornice_brick_ur">
+                            <color r="0.53" g="0.91" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="neighborhood_sign_TT_DNARoot" code="neighborhood_sign_TT">
+                        <pos x="7.57" y="-1.27" z="0" />
+                        <nhpr h="180" p="0" r="-0" />
+                        <scale x="1.5" y="1.5" z="1.5" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb26:random25_DNARoot" width="25">
+                    <pos x="228.14" y="3.25" z="0" />
+                    <nhpr h="90" p="0" r="-0" />
+                    <wall height="4" code="wall_basement_rock_ur">
+                        <color r="0.22" g="0.74" b="0.62" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="21" code="wall_md_blank_ur">
+                        <color r="1" g="0.55" b="0.55" a="1" />
+                        <windows code="window_flower_porthole_ur" count="4">
+                            <color r="1" g="1" b="0.6" a="1" />
+                        </windows>
+                        <cornice code="cornice_brick_ur">
+                            <color r="0.53" g="0.92" b="0.81" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_tree_large_woodbox_ur_DNARoot" code="prop_tree_large_woodbox_ur">
+                        <pos x="18.14" y="-11.75" z="0" />
+                        <nhpr h="90" p="0" r="-0" />
+                    </prop>
+                </flat_building>
+            </group>
+            <group name="props" />
+            <interactive_prop name="interactive_prop_phase_8_models_char__dga_trashcan_DNARoot" code="interactive_prop_phase_8_models_char__dga_trashcan" anim="tt_a_ara_dga_trashcan_fightBoost" cell_id="0">
+                <pos x="239.554" y="45.5477" z="0" />
+                <nhpr h="90" p="0" r="-0" />
+            </interactive_prop>
+        </visgroup>
+        <visgroup zone="5121" vis="5121 5120 5119 5118 5117 5116 5115 5114 5122 5123 5124 5125 5126 5127 5128">
+            <suit_edge a="87" b="85" />
+            <suit_edge a="86" b="88" />
+            <battle_cell width="20" height="20" x="288.135" y="28.253" z="-0.5" />
+            <group name="streets">
+                <street name="street_20x40_15_DNARoot" code="street_20x40_15">
+                    <pos x="278.14" y="3.25" z="0" />
+                    <nhpr h="-0" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                </street>
+            </group>
+            <group name="buildings">
+                <flat_building id="tb26:random25_DNARoot" width="20">
+                    <pos x="298.14" y="3.25" z="0" />
+                    <nhpr h="180" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.53" g="0.48" b="0.82" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_board_ur">
+                        <color r="0.79" g="0.55" b="1" a="1" />
+                        <windows code="window_sm_curved_ul" count="2">
+                            <color r="0.85" g="0.91" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_md_blank_ur">
+                        <color r="0.6" g="1" b="0.68" a="1" />
+                        <windows code="window_md_curved_ul" count="2">
+                            <color r="0.85" g="0.91" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_brick_ur">
+                            <color r="0.8" g="0.53" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_window_flowerbox_wood_DNARoot" code="prop_window_flowerbox_wood">
+                        <pos x="5.39" y="-0.02" z="7" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_window_flowerbox_wood_DNARoot" code="prop_window_flowerbox_wood">
+                        <pos x="11.64" y="-0.02" z="7" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_daisys_flowerbox_pink_DNARoot" code="prop_daisys_flowerbox_yellow">
+                        <pos x="9.49" y="-2.05" z="0" />
+                        <nhpr h="180" p="0" r="-0" />
+                        <scale x="1.4" y="1.4" z="1.4" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb10:random25_DNARoot" width="20">
+                    <pos x="278.14" y="53.25" z="0" />
+                    <nhpr h="-0" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.22" g="0.74" b="0.61" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_pillars_ur">
+                        <color r="1" g="1" b="0.86" a="1" />
+                        <windows code="window_sm_pointed_DG_ul" count="2">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_md_pillars_ur">
+                        <color r="1" g="1" b="0.86" a="1" />
+                        <windows code="window_sm_pointed_DG_ul" count="2">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_shinglesDG_ur">
+                            <color r="1" g="1" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                </flat_building>
+            </group>
+            <group name="props" />
+        </visgroup>
+        <visgroup zone="5122" vis="5122 5121 5120 5119 5118 5117 5116 5123 5124 5125 5126 5127 5128 5129">
+            <suit_edge a="88" b="89" />
+            <suit_edge a="89" b="90" />
+            <suit_edge a="187" b="90" />
+            <suit_edge a="90" b="187" />
+            <suit_edge a="199" b="200" />
+            <suit_edge a="200" b="201" />
+            <suit_edge a="201" b="87" />
+            <suit_edge a="90" b="95" />
+            <battle_cell width="20" height="20" x="313.964" y="27.8127" z="-0.5" />
+            <group name="streets">
+                <street name="street_t_intersection_DNARoot" code="street_t_intersection">
+                    <pos x="298.14" y="48.25" z="-7.6592e-006" />
+                    <nhpr h="-90" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_curb_DG_tex</texture>
+                </street>
+                <street name="street_curved_corner_DNARoot" code="street_curved_corner">
+                    <pos x="338.14" y="-31.75" z="0" />
+                    <nhpr h="90" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_curb_DG_tex</texture>
+                </street>
+                <street name="street_curved_corner_DNARoot" code="street_curved_corner">
+                    <pos x="298.14" y="48.25" z="0" />
+                    <nhpr h="-0" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_curb_DG_tex</texture>
+                </street>
+            </group>
+            <group name="buildings">
+                <flat_building id="tb13:random25_DNARoot" width="15">
+                    <pos x="298.14" y="-11.75" z="0" />
+                    <nhpr h="90" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.53" g="0.48" b="0.82" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_board_ur">
+                        <color r="0.79" g="0.55" b="1" a="1" />
+                        <windows code="window_sm_curved_ul" count="2">
+                            <color r="0.85" g="0.91" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_md_blank_ur">
+                        <color r="0.6" g="1" b="0.68" a="1" />
+                        <windows code="window_md_curved_ur" count="1">
+                            <color r="0.847059" g="0.909804" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_brick_ur">
+                            <color r="0.8" g="0.53" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                </flat_building>
+                <flat_building id="tb13:random25_DNARoot" width="15">
+                    <pos x="313.14" y="-31.75" z="0" />
+                    <nhpr h="-180" p="0" r="-0" />
+                    <wall height="4" code="wall_basement_rock_ur">
+                        <color r="0.53" g="0.48" b="0.82" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_sm_brick_pink_ur">
+                        <color r="0.75" g="0.7" b="1" a="1" />
+                        <flat_door code="door_single_round_ur">
+                            <color r="0.18" g="0.78" b="0.69" a="1" />
+                        </flat_door>
+                    </wall>
+                    <wall height="8" code="wall_sm_brick_pink_ur">
+                        <color r="0.75" g="0.7" b="1" a="1" />
+                        <windows code="window_flower_porthole_ul" count="2">
+                            <color r="0.85" g="0.91" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <prop name="prop_stairs_DG_DNARoot" code="prop_stairs_DG">
+                        <pos x="2.63428" y="-0.0127258" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                        <scale x="1.00505" y="1.00505" z="1.00505" />
+                        <color r="0.53" g="0.48" b="0.82" a="1" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb13:random25_DNARoot" width="20">
+                    <pos x="298.14" y="-31.75" z="0" />
+                    <nhpr h="90" p="0" r="-0" />
+                    <wall height="4" code="wall_basement_rock_ur">
+                        <color r="0.37" g="0.75" b="0.35" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_blank_ur">
+                        <color r="1" g="1" b="0.52" a="1" />
+                        <windows code="window_sm_pointed_DG_ur" count="1">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="8" code="wall_md_blank_dr">
+                        <color r="1" g="1" b="0.52" a="1" />
+                        <windows code="window_sm_pointed_DG_ur" count="1">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_shinglesDG_ur">
+                            <color r="0.53" g="0.92" b="0.81" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_tree_large_ur_DNARoot" code="prop_tree_large_woodbox_ur">
+                        <pos x="20" y="-5" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb13:random25_DNARoot" width="15">
+                    <pos x="328.14" y="-31.75" z="0" />
+                    <nhpr h="-180" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_brick_ur">
+                        <color r="0.22" g="0.58" b="0.65" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_pillars_ur">
+                        <color r="0.44" g="0.96" b="1" a="1" />
+                        <windows code="window_flower_porthole_ur" count="1">
+                            <color r="0.35" g="0.9" b="0.98" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_md_pillars_ur">
+                        <color r="0.44" g="0.96" b="1" a="1" />
+                        <windows code="window_flower_porthole_ur" count="1">
+                            <color r="0.34902" g="0.898039" b="0.976471" a="1" />
+                        </windows>
+                        <cornice code="cornice_brick_ur">
+                            <color r="0.53" g="0.91" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                </flat_building>
+                <landmark_building id="tb13:toon_landmark_DG_B1_DNARoot" code="toon_landmark_DG_B1">
+                    <title>Crop Top Barbers</title>
+                    <pos x="343.14" y="-31.75" z="0" />
+                    <nhpr h="180" p="0" r="-0" />
+                    <door code="door_double_square_ur">
+                        <color r="0.18" g="0.78" b="0.69" a="1" />
+                    </door>
+                    <prop name="prop_stairs_DG_DNARoot" code="prop_stairs_DG">
+                        <pos x="1.20798" y="-3.0258" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                        <scale x="1.27705" y="1.27705" z="1.27705" />
+                        <color r="0.38" g="0.82" b="0.45" a="1" />
+                    </prop>
+                    <sign code="DG_sign3">
+                        <pos x="0" y="0" z="1.27" />
+                        <nhpr h="-0" p="0" r="-4" />
+                        <scale x="0.7" y="1" z="0.5" />
+                        <baseline code="DG_Ironwork" flags="d">
+                            <color r="0" g="0.34902" b="0.34902" a="1" />
+                            <pos x="0" y="0" z="1.38" />
+                            <scale x="0.7" y="1" z="0.7" />
+                            <text>CROP TOP</text>
+                        </baseline>
+                        <baseline code="DG_Ironwork" kern="0.1" flags="d">
+                            <color r="0" g="0.34902" b="0.34902" a="1" />
+                            <pos x="0" y="0" z="0.05" />
+                            <scale x="1.4" y="1" z="1.4" />
+                            <text>BARBER</text>
+                        </baseline>
+                    </sign>
+                </landmark_building>
+                <flat_building id="tb10:random25_DNARoot" width="15">
+                    <pos x="298.14" y="53.25" z="0" />
+                    <nhpr h="90" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.22" g="0.74" b="0.61" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_pillars_ur">
+                        <color r="1" g="1" b="0.86" a="1" />
+                        <windows code="window_sm_pointed_DG_ul" count="2">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_md_pillars_ur">
+                        <color r="1" g="1" b="0.86" a="1" />
+                        <windows code="window_sm_pointed_DG_ul" count="2">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_shinglesDG_ur">
+                            <color r="1" g="1" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_daisys_flowerbox_pink_DNARoot" code="prop_daisys_flowerbox_pink">
+                        <pos x="7.21921" y="-2.11664" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb10:random25_DNARoot" width="20">
+                    <pos x="298.14" y="68.25" z="0" />
+                    <nhpr h="90" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.65" g="0.44" b="0.75" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_lg_brick_ur">
+                        <color r="1" g="1" b="0.39" a="1" />
+                        <windows code="window_md_curved_DG_ul" count="2">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_lg_brick_ur">
+                        <color r="1" g="1" b="0.39" a="1" />
+                        <windows code="window_md_curved_DG_ul" count="2">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_brickDG_ur">
+                            <color r="1" g="1" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_tree_small_woodbox_ur_DNARoot" code="prop_tree_small_woodbox_ur">
+                        <pos x="3.99979" y="-8.37907" z="0" />
+                        <nhpr h="180" p="0" r="-0" />
+                        <scale x="0.7" y="0.7" z="0.7" />
+                    </prop>
+                    <prop name="prop_DG_flower_lamp1_DNARoot" code="prop_DG_flower_lamp1">
+                        <pos x="-62.243" y="-81.7337" z="0" />
+                        <nhpr h="180" p="0" r="-0" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb10:random25_DNARoot" width="25">
+                    <pos x="298.14" y="88.25" z="0" />
+                    <nhpr h="-0" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.65" g="0.44" b="0.75" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_lg_brick_ur">
+                        <color r="1" g="1" b="0.39" a="1" />
+                        <windows code="window_md_curved_DG_ul" count="2">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_lg_brick_ur">
+                        <color r="1" g="1" b="0.39" a="1" />
+                        <windows code="window_md_curved_DG_ul" count="2">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_brickDG_ur">
+                            <color r="1" g="1" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_tree_large_ur_DNARoot" code="prop_tree_large_woodbox_ul">
+                        <pos x="16.504" y="-8.86" z="0" />
+                        <nhpr h="180" p="0" r="-0" />
+                        <scale x="0.9" y="0.9" z="0.9" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb10:random_DNARoot" width="20">
+                    <pos x="323.14" y="88.25" z="0" />
+                    <nhpr h="-0" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_brick_ur">
+                        <color r="0.69" g="0.32" b="0.52" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="22" code="wall_md_pillars_ur">
+                        <color r="1" g="0.55" b="1" a="1" />
+                        <windows code="window_flower_porthole_ur" count="4">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_brick_ur">
+                            <color r="0.8" g="0.53" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_tree_large_ur_DNARoot" code="prop_tree_large_woodbox_ur">
+                        <pos x="8.8241" y="-7.43732" z="0" />
+                        <nhpr h="180" p="0" r="-0" />
+                    </prop>
+                </flat_building>
+            </group>
+            <group name="props" />
+            <interactive_prop name="interactive_prop_phase_8_models_char__dga_mailbox_DNARoot" code="interactive_prop_phase_8_models_char__dga_mailbox" anim="tt_a_ara_dga_mailbox_idle0" cell_id="0">
+                <pos x="333.204" y="16.1539" z="-7.689e-006" />
+                <nhpr h="-90" p="0" r="-0" />
+            </interactive_prop>
+        </visgroup>
+        <visgroup zone="5123" vis="5123 5122 5121 5120 5119 5118 5124 5125 5126 5127 5128 5129">
+            <suit_edge a="95" b="97" />
+            <suit_edge a="95" b="99" />
+            <suit_edge a="99" b="95" />
+            <battle_cell width="20" height="20" x="358.964" y="-11.1873" z="-0.5" />
+            <group name="streets">
+                <street name="street_40x40_DNARoot" code="street_40x40">
+                    <pos x="338.14" y="-31.75" z="0" />
+                    <nhpr h="-0" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_curb_DG_tex</texture>
+                </street>
+                <street name="street_sidewalk_40x40_DNARoot" code="street_sidewalk_40x40">
+                    <pos x="338.14" y="48.25" z="0" />
+                    <nhpr h="-90" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_curb_DG_tex</texture>
+                </street>
+            </group>
+            <group name="buildings">
+                <flat_building id="tb13:random25_DNARoot" width="25">
+                    <pos x="368.14" y="-31.75" z="0" />
+                    <nhpr h="-180" p="0" r="-0" />
+                    <wall height="4" code="wall_basement_brick_ur">
+                        <color r="0.5" g="0.68" b="0.36" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_lg_brick_ur">
+                        <color r="1" g="1" b="0.39" a="1" />
+                        <windows code="window_sm_curved_ul" count="2">
+                            <color r="0.35" g="1" b="0.4" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="8" code="wall_lg_brick_ur">
+                        <color r="1" g="1" b="0.39" a="1" />
+                        <windows code="window_sm_curved_ul" count="2">
+                            <color r="0.35" g="1" b="0.4" a="1" />
+                        </windows>
+                        <cornice code="cornice_shinglesDG_ur">
+                            <color r="1" g="1" b="0.69" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_window_flowerbox_wood_DNARoot" code="prop_window_flowerbox_wood">
+                        <pos x="7.09" y="-0.21" z="8" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_window_flowerbox_wood_DNARoot" code="prop_window_flowerbox_wood">
+                        <pos x="7.03" y="-0.05" z="18.17" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_window_flowerbox_wood_DNARoot" code="prop_window_flowerbox_wood">
+                        <pos x="15.27" y="-0.1" z="18.27" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_window_flowerbox_wood_DNARoot" code="prop_window_flowerbox_wood">
+                        <pos x="15.2" y="-0.21" z="7.85" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_tree_small_woodbox_ur_DNARoot" code="prop_tree_small_woodbox_ur">
+                        <pos x="4.1759" y="-4.56207" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                        <scale x="0.7" y="0.7" z="0.7" />
+                    </prop>
+                </flat_building>
+                <landmark_building id="tb27:toon_landmark_hqDG_DNARoot" code="toon_landmark_hqDG" type="hq">
+                    <title />
+                    <pos x="357.935" y="28.45" z="0" />
+                    <nhpr h="90" p="0" r="-0" />
+                    <prop name="prop_tree_small_ur_DNARoot" code="prop_DG_flower_lamp1">
+                        <pos x="-22.9048" y="22.7018" z="0" />
+                        <nhpr h="105" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_DG_flower_lamp1_DNARoot" code="prop_DG_flower_lamp1">
+                        <pos x="22.7018" y="22.9048" z="0" />
+                        <nhpr h="15" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_DG_flower_lamp1_DNARoot" code="prop_DG_flower_lamp1">
+                        <pos x="22.9048" y="-22.7017" z="0" />
+                        <nhpr h="-180" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_daisy_park_table_DNARoot" code="prop_daisy_park_table">
+                        <pos x="-20" y="1" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_daisy_park_table_DNARoot" code="prop_daisy_park_table">
+                        <pos x="19" y="0" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_daisys_fountain_DNARoot" code="prop_daisys_fountain">
+                        <pos x="0.999979" y="23" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_daisys_flowerbox_pink_DNARoot" code="prop_daisys_flowerbox_pink">
+                        <pos x="-6.00002" y="-8" z="0" />
+                        <nhpr h="-30" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_daisys_flowerbox_pink_DNARoot" code="prop_daisys_flowerbox_pink">
+                        <pos x="5.99998" y="-8" z="0" />
+                        <nhpr h="30" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_daisys_flowerbox_yellow_DNARoot" code="prop_daisys_flowerbox_yellow">
+                        <pos x="-8.00002" y="6" z="0" />
+                        <nhpr h="45" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_daisys_flowerbox_yellow_DNARoot" code="prop_daisys_flowerbox_yellow">
+                        <pos x="7.99998" y="6" z="0" />
+                        <nhpr h="-45" p="0" r="-0" />
+                    </prop>
+                </landmark_building>
+                <prop name="prop_cogdo_sign_origin" code="DCS">
+                    <pos x="332.5" y="8" z="0.025" />
+                    <nhpr h="90" p="0" r="0" />
+                </prop>
+            </group>
+            <group name="props" />
+        </visgroup>
+        <visgroup zone="5124" vis="5124 5123 5122 5121 5120 5125 5126 5127">
+            <suit_edge a="98" b="199" />
+            <battle_cell width="20" height="20" x="358.964" y="67.8127" z="-0.5" />
+            <group name="streets">
+                <street name="street_40x40_DNARoot" code="street_40x40">
+                    <pos x="338.14" y="48.25" z="0" />
+                    <nhpr h="-0" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_curb_DG_tex</texture>
+                </street>
+            </group>
+            <group name="buildings">
+                <flat_building id="tb10:random25_DNARoot" width="15">
+                    <pos x="343.14" y="88.25" z="0" />
+                    <nhpr h="-0" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.57" g="1" b="0.65" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_board_ur">
+                        <color r="0.48" g="1" b="0.7" a="1" />
+                        <windows code="window_sm_pointed_DG_ur" count="1">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_md_board_ur">
+                        <color r="0.48" g="1" b="0.7" a="1" />
+                        <windows code="window_sm_pointed_DG_ur" count="1">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_shinglesDG_ur">
+                            <color r="0.53" g="0.92" b="0.81" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_tree_small_woodbox_ur_DNARoot" code="prop_tree_small_woodbox_ul">
+                        <pos x="13.2468" y="-7.62148" z="0" />
+                        <nhpr h="-180" p="0" r="-0" />
+                        <scale x="0.7" y="0.7" z="0.7" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb16:random25_DNARoot" width="25">
+                    <pos x="358.14" y="88.25" z="0" />
+                    <nhpr h="-0" p="0" r="-0" />
+                    <wall height="4" code="wall_basement_rock_ur">
+                        <color r="0.37" g="0.75" b="0.35" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_blank_ur">
+                        <color r="1" g="1" b="0.52" a="1" />
+                        <windows code="window_sm_pointed_DG_ur" count="1">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="8" code="wall_md_blank_dr">
+                        <color r="1" g="1" b="0.52" a="1" />
+                        <windows code="window_sm_pointed_DG_ur" count="1">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_shinglesDG_ur">
+                            <color r="0.53" g="0.92" b="0.81" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_daisys_flowerbox_pink_DNARoot" code="prop_daisys_flowerbox_pink">
+                        <pos x="19.8241" y="-1.43732" z="0" />
+                        <nhpr h="180" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_daisys_flowerbox_pink_DNARoot" code="prop_daisys_flowerbox_pink">
+                        <pos x="5.8241" y="-1.43732" z="0" />
+                        <nhpr h="-180" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_daisys_flowerbox_yellow_DNARoot" code="prop_daisys_flowerbox_yellow">
+                        <pos x="12.8241" y="-1.43793" z="0" />
+                        <nhpr h="-180" p="0" r="-0" />
+                    </prop>
+                </flat_building>
+            </group>
+            <group name="props" />
+        </visgroup>
+        <visgroup zone="5125" vis="5125 5124 5123 5122 5121 5120 5119 5118 5126 5127 5128 5129 5130">
+            <suit_edge a="97" b="100" />
+            <suit_edge a="101" b="98" />
+            <suit_edge a="102" b="101" />
+            <suit_edge a="100" b="103" />
+            <suit_edge a="103" b="104" />
+            <suit_edge a="105" b="102" />
+            <battle_cell width="20" height="20" x="397.964" y="27.8127" z="-0.5" />
+            <group name="streets">
+                <street name="street_t_intersection_DNARoot" code="street_t_intersection">
+                    <pos x="418.14" y="8.25" z="-9.91821e-005" />
+                    <nhpr h="90" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_curb_DG_tex</texture>
+                </street>
+                <street name="street_curved_corner_DNARoot" code="street_curved_corner">
+                    <pos x="418.14" y="8.25" z="0" />
+                    <nhpr h="-180" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_curb_DG_tex</texture>
+                </street>
+                <street name="street_curved_corner_DNARoot" code="street_curved_corner">
+                    <pos x="378.14" y="88.25" z="0" />
+                    <nhpr h="-90" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_curb_DG_tex</texture>
+                </street>
+            </group>
+            <group name="buildings">
+                <flat_building id="tb15:random25_DNARoot" width="15">
+                    <pos x="418.14" y="3.25" z="0" />
+                    <nhpr h="-90" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_brick_ur">
+                        <color r="0.22" g="0.58" b="0.65" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_pillars_ur">
+                        <color r="0.44" g="0.96" b="1" a="1" />
+                        <windows code="window_flower_porthole_ur" count="1">
+                            <color r="0.35" g="0.9" b="0.98" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_md_pillars_ur">
+                        <color r="0.44" g="0.96" b="1" a="1" />
+                        <windows code="window_flower_porthole_ur" count="1">
+                            <color r="0.34902" g="0.898039" b="0.976471" a="1" />
+                        </windows>
+                        <cornice code="cornice_brick_ur">
+                            <color r="0.53" g="0.91" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_tree_large_ur_DNARoot" code="prop_tree_large_woodbox_ul">
+                        <pos x="4.43726" y="-6.17596" z="0" />
+                        <nhpr h="-90" p="0" r="-0" />
+                        <scale x="0.9" y="0.9" z="0.9" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb15:random25_DNARoot" width="20">
+                    <pos x="388.14" y="-31.75" z="0" />
+                    <nhpr h="-180" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.18" g="0.78" b="0.69" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="22" code="wall_md_pillars_ur">
+                        <color r="0" g="1" b="0.99" a="1" />
+                        <windows code="window_sm_square_ur" count="4">
+                            <color r="0.25" g="0.96" b="0.98" a="1" />
+                        </windows>
+                        <cornice code="cornice_stone_ur">
+                            <color r="0.53" g="0.91" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                </flat_building>
+                <flat_building id="tb15:random25_DNARoot" width="15">
+                    <pos x="403.14" y="-31.75" z="0" />
+                    <nhpr h="-180" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.8" g="0.54" b="0.61" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_lg_brick_ur">
+                        <color r="1" g="1" b="0.39" a="1" />
+                        <windows code="window_sm_curved_ul" count="2">
+                            <color r="1" g="1" b="0.58" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_lg_brick_ur">
+                        <color r="1" g="1" b="0.39" a="1" />
+                        <windows code="window_sm_curved_ul" count="2">
+                            <color r="1" g="1" b="0.58" a="1" />
+                        </windows>
+                        <cornice code="cornice_brick_ur">
+                            <color r="1" g="0.65" b="0.81" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_tree_large_ur_DNARoot" code="prop_tree_large_woodbox_ul">
+                        <pos x="-5" y="-10" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_daisys_flowerbox_yellow_DNARoot" code="prop_daisys_flowerbox_yellow">
+                        <pos x="19.176" y="-1.56268" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_daisys_flowerbox_pink_DNARoot" code="prop_daisys_flowerbox_pink">
+                        <pos x="24.176" y="-1.56268" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_daisys_flowerbox_yellow_DNARoot" code="prop_daisys_flowerbox_yellow">
+                        <pos x="29.176" y="-1.56268" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb15:random_DNARoot" width="20">
+                    <pos x="418.14" y="-11.75" z="0" />
+                    <nhpr h="-90" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_brick_ur">
+                        <color r="1" g="0.55" b="0.65" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_board_ur">
+                        <color r="1" g="0.55" b="0.81" a="1" />
+                        <windows code="window_sm_curved_ul" count="2">
+                            <color r="1" g="1" b="0.75" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_md_blank_ur">
+                        <color r="1" g="1" b="0.52" a="1" />
+                        <windows code="window_flower_porthole_ul" count="2">
+                            <color r="1" g="1" b="0.75" a="1" />
+                        </windows>
+                        <cornice code="cornice_brickDG_ur">
+                            <color r="1" g="1" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                </flat_building>
+                <flat_building id="tb15:random_DNARoot" width="15">
+                    <pos x="418.14" y="-31.75" z="0" />
+                    <nhpr h="180" p="0" r="-0" />
+                    <wall height="4" code="wall_basement_brick_ur">
+                        <color r="0.42" g="0.39" b="0.61" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="21" code="wall_md_pillars_ur">
+                        <color r="1" g="0.55" b="1" a="1" />
+                        <windows code="window_md_curved_DG_ur" count="1">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_stone_ur">
+                            <color r="0.74" g="0.65" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                </flat_building>
+                <flat_building id="tb16:random25_DNARoot" width="20">
+                    <pos x="383.14" y="88.25" z="0" />
+                    <nhpr h="-0" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.53" g="0.48" b="0.82" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_board_ur">
+                        <color r="0.79" g="0.55" b="1" a="1" />
+                        <windows code="window_sm_curved_ul" count="2">
+                            <color r="0.85" g="0.91" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_md_blank_ur">
+                        <color r="0.6" g="1" b="0.68" a="1" />
+                        <windows code="window_md_curved_ul" count="1">
+                            <color r="0.85" g="0.91" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_brick_ur">
+                            <color r="0.8" g="0.53" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                </flat_building>
+                <flat_building id="tb16:random25_DNARoot" width="15">
+                    <pos x="403.14" y="88.25" z="0" />
+                    <nhpr h="-0" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_brick_ur">
+                        <color r="0.64" g="0.51" b="0.71" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="22" code="wall_sm_brick_pink_ur">
+                        <color r="1" g="0.67" b="0.71" a="1" />
+                        <windows code="window_flower_porthole_ur" count="1">
+                            <color r="0.85" g="0.91" b="1" a="1" />
+                        </windows>
+                    </wall>
+                </flat_building>
+                <flat_building id="tb16:random25_DNARoot" width="20">
+                    <pos x="418.14" y="88.25" z="0" />
+                    <nhpr h="-90" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_brick_ur">
+                        <color r="1" g="0.55" b="0.65" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_board_ur">
+                        <color r="1" g="0.55" b="0.81" a="1" />
+                        <windows code="window_sm_curved_ul" count="2">
+                            <color r="1" g="1" b="0.75" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_md_blank_ur">
+                        <color r="1" g="1" b="0.52" a="1" />
+                        <windows code="window_flower_porthole_ul" count="2">
+                            <color r="1" g="1" b="0.75" a="1" />
+                        </windows>
+                        <cornice code="cornice_brickDG_ur">
+                            <color r="1" g="1" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_tree_small_woodbox_ur_DNARoot" code="prop_tree_small_woodbox_ur">
+                        <pos x="14.37" y="-7.79" z="0" />
+                        <nhpr h="180" p="0" r="-0" />
+                        <scale x="0.7" y="0.7" z="0.7" />
+                    </prop>
+                    <prop name="prop_tree_large_ur_DNARoot" code="prop_tree_large_woodbox_ur">
+                        <pos x="10.7645" y="-19.1137" z="0" />
+                        <nhpr h="180" p="0" r="-0" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb16:random25_DNARoot" width="15">
+                    <pos x="418.14" y="68.25" z="0" />
+                    <nhpr h="-90" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.69" g="0.31" b="0.83" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="22" code="wall_md_blank_ur">
+                        <color r="1" g="1" b="0.39" a="1" />
+                        <windows code="window_flower_porthole_ur" count="1">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_brick_ur">
+                            <color r="0.8" g="0.53" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                </flat_building>
+            </group>
+            <group name="props" />
+            <interactive_prop name="interactive_prop_phase_8_models_char__dga_trashcan_DNARoot" code="interactive_prop_phase_8_models_char__dga_trashcan" anim="tt_a_ara_dga_trashcan_fightBoost" cell_id="0">
+                <pos x="412.7" y="44.7689" z="-9.91821e-005" />
+                <nhpr h="-24.2106" p="0" r="-0" />
+            </interactive_prop>
+        </visgroup>
+        <visgroup zone="5126" vis="5126 5125 5124 5123 5122 5121 5120 5119 5127 5128 5129 5130 5131 5133 5132">
+            <suit_edge a="104" b="106" />
+            <suit_edge a="107" b="105" />
+            <suit_edge a="188" b="104" />
+            <suit_edge a="104" b="188" />
+            <suit_edge a="188" b="105" />
+            <suit_edge a="105" b="188" />
+            <battle_cell width="20" height="20" x="428.135" y="28.253" z="-0.5" />
+            <group name="streets">
+                <street name="street_20x40_15_DNARoot" code="street_20x40_15">
+                    <pos x="438.14" y="53.25" z="0" />
+                    <nhpr h="180" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                </street>
+            </group>
+            <group name="buildings">
+                <flat_building id="tb15:random25_DNARoot" width="20">
+                    <pos x="438.14" y="3.25" z="0" />
+                    <nhpr h="180" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_brick_ur">
+                        <color r="0.22" g="0.58" b="0.65" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_pillars_ur">
+                        <color r="0.44" g="0.96" b="1" a="1" />
+                        <flat_door code="door_single_square_ur">
+                            <color r="0.18" g="0.78" b="0.69" a="1" />
+                        </flat_door>
+                    </wall>
+                    <wall height="9" code="wall_md_pillars_ur">
+                        <color r="0.44" g="0.96" b="1" a="1" />
+                        <cornice code="cornice_brick_ur">
+                            <color r="0.53" g="0.91" b="1" a="1" />
+                        </cornice>
+                        <windows code="window_flower_porthole_ur" count="1">
+                            <color r="0.35" g="0.9" b="0.98" a="1" />
+                        </windows>
+                    </wall>
+                    <prop name="prop_tree_DG_ul_DNARoot" code="prop_tree_DG_ul">
+                        <pos x="3" y="-11" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_stairs_DG_DNARoot" code="prop_stairs_DG">
+                        <pos x="6" y="0" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                        <scale x="0.769724" y="0.769724" z="0.769724" />
+                        <color r="0.5" g="0.68" b="0.36" a="1" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb16:random25_DNARoot" width="20">
+                    <pos x="418.14" y="53.25" z="0" />
+                    <nhpr h="-0" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.69" g="0.31" b="0.83" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="22" code="wall_md_blank_ur">
+                        <color r="1" g="1" b="0.39" a="1" />
+                        <windows code="window_flower_porthole_ur" count="4">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_brick_ur">
+                            <color r="0.8" g="0.53" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                </flat_building>
+            </group>
+            <group name="props" />
+        </visgroup>
+        <visgroup zone="5127" vis="5127 5126 5125 5124 5123 5122 5121 5120 5119 5128 5129 5130 5131 5132 5133">
+            <suit_edge a="106" b="108" />
+            <suit_edge a="108" b="109" />
+            <suit_edge a="110" b="107" />
+            <suit_edge a="111" b="110" />
+            <suit_edge a="189" b="109" />
+            <suit_edge a="109" b="189" />
+            <suit_edge a="189" b="111" />
+            <suit_edge a="111" b="189" />
+            <battle_cell width="20" height="20" x="456.135" y="36.253" z="-0.5" />
+            <group name="streets">
+                <street name="street_curved_corner_15_DNARoot" code="street_curved_corner_15">
+                    <pos x="478.14" y="53.25" z="-0.000114441" />
+                    <nhpr h="-180" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                </street>
+            </group>
+            <group name="buildings">
+                <landmark_building id="tb15:toon_landmark_DG_A2_DNARoot" code="toon_landmark_DG_A2">
+                    <title>Bud's Bird Seed</title>
+                    <pos x="465.14" y="3.25" z="0" />
+                    <nhpr h="-180" p="0" r="-0" />
+                    <door code="door_double_square_ur">
+                        <color r="1" g="1" b="0.86" a="1" />
+                    </door>
+                    <prop name="prop_stairs_DG_DNARoot" code="prop_stairs_DG">
+                        <pos x="9.12814" y="-2.85922" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                        <scale x="0.987363" y="0.987363" z="0.987363" />
+                        <color r="1" g="1" b="0.52" a="1" />
+                    </prop>
+                    <sign code="DG_sign2">
+                        <pos x="-1.16" y="0" z="1.58" />
+                        <scale x="1.3" y="1" z="1.3" />
+                        <baseline code="DG_Ironwork" width="9.1132" height="9.1132" flags="d">
+                            <color r="0.501961" g="0" b="0.501961" a="1" />
+                            <pos x="0.19" y="0" z="1.94" />
+                            <scale x="1.1" y="1" z="1.1" />
+                            <text>BUD'S</text>
+                        </baseline>
+                        <baseline code="DG_Ironwork" kern="0.241888" width="38.1854" height="38.1854" flags="d">
+                            <color r="0.501961" g="0" b="0.501961" a="1" />
+                            <pos x="0.11" y="0" z="0.07" />
+                            <scale x="1.5" y="1" z="1.5" />
+                            <text>BIRD SEED</text>
+                        </baseline>
+                    </sign>
+                </landmark_building>
+                <flat_building id="tb25:random25_DNARoot" width="20">
+                    <pos x="488.14" y="53.25" z="0" />
+                    <nhpr h="-90" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.65" g="0.44" b="0.75" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_lg_brick_ur">
+                        <color r="1" g="1" b="0.39" a="1" />
+                        <flat_door code="door_single_square_ur">
+                            <color r="1" g="1" b="1" a="1" />
+                        </flat_door>
+                    </wall>
+                    <wall height="9" code="wall_lg_brick_ur">
+                        <color r="1" g="1" b="0.39" a="1" />
+                        <cornice code="cornice_brickDG_ur">
+                            <color r="1" g="1" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_stairs_DG_DNARoot" code="prop_stairs_DG">
+                        <pos x="6.22247" y="0.0478821" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                        <scale x="0.747895" y="0.747895" z="0.747895" />
+                        <color r="0.75" g="0.7" b="1" a="1" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb25:random25_DNARoot" width="25">
+                    <pos x="488.14" y="3.25" z="0" />
+                    <nhpr h="-180" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.64" g="1" b="0.68" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_board_ur">
+                        <color r="0.48" g="1" b="0.7" a="1" />
+                        <windows code="window_sm_square_ul" count="1">
+                            <color r="1" g="1" b="0.75" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="9" code="wall_md_blank_ur">
+                        <color r="1" g="1" b="0.52" a="1" />
+                        <cornice code="cornice_shinglesDG_ur">
+                            <color r="0.53" g="0.92" b="0.81" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_tree_small_woodbox_ul_DNARoot" code="prop_tree_small_woodbox_ul">
+                        <pos x="10.78" y="-12.19" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                    </prop>
+                    <prop name="prop_daisys_flowerbox_yellow_DNARoot" code="prop_daisys_flowerbox_yellow">
+                        <pos x="15.93" y="-1.46" z="0" />
+                        <nhpr h="-180" p="0" r="-0" />
+                        <scale x="1.3" y="1.3" z="1.3" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb25:random25_DNARoot" width="10">
+                    <pos x="488.14" y="13.25" z="0" />
+                    <nhpr h="-90" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.64" g="1" b="0.68" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="13" code="wall_md_board_ur">
+                        <color r="0.48" g="1" b="0.7" a="1" />
+                    </wall>
+                    <wall height="9" code="wall_md_blank_ur">
+                        <color r="1" g="1" b="0.52" a="1" />
+                        <cornice code="cornice_shinglesDG_ur">
+                            <color r="0.53" g="0.92" b="0.81" a="1" />
+                        </cornice>
+                    </wall>
+                </flat_building>
+                <landmark_building id="tb25:toon_landmark_DG_D1_DNARoot" code="toon_landmark_DG_D1">
+                    <title>Leaf It Bees</title>
+                    <pos x="489.14" y="37.25" z="0" />
+                    <nhpr h="-90" p="0" r="-0" />
+                    <door code="door_double_square_ur">
+                        <color r="0.05" g="0.75" b="0.27" a="1" />
+                    </door>
+                    <sign code="DG_sign1">
+                        <pos x="0" y="0" z="0.38" />
+                        <scale x="1.6" y="1" z="1.2" />
+                        <baseline code="DG_Ironwork" kern="0.07" width="28.2398" height="28.2398" flags="d">
+                            <color r="0.439216" g="0.294118" b="0.705882" a="1" />
+                            <pos x="0" y="0" z="-0.34" />
+                            <scale x="1.6" y="1" z="1.4" />
+                            <text>LEAF IT BEES</text>
+                        </baseline>
+                        <baseline code="DG_Ironwork">
+                            <color r="0" g="0" b="0.627451" a="1" />
+                            <pos x="0" y="0" z="-1.57" />
+                            <scale x="1.2" y="1" z="1.2" />
+                            <text>NURSERY</text>
+                        </baseline>
+                    </sign>
+                </landmark_building>
+            </group>
+            <group name="props" />
+            <interactive_prop name="interactive_prop_phase_8_models_char__dga_hydrant_DNARoot" code="interactive_prop_phase_8_models_char__dga_hydrant" anim="tt_a_ara_dga_hydrant_idle0" cell_id="0">
+                <pos x="460.853" y="19.5206" z="-0.000114471" />
+                <nhpr h="-165" p="0" r="-0" />
+            </interactive_prop>
+        </visgroup>
+        <visgroup zone="5128" vis="5128 5127 5126 5125 5124 5123 5122 5121 5120 5129 5130 5131 5132 5133">
+            <suit_edge a="108" b="112" />
+            <suit_edge a="112" b="108" />
+            <suit_edge a="110" b="112" />
+            <suit_edge a="112" b="110" />
+            <suit_edge a="110" b="113" />
+            <suit_edge a="113" b="110" />
+            <suit_edge a="108" b="113" />
+            <suit_edge a="113" b="108" />
+            <suit_edge a="109" b="115" />
+            <suit_edge a="116" b="111" />
+            <battle_cell width="20" height="20" x="463.135" y="63.253" z="-0.5" />
+            <group name="streets">
+                <street name="street_20x40_15_DNARoot" code="street_20x40_15">
+                    <pos x="438.14" y="73.25" z="0" />
+                    <nhpr h="-90" p="0" r="-0" />
+                    <texture>street_street_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                    <texture>street_sidewalk_DG_tex</texture>
+                </street>
+            </group>
+            <group name="buildings">
+                <flat_building id="tb25:random25_DNARoot" width="20">
+                    <pos x="488.14" y="73.25" z="0" />
+                    <nhpr h="-90" p="0" r="-0" />
+                    <wall height="4" code="wall_basement_brick_ur">
+                        <color r="0.42" g="0.39" b="0.61" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="0.27" g="1" b="0.42" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="21" code="wall_lg_brick_ur">
+                        <color r="1" g="0.55" b="0.81" a="1" />
+                        <windows code="window_md_curved_DG_ul" count="2">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_brickDG_ur">
+                            <color r="1" g="1" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_daisys_flowerbox_yellow_DNARoot" code="prop_daisys_flowerbox_yellow">
+                        <pos x="10" y="-2" z="0" />
+                        <nhpr h="-0" p="0" r="-0" />
+                        <scale x="1.3" y="1.3" z="1.3" />
+                    </prop>
+                </flat_building>
+                <flat_building id="tb16:random25_DNARoot" width="20">
+                    <pos x="438.14" y="53.25" z="0" />
+                    <nhpr h="90" p="0" r="-0" />
+                    <wall height="3" code="wall_basement_rock_ur">
+                        <color r="0.69" g="0.31" b="0.83" a="1" />
+                        <windows code="window_sm_pointed_ur" count="0">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                    </wall>
+                    <wall height="22" code="wall_md_blank_ur">
+                        <color r="1" g="1" b="0.39" a="1" />
+                        <windows code="window_flower_porthole_ur" count="4">
+                            <color r="1" g="1" b="1" a="1" />
+                        </windows>
+                        <cornice code="cornice_brick_ur">
+                            <color r="0.8" g="0.53" b="1" a="1" />
+                        </cornice>
+                    </wall>
+                    <prop name="prop_daisys_flowerbox_yellow_DNARoot" code="prop_daisys_flowerbox_yellow">
+                        <pos x="10.11" y="-1.73" z="0" />
+                        <nhpr h="-180" p="0" r="-0" />
+                        <scale x="1.3" y="1.3" z="1.3" />
+                    </prop>
+                </flat_building>
+            </group>
+            <group name="props" />
+        </visgroup>
+    </group>
+</scene>

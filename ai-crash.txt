@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "C:\Users\ryand\OneDrive\Desktop\GitHubStuff\TTPorkheffley\toontown\ai\ServiceStartAI.py", line 58, in <module>
+    run()
+  File "C:\Users\ryand\OneDrive\Desktop\GitHubStuff\TTPorkheffley\otp\ai\AIBase.py", line 194, in run
+    self.taskMgr.run()
+  File "C:\Users\ryand\AppData\Local\Programs\Python\Python39\lib\site-packages\direct\task\Task.py", line 546, in run
+    self.step()
+  File "C:\Users\ryand\AppData\Local\Programs\Python\Python39\lib\site-packages\direct\task\Task.py", line 497, in step
+    self.mgr.poll()
+  File "C:\Users\ryand\AppData\Local\Programs\Python\Python39\lib\site-packages\direct\showbase\Messenger.py", line 362, in __taskChainDispatch
+    self.__dispatch(*eventTuple)
+  File "C:\Users\ryand\AppData\Local\Programs\Python\Python39\lib\site-packages\direct\showbase\Messenger.py", line 420, in __dispatch
+    result = method (*(extraArgs + sentArgs))
+  File "C:\Users\ryand\AppData\Local\Programs\Python\Python39\lib\site-packages\direct\distributed\AstronInternalRepository.py", line 639, in lostConnection
+    self.notify.error('Lost connection to gameserver!')
+  File "C:\Users\ryand\AppData\Local\Programs\Python\Python39\lib\site-packages\direct\directnotify\Notifier.py", line 130, in error
+    raise exception(errorString)
+Exception: Lost connection to gameserver!
+

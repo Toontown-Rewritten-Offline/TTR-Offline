@@ -36,7 +36,7 @@ vfs-mount resources/phase_11 /phase_11
 vfs-mount resources/phase_12 /phase_12
 vfs-mount resources/phase_13 /phase_13
 vfs-mount resources/custom /custom
-model-path /Users/ryandemboski/Desktop/GitHub/TTPorkheffley/resources
+model-path /c/Users/ryand/OneDrive/Desktop/GitHubStuff/TTPorkheffley/resources
 default-model-extension .bam
 
 
