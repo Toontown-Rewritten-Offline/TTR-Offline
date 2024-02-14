@@ -246,7 +246,7 @@ if ConfigVariableBool('want-retro-rewritten', False):
 
 # Options Button
 from .OptionsPage import OptionsPage
-__builtins__.OptionsButton = OptionsPage()
+builtins.OptionsButton = OptionsPage()
 
 base.loader = base.loader
 builtins.loader = base.loader
