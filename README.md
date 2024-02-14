@@ -2,9 +2,9 @@
 
 Toontown Rewritten Private DEVELOPMENT Repository
 
-Resources: https://github.com/Toontown-Rewritten-Private/TTRPrivate-Resources
+Resources: https://github.com/Toontown-Rewritten-Private/resources
 
-Panda3D: https://github.com/Toontown-Rewritten-Private/TTRPrivate-Panda3D
+Panda3D: https://github.com/Toontown-Rewritten-Private/panda3d
 
 Astron: https://github.com/Astron/Astron/
 
