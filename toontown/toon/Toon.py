@@ -3148,6 +3148,8 @@ class Toon(Avatar.Avatar, ToonHead):
         if pieName == 'lawbook':
             sound = loader.loadSfx('phase_11/audio/sfx/LB_evidence_miss.ogg')
             vol = 0.25
+        elif pieName == 'wedding-cake':
+            sound = loader.loadSfx('phase_5/audio/sfx/AA_throw_wedding_cake_cog.ogg')
         else:
             sound = loader.loadSfx('phase_4/audio/sfx/AA_wholepie_only.ogg')
         ival = Parallel(Func(splat.reparentTo, render), Func(splat.setPos, x, y, z), SoundInterval(sound, node=splat, volume=vol), Sequence(ActorInterval(splat, splatName), Func(splat.detachNode)))
