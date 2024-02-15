@@ -43,9 +43,9 @@ class DistributedElectionEventAI(DistributedObjectAI, FSM):
             self.balloon.generateWithRequired(self.zoneId)
         if config.ConfigVariableBool('want-doomsday', False).getValue():
             self.balloon.b_setState('ElectionIdle')
-            if not hasattr(simbase.air, 'cameraManager'):
-                camMgr = DistributedElectionCameraManagerAI(simbase.air)
-                camMgr.spawnManager()
+        #    if not hasattr(simbase.air, 'cameraManager'):
+        #        camMgr = DistributedElectionCameraManagerAI(simbase.air)
+        #        camMgr.spawnManager()
         else:
             self.balloon.b_setState('Waiting')
         return
