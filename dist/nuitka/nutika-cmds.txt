@@ -1,3 +1,3 @@
-cd "C:\Users\Drew\Downloads\TTRP-Development\TTR-Private\dist\nuitka"
+cd "C:\Users\Drew\Downloads\TTRP-Development\TTR-Private"
 
 "C:\Users\Drew\Downloads\TTRP-Development\Nuitka-Python\output\python.exe" -O -m nuitka --python-flag=-O --standalone --msvc=14.2 --include-module=files PrivacyStart.py && move PrivacyStart.dist\PrivacyStart.exe PrivacyStart.dist/TTRPEngine.exe && del PrivacyStart.dist\PrivacyStart.exp && del PrivacyStart.dist\PrivacyStart.lib
