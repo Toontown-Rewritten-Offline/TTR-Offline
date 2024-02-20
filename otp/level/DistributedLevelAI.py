@@ -5,8 +5,6 @@ from . import Level
 from direct.directnotify import DirectNotifyGlobal
 from . import EntityCreatorAI
 from direct.showbase.PythonUtil import Functor, weightedChoice
-if __dev__:
-    from .EditMgrAI import EditMgrAI
 
 class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI, Level.Level):
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedLevelAI')
@@ -22,8 +20,6 @@ class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI, Level.Level):
         self.numPlayers = len(self.avIdList)
         self.presentAvIds = list(self.avIdList)
         self.notify.debug('expecting avatars: %s' % str(self.avIdList))
-        if __dev__:
-            self.editMgrEntity = EditMgrAI()
         if __dev__:
             self.modified = 0
 
