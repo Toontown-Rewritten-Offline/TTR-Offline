@@ -108,9 +108,10 @@ GlobalStreetNames = {20000: ('to', 'on', 'Tutorial Terrace'),
  9000: ('to the', 'in the', 'Playground'),
  9100: ('to', 'on', 'Lullaby Lane'),
  9200: ('to', 'on', 'Pajama Place'),
- 10000: ('to', 'in', 'Bossbot HQ Country Club'),
+ 10000: ('to', 'in', 'Bossbot HQ Courtyard'),
  10100: ('to the', 'in the', 'Bossbot HQ Lobby'),
  10200: ('to the', 'in the', 'The Clubhouse'),
+ 10300: ('to the', 'in the', 'Executive Offices'),
  10500: ('to the', 'in the', 'The Front Three'),
  10600: ('to the', 'in the', 'The Middle Six'),
  10700: ('to the', 'in the', 'The Back Nine'),
@@ -3145,6 +3146,7 @@ FADoorCodes_SB_DISGUISE_INCOMPLETE = "You'll get caught going in there as a Toon
 FADoorCodes_CB_DISGUISE_INCOMPLETE = "You'll get caught going in there as a Toon! You need to complete your Cashbot Disguise first!\n\nBuild your Cashbot Disguise by doing ToonTasks in Donald's Dreamland."
 FADoorCodes_LB_DISGUISE_INCOMPLETE = "You'll get caught going in there as a Toon! You need to complete your Lawbot Disguise first!\n\nBuild your Lawbot Disguise by doing the ToonTasks after Donald's Dreamland."
 FADoorCodes_BB_DISGUISE_INCOMPLETE = "You'll get caught going in there as a Toon! You need to complete your Bossbot Disguise first!\n\nBuild your Bossbot Disguise by doing the ToonTasks after Donald's Dreamland."
+FADoorCodes_UNKNOWN_COG_AREA = "Woah there! That area is much too dangerous for Toons. A security goon would catch you on the spot.\n\nOnly time will tell what business the Cogs may be plotting inside..."
 KnockKnockDoorNames = { 44: DoorNametag,
         2: 'Furr Elise',
         1:  'Overwhelming October',
