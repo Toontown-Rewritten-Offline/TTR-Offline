@@ -1015,8 +1015,13 @@ class DistributedBattleBase(DistributedNode.DistributedNode, BattleBase):
 
     def __enterLocalToonWaitForInput(self):
         self.notify.debug('enterLocalToonWaitForInput()')
-        camera.setPosHpr(self.camPos, self.camHpr)
-        base.camLens.setMinFov(self.camMenuFov/(4./3.))
+        x, y, z = self.camPos
+        height = 0
+        for suit in self.suits:
+            if suit.height > height:
+                height = suit.height
+        camera.setPosHpr((x, y, z + height), self.camHpr)
+        base.camLens.setMinFov(self.camMenuFov / (4.0 / 3.0))
         NametagGlobals.setMasterArrowsOn(0)
         self.townBattle.setState('Attack')
         self.accept(self.localToonBattleEvent, self.__handleLocalToonBattleEvent)
