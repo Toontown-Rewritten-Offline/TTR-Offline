@@ -10,3 +10,7 @@ resources/
 settings.json
 *.json
 *.log
+PrivacyMatters.py
+PrivacyStart.py
+files.py
+ai-crash.txt
