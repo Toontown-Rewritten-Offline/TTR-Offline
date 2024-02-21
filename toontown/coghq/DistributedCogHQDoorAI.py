@@ -27,6 +27,8 @@ class DistributedCogHQDoorAI(DistributedDoorAI.DistributedDoorAI):
                     allowed = 1
                 else:
                     allowed = 0
+            if self.lockedDoor == FADoorCodes.UNKNOWN_COG_AREA:
+                allowed = 0
             else:
                 allowed = 1
             if not allowed:
