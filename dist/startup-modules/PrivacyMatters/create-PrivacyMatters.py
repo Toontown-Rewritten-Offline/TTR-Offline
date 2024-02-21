@@ -8,5 +8,5 @@ dclines = dcfile.read()
 dclines = dclines.encode('utf-8')
 data += 'DCFILE = %s' % dclines
 
-finalfile = open('PrivacyMatters.py', 'a+')
+finalfile = open('../../../PrivacyMatters.py', 'w+')
 finallines = finalfile.write(data)

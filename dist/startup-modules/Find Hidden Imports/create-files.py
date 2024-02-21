@@ -1,7 +1,7 @@
 import os
 from fnmatch import fnmatch
 
-file = open("files.py", 'a')
+file = open("../../../files.py", 'a')
 
 toontown = '../../../'
 direct = '../../../../Nuitka-Python/output/Lib/site-packages/direct'
