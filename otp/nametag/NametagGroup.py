@@ -55,6 +55,9 @@ class NametagGroup:
         self.stompText = None
         self.stompFlags = 0
 
+    def getName(self):
+        return self.name
+
     def destroy(self):
         taskMgr.remove(self.tickTask)
         if self.manager != None:

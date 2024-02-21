@@ -556,7 +556,7 @@ class DistributedElectionEvent(DistributedObject, FSM):
     def saySurleePhrase(self, phrase, interrupt, broadcast):
         self.surlee.setChatAbsolute(phrase, CFSpeech | CFTimeout, interrupt=interrupt)
         if broadcast and Vec3(base.localAvatar.getPos(self.surleeR)).length() >= 15:
-            base.localAvatar.setSystemMessage(0, self.surleeR.getName() + ': ' + phrase, WTEmote)
+            base.localAvatar.setSystemMessage(0, self.surleeR.nametag.getName() + ': ' + phrase, WTEmote)
 
     def setState(self, state, timestamp):
         self.request(state, globalClockDelta.localElapsedTime(timestamp))
