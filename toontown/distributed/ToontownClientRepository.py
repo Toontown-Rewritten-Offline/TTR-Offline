@@ -218,7 +218,10 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
         self.sendSetAvatarIdMsg(0)
         self.clearFriendState()
         if self.music == None and base.musicManagerIsValid:
-            self.music = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase2.ogg')
+            if ConfigVariableBool('want-retro-rewritten', False):
+                self.music = base.musicManager.getSound('phase_3/audio/bgm/ttr_theme.ogg')
+            else:
+                self.music = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase2.ogg')
             if self.music:
                 self.music.setLoopStart(2.9)
                 self.music.setLoop(True)
@@ -289,13 +292,12 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
 
     def exitChooseAvatar(self):
         self.handler = None
-        self.stopMusic = self.loading.exitMusic
-        if ConfigVariableBool('want-retro-rewritten', False):
-            if self.music:
-                self.music.stop()
-                self.music = None
-        else:
-            self.stopMusic()
+        if self.music:
+            self.music.stop()
+            self.music = None
+        if not ConfigVariableBool('want-retro-rewritten', False):
+            self.loading.exitMusic()
+        self.loading.exitMusic()
         self.avChoice.exit()
         self.avChoice.unload()
         self.avChoice = None
