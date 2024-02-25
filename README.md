@@ -1,15 +1,15 @@
 # TTR-Private
 
-Toontown Rewritten Private DEVELOPMENT Repository
+Toontown Rewritten Offline DEVELOPMENT Repository
 
-Resources: https://github.com/Toontown-Rewritten-Private/resources
+Resources: https://github.com/Toontown-Rewritten-Offline/resources
 
-Panda3D: https://github.com/Toontown-Rewritten-Private/panda3d
+Panda3D: https://github.com/Toontown-Rewritten-Offline/panda3d
 
 Astron: https://github.com/Astron/Astron/
 
 # Dependencies
-Panda3D: https://github.com/Toontown-Rewritten-Private/panda3d/releases/tag/v1.10.11
+Panda3D: https://github.com/Toontown-Rewritten-Offline/panda3d/releases/tag/v1.10.11
 
 To install the dependencies, use this command...
 ```sh
