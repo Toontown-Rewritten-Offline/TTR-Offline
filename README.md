@@ -1,4 +1,4 @@
-# TTR-Private
+# TTR-Offline
 
 Toontown Rewritten Offline DEVELOPMENT Repository
 
