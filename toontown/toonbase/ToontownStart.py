@@ -31,7 +31,7 @@ class game:
     name = 'toontown'
     process = 'client'
 
-print('TTRPrivate: Ongoing project by RegDogg')
+print('TTROffline: Ongoing project by RegDogg')
 print('ToontownStart: Starting the game.')
 builtins.game = game()
 import time
@@ -60,7 +60,7 @@ settings.loadFromSettings()
 if ConfigVariableBool('want-retro-rewritten', False):
     # Poll for game finished
     pollingDelay = 0.5
-    print('TTRPrivate: Ongoing project by RegDogg')
+    print('TTROffline: Ongoing project by RegDogg')
     print('ToontownStart: Polling for game2 to finish...')
     while not launcher.getGame2Done():
         time.sleep(pollingDelay)

@@ -4791,7 +4791,7 @@ OptionsPageDisplaySettings = 'Display: %(screensize)s, %(api)s'
 OptionsPageDisplaySettingsNoApi = 'Display: %(screensize)s'
 OptionsPageExitConfirm = 'Exit Toontown?'
 
-# The new options for TTRP!
+# The new options for TTROffline!
 NewOptionsTabResetDefault = 'Reset to Defualt'
 NewOptionsTabApplyChanges = 'Apply Changes'
 NewOptionsTabGameplayTitle = 'Gameplay'
@@ -7826,6 +7826,9 @@ NPCToonNames = {20000: 'Tutorial Tom',
  7007: 'Dewin Tymme',
  7008: 'Ima Cagedtoon',
  7009: 'Jimmy Thelock',
+ 12000: 'Rocky',
+ 12001: 'Loopy Loopenloop',
+ 12002: 'Lord Lowden Clear',
 91000: 'Token Taker Tori',
 91001: 'Token Taker Tanner'}
 zone2TitleDict = {2513: ('Toon Hall', ''),

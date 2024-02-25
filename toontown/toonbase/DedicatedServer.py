@@ -140,9 +140,9 @@ class DedicatedServer:
 
         else:
             if sys.platform == 'win32':
-                uberDogArguments = 'TTRPEngine.exe --uberdog'
+                uberDogArguments = 'TTROFFEngine.exe --uberdog'
             else:
-                uberDogArguments = 'TTRPEngine --uberdog'
+                uberDogArguments = 'TTROFFEngine --uberdog'
 
         if config.ConfigVariableBool('auto-start-server', True).getValue():
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesUberdog
@@ -187,9 +187,9 @@ class DedicatedServer:
                 aiArguments = 'python3 -m toontown.ai.ServiceStartAI'
         else:
             if sys.platform == 'win32':
-                aiArguments = 'TTRPEngine.exe --ai'
+                aiArguments = 'TTROFFEngine.exe --ai'
             else:
-                aiArguments = 'TTRPEngine --ai'
+                aiArguments = 'TTROFFEngine --ai'
 
         if config.ConfigVariableBool('auto-start-server', True).getValue():
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesAI
