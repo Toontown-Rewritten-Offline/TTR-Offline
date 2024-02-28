@@ -14,3 +14,6 @@ PrivacyMatters.py
 PrivacyStart.py
 files.py
 ai-crash.txt
+PrivacyStart.dist/
+PrivacyStart.build/
+nuitka-crash-report.xml
