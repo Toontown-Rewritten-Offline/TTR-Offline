@@ -1,6 +1,5 @@
 from direct.gui.DirectGui import OnscreenGeom, OnscreenImage, OnscreenText
 from direct.gui import DirectGuiGlobals
-from direct.directnotify import DirectNotifyGlobal
 from direct.showbase import DirectObject
 from direct.interval.IntervalGlobal import LerpScaleInterval, Sequence, LerpFunc
 from toontown.toonbase import ToontownGlobals
@@ -39,21 +38,25 @@ class NewLoadingScreen(DirectObject.DirectObject):
         base.musicManager.update()
 
     def musicLoadIn(self):
-        phase1 = LerpFunc(self.musicVolCont1,
-                    fromData=1,
-                    toData=0,
-                    duration=2,
-                    blendType='easeIn',
-                    extraArgs=[],
-                    name=None)
+        phase1 = LerpFunc(
+            self.musicVolCont1,
+            fromData=1,
+            toData=0,
+            duration=2,
+            blendType='easeIn',
+            extraArgs=[],
+            name=None
+        )
         
-        phase2 = LerpFunc(self.musicVolCont2,
-                    fromData=0,
-                    toData=1,
-                    duration=2,
-                    blendType='easeIn',
-                    extraArgs=[],
-                    name=None)
+        phase2 = LerpFunc(
+            self.musicVolCont2,
+            fromData=0,
+            toData=1,
+            duration=2,
+            blendType='easeIn',
+            extraArgs=[],
+            name=None
+        )
 
         phase1.start()
         phase2.start()
@@ -68,7 +71,6 @@ class NewLoadingScreen(DirectObject.DirectObject):
         version = OnscreenText(serverVersion, pos=(-1, -1.2), scale=0.055, font=loader.loadFont('phase_3/fonts/ImpressBT.ttf'), fg=Vec4(1, 1, 1, 1), align=TextNode.ALeft)
         version.setPos(0.12,0.045)
         version.reparentTo(base.a2dBottomLeft)
-        stop = version.cleanup
         return version
 
     def connectBackground(self):
@@ -82,10 +84,13 @@ class NewLoadingScreen(DirectObject.DirectObject):
         global logo
         logo = OnscreenGeom(geom = findlogo, pos = (0, 0, 0.35))
         logoSeq = Sequence(
-        LerpScaleInterval(logo, 3.25, Vec3(0.20625, 0.225, 0.20625), Vec3(0.1375, 0.3, 0.1375), blendType='easeInOut'),
-        LerpScaleInterval(logo, 3.25, Vec3(0.1375, 0.3, 0.1375), Vec3(0.20625, 0.225, 0.20625), blendType='easeInOut')).loop()
+            LerpScaleInterval(logo, 3.25, Vec3(0.20625, 0.225, 0.20625), Vec3(0.1375, 0.3, 0.1375), blendType='easeInOut'),
+            LerpScaleInterval(logo, 3.25, Vec3(0.1375, 0.3, 0.1375), Vec3(0.20625, 0.225, 0.20625), blendType='easeInOut')
+        )
+        logoSeq.loop()
 
     def cleanup(self):
+        version.cleanup()
         version.destroy()
         logo.destroy()
         connectbg.destroy()
