@@ -18,7 +18,6 @@ from otp.margins.WhisperPopup import *
 import toontown.election.ElectionGlobals
 from direct.directnotify import DirectNotifyGlobal
 from random import choice
-from .ToonfestCog import ToonfestCog
 from toontown.battle.BattleProps import globalPropPool
 from toontown.battle.BattleSounds import globalBattleSoundCache
 from toontown.parties import *
