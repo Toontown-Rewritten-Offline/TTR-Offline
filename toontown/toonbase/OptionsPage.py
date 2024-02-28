@@ -11,6 +11,9 @@ PAGE_CONTROLS = 2
 PAGE_AUDIO = 3
 PAGE_VIDEO = 4
 
+SCROLL_UP = PGButton.getReleasePrefix() + MouseButton.wheelUp().getName() + "-"
+SCROLL_DOWN = PGButton.getReleasePrefix() + MouseButton.wheelDown().getName() + "-"
+
 class OptionsPage(DirectFrame):
     notify = DirectNotifyGlobal.directNotify.newCategory('OptionsPage')
 
@@ -64,8 +67,20 @@ class OptionsPage(DirectFrame):
         self.setupGUI()
         self.initialiseoptions(DirectFrame)
 
+    def mouseScrollValue(self, scrollBar, direction):
+        scrollBar.setValue(scrollBar.getValue() + direction*scrollBar["pageSize"])
+
     def setupGUI(self):
         '''Global Values'''
+        # Main Panel
+        self.frame = DirectFrame(
+            parent=self,
+            geom=self.OptionsGUIPanel,
+            geom_pos=(0.0, 0.0, 0.0),
+            geom_scale=0.15,
+            relief=None
+        )
+
         # Pages
         self.PagePos = (0, 0, 0.11)
         self.PageImageScale = 0.15
@@ -85,13 +100,6 @@ class OptionsPage(DirectFrame):
         self.ScrollBarThumbGeom = self.OptionsGUIScrollThumb
         self.ScrollBarThumbGeomScale = 0.09
         self.ScrollBarResizeThumb = False
-
-        # Scroll Wheel
-        self.frame = DirectFrame(parent=self, geom=self.OptionsGUIPanel, geom_pos=(0.0, 0.0, 0.0), geom_scale=0.15, relief=None)
-        SCROLL_UP = PGButton.getReleasePrefix() + MouseButton.wheelUp().getName() + "-"
-        SCROLL_DOWN = PGButton.getReleasePrefix() + MouseButton.wheelDown().getName() + "-"
-        def mouseScrollValue(scrollBar, direction, value):
-            scrollBar.setValue(scrollBar.getValue() + direction*scrollBar["pageSize"])
 
         # Title Text
         self.TitleTextPos = (0, 0.3025, 0)
@@ -114,94 +122,213 @@ class OptionsPage(DirectFrame):
 
         '''Options Button'''
         # Options Icon
-        self.OptionsButton = DirectButton(parent=base.a2dBottomRight, relief=None, geom=(self.OptionsIconUp,
-         self.OptionsIconDown,
-         self.OptionsIconHover), pos=(-0.158, 0, 0.5), geom_scale=(0.05, 0.05, 0.05), command=self.show)
+        self.OptionsButton = DirectButton(
+            parent=base.a2dBottomRight,
+            relief=None,
+            geom=(
+                self.OptionsIconUp,
+                self.OptionsIconDown,
+                self.OptionsIconHover
+            ),
+            pos=(-0.158, 0, 0.5),
+            geom_scale=(0.05, 0.05, 0.05),
+            command=self.show
+        )
 
         # Options Exit
-        self.OptionsButtonX = DirectButton(parent=self, relief=None, image=(self.OptionsX),
-                                           pos=(0.865, 0, 0.6), image_scale=(0.105), command=self.hide)
-        hover = self.OptionsButtonX.stateNodePath[0].attachNewNode('main', 1)
-        self.OptionsButtonX.stateNodePath[0] = hover
-        hover.setScale(0.8)
-        self.OptionsButtonX.updateFrameStyle()
+        self.OptionsButtonX = DirectButton(
+            parent=self,
+            relief=None,
+            image=(self.OptionsX),
+            pos=(0.865, 0, 0.6),
+            image_scale=(0.105),
+            command=self.hide
+        )
 
         '''Page Frames'''
         # Gameplay
-        self.OptionsPageGameplay = DirectFrame(parent=self, relief=None, image=self.OptionsGUIPageGameplay, image_scale=self.PageImageScale,
-                                               geom=self.OptionsGUIGameplayActive, geom_scale=self.PageImageScale, geom_pos=(-0.6075, 0, 0.58125), pos=self.PagePos)
+        self.OptionsPageGameplay = DirectFrame(
+            parent=self,
+            relief=None,
+            image=self.OptionsGUIPageGameplay,
+            image_scale=self.PageImageScale,
+            geom=self.OptionsGUIGameplayActive,
+            geom_scale=self.PageImageScale,
+            geom_pos=(-0.6075, 0, 0.58125),
+            pos=self.PagePos
+        )
 
-        self.GameplayTitle = OnscreenText(parent=self.OptionsPageGameplay, font=self.TitleTextFont, text=TTLocalizer.NewOptionsTabGameplayTitle,
-                                                     fg=self.TitleTextColor, pos=self.TitleTextPos, scale=self.TitleTextScale)
+        self.GameplayTitle = OnscreenText(
+            parent=self.OptionsPageGameplay,
+            font=self.TitleTextFont,
+            text=TTLocalizer.NewOptionsTabGameplayTitle,
+            fg=self.TitleTextColor,
+            pos=self.TitleTextPos,
+            scale=self.TitleTextScale
+        )
 
-        self.GameplayScrollFrame = DirectFrame(parent=self.OptionsPageGameplay, state=DGG.NORMAL, relief=None, pos=self.ScrollFramePos, frameSize=self.ScrollFrameSize, pgFunc=PGScrollFrame)
+        self.GameplayScrollFrame = DirectFrame(
+            parent=self.OptionsPageGameplay,
+            state=DGG.NORMAL,
+            relief=None,
+            pos=self.ScrollFramePos,
+            frameSize=self.ScrollFrameSize,
+            pgFunc=PGScrollFrame
+        )
         self.GameplayScrollFrameCanvas = NodePath(self.GameplayScrollFrame.guiItem.getCanvasNode())
         self.GameplayScrollFrame.guiItem.setVirtualFrame(self.ScrollFrameCanvasSize)
 
-        self.GameplayScrollBar = DirectScrollBar(parent=self.OptionsPageGameplay, orientation=DGG.VERTICAL, relief=None, thumb_relief=None)
+        self.GameplayScrollBar = DirectScrollBar(
+            parent=self.OptionsPageGameplay,
+            orientation=DGG.VERTICAL,
+            relief=None,
+            thumb_relief=None
+        )
+
         self.GameplayScrollFrame.guiItem.setVerticalSlider(self.GameplayScrollBar.guiItem)
-        self.GameplayScrollBar.setPos(self.ScrollBarPos)
+        self.GameplayScrollFrame.bind(SCROLL_UP, self.mouseScrollValue, [self.GameplayScrollBar, -0.325])
+        self.GameplayScrollFrame.bind(SCROLL_DOWN, self.mouseScrollValue, [self.GameplayScrollBar, 0.325])
+
         self.GameplayScrollBar['frameSize'] = self.ScrollBarFrameSize
         self.GameplayScrollBar['geom'] = self.ScrollBarGeom
         self.GameplayScrollBar['geom_scale'] = self.ScrollBarGeomScale
         self.GameplayScrollBar['thumb_geom'] = self.ScrollBarThumbGeom
         self.GameplayScrollBar['thumb_geom_scale'] = self.ScrollBarThumbGeomScale
         self.GameplayScrollBar['resizeThumb'] = self.ScrollBarResizeThumb
+
+        self.GameplayScrollBar.setPos(self.ScrollBarPos)
         self.GameplayScrollBar.incButton.destroy()
         self.GameplayScrollBar.decButton.destroy()
-        self.GameplayScrollFrame.bind(SCROLL_UP, mouseScrollValue, [self.GameplayScrollBar, -0.325])
-        self.GameplayScrollFrame.bind(SCROLL_DOWN, mouseScrollValue, [self.GameplayScrollBar, 0.325])
 
         # Gameplay Components
-        self.GameplayToonPreferencesText = OnscreenText(parent=self.GameplayScrollFrameCanvas, align=TextNode.ALeft, text=TTLocalizer.NewOptionsTabGameplayToon, font=self.SectionTextFont, scale=self.SectionTextScale, pos=(self.SectionTextXOffset, 1.85))
-
+        self.GameplayToonPreferencesText = OnscreenText(
+            parent=self.GameplayScrollFrameCanvas,
+            align=TextNode.ALeft,
+            text=TTLocalizer.NewOptionsTabGameplayToon,
+            font=self.SectionTextFont,
+            scale=self.SectionTextScale,
+            pos=(self.SectionTextXOffset, 1.85)
+        )
 
         # Controls
-        self.OptionsPageControls = DirectFrame(parent=self, relief=None, image=self.OptionsGUIPageControls, image_scale=(0.15),
-        geom=self.OptionsGUIControlsActive, geom_scale=(0.15), geom_pos=(-0.20125, 0, 0.58125), pos=(0, 0, 0.11))
+        self.OptionsPageControls = DirectFrame(
+            parent=self,
+            relief=None,
+            image=self.OptionsGUIPageControls,
+            image_scale=(0.15),
+            geom=self.OptionsGUIControlsActive,
+            geom_scale=(0.15),
+            geom_pos=(-0.20125, 0, 0.58125),
+            pos=(0, 0, 0.11)
+        )
         self.OptionsPageControls.hide()
 
-        self.ControlsTitle = OnscreenText(parent=self.OptionsPageControls, font=self.TitleTextFont, text=TTLocalizer.NewOptionsTabControlsTitle,
-                                                     fg=self.TitleTextColor, pos=self.TitleTextPos, scale=self.TitleTextScale)
+        self.ControlsTitle = OnscreenText(
+            parent=self.OptionsPageControls,
+            font=self.TitleTextFont,
+            text=TTLocalizer.NewOptionsTabControlsTitle,
+            fg=self.TitleTextColor,
+            pos=self.TitleTextPos,
+            scale=self.TitleTextScale
+        )
 
-        self.ControlsScrollFrame = DirectFrame(parent=self.OptionsPageControls, relief=None, state=DGG.NORMAL, pos=self.ScrollFramePos, frameSize=self.ScrollFrameSize, pgFunc=PGScrollFrame)
+        self.ControlsScrollFrame = DirectFrame(
+            parent=self.OptionsPageControls,
+            relief=None,
+            state=DGG.NORMAL,
+            pos=self.ScrollFramePos,
+            frameSize=self.ScrollFrameSize,
+            pgFunc=PGScrollFrame
+        )
         self.ControlsScrollFrameCanvas = NodePath(self.ControlsScrollFrame.guiItem.getCanvasNode())
         self.ControlsScrollFrame.guiItem.setVirtualFrame(self.ScrollFrameCanvasSize)
 
-        self.ControlsScrollBar = DirectScrollBar(parent=self.OptionsPageControls, orientation=DGG.VERTICAL, relief=None, thumb_relief=None)
-        self.ControlsScrollFrame.guiItem.setVerticalSlider(self.ControlsScrollBar.guiItem)
+        self.ControlsScrollBar = DirectScrollBar(
+            parent=self.OptionsPageControls,
+            orientation=DGG.VERTICAL,
+            relief=None,
+            thumb_relief=None
+        )
         self.ControlsScrollBar.setPos(self.ScrollBarPos)
+        self.ControlsScrollBar.incButton.destroy()
+        self.ControlsScrollBar.decButton.destroy()
+
         self.ControlsScrollBar['frameSize'] = self.ScrollBarFrameSize
         self.ControlsScrollBar['geom'] = self.ScrollBarGeom
         self.ControlsScrollBar['geom_scale'] = self.ScrollBarGeomScale
         self.ControlsScrollBar['thumb_geom'] = self.ScrollBarThumbGeom
         self.ControlsScrollBar['thumb_geom_scale'] = self.ScrollBarThumbGeomScale
         self.ControlsScrollBar['resizeThumb'] = self.ScrollBarResizeThumb
-        self.ControlsScrollBar.incButton.destroy()
-        self.ControlsScrollBar.decButton.destroy()
-        self.ControlsScrollFrame.bind(SCROLL_UP, mouseScrollValue, [self.ControlsScrollBar, -0.325])
-        self.ControlsScrollFrame.bind(SCROLL_DOWN, mouseScrollValue, [self.ControlsScrollBar, 0.325])
+
+        self.ControlsScrollFrame.guiItem.setVerticalSlider(self.ControlsScrollBar.guiItem)
+        self.ControlsScrollFrame.bind(SCROLL_UP, self.mouseScrollValue, [self.ControlsScrollBar, -0.325])
+        self.ControlsScrollFrame.bind(SCROLL_DOWN, self.mouseScrollValue, [self.ControlsScrollBar, 0.325])
 
         # Controls Components
-        self.ControlsMovementText = OnscreenText(parent=self.ControlsScrollFrameCanvas, align=TextNode.ALeft, text=TTLocalizer.NewOptionsTabControlsMovement, font=self.SectionTextFont, scale=self.SectionTextScale, pos=(self.SectionTextXOffset, 1.85))
+        self.ControlsMovementText = OnscreenText(
+            parent=self.ControlsScrollFrameCanvas
+            align=TextNode.ALeft
+            text=TTLocalizer.NewOptionsTabControlsMovement
+            font=self.SectionTextFont
+            scale=self.SectionTextScale
+            pos=(self.SectionTextXOffset, 1.85)
+        )
 
-        self.ControlsMovementForwardText = OnscreenText(parent=self.ControlsScrollFrameCanvas, align=TextNode.ALeft, text=TTLocalizer.NewOptionsTabControlsForward, scale=self.OptionTextScale, pos=(self.OptionTextXOffset, 1.73))
-        self.ControlsMovementForwardButton = DirectButton(parent=self.ControlsScrollFrame, relief=None, geom=self.OptionsGUISquareButton, text='', scale=self.OptionButtonScale, pos=(self.OptionButtonXOffset, 0, 0.25))
+        self.ControlsMovementForwardText = OnscreenText(
+            parent=self.ControlsScrollFrameCanvas,
+            align=TextNode.ALeft,
+            text=TTLocalizer.NewOptionsTabControlsForward,
+            scale=self.OptionTextScale,
+            pos=(self.OptionTextXOffset, 1.73)
+        )
+        self.ControlsMovementForwardButton = DirectButton(
+            parent=self.ControlsScrollFrame,
+            relief=None, 
+            geom=self.OptionsGUISquareButton,
+            text='',
+            scale=self.OptionButtonScale,
+            pos=(self.OptionButtonXOffset, 0, 0.25)
+        )
 
 
         # Audio
-        self.OptionsPageAudio = DirectFrame(parent=self, relief=None, image=self.OptionsGUIPageAudio, image_scale=(0.15),
-        geom=self.OptionsGUIAudioActive, geom_scale=(0.15), geom_pos=(0.205, 0, 0.58125), pos=(0, 0, 0.11))
+        self.OptionsPageAudio = DirectFrame(
+            parent=self,
+            relief=None,
+            image=self.OptionsGUIPageAudio,
+            image_scale=(0.15),
+            geom=self.OptionsGUIAudioActive,
+            geom_scale=(0.15),
+            geom_pos=(0.205, 0, 0.58125),
+            pos=(0, 0, 0.11)
+        )
         self.OptionsPageAudio.hide()
 
-        self.ControlsTitle = OnscreenText(parent=self.OptionsPageAudio, font=self.TitleTextFont, text=TTLocalizer.NewOptionsTabAudioTitle,
-                                                     fg=self.TitleTextColor, pos=self.TitleTextPos, scale=self.TitleTextScale)
+        self.ControlsTitle = OnscreenText(
+            parent=self.OptionsPageAudio,
+            font=self.TitleTextFont,
+            text=TTLocalizer.NewOptionsTabAudioTitle,
+            fg=self.TitleTextColor,
+            pos=self.TitleTextPos,
+            scale=self.TitleTextScale
+        )
 
-        self.AudioScrollFrame = DirectFrame(parent=self.OptionsPageAudio, state=DGG.NORMAL, pos=self.ScrollFramePos, frameSize=self.ScrollFrameSize, pgFunc=PGScrollFrame)
+        self.AudioScrollFrame = DirectFrame(
+            parent=self.OptionsPageAudio,
+            state=DGG.NORMAL,
+            pos=self.ScrollFramePos,
+            frameSize=self.ScrollFrameSize,
+            pgFunc=PGScrollFrame
+        )
         self.AudioScrollFrameCanvas = NodePath(self.AudioScrollFrame.guiItem.getCanvasNode())
         self.AudioScrollFrame.guiItem.setVirtualFrame(self.ScrollFrameCanvasSize)
 
-        self.AudioScrollBar = DirectScrollBar(parent=self.OptionsPageAudio, orientation=DGG.VERTICAL, relief=None, thumb_relief=None)
+        self.AudioScrollBar = DirectScrollBar(
+            parent=self.OptionsPageAudio,
+            orientation=DGG.VERTICAL,
+            relief=None,
+            thumb_relief=None
+        )
         self.AudioScrollFrame.guiItem.setVerticalSlider(self.AudioScrollBar.guiItem)
         self.AudioScrollBar.setPos(self.ScrollBarPos)
         self.AudioScrollBar['frameSize'] = self.ScrollBarFrameSize
@@ -212,25 +339,58 @@ class OptionsPage(DirectFrame):
         self.AudioScrollBar['resizeThumb'] = self.ScrollBarResizeThumb
         self.AudioScrollBar.incButton.destroy()
         self.AudioScrollBar.decButton.destroy()
-        self.AudioScrollFrame.bind(SCROLL_UP, mouseScrollValue, [self.AudioScrollBar, -0.325])
-        self.AudioScrollFrame.bind(SCROLL_DOWN, mouseScrollValue, [self.AudioScrollBar, 0.325])
+        self.AudioScrollFrame.bind(SCROLL_UP, self.mouseScrollValue, [self.AudioScrollBar, -0.325])
+        self.AudioScrollFrame.bind(SCROLL_DOWN, self.mouseScrollValue, [self.AudioScrollBar, 0.325])
 
         # Audio Components
-        self.AudioMusicText = OnscreenText(parent=self.AudioScrollFrameCanvas, align=TextNode.ALeft, text=TTLocalizer.NewOptionsTabAudioMusicTitle, font=self.SectionTextFont, scale=self.SectionTextScale, pos=(self.SectionTextXOffset, 1.85))
+        self.AudioMusicText = OnscreenText(
+            parent=self.AudioScrollFrameCanvas,
+            align=TextNode.ALeft,
+            text=TTLocalizer.NewOptionsTabAudioMusicTitle,
+            font=self.SectionTextFont,
+            scale=self.SectionTextScale,
+            pos=(self.SectionTextXOffset, 1.85)
+        )
 
         # Video
-        self.OptionsPageVideo = DirectFrame(parent=self, relief=None, image=self.OptionsGUIPageVideo, image_scale=(0.15),
-        geom=self.OptionsGUIVideoActive, geom_scale=(0.15), geom_pos=(0.61, 0, 0.58125), pos=(0, 0, 0.11))
+        self.OptionsPageVideo = DirectFrame(
+            parent=self,
+            relief=None,
+            image=self.OptionsGUIPageVideo,
+            image_scale=(0.15),
+            geom=self.OptionsGUIVideoActive,
+            geom_scale=(0.15),
+            geom_pos=(0.61, 0, 0.58125),
+            pos=(0, 0, 0.11)
+        )
         self.OptionsPageVideo.hide()
 
-        self.ControlsTitle = OnscreenText(parent=self.OptionsPageVideo, font=self.TitleTextFont, text=TTLocalizer.NewOptionsTabVideoTitle,
-                                                     fg=self.TitleTextColor, pos=self.TitleTextPos, scale=self.TitleTextScale)
+        self.ControlsTitle = OnscreenText(
+            parent=self.OptionsPageVideo,
+            font=self.TitleTextFont,
+            text=TTLocalizer.NewOptionsTabVideoTitle,
+            fg=self.TitleTextColor,
+            pos=self.TitleTextPos,
+            scale=self.TitleTextScale
+        )
 
-        self.VideoScrollFrame = DirectFrame(parent=self.OptionsPageVideo, state=DGG.NORMAL, pos=self.ScrollFramePos, frameSize=self.ScrollFrameSize, pgFunc=PGScrollFrame)
+        self.VideoScrollFrame = DirectFrame(
+            parent=self.OptionsPageVideo,
+            font=self.TitleTextFont,
+            text=TTLocalizer.NewOptionsTabVideoTitle,
+            fg=self.TitleTextColor,
+            pos=self.TitleTextPos,
+            scale=self.TitleTextScale
+        )
         self.VideoScrollFrameCanvas = NodePath(self.VideoScrollFrame.guiItem.getCanvasNode())
         self.VideoScrollFrame.guiItem.setVirtualFrame(self.ScrollFrameCanvasSize)
 
-        self.VideoScrollBar = DirectScrollBar(parent=self.OptionsPageVideo, orientation=DGG.VERTICAL, relief=None, thumb_relief=None)
+        self.VideoScrollBar = DirectScrollBar(
+            parent=self.OptionsPageVideo,
+            orientation=DGG.VERTICAL,
+            relief=None,
+            thumb_relief=None
+        )
         self.VideoScrollFrame.guiItem.setVerticalSlider(self.VideoScrollBar.guiItem)
         self.VideoScrollBar.setPos(self.ScrollBarPos)
         self.VideoScrollBar['frameSize'] = self.ScrollBarFrameSize
@@ -241,28 +401,75 @@ class OptionsPage(DirectFrame):
         self.VideoScrollBar['resizeThumb'] = self.ScrollBarResizeThumb
         self.VideoScrollBar.incButton.destroy()
         self.VideoScrollBar.decButton.destroy()
-        self.VideoScrollFrame.bind(SCROLL_UP, mouseScrollValue, [self.VideoScrollBar, -0.325])
-        self.VideoScrollFrame.bind(SCROLL_DOWN, mouseScrollValue, [self.VideoScrollBar, 0.325])
+        self.VideoScrollFrame.bind(SCROLL_UP, self.mouseScrollValue, [self.VideoScrollBar, -0.325])
+        self.VideoScrollFrame.bind(SCROLL_DOWN, self.mouseScrollValue, [self.VideoScrollBar, 0.325])
 
         # Controls Components
-        self.VideoDisplayText = OnscreenText(parent=self.VideoScrollFrameCanvas, align=TextNode.ALeft, text=TTLocalizer.NewOptionsTabDisplayTitle, font=self.SectionTextFont, scale=self.SectionTextScale, pos=(self.SectionTextXOffset, 1.85))
+        self.VideoDisplayText = OnscreenText(
+            parent=self.VideoScrollFrameCanvas,
+            align=TextNode.ALeft,
+            text=TTLocalizer.NewOptionsTabDisplayTitle,
+            font=self.SectionTextFont,
+            scale=self.SectionTextScale,
+            pos=(self.SectionTextXOffset, 1.85)
+        )
 
 
         # Page Buttons
-        self.OptionsButtonGameplay = DirectButton(parent=self, relief=None, image=self.OptionsGUITabButton,
-        image_scale=(0.15), geom=(self.OptionsGUIGameplayInactive), geom_pos=(0, 0, 0.025), geom_scale=(0.15), pos=(-0.6075, 0, 0.665), command=self.setupButtons, extraArgs=[PAGE_GAMEPLAY])
+        self.OptionsButtonGameplay = DirectButton(
+            parent=self,
+            relief=None,
+            image=self.OptionsGUITabButton,
+            image_scale=(0.15),
+            geom=(self.OptionsGUIGameplayInactive),
+            geom_pos=(0, 0, 0.025),
+            geom_scale=(0.15),
+            pos=(-0.6075, 0, 0.665),
+            command=self.setupButtons,
+            extraArgs=[PAGE_GAMEPLAY]
+        )
         self.OptionsButtonGameplay.setBin('fixed', 1)
 
-        self.OptionsButtonControls = DirectButton(parent=self, relief=None, image=(self.OptionsGUITabButton),
-        image_scale=(0.15), geom=(self.OptionsGUIControlsInactive), geom_pos=(0, 0, 0.025), geom_scale=(0.15), pos=((-0.6075 + self.buttonXoffset), 0, 0.665), command=self.setupButtons, extraArgs=[PAGE_CONTROLS])
+        self.OptionsButtonControls = DirectButton(
+            parent=self,
+            relief=None,
+            image=(self.OptionsGUITabButton),
+            image_scale=(0.15),
+            geom=(self.OptionsGUIControlsInactive),
+            geom_pos=(0, 0, 0.025),
+            geom_scale=(0.15),
+            pos=((-0.6075 + self.buttonXoffset), 0, 0.665),
+            command=self.setupButtons,
+            extraArgs=[PAGE_CONTROLS]
+        )
         self.OptionsButtonControls.setBin('fixed', 1)
 
-        self.OptionsButtonAudio = DirectButton(parent=self, relief=None, image=(self.OptionsGUITabButton),
-        image_scale=(0.15), geom=(self.OptionsGUIAudioInactive), geom_pos=(0, 0, 0.025), geom_scale=(0.15), pos=((-0.6075 + (self.buttonXoffset * 2)), 0, 0.665), command=self.setupButtons, extraArgs=[PAGE_AUDIO])
+        self.OptionsButtonAudio = DirectButton(
+            parent=self,
+            relief=None,
+            image=(self.OptionsGUITabButton),
+            image_scale=(0.15),
+            geom=(self.OptionsGUIAudioInactive),
+            geom_pos=(0, 0, 0.025),
+            geom_scale=(0.15),
+            pos=((-0.6075 + (self.buttonXoffset * 2)), 0, 0.665),
+            command=self.setupButtons,
+            extraArgs=[PAGE_AUDIO]
+        )
         self.OptionsButtonAudio.setBin('fixed', 1)
 
-        self.OptionsButtonVideo = DirectButton(parent=self, relief=None, image=(self.OptionsGUITabButton),
-        image_scale=(0.15), geom=(self.OptionsGUIVideoInactive), geom_pos=(0, 0, 0.025), geom_scale=(0.15), pos=((-0.6075 + (self.buttonXoffset * 3)), 0, 0.665), command=self.setupButtons, extraArgs=[PAGE_VIDEO])
+        self.OptionsButtonVideo = DirectButton(
+            parent=self,
+            relief=None,
+            image=(self.OptionsGUITabButton),
+            image_scale=(0.15),
+            geom=(self.OptionsGUIVideoInactive),
+            geom_pos=(0, 0, 0.025),
+            geom_scale=(0.15),
+            pos=((-0.6075 + (self.buttonXoffset * 3)), 0, 0.665),
+            command=self.setupButtons,
+            extraArgs=[PAGE_VIDEO]
+        )
         self.OptionsButtonVideo.setBin('fixed', 1)
 
     def setupButtons(self, page):
