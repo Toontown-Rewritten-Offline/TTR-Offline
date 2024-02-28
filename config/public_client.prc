@@ -4,7 +4,7 @@
 
 # Client settings
 window-title Toontown Rewritten [PRIVATE]
-server-version ttrp-beta-v2.11.3
+server-version ttroff-beta-v2.12.2
 sync-video #f
 want-dev #f
 preload-avatars #t
@@ -42,8 +42,8 @@ vfs-mount phase_13.mf /
 default-model-extension .bam
 
 
-# Now that we've loaded the phase files, tell panda to trust the TTRPCA
-ssl-certificates /phase_3/etc/TTRPCA.crt
+# Now that we've loaded the phase files, tell panda to trust the TTROffCA
+# ssl-certificates /phase_3/etc/TTROffCA.crt
 
 
 # This is the shared secret for CSMUD login
@@ -52,7 +52,7 @@ csmud-secret VG9vbnRvd25SZXdyaXR0ZW5Qcml2YXRlQ2xpZW50U2VydmljZXNNYW5hZ2VyVWJlckR
 
 
 # DC Files
-#dc-file config/ttrp.dc Automatically wrapped into the code.
+#dc-file config/ttroff.dc Automatically wrapped into the code.
 
 
 # Server settings

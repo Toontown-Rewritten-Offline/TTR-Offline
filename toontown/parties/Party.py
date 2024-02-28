@@ -78,7 +78,7 @@ class Party(Place.Place):
         self.fog = Fog('PartyFog')
         Place.Place.load(self)
         if hasattr(base.localAvatar, 'aboutToPlanParty') and base.localAvatar.aboutToPlanParty:
-            if not hasattr(self, 'partyPlanner') or self.partyPlanner is None:
+            if not hasattr(self, 'partyPlanner') or self.partyPlanner == None:
                 self.partyPlanner = PartyPlanner.PartyPlanner(self.partyPlannerDoneEvent)
         self.parentFSMState.addChild(self.fsm)
         return
@@ -99,7 +99,7 @@ class Party(Place.Place):
     def enter(self, requestStatus):
         hoodId = requestStatus['hoodId']
         zoneId = requestStatus['zoneId']
-        if config.GetBool('want-party-telemetry-limiter', 1):
+        if config.ConfigVariableBool('want-party-telemetry-limiter', 1).getValue():
             limiter = TLGatherAllAvs('Party', RotationLimitToH)
         else:
             limiter = TLNull()
@@ -276,7 +276,7 @@ class Party(Place.Place):
         if self.isPartyEnding:
             teleportNotify.debug('party ending, sending teleportResponse')
             fromAvatar.d_teleportResponse(toAvatar.doId, 0, toAvatar.defaultShard, base.cr.playGame.getPlaceId(), self.getZoneId())
-        elif config.GetBool('want-tptrack', False):
+        elif config.ConfigVariableBool('want-tptrack', False).getValue():
             if toAvatar == localAvatar:
                 localAvatar.doTeleportResponse(fromAvatar, toAvatar, toAvatar.doId, 1, toAvatar.defaultShard, base.cr.playGame.getPlaceId(), self.getZoneId(), fromAvatar.doId)
             else:

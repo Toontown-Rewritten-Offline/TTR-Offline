@@ -75,13 +75,13 @@ class GenusPanel(DirectFrame):
         DirectFrame.show(self)
 
     def hide(self):
-        if self.fishPanel is not None:
+        if self.fishPanel != None:
             self.fishPanel.hide()
         DirectFrame.hide(self)
         return
 
     def update(self):
-        if base.localAvatar.fishCollection.hasGenus(self.genus) and self.fishPanel is not None:
+        if base.localAvatar.fishCollection.hasGenus(self.genus) and self.fishPanel != None:
             self.fishPanel.show(showBackground=1)
             self['text'] = TTLocalizer.FishGenusNames[self.genus]
         for species in range(len(FishGlobals.getSpecies(self.genus))):

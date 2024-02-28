@@ -18,7 +18,7 @@ class AmbientSound(BasicEntities.NodePathEntity):
         if self.soundPath == '':
             return
         self.sound = base.loader.loadSfx(self.soundPath)
-        if self.sound is None:
+        if self.sound == None:
             return
         self.soundIval = SoundInterval(self.sound, node=self, volume=self.volume)
         self.soundIval.loop()

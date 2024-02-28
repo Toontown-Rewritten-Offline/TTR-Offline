@@ -55,9 +55,12 @@ class NametagGroup:
         self.stompText = None
         self.stompFlags = 0
 
+    def getName(self):
+        return self.name
+
     def destroy(self):
         taskMgr.remove(self.tickTask)
-        if self.manager is not None:
+        if self.manager != None:
             self.unmanage(self.manager)
         for nametag in list(self.nametags):
             self.removeNametag(nametag)
@@ -296,12 +299,12 @@ class NametagGroup:
     def addNametag(self, nametag):
         self.nametags.append(nametag)
         self.updateNametag(nametag)
-        if self.manager is not None and isinstance(nametag, MarginPopup):
+        if self.manager != None and isinstance(nametag, MarginPopup):
             nametag.manage(manager)
 
     def removeNametag(self, nametag):
         self.nametags.remove(nametag)
-        if self.manager is not None and isinstance(nametag, MarginPopup):
+        if self.manager != None and isinstance(nametag, MarginPopup):
             nametag.unmanage(manager)
         nametag.destroy()
 

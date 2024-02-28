@@ -124,7 +124,7 @@ class DistributedNPCPetclerk(DistributedNPCToonBase):
             self.resetPetshopClerk()
         elif mode == NPCToons.SELL_MOVIE_START:
             self.av = base.cr.doId2do.get(avId)
-            if self.av is None:
+            if self.av == None:
                 self.notify.warning('Avatar %d not found in doId' % avId)
                 return
             else:
@@ -149,7 +149,7 @@ class DistributedNPCPetclerk(DistributedNPCToonBase):
             self.resetPetshopClerk()
         elif mode == NPCToons.SELL_MOVIE_TROPHY:
             self.av = base.cr.doId2do.get(avId)
-            if self.av is None:
+            if self.av == None:
                 self.notify.warning('Avatar %d not found in doId' % avId)
                 return
             else:
@@ -165,7 +165,7 @@ class DistributedNPCPetclerk(DistributedNPCToonBase):
         return
 
     def __handlePetAdopted(self, whichPet, nameIndex):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: ADOPTADOOLE: Adopt a doodle.')
         base.cr.removePetFromFriendsMap()
         self.ignore(self.eventDict['petAdopted'])

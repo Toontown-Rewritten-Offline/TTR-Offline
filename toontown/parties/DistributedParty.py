@@ -409,7 +409,7 @@ class DistributedParty(DistributedObject.DistributedObject):
         base.localAvatar.chatMgr.chatInputSpeedChat.addInsidePartiesMenu()
         self.spawnTitleText()
         messenger.send(self.generatedEvent)
-        if config.GetBool('show-debug-party-grid', 0):
+        if config.ConfigVariableBool('show-debug-party-grid', 0).getValue():
             self.testGrid = NodePath('test_grid')
             self.testGrid.reparentTo(base.cr.playGame.hood.loader.geom)
             for i in range(len(self.grid)):

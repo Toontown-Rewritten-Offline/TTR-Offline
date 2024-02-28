@@ -179,7 +179,7 @@ class CountryClubLayout:
             rng.shuffle(allBattleRoomIds)
             battleRoomIds = self._chooseBattleRooms(numBattlesLeft,
                                                     allBattleRoomIds)
-            if battleRoomIds is not None:
+            if battleRoomIds != None:
                 break
 
             CountryClubLayout.notify.info('could not find a valid set of battle rooms, trying again')
@@ -245,7 +245,7 @@ class CountryClubLayout:
         return random.Random(self.countryClubId * self.floorNum)
 
     def _chooseBattleRooms(self, numBattlesLeft, allBattleRoomIds, baseIndex = 0, chosenBattleRooms = None):
-        if chosenBattleRooms is None:
+        if chosenBattleRooms == None:
             chosenBattleRooms = []
         while baseIndex < len(allBattleRoomIds):
             nextRoomId = allBattleRoomIds[baseIndex]
@@ -258,7 +258,7 @@ class CountryClubLayout:
                 return chosenBattleRooms
             chosenBattleRooms.append(nextRoomId)
             result = self._chooseBattleRooms(newNumBattlesLeft, allBattleRoomIds, baseIndex, chosenBattleRooms)
-            if result is not None:
+            if result != None:
                 return result
             else:
                 del chosenBattleRooms[-1:]

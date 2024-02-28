@@ -891,7 +891,7 @@ class DistributedPhotoGame(DistributedMinigame, PhotoGameBase.PhotoGameBase):
         DistributedMinigame.setGameStart(self, timestamp)
         self.__stopIntro()
         self.__putCameraOnTripod()
-        if not config.GetBool('endless-cannon-game', 0):
+        if not config.ConfigVariableBool('endless-cannon-game', 0).getValue():
             self.timer.show()
             self.timer.countdown(self.data['TIME'], self.__gameTimerExpired)
         self.filmPanel.reparentTo(base.a2dTopRight)
@@ -1638,7 +1638,7 @@ class DistributedPhotoGame(DistributedMinigame, PhotoGameBase.PhotoGameBase):
                 classObj = getattr(symbols[className], className)
                 interactivePropObj = classObj(interactivePropNode)
                 animPropList = self.animPropDict.get(i)
-                if animPropList is None:
+                if animPropList == None:
                     animPropList = self.animPropDict.setdefault(i, [])
                 animPropList.append(interactivePropObj)
 

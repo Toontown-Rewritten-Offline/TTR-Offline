@@ -15,7 +15,7 @@ class PlatformEntity(BasicEntities.NodePathEntity):
 
     def start(self):
         model = loader.loadModel(self.modelPath)
-        if model is None:
+        if model == None:
             return
         if len(self.floorName) == 0:
             return

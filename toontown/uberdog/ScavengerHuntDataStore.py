@@ -25,7 +25,7 @@ class ScavengerHuntDataStore(DataStore):
             pAvId = cPickle.dumps(avId)
             pGoal = cPickle.dumps(goal)
             pData = self.data.get(pAvId, None)
-            if pData is not None:
+            if pData != None:
                 data = cPickle.loads(pData)
             else:
                 data = set()
@@ -42,7 +42,7 @@ class ScavengerHuntDataStore(DataStore):
         if self.wantAnyDbm:
             pAvId = cPickle.dumps(avId)
             pData = self.data.get(pAvId, None)
-            if pData is not None:
+            if pData != None:
                 data = list(cPickle.loads(pData))
             else:
                 data = []

@@ -72,7 +72,7 @@ def pickSuitAttack(attacks, suitLevel):
             break
         index = index + 1
 
-    configAttackName = config.GetString('attack-type', 'random')
+    configAttackName = config.ConfigVariableString('attack-type', 'random').getValue()
     if configAttackName == 'random':
         return attackNum
     elif configAttackName == 'sequence':

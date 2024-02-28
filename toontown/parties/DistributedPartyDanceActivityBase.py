@@ -72,19 +72,19 @@ class DistributedPartyDanceActivityBase(DistributedPartyActivity):
     def unload(self):
         DistributedPartyActivity.unload(self)
         self.activityFSM.request('Disabled')
-        if self.localToonDanceSequence is not None:
+        if self.localToonDanceSequence != None:
             self.localToonDanceSequence.finish()
         if self.localToonDancing:
             self.__localStopDancing()
         self.ignoreAll()
-        if self.discoBallSequence is not None:
+        if self.discoBallSequence != None:
             self.discoBallSequence.finish()
-        if self.danceFloorSequence is not None:
+        if self.danceFloorSequence != None:
             self.danceFloorSequence.finish()
         del self.danceFloorSequence
         del self.discoBallSequence
         del self.localToonDanceSequence
-        if self.danceFloor is not None:
+        if self.danceFloor != None:
             self.danceFloor.removeNode()
             self.danceFloor = None
         self.__destroyOrthoWalk()
@@ -95,7 +95,7 @@ class DistributedPartyDanceActivityBase(DistributedPartyActivity):
         del self.dancingToonFSMs
         del self.cameraParallel
         del self.currentCameraMode
-        if self.keyCodes is not None:
+        if self.keyCodes != None:
             self.keyCodes.destroy()
             del self.keyCodes
         del self.activityFSM
@@ -243,7 +243,7 @@ class DistributedPartyDanceActivityBase(DistributedPartyActivity):
         self.ignore(KeyCodes.KEY_UP_EVENT)
 
     def __handleExitDanceFloor(self, collEntry):
-        if self.localToonDanceSequence is not None:
+        if self.localToonDanceSequence != None:
             self.notify.debug('finishing %s' % self.localToonDanceSequence)
             self.localToonDanceSequence.finish()
             self.localToonDanceSequence = None
@@ -350,7 +350,7 @@ class DistributedPartyDanceActivityBase(DistributedPartyActivity):
     def __setViewMode(self, mode):
         toon = base.localAvatar
         if mode == DanceViews.Normal:
-            if self.cameraParallel is not None:
+            if self.cameraParallel != None:
                 self.cameraParallel.pause()
                 self.cameraParallel = None
             camera.reparentTo(toon)

@@ -5,7 +5,7 @@ import random
 class ClsendTracker:
     clsendNotify = directNotify.newCategory('clsend')
     NumTrackersLoggingOverflow = 0
-    MaxTrackersLoggingOverflow = config.GetInt('max-clsend-loggers', 5)
+    MaxTrackersLoggingOverflow = config.ConfigVariableInt('max-clsend-loggers', 5).getValue()
 
     def __init__(self):
         self._logClsendOverflow = False

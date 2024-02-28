@@ -45,7 +45,7 @@ class LawOfficeManagerAI(DirectObject.DirectObject):
                     LawOfficeManagerAI.notify.warning('room %s (%s) not found in any floor of Stage %s' % (roomId, roomName, StageId))
 
         StageZone = self.air.allocateZone()
-        if layoutIndex is None:
+        if layoutIndex == None:
             layoutIndex = random.choice(StageId2Layouts[StageId])
         Stage = DistributedStageAI.DistributedStageAI(self.air, StageId, StageZone, floor, players, layoutIndex)
         Stage.generateWithRequired(StageZone)

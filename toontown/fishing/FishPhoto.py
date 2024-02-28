@@ -137,7 +137,7 @@ class FishPhoto(NodePath):
                 self.fishDisplayRegion.unload()
             self.hide()
         self.actor = self.fish.getActor()
-        self.actor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.actor.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.actor.setTwoSided(1)
         self.fishFrame = self.makeFishFrame(self.actor)
         if showBackground:
@@ -149,7 +149,7 @@ class FishPhoto(NodePath):
             self.background.setScale(11)
             self.background.reparentTo(self.fishFrame)
         self.sound, loop, delay, playRate = self.fish.getSound()
-        if playRate is not None:
+        if playRate != None:
             self.actor.setPlayRate(playRate, 'intro')
             self.actor.setPlayRate(playRate, 'swim')
         introDuration = self.actor.getDuration('intro')

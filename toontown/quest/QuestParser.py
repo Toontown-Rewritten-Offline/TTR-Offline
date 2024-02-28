@@ -68,7 +68,7 @@ def readFile(filename):
             continue
         if line[0] == 'ID':
             parseId(line)
-        elif curId is None:
+        elif curId == None:
             notify.error('Every script must begin with an ID')
         else:
             lineDict[curId].append(line)
@@ -216,7 +216,7 @@ class NPCMoviePlayer(DirectObject.DirectObject):
         lineNum = 0
         self.currentEvent = 'start'
         lines = lineDict.get(self.scriptId)
-        if lines is None:
+        if lines == None:
             notify.error('No movie defined for scriptId: %s' % self.scriptId)
         chapterList = []
         timeoutList = []
@@ -495,7 +495,7 @@ class NPCMoviePlayer(DirectObject.DirectObject):
         token, varName, fileName = line
         if varName == 'tomDialogue_01':
             notify.debug('VarName tomDialogue getting added. Tutorial Ack: %d' % base.localAvatar.tutorialAck)
-        if base.config.GetString('language', 'english') == 'japanese':
+        if base.config.ConfigVariableString('language', 'english').getValue() == 'japanese':
             dialogue = base.loader.loadSfx(fileName)
         else:
             dialogue = None
@@ -509,7 +509,7 @@ class NPCMoviePlayer(DirectObject.DirectObject):
         else:
             classicChar = 'minnie'
         filename = filenameTemplate % classicChar
-        if base.config.GetString('language', 'english') == 'japanese':
+        if base.config.ConfigVariableString('language', 'english').getValue() == 'japanese':
             dialogue = base.loader.loadSfx(filename)
         else:
             dialogue = None
@@ -1048,7 +1048,7 @@ class NPCMoviePlayer(DirectObject.DirectObject):
         return Sequence(Func(grabCurTrackAccess), LerpFunctionInterval(updateGagLevel, fromData=1, toData=7, duration=0.3), WaitInterval(3.5), LerpFunctionInterval(updateGagLevel, fromData=7, toData=1, duration=0.3), Func(restoreTrackAccess), Func(messenger.send, 'doneThrowSquirtPreview'))
 
     def parseSetMusicVolume(self, line):
-        if base.config.GetString('language', 'english') == 'japanese':
+        if base.config.ConfigVariableString('language', 'english').getValue() == 'japanese':
             try:
                 loader = base.cr.playGame.place.loader
                 type = 'music'

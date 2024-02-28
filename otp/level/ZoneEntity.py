@@ -6,7 +6,7 @@ class ZoneEntity(ZoneEntityBase.ZoneEntityBase, BasicEntities.NodePathAttribs):
     def __init__(self, level, entId):
         ZoneEntityBase.ZoneEntityBase.__init__(self, level, entId)
         self.nodePath = self.level.getZoneNode(self.entId)
-        if self.nodePath is None:
+        if self.nodePath == None:
             if __dev__:
                 self.level.reportModelSpecSyncError('unknown zoneNum %s; zone was removed from model?' % self.entId)
             else:

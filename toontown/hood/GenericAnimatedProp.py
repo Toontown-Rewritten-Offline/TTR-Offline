@@ -72,11 +72,11 @@ class GenericAnimatedProp(AnimatedProp.AnimatedProp):
     def setupActor(self, node):
         anim = node.getTag('DNAAnim')
         self.trashcan = Actor.Actor(node, copy=0)
-        self.trashcan.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.trashcan.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.trashcan.reparentTo(node)
         self.trashcan.loadAnims({'anim': '%s/%s' % (self.path, anim)})
         self.trashcan.pose('anim', 0)
-        self.trashcan.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.trashcan.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.node = self.trashcan
 
     def calcHoodId(self, node):
@@ -114,7 +114,7 @@ class GenericAnimatedProp(AnimatedProp.AnimatedProp):
         if theSound:
             soundDur = theSound.length()
             if maximumDuration < soundDur:
-                if config.GetBool('interactive-prop-info', False):
+                if config.ConfigVariableBool('interactive-prop-info', False).getValue():
                     if self.visId == localAvatar.zoneId and origAnimName != 'tt_a_ara_dga_hydrant_idleIntoFight':
                         self.notify.warning('anim %s had duration of %s while sound  has duration of %s' % (origAnimName, maximumDuration, soundDur))
                 soundDur = maximumDuration

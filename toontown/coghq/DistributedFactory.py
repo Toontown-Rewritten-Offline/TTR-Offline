@@ -10,6 +10,7 @@ from . import FactoryEntityCreator
 from . import FactorySpecs
 from otp.level import LevelSpec
 from otp.level import LevelConstants
+from otp.nametag.NametagConstants import CFThought, CFTimeout
 from toontown.toonbase import TTLocalizer
 from toontown.coghq import FactoryCameraViews
 from direct.controls.ControlManager import CollisionHandlerRayStart
@@ -59,7 +60,7 @@ class DistributedFactory(DistributedLevel.DistributedLevel, FactoryBase.FactoryB
         if avId == base.localAvatar.doId:
             return
         av = base.cr.identifyFriend(avId)
-        if av is None:
+        if av == None:
             return
         base.localAvatar.setSystemMessage(avId, TTLocalizer.ForemanConfrontedMsg % av.getName())
         return

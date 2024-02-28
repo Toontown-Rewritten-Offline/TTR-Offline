@@ -275,7 +275,7 @@ class CogdoFlyingLocalPlayer(CogdoFlyingPlayer):
         surfacePoint = collEntry.getSurfacePoint(render)
         intoNodePath = collEntry.getIntoNodePath()
         platform = CogdoFlyingPlatform.getFromNode(intoNodePath)
-        if platform is not None:
+        if platform != None:
             if not platform.isStartOrEndPlatform():
                 taskMgr.doMethodLater(0.5, self.delayedLandOnPlatform, 'delayedLandOnPlatform', extraArgs=[platform])
             elif platform.isEndPlatform():

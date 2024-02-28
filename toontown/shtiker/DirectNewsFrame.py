@@ -16,15 +16,15 @@ class DirectNewsFrame(DirectObject.DirectObject):
     TaskName = 'HtmlViewUpdateTask'
     TaskChainName = 'RedownladTaskChain'
     RedownloadTaskName = 'RedownloadNewsTask'
-    NewsBaseDir = config.GetString('news-base-dir', '/httpNews')
-    NewsStageDir = config.GetString('news-stage-dir', 'news')
+    NewsBaseDir = config.ConfigVariableString('news-base-dir', '/httpNews').getValue()
+    NewsStageDir = config.ConfigVariableString('news-stage-dir', 'news').getValue()
     FrameDimensions = (-1.30666637421,
      1.30666637421,
      -0.751666665077,
      0.751666665077)
     notify = DirectNotifyGlobal.directNotify.newCategory('DirectNewsFrame')
-    NewsIndexFilename = config.GetString('news-index-filename', 'http_news_index.txt')
-    NewsOverHttp = config.GetBool('news-over-http', True)
+    NewsIndexFilename = config.ConfigVariableString('news-index-filename', 'http_news_index.txt').getValue()
+    NewsOverHttp = config.ConfigVariableBool('news-over-http', True).getValue()
     CacheIndexFilename = 'cache_index.txt'
     SectionIdents = ['hom',
      'new',
@@ -369,8 +369,8 @@ class DirectNewsFrame(DirectObject.DirectObject):
                 self.redownloadNews()
 
     def getInGameNewsUrl(self):
-        result = config.GetString('fallback-news-url', 'http://cdn.toontown.disney.go.com/toontown/en/gamenews/')
-        override = config.GetString('in-game-news-url', '')
+        result = config.ConfigVariableString('fallback-news-url', 'http://cdn.toontown.disney.go.com/toontown/en/gamenews/').getValue()
+        override = config.ConfigVariableString('in-game-news-url', '').getValue()
         if override:
             self.notify.info('got an override url,  using %s for in game news' % override)
             result = override

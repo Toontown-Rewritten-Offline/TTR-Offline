@@ -57,10 +57,10 @@ class DistributedGolfHole(DistributedPhysicsWorld.DistributedPhysicsWorld, FSM, 
      'Cleanup': ['Off']}
     id = 0
     notify = directNotify.newCategory('DistributedGolfHole')
-    unlimitedAimTime = config.GetBool('unlimited-aim-time', 0)
-    unlimitedTeeTime = config.GetBool('unlimited-tee-time', 0)
-    golfPowerSpeed = config.GetDouble('golf-power-speed', 3)
-    golfPowerExponent = config.GetDouble('golf-power-exponent', 0.75)
+    unlimitedAimTime = config.ConfigVariableBool('unlimited-aim-time', 0).getValue()
+    unlimitedTeeTime = config.ConfigVariableBool('unlimited-tee-time', 0).getValue()
+    golfPowerSpeed = config.ConfigVariableDouble('golf-power-speed', 3).getValue()
+    golfPowerExponent = config.ConfigVariableDouble('golf-power-exponent', 0.75).getValue()
     DefaultCamP = -16
     MaxCamP = -90
 
@@ -289,7 +289,7 @@ class DistributedGolfHole(DistributedPhysicsWorld.DistributedPhysicsWorld, FSM, 
             curNodePath = self.hardSurfaceNodePath.find('**/locator%d' % locatorNum)
 
     def loadBlockers(self):
-        loadAll = config.GetBool('golf-all-blockers', 0)
+        loadAll = config.ConfigVariableBool('golf-all-blockers', 0).getValue()
         self.createLocatorDict()
         self.blockerNums = self.holeInfo['blockers']
         for locatorNum in self.locDict:
@@ -673,7 +673,7 @@ class DistributedGolfHole(DistributedPhysicsWorld.DistributedPhysicsWorld, FSM, 
         return
 
     def _adjustCamera(self, task=None, first=True):
-        if task is None and first:
+        if task == None and first:
             while 1:
                 self._adjustCamera(first=False)
                 if self._camAdjust.iters == 0:
@@ -710,14 +710,14 @@ class DistributedGolfHole(DistributedPhysicsWorld.DistributedPhysicsWorld, FSM, 
         self._camAdjust.iters += 1
         if self._camAdjust.iters >= MaxIters:
             self.targetCamPivot.setP(self._camAdjust.upper)
-            if task is None:
+            if task == None:
                 self.curCamPivot.setP(finalP)
             self._camAdjust.iters = 0
             self._camAdjust.lower = self.DefaultCamP
             self._camAdjust.upper = self.MaxCamP
             self.camPivot.setP(self.DefaultCamP)
 
-        if task is not None:
+        if task != None:
             self.curCamPivot.setP(self.curCamPivot,
                 self.targetCamPivot.getP(self.curCamPivot)*min(1.0, 1.0*globalClock.getDt()))
 
@@ -1529,7 +1529,7 @@ class DistributedGolfHole(DistributedPhysicsWorld.DistributedPhysicsWorld, FSM, 
         cameraAnimFullPath = path + cameraName
         try:
             self.flyOverActor = Actor.Actor(camModelFullPath, {'camera': cameraAnimFullPath})
-            self.flyOverActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+            self.flyOverActor.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         except Exception:
             self.notify.debug("Couldn't find flyover %s" % camModelFullPath)
             return False

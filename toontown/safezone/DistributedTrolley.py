@@ -177,7 +177,7 @@ class DistributedTrolley(DistributedObject.DistributedObject):
             place.fsm.request('walk')
 
     def handleEnterTrolleySphere(self, collEntry):
-        if config.GetBool('want-doomsday', False):
+        if config.ConfigVariableBool('want-doomsday', False).getValue():
             base.localAvatar.disableAvatarControls()
             self.confirm = TTDialog.TTGlobalDialog(doneEvent='confirmDone', message=SafezoneInvasionGlobals.LeaveToontownCentralAlert, style=TTDialog.Acknowledge)
             self.confirm.show()

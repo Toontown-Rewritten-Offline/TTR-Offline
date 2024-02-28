@@ -24,18 +24,18 @@ class EntityTypeRegistry:
                 filename = base + '.py'
             return filename
 
-        fileLines = file(getPyExtVersion(EntityTypes.__file__)).readlines()
+        fileLines = open(getPyExtVersion(EntityTypes.__file__), 'rb').readlines()
         hv.hashString(string.join(fileLines))
         s = str(hv.asHex())
         s += '.'
-        fileLines = file(getPyExtVersion(self.entTypeModule.__file__)).readlines()
+        fileLines = open(getPyExtVersion(self.entTypeModule.__file__), 'rb').readlines()
         hv.hashString(string.join(fileLines))
         s += str(hv.asHex())
         self.hashStr = s
         getPyExtVersion = None
         classes = []
         for key, value in list(entityTypeModule.__dict__.items()):
-            if type(value) is type:
+            if type(value) == type:
                 if issubclass(value, EntityTypeDesc.EntityTypeDesc):
                     classes.append(value)
 

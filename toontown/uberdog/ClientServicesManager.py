@@ -23,7 +23,7 @@ class ClientServicesManager(DistributedObjectGlobal):
         cookie = self.cr.playToken or 'dev'
         cookie = cookie.encode('utf-8') # PY3
         
-        key = config.GetString('csmud-secret', 'streetlamps') + config.GetString('server-version', 'no_version_set') + FIXED_KEY
+        key = config.ConfigVariableString('csmud-secret', 'streetlamps').getValue() + config.ConfigVariableString('server-version', 'no_version_set').getValue() + FIXED_KEY
         key = key.encode('utf-8') # PY3
 
         # Sign the login cookie

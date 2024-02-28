@@ -3,8 +3,8 @@
 # Config.prc should be reproduced here.
 
 # Client settings
-window-title Toontown Rewritten [PRIVATE]
-server-version ttrp-beta-v2.11.3
+window-title Toontown Rewritten [OFFLINE]
+server-version ttroff-beta-v2.12.2
 sync-video #f
 want-dev #f
 preload-avatars #t
@@ -41,7 +41,7 @@ default-model-extension .bam
 
 
 # DC Files
-#dc-file config/ttrp.dc Automatically wrapped into the code.
+#dc-file config/ttroff.dc Automatically wrapped into the code.
 
 
 # Server settings

@@ -293,7 +293,7 @@ class DistributedFishingSpot(DistributedObject.DistributedObject):
             self.notify.warning('Rod id: %s model not found' % rodId)
             rodPath = RodFileDict[0]
         self.pole = Actor.Actor()
-        self.pole.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.pole.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.pole.loadModel(rodPath)
         self.pole.loadAnims({'cast': 'phase_4/models/props/fishing-pole-chan'})
         self.pole.pose('cast', 0)
@@ -594,7 +594,7 @@ class DistributedFishingSpot(DistributedObject.DistributedObject):
         self.itemGui.detachNode()
 
     def __makeGui(self):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: FISHING: ZoneId: %s' % self.pond.getArea())
         if self.madeGui:
             return
@@ -878,7 +878,7 @@ class DistributedFishingSpot(DistributedObject.DistributedObject):
         self.initMouseX = self.mouseX
         self.initMouseY = self.mouseY
         self.__hideBob()
-        if config.GetBool('fishing-independent-axes', 0):
+        if config.ConfigVariableBool('fishing-independent-axes', 0).getValue():
             taskMgr.add(self.localAdjustingCastTaskIndAxes, self.taskName('adjustCastTask'))
         else:
             taskMgr.add(self.localAdjustingCastTask, self.taskName('adjustCastTask'))
