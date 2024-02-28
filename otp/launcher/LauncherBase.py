@@ -154,25 +154,25 @@ class LauncherBase(DirectObject):
         cpMgr.reloadImplicitPages()
         launcherConfig = getConfigExpress()
         builtins.config = launcherConfig
-        if config.GetBool('log-private-info', 0):
+        if config.ConfigVariableBool('log-private-info', 0).getValue():
             print('os.environ = ', os.environ)
         elif '__COMPAT_LAYER' in os.environ:
             print('__COMPAT_LAYER = %s' % (os.environ['__COMPAT_LAYER'],))
         self.miniTaskMgr = MiniTaskManager()
         self.VerifyFiles = self.getVerifyFiles()
-        self.setServerVersion(launcherConfig.GetString('server-version', 'no_version_set'))
-        self.ServerVersionSuffix = launcherConfig.GetString('server-version-suffix', '')
+        self.setServerVersion(launcherConfig.ConfigVariableString('server-version', 'no_version_set').getValue())
+        self.ServerVersionSuffix = launcherConfig.ConfigVariableString('server-version-suffix', '').getValue()
         self.UserUpdateDelay = launcherConfig.GetFloat('launcher-user-update-delay', 0.5)
-        self.TELEMETRY_BANDWIDTH = launcherConfig.GetInt('launcher-telemetry-bandwidth', 2000)
+        self.TELEMETRY_BANDWIDTH = launcherConfig.ConfigVariableInt('launcher-telemetry-bandwidth', 2000).getValue()
         self.INCREASE_THRESHOLD = launcherConfig.GetFloat('launcher-increase-threshold', 0.75)
         self.DECREASE_THRESHOLD = launcherConfig.GetFloat('launcher-decrease-threshold', 0.5)
         self.BPS_WINDOW = launcherConfig.GetFloat('launcher-bps-window', 8.0)
-        self.DECREASE_BANDWIDTH = launcherConfig.GetBool('launcher-decrease-bandwidth', 1)
-        self.MAX_BANDWIDTH = launcherConfig.GetInt('launcher-max-bandwidth', 0)
+        self.DECREASE_BANDWIDTH = launcherConfig.ConfigVariableBool('launcher-decrease-bandwidth', 1).getValue()
+        self.MAX_BANDWIDTH = launcherConfig.ConfigVariableInt('launcher-max-bandwidth', 0).getValue()
         self.nout = MultiplexStream()
         Notify.ptr().setOstreamPtr(self.nout, 0)
         self.nout.addFile(Filename(logfile))
-        if launcherConfig.GetBool('console-output', 0):
+        if launcherConfig.ConfigVariableBool('console-output', 0).getValue():
             self.nout.addStandardOutput()
             sys.stdout.console = True
             sys.stderr.console = True
@@ -181,7 +181,7 @@ class LauncherBase(DirectObject):
         self.logPrefix = logPrefix
         self.testServerFlag = self.getTestServerFlag()
         self.notify.info('isTestServer: %s' % self.testServerFlag)
-        downloadServerString = launcherConfig.GetString('download-server', '')
+        downloadServerString = launcherConfig.ConfigVariableString('download-server', '').getValue()
         if downloadServerString:
             self.notify.info('Overriding downloadServer to %s.' % downloadServerString)
         else:
@@ -331,7 +331,7 @@ class LauncherBase(DirectObject):
 
     def getProductName(self):
         config = getConfigExpress()
-        productName = config.GetString('product-name', '')
+        productName = config.ConfigVariableString('product-name', '').getValue()
         if productName and productName != 'DisneyOnline-US':
             productName = '_%s' % productName
         else:
@@ -1123,7 +1123,7 @@ class LauncherBase(DirectObject):
             self.curMultifileRetry = 0
             self.getMultifile(self.currentMfname)
         else:
-            if self.currentMfname is None:
+            if self.currentMfname == None:
                 self.notify.warning('no multifile found! See below for debug info:')
                 for i in range(self.dldb.getServerNumMultifiles()):
                     mfname = self.dldb.getServerMultifileName(i)
@@ -1578,7 +1578,7 @@ class LauncherBase(DirectObject):
 
     def getIsNewInstallation(self):
         result = self.getValue(self.NewInstallationKey, 1)
-        result = config.GetBool('new-installation', result)
+        result = config.ConfigVariableBool('new-installation', result).getValue()
         return result
 
     def setIsNotNewInstallation(self):

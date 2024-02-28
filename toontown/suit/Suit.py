@@ -154,7 +154,7 @@ bw = (('finger-wag', 'fingerwag', 5),
  ('magic1', 'magic1', 5),
  ('throw-object', 'throw-object', 5),
  ('throw-paper', 'throw-paper', 5))
-if not config.GetBool('want-new-cogs', 0):
+if not config.ConfigVariableBool('want-new-cogs', 0).getValue():
     ModelDict = {'a': ('/models/char/suitA-', 4),
      'b': ('/models/char/suitB-', 4),
      'c': ('/models/char/suitC-', 3.5)}
@@ -190,12 +190,12 @@ def unloadSuits(level):
 def loadSuitModelsAndAnims(level, flag = 0):
     for key in list(ModelDict.keys()):
         model, phase = ModelDict[key]
-        if config.GetBool('want-new-cogs', 0):
+        if config.ConfigVariableBool('want-new-cogs', 0).getValue():
             headModel, headPhase = HeadModelDict[key]
         else:
             headModel, headPhase = ModelDict[key]
         if flag:
-            if config.GetBool('want-new-cogs', 0):
+            if config.ConfigVariableBool('want-new-cogs', 0).getValue():
                 filepath = 'phase_3.5' + model + 'zero'
                 if cogExists(model + 'zero'):
                     loader.loadModel(filepath)
@@ -203,7 +203,7 @@ def loadSuitModelsAndAnims(level, flag = 0):
                 loader.loadModel('phase_3.5' + model + 'mod')
             loader.loadModel('phase_' + str(headPhase) + headModel + 'heads')
         else:
-            if config.GetBool('want-new-cogs', 0):
+            if config.ConfigVariableBool('want-new-cogs', 0).getValue():
                 filepath = 'phase_3.5' + model + 'zero'
                 if cogExists(model + 'zero'):
                     loader.unloadModel(filepath)
@@ -625,7 +625,7 @@ class Suit(Avatar.Avatar):
     def generateBody(self):
         animDict = self.generateAnimDict()
         filePrefix, bodyPhase = ModelDict[self.style.body]
-        if config.GetBool('want-new-cogs', 0):
+        if config.ConfigVariableBool('want-new-cogs', 0).getValue():
             if cogExists(filePrefix + 'zero'):
                 self.loadModel('phase_3.5' + filePrefix + 'zero')
             else:
@@ -634,7 +634,7 @@ class Suit(Avatar.Avatar):
             self.loadModel('phase_3.5' + filePrefix + 'mod')
         self.loadAnims(animDict)
         self.setSuitClothes()
-        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
 
     def generateAnimDict(self):
         animDict = {}
@@ -652,7 +652,7 @@ class Suit(Avatar.Avatar):
         for anim in AllSuitsBattle:
             animDict[anim[0]] = 'phase_5' + filePrefix + anim[1]
 
-        if not config.GetBool('want-new-cogs', 0):
+        if not config.ConfigVariableBool('want-new-cogs', 0).getValue():
             if self.style.body == 'a':
                 animDict['neutral'] = 'phase_4/models/char/suitA-neutral'
                 for anim in SuitsCEOBattle:
@@ -709,7 +709,7 @@ class Suit(Avatar.Avatar):
             self.shadowJoint = self.find('**/joint_shadow')
             self.nametagJoint = self.find('**/joint_nameTag')
 
-        if config.GetBool('want-new-cogs', 0):
+        if config.ConfigVariableBool('want-new-cogs', 0).getValue():
             if dept == 'c':
                 texType = 'bossbot'
             elif dept == 'm':
@@ -767,14 +767,14 @@ class Suit(Avatar.Avatar):
         modelRoot.find('**/hands').setTexture(handTex, 1)
 
     def generateHead(self, headType):
-        if config.GetBool('want-new-cogs', 0):
+        if config.ConfigVariableBool('want-new-cogs', 0).getValue():
             filePrefix, phase = HeadModelDict[self.style.body]
         else:
             filePrefix, phase = ModelDict[self.style.body]
         headModel = loader.loadModel('phase_' + str(phase) + filePrefix + 'heads')
         headReferences = headModel.findAllMatches('**/' + headType)
         for i in range(0, headReferences.getNumPaths()):
-            if config.GetBool('want-new-cogs', 0):
+            if config.ConfigVariableBool('want-new-cogs', 0).getValue():
                 headPart = self.instance(headReferences.getPath(i), 'modelRoot', 'to_head')
                 if not headPart:
                     headPart = self.instance(headReferences.getPath(i), 'modelRoot', 'joint_head')
@@ -814,7 +814,7 @@ class Suit(Avatar.Avatar):
     def generateCorporateMedallion(self):
         icons = loader.loadModel('phase_3/models/gui/cog_icons')
         dept = self.style.dept
-        if config.GetBool('want-new-cogs', 0):
+        if config.ConfigVariableBool('want-new-cogs', 0).getValue():
             chestNull = self.find('**/def_joint_attachMeter')
             if chestNull.isEmpty():
                 chestNull = self.find('**/joint_attachMeter')
@@ -839,7 +839,7 @@ class Suit(Avatar.Avatar):
         button.setScale(3.0)
         button.setH(180.0)
         button.setColor(self.healthColors[0])
-        if config.GetBool('want-new-cogs', 0):
+        if config.ConfigVariableBool('want-new-cogs', 0).getValue():
             chestNull = self.find('**/def_joint_attachMeter')
             if chestNull.isEmpty():
                 chestNull = self.find('**/joint_attachMeter')
@@ -917,7 +917,7 @@ class Suit(Avatar.Avatar):
         return
 
     def getLoseActor(self):
-        if config.GetBool('want-new-cogs', 0):
+        if config.ConfigVariableBool('want-new-cogs', 0).getValue():
             if self.find('**/body'):
                 return self
         if self.loseActor == None:
@@ -940,6 +940,7 @@ class Suit(Avatar.Avatar):
                 loseAnim = 'phase_' + str(phase) + filePrefix + 'lose'
                 self.loseActor = Actor.Actor(loseModel, {'lose': loseAnim})
                 self.generateCorporateTie(self.loseActor)
+        self.loseActor.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.loseActor.setScale(self.scale)
         self.loseActor.setPos(self.getPos())
         self.loseActor.setHpr(self.getH(), 0, 0)
@@ -981,7 +982,7 @@ class Suit(Avatar.Avatar):
         self.generateHealthBar()
         self.generateCorporateTie()
         self.setHeight(self.height)
-        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         parts = self.findAllMatches('**/pPlane*')
         for partNum in range(0, parts.getNumPaths()):
             bb = parts.getPath(partNum)

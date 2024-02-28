@@ -62,10 +62,10 @@ class DistributedLift(BasicEntities.DistributedNodePathEntity):
 
     def initPlatform(self):
         model = loader.loadModel(self.modelPath)
-        if model is None:
+        if model == None:
             return
         model.setScale(self.modelScale)
-        if self.floorName is None:
+        if self.floorName == None:
             return
         self.platformModel = MovingPlatform.MovingPlatform()
         self.platformModel.setupCopyModel(self.getParentToken(), model, self.floorName)
@@ -114,9 +114,9 @@ class DistributedLift(BasicEntities.DistributedNodePathEntity):
             self.ignore(self.platformModel.getExitEvent())
             self.platformModel.destroy()
             del self.platformModel
-            if self.startGuard is not None:
+            if self.startGuard != None:
                 self.startGuard.unstash()
-            if self.endGuard is not None:
+            if self.endGuard != None:
                 self.endGuard.unstash()
             del self.startGuard
             del self.endGuard
@@ -137,19 +137,19 @@ class DistributedLift(BasicEntities.DistributedNodePathEntity):
         pass
 
     def getPosition(self, state):
-        if state is LiftConstants.Down:
+        if state == LiftConstants.Down:
             return self.startPos
         else:
             return self.endPos
 
     def getGuard(self, state):
-        if state is LiftConstants.Down:
+        if state == LiftConstants.Down:
             return self.startGuard
         else:
             return self.endGuard
 
     def getBoardColl(self, state):
-        if state is LiftConstants.Down:
+        if state == LiftConstants.Down:
             return self.startBoardColl
         else:
             return self.endBoardColl
@@ -166,7 +166,7 @@ class DistributedLift(BasicEntities.DistributedNodePathEntity):
         endBoardColl = self.getBoardColl(toState)
 
         def startMoving(self = self, guard = startGuard, boardColl = startBoardColl):
-            if guard is not None and not guard.isEmpty():
+            if guard != None and not guard.isEmpty():
                 guard.unstash()
             boardColl.unstash()
             self.soundIval = SoundInterval(self.moveSnd, node=self.platform)
@@ -178,7 +178,7 @@ class DistributedLift(BasicEntities.DistributedNodePathEntity):
             if hasattr(self, 'soundIval'):
                 self.soundIval.pause()
                 del self.soundIval
-            if guard is not None and not guard.isEmpty():
+            if guard != None and not guard.isEmpty():
                 guard.stash()
             boardColl.stash()
             self.fsm.request('waiting')

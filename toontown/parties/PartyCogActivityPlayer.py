@@ -53,7 +53,7 @@ class PartyCogActivityPlayer:
         return
 
     def cleanUpIvals(self):
-        if self.kaboomTrack is not None and self.kaboomTrack.isPlaying():
+        if self.kaboomTrack != None and self.kaboomTrack.isPlaying():
             self.kaboomTrack.finish()
         self.kaboomTrack = None
         return
@@ -121,7 +121,7 @@ class PartyCogActivityPlayer:
             self.activity.notify.debug('PartyCogPlayer respondToPieHit self.netTimeSentToStartByHit = %s' % self.netTimeSentToStartByHit)
 
     def __showSplat(self, position):
-        if self.kaboomTrack is not None and self.kaboomTrack.isPlaying():
+        if self.kaboomTrack != None and self.kaboomTrack.isPlaying():
             self.kaboomTrack.finish()
         if not self.pieHitSound:
             self.notify.warning('Trying to play hit sound on destroyed player')
@@ -161,13 +161,13 @@ class PartyCogActivityLocalPlayer(PartyCogActivityPlayer):
     def destroy(self):
         if self.enabled:
             self.disable()
-        if self.cameraManager is not None:
+        if self.cameraManager != None:
             self.cameraManager.setEnabled(False)
             self.cameraManager.destroy()
         del self.cameraManager
         del self.gui
         del self.input
-        if self.control is not None:
+        if self.control != None:
             self.control.destroy()
         del self.control
         PartyCogActivityPlayer.destroy(self)
@@ -235,7 +235,7 @@ class PartyCogActivityLocalPlayer(PartyCogActivityPlayer):
         self.control.update()
 
     def getLookat(self, whosLooking, refNode = None):
-        if refNode is None:
+        if refNode == None:
             refNode = render
         dist = 5.0
         oldParent = self.tempNP.getParent()

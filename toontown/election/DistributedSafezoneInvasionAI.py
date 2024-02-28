@@ -307,17 +307,17 @@ class DistributedSafezoneInvasionAI(DistributedObjectAI, FSM):
 
 @magicWord(category=CATEGORY_DEBUG, types=[str, str])
 def szInvasion(cmd, arg = ''):
-    if not simbase.config.GetBool('want-doomsday', False):
+    if not simbase.config.ConfigVariableBool('want-doomsday', False).getValue():
         simbase.air.writeServerEvent('aboose', spellbook.getInvoker().doId, 'Attempted to initiate doomsday while it is disabled.')
         return 'ABOOSE! Doomsday is currently disabled. Your request has been logged.'
     else:
         invasion = simbase.air.doFind('SafezoneInvasion')
-        if invasion is None and cmd != 'start':
+        if invasion == None and cmd != 'start':
             return 'No invasion has been created'
         if cmd == 'start':
-            if invasion is None:
+            if invasion == None:
                 election = simbase.air.doFind('ElectionEvent')
-                if election is None:
+                if election == None:
                     return 'No election event.'
                 invasion = DistributedSafezoneInvasionAI(simbase.air, election)
                 invasion.generateWithRequired(2000)

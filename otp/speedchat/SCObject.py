@@ -49,7 +49,7 @@ class SCObject(DirectObject):
         return self.settingsRef.submenuOverlap
 
     def getTopLevelOverlap(self):
-        if self.settingsRef.topLevelOverlap is None:
+        if self.settingsRef.topLevelOverlap == None:
             return self.getSubmenuOverlap()
         else:
             return self.settingsRef.topLevelOverlap

@@ -58,9 +58,9 @@ class ToontownRPCHandler:
     def rpc_getAccountByAvatarID(self, request, avId):
         """Gets the account ID associated to a particular avatar (account), or null if invalid."""
         def callback(dclass, fields):
-            if dclass is None:
+            if dclass == None:
                 return request.result(None)
-            if dclass.getName() is None:
+            if dclass.getName() == None:
                 return request.result(None)
 
             return request.result(self.rpc_getAccountByGSID(request, fields.get('setDISLid',[-1,])[0]))
@@ -73,10 +73,10 @@ class ToontownRPCHandler:
         """Gets the set of avatars (Toons) that exist on a given gsId, or null if invalid."""
 
         def callback(dclass, fields):
-            if dclass is None:
+            if dclass == None:
                 return request.result(None)
 
-            if dclass.getName() is None:
+            if dclass.getName() == None:
                 return request.result(None)
 
             request.result(fields.get('ACCOUNT_AV_SET'))
@@ -94,10 +94,10 @@ class ToontownRPCHandler:
         """
 
         def callback(dclass, fields):
-            if dclass is None:
+            if dclass == None:
                 return request.result(None)
 
-            if dclass.getName() is None:
+            if dclass.getName() == None:
                 return request.result(None)
 
             name = fields['setName'][0]
@@ -202,7 +202,7 @@ class ToontownRPCHandler:
         """
 
         def callback(fields):
-            if fields is None:
+            if fields == None:
                 request.result(None)
             elif fields == {}:
                 request.error(-100, 'avId invalid')
@@ -236,7 +236,7 @@ class ToontownRPCHandler:
         """
 
         def callback(dclass, fields):
-            if dclass is None or dclass.getName() != 'DistributedToon':
+            if dclass == None or dclass.getName() != 'DistributedToon':
                 return request.error(-100, 'avId invalid')
 
             dnaString = fields['setDNAString'][0]
@@ -270,7 +270,7 @@ class ToontownRPCHandler:
         """
 
         def callback(dclass, fields):
-            if fields is None or dclass.getName() != 'DistributedToon':
+            if fields == None or dclass.getName() != 'DistributedToon':
                 return request.error(-100, 'avId invalid')
 
             self.air.dbInterface.updateObject(self.air.dbId, avId, dclass,
@@ -292,7 +292,7 @@ class ToontownRPCHandler:
         """
 
         def callback(dclass, fields):
-            if fields is None or dclass.getName() != 'DistributedToon':
+            if fields == None or dclass.getName() != 'DistributedToon':
                 return request.error(-100, 'avId invalid')
 
             dg = dclass.aiFormatUpdate('setName', avId, avId,

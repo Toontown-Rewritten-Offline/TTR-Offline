@@ -44,6 +44,7 @@ SCHQLfdTypeText = 0.075
 SCHQLdgText = 0.1
 DMEEsignText = 2
 BCHQLsignText = 1.12
+BCHQLofficeText = 0.99
 DGGGquitButton = 0.045
 DGGGhowToButton = 0.045
 DGGGscoreLabel = 0.075

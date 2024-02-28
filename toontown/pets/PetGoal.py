@@ -170,7 +170,7 @@ class ChaseAvatar(PetGoal):
         if self.isToon and self.pet.mood.getDominantMood() == 'hunger':
             priority *= PetConstants.HungerChaseToonScale
         lastInteractTime = self.brain.lastInteractTime.get(self.avatar.doId)
-        if lastInteractTime is not None:
+        if lastInteractTime != None:
             elapsed = globalClock.getFrameTime() - lastInteractTime
             if elapsed < PetConstants.GettingAttentionGoalScaleDur:
                 priority *= PetConstants.GettingAttentionGoalScale

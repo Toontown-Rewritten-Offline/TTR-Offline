@@ -242,7 +242,7 @@ class InGameEditor(AppShell):
     def updateEntityCopy(self, entId):
         if self.entityCopy == None:
             self.entityCopy = self.level.getEntInstanceNPCopy(entId)
-            if self.entityCopy is not None:
+            if self.entityCopy != None:
                 self.entityCopy.setRenderModeWireframe()
                 self.entityCopy.setTextureOff(1)
                 self.entityCopy.setColor(1, 0, 0)
@@ -292,7 +292,7 @@ class InGameEditor(AppShell):
     def addIntWidget(self, levelSpec, entSpec, entId, attribName, params):
         minVal = params.get('min', None)
         maxVal = params.get('max', None)
-        if minVal is not None and maxVal is not None:
+        if minVal != None and maxVal != None:
             widgClass = Slider.Slider
         else:
             widgClass = Floater.Floater
@@ -375,7 +375,7 @@ class InGameEditor(AppShell):
         label = Label(frame, text=attribName, width=15, anchor=W, justify=LEFT)
         label.pack(side=LEFT, expand=0)
         for choice in params.get('choiceSet', []):
-            if type(choice) is bytes:
+            if type(choice) == bytes:
                 choiceStr = choice
             else:
                 choiceStr = repr(choice)
@@ -426,7 +426,7 @@ class InGameEditor(AppShell):
                 print('SENDING', value)
                 self.level.setAttribEdit(entId, attribName, value)
 
-            if type(choice) is bytes:
+            if type(choice) == bytes:
                 labelStr = choice
             else:
                 labelStr = repr(choice)
@@ -476,7 +476,7 @@ class InGameEditor(AppShell):
 
             def placeEntity():
                 selectedEntityNP = self.level.getEntInstanceNP(entId)
-                if selectedEntityNP is not None:
+                if selectedEntityNP != None:
                     selectedEntityNP.place()
                 return
 
@@ -484,7 +484,7 @@ class InGameEditor(AppShell):
 
         def adjustCopy(vec):
             self.updateEntityCopy(entId)
-            if self.entityCopy is not None:
+            if self.entityCopy != None:
                 if datatype == 'pos':
                     self.entityCopy.setPos(vec[0], vec[1], vec[2])
                 elif datatype == 'hpr':
@@ -520,7 +520,7 @@ class InGameEditor(AppShell):
 
         def adjustEntity(vec):
             entity = self.level.getEntInstance(entId)
-            if entity is not None:
+            if entity != None:
                 entity.setColor(vec[0] / 255.0, vec[1] / 255.0, vec[2] / 255.0, vec[3] / 255.0)
             widg.set(vec, 0)
             return
@@ -637,7 +637,7 @@ class InGameEditor(AppShell):
         widg = Entry(frame, textvariable=text)
         widg.bind('<Return>', handleReturn)
         widg.pack(side=LEFT, fill=X, expand=1)
-        if attribName is 'parentEntId':
+        if attribName == 'parentEntId':
             buttonText = 'Reparent To'
         else:
             buttonText = 'Select Entity'
@@ -769,7 +769,7 @@ class InGameEditor(AppShell):
                 self.entityCopy = None
         if entId == self.curEntId:
             widgetSetter = self.curEntWidgets[attribName]
-            if widgetSetter is not None:
+            if widgetSetter != None:
                 widgetSetter(value)
         return
 

@@ -183,7 +183,7 @@ class DistributedToonHallInterior(DistributedToonInterior):
          'phaseFour': 'phase_4/models/props/tt_a_ara_ttc_sillyMeter_phaseFour',
          'phaseFourToFive': 'phase_4/models/props/tt_a_ara_ttc_sillyMeter_phaseFourToFive',
          'phaseFive': 'phase_4/models/props/tt_a_ara_ttc_sillyMeter_phaseFive'})
-        self.sillyMeter.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.sillyMeter.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.sillyMeter.reparentTo(self.interior)
         self.flatSillyMeter = loader.loadModel('phase_3.5/models/modules/tt_m_ara_int_sillyMeterFlat')
         self.flatSillyMeter.reparentTo(self.interior)

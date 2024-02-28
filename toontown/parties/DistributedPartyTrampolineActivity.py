@@ -107,7 +107,7 @@ class DistributedPartyTrampolineActivity(DistributedPartyActivity):
     def loadModels(self):
         self.tramp = self.root.attachNewNode(self.uniqueName('tramp'))
         self.trampActor = Actor('phase_13/models/parties/trampoline_model', {'emptyAnim': 'phase_13/models/parties/trampoline_anim'})
-        self.trampActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.trampActor.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.trampActor.reparentTo(self.tramp)
         if self.texture:
             reskinNode = self.tramp.find('**/trampoline/__Actor_modelRoot/-GeomNode')
@@ -619,7 +619,7 @@ class DistributedPartyTrampolineActivity(DistributedPartyActivity):
     def _showFlashMessage(self, message):
         if self.isDisabled():
             return
-        if self.flashTextInterval is not None and self.flashTextInterval.isPlaying():
+        if self.flashTextInterval != None and self.flashTextInterval.isPlaying():
             self.flashTextInterval.finish()
         self.flashText.setText(message)
         self.flashText.setAlphaScale(1.0)

@@ -77,7 +77,7 @@ class DistributedPartyTugOfWarActivity(DistributedPartyTeamActivity):
             targetH = fitDestAngle2Src(toon.getH(self.root), PartyGlobals.TugOfWarHeadings[self.localToonTeam])
             travelVector = targetPos - toon.getPos(self.root)
             duration = travelVector.length() / 5.0
-            if self.toonIdsToAnimIntervals[toonId] is not None:
+            if self.toonIdsToAnimIntervals[toonId] != None:
                 self.toonIdsToAnimIntervals[toonId].finish()
             self.toonIdsToAnimIntervals[toonId] = Sequence(Func(toon.startPosHprBroadcast, 0.1), Func(toon.b_setAnimState, 'run'), LerpPosHprInterval(toon, duration, targetPos, VBase3(targetH, 0.0, 0.0), other=self.root), Func(toon.stopPosHprBroadcast), Func(toon.b_setAnimState, 'neutral'))
             self.toonIdsToAnimIntervals[toonId].start()
@@ -88,7 +88,7 @@ class DistributedPartyTugOfWarActivity(DistributedPartyTeamActivity):
         if toonId == base.localAvatar.doId:
             self.cameraMoveIval.pause()
             if toonId not in self.fallenToons:
-                if toonId in self.toonIdsToAnimIntervals and self.toonIdsToAnimIntervals[toonId] is not None:
+                if toonId in self.toonIdsToAnimIntervals and self.toonIdsToAnimIntervals[toonId] != None:
                     self.toonIdsToAnimIntervals[toonId].finish()
                 toon = self.getAvatar(toonId)
                 targetH = fitDestAngle2Src(toon.getH(self.root), 180.0)
@@ -119,7 +119,7 @@ class DistributedPartyTugOfWarActivity(DistributedPartyTeamActivity):
     def handleToonShifted(self, toonId):
         if toonId == base.localAvatar.doId:
             self.localToonPosIndex = self.getIndex(base.localAvatar.doId, self.localToonTeam)
-            if self.toonIdsToAnimIntervals[toonId] is not None:
+            if self.toonIdsToAnimIntervals[toonId] != None:
                 self.toonIdsToAnimIntervals[toonId].finish()
             toon = self.getAvatar(toonId)
             targetPos = self.dockPositions[self.localToonTeam][self.localToonPosIndex]
@@ -286,7 +286,7 @@ class DistributedPartyTugOfWarActivity(DistributedPartyTeamActivity):
 
         while len(self.tugRopes) > 0:
             rope = self.tugRopes.pop()
-            if rope is not None:
+            if rope != None:
                 rope.removeNode()
             del rope
 
@@ -297,12 +297,12 @@ class DistributedPartyTugOfWarActivity(DistributedPartyTeamActivity):
 
     def unloadGuiElements(self):
         for arrow in self.arrows:
-            if arrow is not None:
+            if arrow != None:
                 arrow.removeNode()
                 del arrow
 
         del self.arrows
-        if self.powerMeter is not None:
+        if self.powerMeter != None:
             self.powerMeter.cleanup()
             del self.powerMeter
         return
@@ -431,7 +431,7 @@ class DistributedPartyTugOfWarActivity(DistributedPartyTeamActivity):
                     self.getAvatar(toonId).loop('victory')
 
         for ival in list(self.toonIdsToAnimIntervals.values()):
-            if ival is not None:
+            if ival != None:
                 ival.finish()
 
         return
@@ -636,7 +636,7 @@ class DistributedPartyTugOfWarActivity(DistributedPartyTeamActivity):
         for toonId in self.getToonIdsAsList():
             if hasattr(self, 'fallenToons') and toonId not in self.fallenToons:
                 toon = self.getAvatar(toonId)
-                if toon is not None:
+                if toon != None:
                     origPos = self.toonIdsToStartPositions[toonId]
                     curPos = toon.getPos(self.root)
                     newPos = Point3(origPos[0] + offset, curPos[1], curPos[2])
@@ -671,7 +671,7 @@ class DistributedPartyTugOfWarActivity(DistributedPartyTeamActivity):
             if fallenPosIndex < 0 or fallenPosIndex >= 4:
                 fallenPosIndex = 0
             newPos = self.fallenPositions[fallenPosIndex]
-            if toonId in self.toonIdsToAnimIntervals and self.toonIdsToAnimIntervals[toonId] is not None:
+            if toonId in self.toonIdsToAnimIntervals and self.toonIdsToAnimIntervals[toonId] != None:
                 if self.toonIdsToAnimIntervals[toonId].isPlaying():
                     self.toonIdsToAnimIntervals[toonId].finish()
             if toon:

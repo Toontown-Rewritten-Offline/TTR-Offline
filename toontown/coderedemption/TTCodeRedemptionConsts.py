@@ -16,4 +16,4 @@ RedeemErrorStrings = {RedeemErrors.Success: 'Success',
  RedeemErrors.AwardCouldntBeGiven: 'Award could not be given',
  RedeemErrors.TooManyAttempts: 'Too many attempts, code ignored',
  RedeemErrors.SystemUnavailable: 'Code redemption is currently unavailable'}
-MaxCustomCodeLen = config.GetInt('tt-max-custom-code-len', 16)
+MaxCustomCodeLen = config.ConfigVariableInt('tt-max-custom-code-len', 16).getValue()

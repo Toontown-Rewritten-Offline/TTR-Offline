@@ -54,13 +54,13 @@ class CogdoMazePlayer(FSM, CogdoMazeSplattable):
 
     def enterNormal(self):
         self.toon.startSmooth()
-        if self.equippedGag is not None:
+        if self.equippedGag != None:
             self.equippedGag.unstash()
         return
 
     def exitNormal(self):
         self.toon.stopSmooth()
-        if self.equippedGag is not None:
+        if self.equippedGag != None:
             self.equippedGag.stash()
         return
 
@@ -73,7 +73,7 @@ class CogdoMazePlayer(FSM, CogdoMazeSplattable):
     def exitHit(self):
         self._hitIval.pause()
         del self._hitIval
-        if self.equippedGag is not None:
+        if self.equippedGag != None:
             self.toon.setAnimState('Catching', 1.0)
         else:
             self.toon.setAnimState('Happy', 1.0)
@@ -124,7 +124,7 @@ class CogdoMazePlayer(FSM, CogdoMazeSplattable):
         return
 
     def removeGag(self):
-        if self.equippedGag is None:
+        if self.equippedGag == None:
             return
         self.toon.setAnimState('Happy')
         self.equippedGag.detachNode()
@@ -140,7 +140,7 @@ class CogdoMazePlayer(FSM, CogdoMazeSplattable):
 
     def showToonThrowingGag(self, heading, pos):
         gag = self.equippedGag
-        if gag is None:
+        if gag == None:
             return
         self.removeGag()
         tossTrack, flyTrack, object = self.getThrowInterval(gag, pos[0], pos[1], pos[2], heading, 0, 0)
@@ -181,7 +181,7 @@ class CogdoMazePlayer(FSM, CogdoMazeSplattable):
         newRate = frames / duration
         playRate = newRate / frameRate
         ival = Sequence(ActorInterval(self.toon, animName, startTime=startFrame / newRate, endTime=totalFrames / newRate, playRate=playRate))
-        if nextState is not None:
+        if nextState != None:
 
             def done():
                 self.request(nextState)

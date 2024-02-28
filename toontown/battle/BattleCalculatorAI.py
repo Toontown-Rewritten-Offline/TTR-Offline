@@ -26,13 +26,13 @@ class BattleCalculatorAI:
     KBBONUS_LURED_FLAG = 0
     KBBONUS_TGT_LURED = 1
     notify = DirectNotifyGlobal.directNotify.newCategory('BattleCalculatorAI')
-    toonsAlwaysHit = config.GetBool('toons-always-hit', 0)
-    toonsAlwaysMiss = config.GetBool('toons-always-miss', 0)
-    toonsAlways5050 = config.GetBool('toons-always-5050', 0)
-    suitsAlwaysHit = config.GetBool('suits-always-hit', 0)
-    suitsAlwaysMiss = config.GetBool('suits-always-miss', 0)
-    immortalSuits = config.GetBool('immortal-suits', 0)
-    propAndOrganicBonusStack = config.GetBool('prop-and-organic-bonus-stack', 0)
+    toonsAlwaysHit = config.ConfigVariableBool('toons-always-hit', 0).getValue()
+    toonsAlwaysMiss = config.ConfigVariableBool('toons-always-miss', 0).getValue()
+    toonsAlways5050 = config.ConfigVariableBool('toons-always-5050', 0).getValue()
+    suitsAlwaysHit = config.ConfigVariableBool('suits-always-hit', 0).getValue()
+    suitsAlwaysMiss = config.ConfigVariableBool('suits-always-miss', 0).getValue()
+    immortalSuits = config.ConfigVariableBool('immortal-suits', 0).getValue()
+    propAndOrganicBonusStack = config.ConfigVariableBool('prop-and-organic-bonus-stack', 0).getValue()
 
     def __init__(self, battle, tutorialFlag = 0):
         self.battle = battle

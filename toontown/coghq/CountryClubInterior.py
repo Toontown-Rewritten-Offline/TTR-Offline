@@ -231,7 +231,7 @@ class CountryClubInterior(BattlePlace.BattlePlace):
         CountryClubInterior.notify.debug('enterDied')
 
         def diedDone(requestStatus, self = self, callback = callback):
-            if callback is not None:
+            if callback != None:
                 callback()
             messenger.send('leavingCountryClub')
             self.doneStatus = requestStatus

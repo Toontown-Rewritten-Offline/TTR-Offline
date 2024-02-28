@@ -6,8 +6,8 @@ try:
     language = getConfigExpress().GetString('language', 'english')
     checkLanguage = getConfigExpress().GetBool('check-language', 0)
 except:
-    language = DConfig.GetString('language', 'english')
-    checkLanguage = DConfig.GetBool('check-language', 0)
+    language = DConfig.ConfigVariableString('language', 'english').getValue()
+    checkLanguage = DConfig.ConfigVariableBool('check-language', 0).getValue()
 
 def getLanguage():
     return language

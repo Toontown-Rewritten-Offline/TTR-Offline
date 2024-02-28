@@ -14,7 +14,7 @@ class MovingPlatform(DirectObject.DirectObject, NodePath):
         NodePath.__init__(self)
 
     def setupCopyModel(self, parentToken, model, floorNodeName = None, parentingNode = None):
-        if floorNodeName is None:
+        if floorNodeName == None:
             floorNodeName = 'floor'
         if type(parentToken) == int:
             parentToken = ToontownGlobals.SPDynamic + parentToken
@@ -46,7 +46,7 @@ class MovingPlatform(DirectObject.DirectObject, NodePath):
         if self.ownsModel:
             self.model.removeNode()
             del self.model
-        if hasattr(self, 'parentingNode') and self.parentingNode is self:
+        if hasattr(self, 'parentingNode') and self.parentingNode == self:
             del self.parentingNode
 
     def getEnterEvent(self):

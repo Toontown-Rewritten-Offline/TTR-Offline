@@ -183,7 +183,7 @@ class MailboxInteractiveProp(InteractiveAnimatedProp.InteractiveAnimatedProp):
 
     def setupActor(self, node):
         self.pieActor = Actor.Actor('phase_5/models/char/tt_r_prp_ext_piePackage', {'fightBoost': 'phase_5/models/char/tt_a_prp_ext_piePackage_fightBoost'})
-        self.pieActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.pieActor.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.pieActor.reparentTo(self.node)
         self.pieActor.hide()
         InteractiveAnimatedProp.InteractiveAnimatedProp.setupActor(self, node)

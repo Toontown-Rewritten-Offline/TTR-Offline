@@ -42,7 +42,7 @@ class CogdoFlyingGuiManager:
         self._messageDisplay = CogdoGameMessageDisplay('CogdoFlyingMessageDisplay', self.root, sfx=sound)
 
     def destroyTimer(self):
-        if self._timer is not None:
+        if self._timer != None:
             self._timer.stop()
             self._timer.destroy()
             self._timer = None
@@ -78,7 +78,7 @@ class CogdoFlyingGuiManager:
         return self.getTimeLeft() < Globals.Gameplay.TimeRunningOutSeconds
 
     def startTimer(self, duration, timerExpiredCallback = None, keepHidden = False):
-        if self._timer is None:
+        if self._timer == None:
             self._initTimer()
         self._timer.setTime(duration)
         self._timer.countdown(duration, timerExpiredCallback)
@@ -89,7 +89,7 @@ class CogdoFlyingGuiManager:
         return
 
     def stopTimer(self):
-        if hasattr(self, '_timer') and self._timer is not None:
+        if hasattr(self, '_timer') and self._timer != None:
             self.hideTimer()
             self._timer.stop()
         return

@@ -10,13 +10,13 @@ class VisibilityExtender(Entity.Entity):
         self.extended = 0
         self.zoneEntId = self.getZoneEntId()
         self.eventName = None
-        if self.event is not None:
+        if self.event != None:
             self.eventName = self.getOutputEventName(self.event)
             self.accept(self.eventName, self.handleEvent)
         return
 
     def destroyVisExt(self):
-        if self.eventName is not None:
+        if self.eventName != None:
             self.ignore(self.eventName)
         if self.extended:
             self.retract()

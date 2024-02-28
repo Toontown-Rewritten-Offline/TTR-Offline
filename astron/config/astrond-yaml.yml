@@ -1,7 +1,7 @@
 general:
     eventlogger: 127.0.0.1:7197
     dc_files:
-        - ../dclass/ttrp.dc
+        - ../dclass/ttroff.dc
 
 messagedirector:
     bind: 127.0.0.1:7199
@@ -54,7 +54,7 @@ uberdogs:
 roles:
     - type: clientagent
       bind: 0.0.0.0:7198
-      version: ttrp-beta-v2.11.3
+      version: ttroff-beta-v2.12.2
       client:
        relocate: true
        add_interest: enabled

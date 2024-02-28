@@ -87,7 +87,7 @@ class TLGatherAllAvs(DirectObject):
         self.accept(DistributedPlayer.GetPlayerDeleteEvent(), self._handlePlayerLeave)
 
     def _handlePlayerArrive(self, av):
-        if av is not localAvatar:
+        if av != localAvatar:
             self._avs[av.doId] = av
             limitList = []
             for limit in self._limits:
@@ -99,7 +99,7 @@ class TLGatherAllAvs(DirectObject):
             base.cr.telemetryLimiter.addObj(av)
 
     def _handlePlayerLeave(self, av):
-        if av is not localAvatar and base.cr.telemetryLimiter.hasObj(av) and av.doId in self._avId2limits:
+        if av != localAvatar and base.cr.telemetryLimiter.hasObj(av) and av.doId in self._avId2limits:
             base.cr.telemetryLimiter.removeObj(av)
             for limit in self._avId2limits[av.doId]:
                 av.removeTelemetryLimit(limit)

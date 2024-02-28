@@ -22,7 +22,7 @@ class PromotionManagerAI:
          0,
          0,
          0]
-        if extraMerits is None:
+        if extraMerits == None:
             extraMerits = [0,
              0,
              0,

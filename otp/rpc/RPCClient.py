@@ -83,7 +83,7 @@ class RPCCall:
             return self.onFailure()
 
         error = response.get('error', None)
-        if error is not None:
+        if error != None:
             self.client.notify.warning('RPC call (%s) resulted in error: %s' % (self.method, error))
             return self.onFailure()
 

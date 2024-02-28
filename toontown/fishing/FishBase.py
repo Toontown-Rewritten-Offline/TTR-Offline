@@ -49,7 +49,7 @@ class FishBase:
         from direct.actor import Actor
         actor = Actor.Actor(prefix + fileInfo[1], {'intro': prefix + fileInfo[2],
          'swim': prefix + fileInfo[3]})
-        actor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        actor.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         return actor
 
     def getSound(self):
@@ -57,7 +57,7 @@ class FishBase:
         loop = None
         delay = None
         playRate = None
-        if config.GetBool('want-fish-audio', 1):
+        if config.ConfigVariableBool('want-fish-audio', 1).getValue():
             soundDict = FishGlobals.FishAudioFileDict
             fileInfo = soundDict.get(self.genus, None)
             if fileInfo:

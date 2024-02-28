@@ -79,7 +79,7 @@ def planPathTo():
     else:
         toPos = base.localAvatar.getPos()
         path = pathfinder.planPath((fromPos.getX(), fromPos.getY()), (toPos.getX(), toPos.getY()))
-        if path is None:
+        if path == None:
             return 'Pathfinding failed -- no path exists.'
         segs = LineSegs('plannedPath')
         segs.setColor(1, 1, 0)

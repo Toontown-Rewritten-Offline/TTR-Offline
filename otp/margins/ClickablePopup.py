@@ -38,7 +38,7 @@ class ClickablePopup(PandaNode, DirectObject):
         self.ignoreAll()
 
     def setClickRegionEvent(self, event, clickArgs=[]):
-        if event is None:
+        if event == None:
             # The caller is disabling us, so instead:
             self.__disabled = True
             self.__region.setActive(False)

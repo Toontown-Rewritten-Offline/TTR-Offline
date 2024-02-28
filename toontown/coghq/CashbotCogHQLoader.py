@@ -51,7 +51,7 @@ class CashbotCogHQLoader(CogHQLoader.CogHQLoader):
             signText.setPosHpr(locator, 0, 0, 0, 0, 0, 0)
             signText.setDepthWrite(0)
         elif zoneId == ToontownGlobals.CashbotLobby:
-            if config.GetBool('want-qa-regression', 0):
+            if config.ConfigVariableBool('want-qa-regression', 0).getValue():
                 self.notify.info('QA-REGRESSION: COGHQ: Visit CashbotLobby')
             self.geom = loader.loadModel(self.cogHQLobbyModelPath)
         else:

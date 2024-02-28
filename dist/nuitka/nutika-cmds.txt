@@ -1,3 +1,3 @@
-cd "C:/Users/Drew/Nuitka-Python-TTR-PRIVATE/output"
+cd "C:\Users\Drew\Downloads\TTROff-Development\TTR-Offline"
 
-python -O -m nuitka --python-flag=-O --standalone --msvc=14.2 --include-module=files --windows-icon-from-ico=icon.ico PrivacyStart.py && move PrivacyStart.dist\PrivacyStart.exe PrivacyStart.dist/TTRPEngine.exe && del PrivacyStart.dist\PrivacyStart.exp && del PrivacyStart.dist\PrivacyStart.lib
+"C:\Users\Drew\Downloads\TTROff-Development\Nuitka-Python\output\python.exe" -O -m nuitka --python-flag=-O --standalone --msvc=14.2 --include-module=files --lto=yes PrivacyStart.py && move PrivacyStart.dist\PrivacyStart.exe PrivacyStart.dist/TTROFFEngine.exe && del PrivacyStart.dist\PrivacyStart.exp && del PrivacyStart.dist\PrivacyStart.lib

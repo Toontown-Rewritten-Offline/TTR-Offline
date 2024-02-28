@@ -6,7 +6,7 @@ class TTSequenceList(SequenceList):
 
     def __init__(self):
         self.notify = DirectNotifyGlobal.directNotify.newCategory('TTSequenceList')
-        sequenceListURL = config.GetString('blacklist-sequence-url', '')
+        sequenceListURL = config.ConfigVariableString('blacklist-sequence-url', '').getValue()
         if sequenceListURL == '':
             self.notify.warning('No Sequence BL URL specified! Continuing with local sequence.')
             SequenceList.__init__(self, self.loadSquencesLocally())

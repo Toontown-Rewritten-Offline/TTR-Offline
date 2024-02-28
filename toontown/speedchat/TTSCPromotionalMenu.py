@@ -24,7 +24,7 @@ class TTSCPromotionalMenu(SCMenu):
         SCMenu.destroy(self)
 
     def startHoliday(self, holidayId):
-        if self.curHolidayId is not None:
+        if self.curHolidayId != None:
             TTSCPromotionalMenu.notify.warning('overriding existing holidayId %s with %s' % (self.curHolidayId, holidayId))
         self.curHolidayId = holidayId
         title, structure = holidayId2menuInfo[holidayId]

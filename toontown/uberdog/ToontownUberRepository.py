@@ -7,7 +7,7 @@ from otp.distributed.OtpDoGlobals import *
 from .ToontownRPCHandler import *
 import urllib
 
-if config.GetBool('want-mongo-client', False):
+if config.ConfigVariableBool('want-mongo-client', False).getValue():
     import pymongo
 
 class ToontownUberRepository(ToontownInternalRepository):
@@ -15,9 +15,9 @@ class ToontownUberRepository(ToontownInternalRepository):
         ToontownInternalRepository.__init__(self, baseChannel, serverId, dcSuffix='UD')
         self.notify.setInfo(True)
 
-        if config.GetBool('want-mongo-client', False):
-            url = config.GetString('mongodb-url', 'mongodb://localhost')
-            replicaset = config.GetString('mongodb-replicaset', '')
+        if config.ConfigVariableBool('want-mongo-client', False).getValue():
+            url = config.ConfigVariableString('mongodb-url', 'mongodb://localhost').getValue()
+            replicaset = config.ConfigVariableString('mongodb-replicaset', '').getValue()
             self.notify.info('MongoDB Client is enabled.')
             if replicaset:
                 self.mongo = pymongo.MongoClient(url, replicaset=replicaset)
@@ -31,7 +31,7 @@ class ToontownUberRepository(ToontownInternalRepository):
         rootObj = DistributedDirectoryAI(self)
         rootObj.generateWithRequiredAndId(self.getGameDoId(), 0, 0)
 
-        if config.GetBool('want-rpc-server', False):
+        if config.ConfigVariableBool('want-rpc-server', False).getValue():
             self.rpcserver = RPCServer(ToontownRPCHandler(self))
 
         self.createGlobals()
@@ -44,7 +44,7 @@ class ToontownUberRepository(ToontownInternalRepository):
         self.csm = self.generateGlobalObject(OTP_DO_ID_CLIENT_SERVICES_MANAGER, 'ClientServicesManager')
         self.chatAgent = self.generateGlobalObject(OTP_DO_ID_CHAT_MANAGER, 'ChatAgent')
         self.friendsManager = self.generateGlobalObject(OTP_DO_ID_TTR_FRIENDS_MANAGER, 'TTRFriendsManager')
-        if config.GetBool('want-parties', True):
+        if config.ConfigVariableBool('want-parties', True).getValue():
             # want-parties overrides config for want-GlobalPartyManagerUD
             self.globalPartyMgr = self.generateGlobalObject(OTP_DO_ID_GLOBAL_PARTY_MANAGER, 'GlobalPartyManager')
         else:
