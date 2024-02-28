@@ -131,7 +131,7 @@ class PathMasterEntity(PathEntity.PathEntity):
     def makePathTrack(self, node, velocity, name, turnTime = 1, lookAroundNode = None):
         track = Sequence(name=name)
         self.path = self.getReducedPath()
-        if self.path == None or len(self.path) < 1:
+        if self.path is None or len(self.path) < 1:
             track.append(WaitInterval(1.0))
             return track
         path = self.path + [self.path[0]]
@@ -151,7 +151,7 @@ class PathMasterEntity(PathEntity.PathEntity):
 
     def makePathTrackBak(self, node, velocity, name, turnTime = 1, lookAroundNode = None):
         track = Sequence(name=name)
-        if self.path == None:
+        if self.path is None:
             track.append(WaitInterval(1.0))
             return track
         path = self.path + [self.path[0]]

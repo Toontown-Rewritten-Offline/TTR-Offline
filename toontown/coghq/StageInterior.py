@@ -69,7 +69,7 @@ class StageInterior(BattlePlace.BattlePlace):
     def load(self):
         self.parentFSM.getStateNamed('stageInterior').addChild(self.fsm)
         BattlePlace.BattlePlace.load(self)
-        self.music = base.musicManager.getSound('phase_11/audio/bgm/LB_office.ogg')
+        self.music = base.loader.loadMusic('phase_11/audio/bgm/LB_office.ogg')
 
     def unload(self):
         self.parentFSM.getStateNamed('stageInterior').removeChild(self.fsm)
@@ -88,9 +88,7 @@ class StageInterior(BattlePlace.BattlePlace):
         def commence(self = self):
             NametagGlobals.setMasterArrowsOn(1)
             self.fsm.request(requestStatus['how'], [requestStatus])
-            self.music.setLoop(True)
-            self.music.setVolume(0.8)
-            self.music.play()
+            base.playMusic(self.music, looping=1, volume=0.8)
             base.transitions.irisIn()
             stage = bboard.get(DistributedStage.DistributedStage.ReadyPost)
             self.loader.hood.spawnTitleText(stage.stageId)
@@ -157,9 +155,7 @@ class StageInterior(BattlePlace.BattlePlace):
         StageInterior.notify.debug('exitBattle')
         BattlePlace.BattlePlace.exitBattle(self)
         self.loader.music.stop()
-        self.music.setLoop(True)
-        self.music.setVolume(0.8)
-        self.music.play()
+        base.playMusic(self.music, looping=1, volume=0.8)
 
     def enterStickerBook(self, page = None):
         BattlePlace.BattlePlace.enterStickerBook(self, page)
@@ -226,7 +222,7 @@ class StageInterior(BattlePlace.BattlePlace):
         StageInterior.notify.debug('enterDied')
 
         def diedDone(requestStatus, self = self, callback = callback):
-            if callback != None:
+            if callback is not None:
                 callback()
             messenger.send('leavingStage')
             self.doneStatus = requestStatus

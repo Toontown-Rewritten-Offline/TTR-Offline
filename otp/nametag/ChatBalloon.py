@@ -53,7 +53,7 @@ class ChatBalloon:
             # opposite side:
             t.setX(self.TEXT_SHIFT_REVERSED - self.TEXT_SHIFT_PROP*width - width)
 
-        # Give the chat bubble a button, if one == requested:
+        # Give the chat bubble a button, if one is requested:
         if button:
             np = button.copyTo(root)
             np.setPos(t, width, 0, -height)

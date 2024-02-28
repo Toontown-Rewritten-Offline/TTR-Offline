@@ -16,9 +16,8 @@ class BossbotHQAI(CogHoodAI):
         self.createZone()
         
     def createDoor(self):
-        # CEO Battle
         interiorDoor = DistributedCogHQDoorAI(self.air, 0, DoorTypes.INT_COGHQ, self.HOOD, doorIndex=0)
-        exteriorDoor = DistributedCogHQDoorAI(self.air, 0, DoorTypes.EXT_COGHQ, ToontownGlobals.BossbotLobby, doorIndex=0, lockValue=FADoorCodes.BB_DISGUISE_INCOMPLETE)
+        exteriorDoor = DistributedCogHQDoorAI(self.air, 0, DoorTypes.EXT_COGHQ, ToontownGlobals.BossbotLobby, doorIndex=0, lockValue=FADoorCodes.CB_DISGUISE_INCOMPLETE)
         exteriorDoor.setOtherDoor(interiorDoor)
         exteriorDoor.zoneId = self.HOOD
         exteriorDoor.generateWithRequired(self.HOOD)
@@ -29,15 +28,8 @@ class BossbotHQAI(CogHoodAI):
         interiorDoor.zoneId = ToontownGlobals.BossbotLobby
         interiorDoor.generateWithRequired(ToontownGlobals.BossbotLobby)
         interiorDoor.sendUpdate('setDoorIndex', [0])
-        self.doors.append(interiorDoor) 
-
-        # Executive Office
-        executiveDoor = DistributedCogHQDoorAI(self.air, 1, DoorTypes.EXT_COGHQ, ToontownGlobals.BossbotLobby, doorIndex=1, lockValue=FADoorCodes.UNKNOWN_COG_AREA)
-        executiveDoor.setOtherDoor(interiorDoor)
-        executiveDoor.zoneId = self.HOOD
-        executiveDoor.generateWithRequired(self.HOOD)
-        executiveDoor.sendUpdate('setDoorIndex', [1])
-        
+        self.doors.append(interiorDoor)
+    
     def createKart(self, index, x, y, z, h, p, r, min):
         kart = DistributedCogKartAI(self.air, index, x, y, z, h, p, r, self.air.countryClubMgr, min)
         kart.generateWithRequired(self.HOOD)
@@ -56,12 +48,9 @@ class BossbotHQAI(CogHoodAI):
         # Make our doors.
         self.createDoor()
         
-        # Create Suit Planners in the cog playground and factory waiting area.
-        self.createSuitPlanner(self.HOOD)
-        
         # Create Cog Golf Courses.
-        kartPos = ((-26.5658, 237.459, 0), (132.197, 227.845, 0), (-28.725, -235.706, 0))
-        hprList = ((-159, 0, 0), (172, 0, 0), (-21, 0, 0))
+        kartPos = ((154.762, 37.169, 0), (141.403, -81.887, 0), (-48.44, 15.308, 0))
+        hprList = ((110.815, 0, 0), (61.231, 0, 0), (-105.481, 0, 0))
 
         mins = ToontownGlobals.FactoryLaffMinimums[3]
         for i in range(3):

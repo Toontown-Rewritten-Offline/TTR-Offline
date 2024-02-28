@@ -10,7 +10,7 @@ except ImportError:
 
     class uint16array(object):
         def __init__(self, size, initial=None):
-            if initial == None:
+            if initial is None:
                 self.__array = bytearray(size * 2)
             else:
                 self.__array = bytearray(initial for x in range(size * 2))
@@ -27,7 +27,7 @@ else:
 
     def uint16array(size, initial=None):
         array = (ctypes.c_uint16 * size)()
-        if initial != None:
+        if initial is not None:
             ctypes.memset(array, initial, ctypes.sizeof(array))
         return array
 

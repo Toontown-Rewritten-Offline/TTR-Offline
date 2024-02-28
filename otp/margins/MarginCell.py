@@ -12,7 +12,7 @@ class MarginCell(NodePath):
         self.debugSquare = None
         self.debugMode = False
 
-        self.setDebug(config.ConfigVariableBool('want-cell-debug', False).getValue())
+        self.setDebug(config.GetBool('want-cell-debug', False))
 
     def setAvailable(self, available):
         if not available and self.hasContent():

@@ -38,7 +38,7 @@ class CogdoGameGatherable(NodePath, DirectObject):
     def destroy(self):
         self.disable()
         del self._model
-        if self._animSeq != None:
+        if self._animSeq is not None:
             self._animSeq.finish()
             self._animSeq = None
         self.collNodePath.removeNode()
@@ -79,7 +79,7 @@ class CogdoGameGatherable(NodePath, DirectObject):
 
     def pickUp(self, toon, elapsedSeconds = 0.0):
         self._wasPickedUp = True
-        if self._animSeq != None:
+        if self._animSeq is not None:
             self._animSeq.finish()
             self._animSeq = None
         if self._animate:
@@ -101,7 +101,7 @@ class CogdoMemo(CogdoGameGatherable):
     EnterEventName = 'CogdoMemo_Enter'
 
     def __init__(self, serialNum, model = None, pitch = 0, triggerRadius = 1.0, spinRate = 60):
-        if model == None:
+        if model is None:
             node = CogdoUtil.loadModel('memo', 'shared')
             model = node.find('**/memo')
             model.detachNode()

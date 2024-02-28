@@ -9,7 +9,7 @@ class SCColorScheme:
             return yuv2rgb(y * s, u, v)
 
         def scaleIfNone(color, srcColor, s):
-            if color != None:
+            if color is not None:
                 return color
             else:
                 return scaleColor(srcColor, s)
@@ -18,7 +18,7 @@ class SCColorScheme:
         self.__arrowColor = arrowColor
         self.__rolloverColor = rolloverColor
         self.__frameColor = frameColor
-        if self.__frameColor == None:
+        if self.__frameColor is None:
             h, s, v = rgb2hsv(*arrowColor)
             self.__frameColor = hsv2rgb(h, 0.2 * s, v)
         h, s, v = rgb2hsv(*self.__frameColor)
@@ -26,7 +26,7 @@ class SCColorScheme:
         self.__pressedColor = scaleIfNone(pressedColor, self.__rolloverColor, 0.92)
         self.__menuHolderActiveColor = scaleIfNone(menuHolderActiveColor, self.__rolloverColor, 0.84)
         self.__emoteIconColor = emoteIconColor
-        if self.__emoteIconColor == None:
+        if self.__emoteIconColor is None:
             h, s, v = rgb2hsv(*self.__rolloverColor)
             self.__emoteIconColor = hsv2rgb(h, 1.0, 0.8 * v)
         self.__emoteIconDisabledColor = emoteIconDisabledColor
@@ -70,7 +70,7 @@ class SCColorScheme:
         result = ''
         for member in members:
             result += '%s = %s' % (member, self.__dict__['_%s__%s' % (self.__class__.__name__, member)])
-            if member != members[-1]:
+            if member is not members[-1]:
                 result += '\n'
 
         return result

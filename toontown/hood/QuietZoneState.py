@@ -56,7 +56,7 @@ class QuietZoneState(StateData.StateData):
         newQ = []
         for item in self.__class__.Queue:
             state, requestStatus = item
-            if state != self:
+            if state is not self:
                 newQ.append(item)
 
         self.__class__.Queue = newQ
@@ -112,7 +112,7 @@ class QuietZoneState(StateData.StateData):
             return token
 
     def removeLeftQuietZoneCallback(self, token):
-        if token != None:
+        if token is not None:
             lc = self._leftQuietZoneLocalCallbacks.pop(token, None)
             if lc:
                 lc.cleanup()
@@ -130,7 +130,7 @@ class QuietZoneState(StateData.StateData):
             return token
 
     def removeSetZoneCompleteCallback(self, token):
-        if token != None:
+        if token is not None:
             lc = self._setZoneCompleteLocalCallbacks.pop(token, None)
             if lc:
                 lc.cleanup()

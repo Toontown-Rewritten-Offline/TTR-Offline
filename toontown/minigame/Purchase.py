@@ -637,10 +637,10 @@ class Purchase(PurchaseBase):
             base.cr.loginFSM.request('periodTimeout')
             return
         if not self.tutorialMode:
-            if not config.ConfigVariableBool('disable-purchase-timer', 0).getValue():
+            if not config.GetBool('disable-purchase-timer', 0):
                 self.timer.show()
                 self.timer.countdown(self.remain, self.__timerExpired)
-            if config.ConfigVariableBool('metagame-disable-playAgain', 0).getValue():
+            if config.GetBool('metagame-disable-playAgain', 0):
                 if self.metagameRound > -1:
                     self.disablePlayAgain()
         else:

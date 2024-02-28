@@ -17,7 +17,7 @@ class DistributedNPCClerkAI(DistributedNPCToonBaseAI):
         avId = self.air.getAvatarIdFromSender()
         DistributedNPCToonBaseAI.avatarEnter(self)
         av = self.air.doId2do.get(avId)
-        if av == None:
+        if av is None:
             self.notify.warning('toon isnt there! toon: %s' % avId)
             return
         self.acceptOnce(self.air.getAvatarExitEvent(avId), self.__handleUnexpectedExit, extraArgs=[avId])

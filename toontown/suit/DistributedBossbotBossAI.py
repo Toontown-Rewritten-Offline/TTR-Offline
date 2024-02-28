@@ -59,8 +59,8 @@ class DistributedBossbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FS
         self.toonupsGranted = []
         self.doneOvertimeOneAttack = False
         self.doneOvertimeTwoAttack = False
-        self.overtimeOneTime = simbase.air.config.ConfigVariableInt('overtime-one-time', 1200).getValue()
-        self.battleFourDuration = simbase.air.config.ConfigVariableInt('battle-four-duration', 1800).getValue()
+        self.overtimeOneTime = simbase.air.config.GetInt('overtime-one-time', 1200)
+        self.battleFourDuration = simbase.air.config.GetInt('battle-four-duration', 1800)
         self.overtimeOneStart = float(self.overtimeOneTime) / self.battleFourDuration
         self.moveAttackAllowed = True
 
@@ -94,7 +94,7 @@ class DistributedBossbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FS
         if battleNumber == 1:
             weakenedValue = ((1, 1), (2, 2), (2, 2), (1, 1), (1, 1, 1, 1, 1))
             listVersion = list(SuitBuildingGlobals.SuitBuildingInfo)
-            if config.ConfigVariableBool('bossbot-boss-cheat', False).getValue():
+            if config.GetBool('bossbot-boss-cheat', False):
                 listVersion[14] = weakenedValue
                 SuitBuildingGlobals.SuitBuildingInfo = tuple(listVersion)
             retval = self.invokeSuitPlanner(14, 0)
@@ -328,7 +328,7 @@ class DistributedBossbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FS
     def generateDinerSuits(self):
         diners = []
         for i in range(len(self.notDeadList)):
-            if config.ConfigVariableBool('bossbot-boss-cheat', False).getValue():
+            if config.GetBool('bossbot-boss-cheat', False):
                 suit = self.__genSuitObject(self.zoneId, 2, 'c', 2, 0)
             else:
                 info = self.notDeadList[i]
@@ -339,7 +339,7 @@ class DistributedBossbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FS
 
         active = []
         for i in range(2):
-            if config.ConfigVariableBool('bossbot-boss-cheat', False).getValue():
+            if config.GetBool('bossbot-boss-cheat', False):
                 suit = self.__genSuitObject(self.zoneId, 2, 'c', 2, 0)
             else:
                 suitType = 8
@@ -470,7 +470,7 @@ class DistributedBossbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FS
             return
         bossDamage *= 2
         bossDamage = min(self.getBossDamage() + bossDamage, self.bossMaxDamage)
-        if config.ConfigVariableBool('bossbot-boss-cheat', False).getValue():
+        if config.GetBool('bossbot-boss-cheat', False):
             bossDamage = bossDamage + 250
         self.b_setBossDamage(bossDamage, 0, 0)
         if self.bossDamage >= self.bossMaxDamage:
@@ -682,7 +682,7 @@ class DistributedBossbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FS
                 self.b_setAttackCode(ToontownGlobals.BossCogGolfAttack, toonId)
                 self.numGolfAttacks += 1
             elif self.isToonOnTable(toonId):
-                doesMoveAttack = simbase.air.config.ConfigVariableBool('ceo-does-move-attack', 1).getValue()
+                doesMoveAttack = simbase.air.config.GetBool('ceo-does-move-attack', 1)
                 if doesMoveAttack:
                     chanceToShoot = 0.25
                 else:

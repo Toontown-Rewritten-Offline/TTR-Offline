@@ -39,7 +39,7 @@ class DNALandmarkBuilding(DNANode):
 
     def _makeNode(self, storage, parent):
         node = storage.findNode(self.code)
-        if node == None:
+        if node is None:
             #TODO: dna logging
             #raise DNAError('DNALandmarkBuilding uses unknown code %s' % self.code)
             pass

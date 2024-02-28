@@ -204,8 +204,7 @@ Splats = {'tart': (0.3, FruitpieColor),
  'creampie-slice': (0.5, CreampieColor),
  'fruitpie': (0.7, FruitpieColor),
  'creampie': (0.7, CreampieColor),
- 'birthday-cake': (0.9, BirthdayCakeColor),
- 'wedding-cake': (0.9, BirthdayCakeColor)}
+ 'birthday-cake': (0.9, BirthdayCakeColor)}
 Variants = ('tart',
  'fruitpie',
  'splat-tart',
@@ -217,7 +216,6 @@ Variants = ('tart',
  'splat-fruitpie',
  'splat-creampie',
  'splat-birthday-cake',
- 'splat-wedding-cake',
  'splash-from-splat',
  'clip-on-tie',
  'lips',
@@ -240,7 +238,7 @@ class PropPool:
         self.propCache = []
         self.propStrings = {}
         self.propTypes = {}
-        self.maxPoolSize = config.ConfigVariableInt('prop-pool-size', 8).getValue()
+        self.maxPoolSize = config.GetInt('prop-pool-size', 8)
         for p in Props:
             phase = p[0]
             propName = p[1]
@@ -397,7 +395,7 @@ class PropPool:
         if self.propTypes[name] == 'actor':
             if name not in self.props:
                 prop = Actor.Actor()
-                prop.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+                prop.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
                 prop.loadModel(self.propStrings[name][0])
                 animDict = {}
                 animDict[name] = self.propStrings[name][1]

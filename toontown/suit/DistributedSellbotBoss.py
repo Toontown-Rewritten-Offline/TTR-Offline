@@ -120,7 +120,7 @@ class DistributedSellbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         self.loadEnvironment()
         self.__makeCagedToon()
         self.__loadMopaths()
-        if OneBossCog != None:
+        if OneBossCog is not None:
             self.notify.warning('Multiple BossCogs visible.')
         OneBossCog = self
 
@@ -1158,7 +1158,7 @@ class DistributedSellbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         taskMgr.remove(self.uniqueName('PieAdvice'))
 
     def __pieSplat(self, toon, pieCode):
-        if base.config.ConfigVariableBool('easy-vp', 0).getValue():
+        if base.config.GetBool('easy-vp', 0):
             if not self.dizzy:
                 pieCode = ToontownGlobals.PieCodeBossInsides
         if pieCode == ToontownGlobals.PieCodeBossInsides:

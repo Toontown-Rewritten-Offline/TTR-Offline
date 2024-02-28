@@ -20,7 +20,7 @@ class LoadHouseFSM(FSM):
 
     def start(self):
         # We have a few different cases here:
-        if self.toon == None:
+        if self.toon is None:
             # Case #1: There isn't a Toon in that estate slot. Make a blank house.
 
             # Because this state completes so fast, we'll use taskMgr to delay
@@ -298,7 +298,7 @@ class EstateManagerAI(DistributedObjectAI):
             self._mapToEstate(toon, toon.estate)
             self.sendUpdateToAvatarId(senderId, 'setEstateZone', [senderId, estate.zoneId])
 
-            # If a timeout == active, cancel it:
+            # If a timeout is active, cancel it:
             if estate in self.estate2timeout:
                 self.estate2timeout[estate].remove()
                 del self.estate2timeout[estate]

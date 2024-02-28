@@ -205,7 +205,7 @@ class SuitLeg:
 
     def getBlockNumber(self):
         block = self.pointB.getLandmarkBuildingIndex()
-        if block != None:
+        if block is not None:
             return block
         else:
             return self.pointA.getLandmarkBuildingIndex()

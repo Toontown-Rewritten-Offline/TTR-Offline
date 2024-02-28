@@ -28,7 +28,7 @@ class DNATypesetter:
             tn = TextNode('text')
             tn.setText(text)
             font = self.dnaStorage.findFont(self.baseline.code)
-            if font == None:
+            if font is None:
                 font = TextProperties.getDefaultFont()
             tn.setFont(font)
 
@@ -65,7 +65,7 @@ class DNATypesetter:
             np.removeNode()
         root.flattenStrong()
 
-        # If and only if there == any text, we should have exactly one child:
+        # If and only if there is any text, we should have exactly one child:
         if root.getNumChildren():
             return root.getChild(0)
         else:

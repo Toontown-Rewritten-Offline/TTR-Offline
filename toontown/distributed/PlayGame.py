@@ -249,7 +249,7 @@ class PlayGame(StateData.StateData):
         loaderName = requestStatus['loader']
         avId = requestStatus.get('avId', -1)
         ownerId = requestStatus.get('ownerId', avId)
-        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+        if config.GetBool('want-qa-regression', 0):
             self.notify.info('QA-REGRESSION: NEIGHBORHOODS: Visit %s' % hoodName)
         count = ToontownGlobals.hoodCountMap[canonicalHoodId]
         if loaderName == 'safeZoneLoader':
@@ -420,7 +420,7 @@ class PlayGame(StateData.StateData):
         base.localAvatar.chatMgr.obscure(1, 1)
         base.localAvatar.obscureFriendsListButton(1)
         requestStatus['how'] = 'tutorial'
-        if config.ConfigVariableString('language', 'english').getValue() == 'japanese':
+        if config.GetString('language', 'english') == 'japanese':
             musicVolume = config.GetFloat('tutorial-music-volume', 0.5)
             requestStatus['musicVolume'] = musicVolume
         self.hood.enter(requestStatus)

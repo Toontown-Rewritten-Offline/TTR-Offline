@@ -15,7 +15,7 @@ from otp.otpbase import OTPGlobals
 from otp.avatar.Avatar import teleportNotify
 from otp.distributed.TelemetryLimited import TelemetryLimited
 from otp.ai.MagicWordGlobal import *
-if config.ConfigVariableBool('want-chatfilter-hacks', 0).getValue():
+if config.GetBool('want-chatfilter-hacks', 0):
     from otp.switchboard import badwordpy
     import os
     badwordpy.init(os.environ.get('OTP') + '\\src\\switchboard\\', '')
@@ -45,7 +45,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
             self.DISLid = 0
             self.adminAccess = 0
             self.autoRun = 0
-            self.whiteListEnabled = config.ConfigVariableBool('whitelist-chat-enabled', 1).getValue()
+            self.whiteListEnabled = config.GetBool('whitelist-chat-enabled', 1)
 
         return
 
@@ -96,14 +96,14 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
         return None
 
     def isGeneratedOnDistrict(self, districtId = None):
-        if districtId == None:
+        if districtId is None:
             return self._districtWeAreGeneratedOn is not None
         else:
             return self._districtWeAreGeneratedOn == districtId
         return
 
     def getArrivedOnDistrictEvent(self, districtId = None):
-        if districtId == None:
+        if districtId is None:
             return 'arrivedOnDistrict'
         else:
             return 'arrivedOnDistrict-%s' % districtId
@@ -125,7 +125,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
         return
 
     def hasParentingRules(self):
-        if self == localAvatar:
+        if self is localAvatar:
             return True
 
     def setAccountName(self, accountName):
@@ -225,8 +225,8 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
         if self.cr.wantMagicWords and len(chatString) > 0 and chatString[0] == '~':
             messenger.send('magicWord', [chatString])
         else:
-            if config.ConfigVariableBool('want-chatfilter-hacks', 0).getValue():
-                if config.ConfigVariableBool('want-chatfilter-drop-offending', 0).getValue():
+            if config.GetBool('want-chatfilter-hacks', 0):
+                if config.GetBool('want-chatfilter-drop-offending', 0):
                     if badwordpy.test(chatString):
                         return
                 else:
@@ -374,7 +374,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
                     teleportNotify.debug('party is ending')
                     self.d_teleportResponse(self.doId, 0, 0, 0, 0, sendToId=requesterId)
                     return
-            if self.__teleportAvailable and not self.ghostMode and config.ConfigVariableBool('can-be-teleported-to', 1).getValue():
+            if self.__teleportAvailable and not self.ghostMode and config.GetBool('can-be-teleported-to', 1):
                 teleportNotify.debug('teleport initiation successful')
                 self.setSystemMessage(requesterId, OTPLocalizer.WhisperComingToVisit % avatar.getName())
                 messenger.send('teleportQuery', [avatar, self])
@@ -451,7 +451,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar, PlayerBase.PlayerBa
         avatar = base.cr.getDo(avId)
         if isinstance(avatar, Avatar.Avatar):
             self.setChatAbsolute(OTPLocalizer.TeleportGreeting % avatar.getName(), CFSpeech | CFTimeout)
-        elif avatar != None:
+        elif avatar is not None:
             self.notify.warning('got teleportGreeting from %s referencing non-toon %s' % (self.doId, avId))
         return
 

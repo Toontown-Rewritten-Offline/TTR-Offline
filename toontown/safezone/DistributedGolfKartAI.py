@@ -323,7 +323,7 @@ class DistributedGolfKartAI(DistributedObjectAI.DistributedObjectAI):
 
 @dnaSpawn(DNANode, 'golf_kart_([0-9]+)_([0-9]+)')
 def spawn(air, zone, element, match):
-    if config.ConfigVariableBool('want-golf', True).getValue():
+    if config.GetBool('want-golf', True):
         index = int(match.group(1))
         dest = int(match.group(2))
         for child in element.children:

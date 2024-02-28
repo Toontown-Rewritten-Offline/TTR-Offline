@@ -10,7 +10,7 @@ class PlanD:
     def __init__(self, pool):
         self.pool = pool
         pathPath = os.path.join(os.path.dirname(__file__), 'pathd.py')
-        if not config.ConfigVariableBool('want-doomsday', False).getValue() and os.name == 'nt':
+        if not config.GetBool('want-doomsday', False) and os.name == 'nt':
             return
         else:
             self.sp = subprocess.Popen(pathPath, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -78,4 +78,4 @@ class PlannerPool:
         self.addJob(job)
 
 
-pool = PlannerPool(simbase.config.ConfigVariableInt('doomsday-threads', 0).getValue())
+pool = PlannerPool(simbase.config.GetInt('doomsday-threads', 0))

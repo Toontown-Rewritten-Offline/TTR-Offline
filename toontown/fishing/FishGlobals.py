@@ -672,7 +672,7 @@ def getRandomFishVitals(zoneId, rodId, rNumGen = None):
     rarityDict = rodDict.get(rodId)
     fishList = rarityDict.get(rarity)
     if fishList:
-        if rNumGen == None:
+        if rNumGen is None:
             genus, species = random.choice(fishList)
         else:
             genus, species = rNumGen.choice(fishList)

@@ -76,16 +76,16 @@ class FireworkEffect(NodePath):
 
     def getTrailEffectsIval(self):
         if not self.trailEffectsIval:
-            if self.trailTypeId == None:
+            if self.trailTypeId is None:
                 self.effectNode.setPos(self.velocity)
                 self.trailEffectsIval = Wait(self.burstDelay)
                 return self.trailEffectsIval
             self.trailEffectsIval = Parallel()
             self.trailEffectsIval.append(ProjectileInterval(self.effectsNode, startVel=self.velocity, duration=self.burstDelay, gravityMult=self.gravityMult))
-            if self.trailTypeId == None:
+            if self.trailTypeId is None:
                 return self.trailEffectsIval
             self.trailEffectsIval.append(Func(random.choice(self.trailSfx).play))
-            if config.ConfigVariableInt('toontown-sfx-setting', 1).getValue() == 0:
+            if config.GetInt('toontown-sfx-setting', 1) == 0:
                 if self.trailTypeId != FireworkTrailType.LongGlowSparkle:
                     self.trailTypeId = FireworkTrailType.Default
             if self.trailTypeId == FireworkTrailType.Default:
@@ -151,7 +151,7 @@ class FireworkEffect(NodePath):
                     trailEffect.setLifespan(3.5)
                     self.trailEffects.append(trailEffect)
                     self.trailEffectsIval.append(Func(trailEffect.startLoop))
-                if config.ConfigVariableInt('toontown-sfx-setting', 1).getValue() >= 1:
+                if config.GetInt('toontown-sfx-setting', 1) >= 1:
                     trailEffect = GlowTrail.getEffect()
                     if trailEffect:
                         trailEffect.reparentTo(self.effectsNode)
@@ -165,7 +165,7 @@ class FireworkEffect(NodePath):
     def getBurstEffectsIval(self):
         if not self.burstEffectsIval:
             self.burstEffectsIval = Parallel()
-            if self.burstTypeId == None:
+            if self.burstTypeId is None:
                 return self.burstEffectsIval
             self.burstEffectsIval.append(Wait(0.5))
             self.burstEffectsIval.append(Func(random.choice(self.burstSfx).play))
@@ -183,7 +183,7 @@ class FireworkEffect(NodePath):
             primaryBlast.fadeTime = 0.75
             self.burstEffectsIval.append(primaryBlast.getTrack())
             self.burstEffects.append(primaryBlast)
-            if config.ConfigVariableInt('toontown-sfx-setting', 1).getValue() >= 1:
+            if config.GetInt('toontown-sfx-setting', 1) >= 1:
                 secondaryBlast = BlastEffect()
                 secondaryBlast.reparentTo(self.effectsNode)
                 secondaryBlast.setScale(250 * self.scale)
@@ -209,14 +209,14 @@ class FireworkEffect(NodePath):
                     explosion.startDelay = 0.0
                     self.burstEffectsIval.append(explosion.getTrack())
                     self.burstEffects.append(explosion)
-                if config.ConfigVariableInt('toontown-sfx-setting', 1).getValue() >= 1:
+                if config.GetInt('toontown-sfx-setting', 1) >= 1:
                     rays = RayBurst()
                     rays.reparentTo(self.effectsNode)
                     rays.setEffectScale(self.scale)
                     rays.setEffectColor(self.primaryColor)
                     self.burstEffectsIval.append(rays.getTrack())
                     self.burstEffects.append(rays)
-                if config.ConfigVariableInt('toontown-sfx-setting', 1).getValue() >= 2:
+                if config.GetInt('toontown-sfx-setting', 1) >= 2:
                     sparkles = FireworkSparkles.getEffect()
                     if sparkles:
                         sparkles.reparentTo(self.effectsNode)
@@ -225,7 +225,7 @@ class FireworkEffect(NodePath):
                         sparkles.startDelay = 0.0
                         self.burstEffectsIval.append(sparkles.getTrack())
                         self.burstEffects.append(sparkles)
-                if config.ConfigVariableInt('toontown-sfx-setting', 1).getValue() >= 1:
+                if config.GetInt('toontown-sfx-setting', 1) >= 1:
                     explosion = PeonyEffect.getEffect()
                     if explosion:
                         explosion.reparentTo(self.effectsNode)
@@ -243,7 +243,7 @@ class FireworkEffect(NodePath):
                     explosion.setEffectColor(self.primaryColor)
                     self.burstEffectsIval.append(explosion.getTrack())
                     self.burstEffects.append(explosion)
-                if config.ConfigVariableInt('toontown-sfx-setting', 1).getValue() >= 1:
+                if config.GetInt('toontown-sfx-setting', 1) >= 1:
                     rays = RayBurst()
                     rays.reparentTo(self.effectsNode)
                     rays.setEffectScale(self.scale * 0.75)
@@ -258,7 +258,7 @@ class FireworkEffect(NodePath):
                     explosion.setEffectColor(self.primaryColor)
                     self.burstEffectsIval.append(explosion.getTrack())
                     self.burstEffects.append(explosion)
-                if config.ConfigVariableInt('toontown-sfx-setting', 1).getValue() >= 1:
+                if config.GetInt('toontown-sfx-setting', 1) >= 1:
                     rays = RayBurst()
                     rays.reparentTo(self.effectsNode)
                     rays.setEffectScale(self.scale)
@@ -280,7 +280,7 @@ class FireworkEffect(NodePath):
                 explosion.setEffectColor(self.primaryColor)
                 self.burstEffectsIval.append(explosion.getTrack())
                 self.burstEffects.append(explosion)
-                if config.ConfigVariableInt('toontown-sfx-setting', 1).getValue() >= 2:
+                if config.GetInt('toontown-sfx-setting', 1) >= 2:
                     sparkles = FireworkSparkles.getEffect()
                     if sparkles:
                         sparkles.reparentTo(self.effectsNode)
@@ -336,7 +336,7 @@ class FireworkEffect(NodePath):
                     explosion.setEffectColor(self.primaryColor)
                     self.burstEffectsIval.append(Sequence(Wait(0.1), explosion.getTrack()))
                     self.burstEffects.append(explosion)
-                if config.ConfigVariableInt('toontown-sfx-setting', 1).getValue() >= 1:
+                if config.GetInt('toontown-sfx-setting', 1) >= 1:
                     rays = RayBurst()
                     rays.reparentTo(self.effectsNode)
                     rays.setEffectScale(self.scale)
@@ -360,14 +360,14 @@ class FireworkEffect(NodePath):
                     skullFlash.startDelay = 0.08
                     self.burstEffectsIval.append(skullFlash.getTrack())
                     self.burstEffects.append(skullFlash)
-                if config.ConfigVariableInt('toontown-sfx-setting', 1).getValue() >= 1:
+                if config.GetInt('toontown-sfx-setting', 1) >= 1:
                     rays = RayBurst()
                     rays.reparentTo(self.effectsNode)
                     rays.setEffectScale(self.scale)
                     rays.setEffectColor(self.primaryColor)
                     self.burstEffectsIval.append(rays.getTrack())
                     self.burstEffects.append(rays)
-                if config.ConfigVariableInt('toontown-sfx-setting', 1).getValue() >= 2:
+                if config.GetInt('toontown-sfx-setting', 1) >= 2:
                     sparkles = FireworkSparkles.getEffect()
                     if sparkles:
                         sparkles.reparentTo(self.effectsNode)
@@ -383,7 +383,7 @@ class FireworkEffect(NodePath):
                     explosion.reparentTo(self.effectsNode)
                     explosion.setEffectScale(self.scale)
                     explosion.setEffectColor(self.primaryColor)
-                    explosion.numTrails = 3 + config.ConfigVariableInt('toontown-sfx-setting', 1).getValue()
+                    explosion.numTrails = 3 + config.GetInt('toontown-sfx-setting', 1)
                     self.burstEffectsIval.append(explosion.getTrack())
                     self.burstEffects.append(explosion)
             elif self.burstTypeId == FireworkBurstType.IceCream:

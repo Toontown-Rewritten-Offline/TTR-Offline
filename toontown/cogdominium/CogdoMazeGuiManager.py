@@ -15,7 +15,7 @@ class CogdoMazeGuiManager:
         self.root = NodePath('CogdoMazeGui')
         self.root.reparentTo(aspect2d)
         self.mazeMapGui = CogdoMazeMapGui(self.maze.collisionTable)
-        if bossCode != None:
+        if bossCode is not None:
             self._bossGui = CogdoMazeBossGui(bossCode)
         else:
             self._bossGui = None
@@ -44,7 +44,7 @@ class CogdoMazeGuiManager:
         self._hud = None
         self._memoGui.destroy()
         self._memoGui = None
-        if self._bossGui != None:
+        if self._bossGui is not None:
             self._bossGui.destroy()
             self._bossGui = None
         self.messageDisplay.destroy()
@@ -60,13 +60,13 @@ class CogdoMazeGuiManager:
         return
 
     def destroyMazeMap(self):
-        if hasattr(self, 'mazeMapGui') and self.mazeMapGui != None:
+        if hasattr(self, 'mazeMapGui') and self.mazeMapGui is not None:
             self.mazeMapGui.destroy()
             del self.mazeMapGui
         return
 
     def destroyTimer(self):
-        if self._timer != None:
+        if self._timer is not None:
             self._timer.stop()
             self._timer.destroy()
             self._timer = None
@@ -82,12 +82,12 @@ class CogdoMazeGuiManager:
         self.mazeMapGui.hide()
 
     def showBossGui(self):
-        if self._bossGui != None:
+        if self._bossGui is not None:
             self._bossGui.show()
         return
 
     def hideBossGui(self):
-        if self._bossGui != None:
+        if self._bossGui is not None:
             self._bossGui.hide()
         return
 
@@ -98,7 +98,7 @@ class CogdoMazeGuiManager:
         self.mazeMapGui.hideLock(lockIndex)
 
     def showTimer(self, duration, timerExpiredCallback = None):
-        if self._timer == None:
+        if self._timer is None:
             self._initTimer()
         self._timer.setTime(duration)
         self._timer.countdown(duration, timerExpiredCallback)
@@ -106,7 +106,7 @@ class CogdoMazeGuiManager:
         return
 
     def hideTimer(self):
-        if hasattr(self, 'timer') and self._timer != None:
+        if hasattr(self, 'timer') and self._timer is not None:
             self._timer.hide()
             self._timer.stop()
         return

@@ -354,14 +354,14 @@ class CogdoFlyingLegalEagle(DirectObject):
         self.request('next')
 
     def setCollSphereToNest(self):
-        if hasattr(self, 'collSphere') and self.collSphere != None:
+        if hasattr(self, 'collSphere') and self.collSphere is not None:
             radius = Globals.LegalEagle.OnNestDamageSphereRadius
             self.collSphere.setCenter(Point3(0.0, -Globals.Level.LaffPowerupNestOffset[1], self.suit.getHeight() / 2.0))
             self.collSphere.setRadius(radius)
         return
 
     def setCollSphereToTargeting(self):
-        if hasattr(self, 'collSphere') and self.collSphere != None:
+        if hasattr(self, 'collSphere') and self.collSphere is not None:
             radius = Globals.LegalEagle.DamageSphereRadius
             self.collSphere.setCenter(Point3(0, 0, radius * 2))
             self.collSphere.setRadius(radius)

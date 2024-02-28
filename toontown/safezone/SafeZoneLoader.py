@@ -229,7 +229,7 @@ class SafeZoneLoader(StateData.StateData):
                 classObj = getattr(symbols[className], className)
                 interactivePropObj = classObj(interactivePropNode)
                 animPropList = self.animPropDict.get(i)
-                if animPropList == None:
+                if animPropList is None:
                     animPropList = self.animPropDict.setdefault(i, [])
                 animPropList.append(interactivePropObj)
 

@@ -64,7 +64,7 @@ class DNADoor(DNANode):
             frontNode = frontNode.find('**/+GeomNode')
         frontNode.setEffect(DecalEffect.make())
         node = storage.findNode(self.code)
-        if node == None:
+        if node is None:
             #raise DNAError('DNADoor code ' + self.code + ' not found in DNAStorage')
             #TODO: error message here
             pass

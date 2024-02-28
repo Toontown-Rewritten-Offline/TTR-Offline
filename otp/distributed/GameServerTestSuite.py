@@ -121,7 +121,7 @@ class GameServerTestSuite(DirectObject.DirectObject, TaskThreaded.TaskThreaded):
 
             def run(self):
                 testObj = self.parent.cr.doFind('DistributedTestObject')
-                if testObj != None:
+                if testObj is not None:
                     self.finished()
                 return
 

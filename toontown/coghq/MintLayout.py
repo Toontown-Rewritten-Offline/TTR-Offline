@@ -751,7 +751,7 @@ class MintLayout:
             rng.shuffle(allBattleRoomIds)
             battleRoomIds = self._chooseBattleRooms(numBattlesLeft,
                                                     allBattleRoomIds)
-            if battleRoomIds != None:
+            if battleRoomIds is not None:
                 break
 
             MintLayout.notify.info('could not find a valid set of battle rooms, trying again')
@@ -816,7 +816,7 @@ class MintLayout:
         return random.Random(self.mintId * self.floorNum)
 
     def _chooseBattleRooms(self, numBattlesLeft, allBattleRoomIds, baseIndex = 0, chosenBattleRooms = None):
-        if chosenBattleRooms == None:
+        if chosenBattleRooms is None:
             chosenBattleRooms = []
         while baseIndex < len(allBattleRoomIds):
             nextRoomId = allBattleRoomIds[baseIndex]
@@ -829,7 +829,7 @@ class MintLayout:
                 return chosenBattleRooms
             chosenBattleRooms.append(nextRoomId)
             result = self._chooseBattleRooms(newNumBattlesLeft, allBattleRoomIds, baseIndex, chosenBattleRooms)
-            if result != None:
+            if result is not None:
                 return result
             else:
                 del chosenBattleRooms[-1:]

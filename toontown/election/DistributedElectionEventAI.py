@@ -38,14 +38,14 @@ class DistributedElectionEventAI(DistributedObjectAI, FSM):
         self.requestDelete()
 
     def enterIdle(self):
-        if self.balloon == None:
+        if self.balloon is None:
             self.balloon = DistributedHotAirBalloonAI(self.air)
             self.balloon.generateWithRequired(self.zoneId)
-        if config.ConfigVariableBool('want-doomsday', False).getValue():
+        if config.GetBool('want-doomsday', False):
             self.balloon.b_setState('ElectionIdle')
-        #    if not hasattr(simbase.air, 'cameraManager'):
-        #        camMgr = DistributedElectionCameraManagerAI(simbase.air)
-        #        camMgr.spawnManager()
+            if not hasattr(simbase.air, 'cameraManager'):
+                camMgr = DistributedElectionCameraManagerAI(simbase.air)
+                camMgr.spawnManager()
         else:
             self.balloon.b_setState('Waiting')
         return
@@ -89,10 +89,10 @@ class DistributedElectionEventAI(DistributedObjectAI, FSM):
 
     def enterEvent(self):
         event = simbase.air.doFind('ElectionEvent')
-        if event == None:
+        if event is None:
             event = DistributedElectionEventAI(simbase.air)
             event.generateWithRequired(2000)
-        if self.balloon == None:
+        if self.balloon is None:
             self.balloon = DistributedHotAirBalloonAI(self.air)
             self.balloon.generateWithRequired(self.zoneId)
         self.eventSequence = Sequence(Func(event.b_setState, 'PreShow'), Wait(34), Func(event.b_setState, 'Begin'), Wait(10), Func(event.b_setState, 'AlecSpeech'), Wait(128), Func(event.b_setState, 'VoteBuildup'), Wait(44), Func(event.b_setState, 'WinnerAnnounce'), Wait(12), Func(event.b_setState, 'CogLanding'), Wait(117), Func(event.b_setState, 'Invasion'))
@@ -142,7 +142,7 @@ class DistributedElectionEventAI(DistributedObjectAI, FSM):
 
     def spawnInvasion(self):
         invasion = simbase.air.doFind('SafezoneInvasion')
-        if invasion == None:
+        if invasion is None:
             invasion = DistributedSafezoneInvasionAI(simbase.air, self)
             invasion.generateWithRequired(2000)
         return
@@ -196,7 +196,7 @@ def election(state):
     if not hasattr(event, 'enter' + state):
         return 'Invalid state'
     else:
-        if not config.ConfigVariableBool('want-doomsday', False).getValue():
+        if not config.GetBool('want-doomsday', False):
             if not state == 'Idle':
                 return 'These states will crash the game when Elections are disabled!'
         event.b_setState(state)

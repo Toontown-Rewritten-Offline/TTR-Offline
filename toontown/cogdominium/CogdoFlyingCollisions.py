@@ -25,7 +25,7 @@ class CogdoFlyingCollisions(GravityWalker):
         cSphereNodePath = self.avatarNodePath.attachNewNode(cSphereNode)
         cSphereNode.setFromCollideMask(bitmask)
         cSphereNode.setIntoCollideMask(BitMask32.allOff())
-        if config.ConfigVariableBool('want-fluid-pusher', 0).getValue():
+        if config.GetBool('want-fluid-pusher', 0):
             self.pusher = CollisionHandlerFluidPusher()
         else:
             self.pusher = CollisionHandlerPusher()

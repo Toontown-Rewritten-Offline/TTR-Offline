@@ -91,7 +91,7 @@ class MakeAToon(StateData.StateData):
 
     def enter(self):
         self.notify.debug('Starting Make A Toon.')
-        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+        if config.GetBool('want-qa-regression', 0):
             self.notify.info('QA-REGRESSION: MAKEATOON: Starting Make A Toon')
         base.cr.centralLogger.writeClientEvent('MAT - startingMakeAToon')
         base.camLens.setFov(ToontownGlobals.MakeAToonCameraFov)
@@ -185,26 +185,26 @@ class MakeAToon(StateData.StateData):
         self.roomDropActor.loadModel('phase_3/models/makeatoon/roomAnim_model')
         self.roomDropActor.loadAnims({'drop': 'phase_3/models/makeatoon/roomAnim_roomDrop'})
         self.roomDropActor.reparentTo(render)
-        self.roomDropActor.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+        self.roomDropActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.dropJoint = self.roomDropActor.find('**/droppingJoint')
         self.roomSquishActor = Actor()
         self.roomSquishActor.loadModel('phase_3/models/makeatoon/roomAnim_model')
         self.roomSquishActor.loadAnims({'squish': 'phase_3/models/makeatoon/roomAnim_roomSquish'})
         self.roomSquishActor.reparentTo(render)
-        self.roomSquishActor.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+        self.roomSquishActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.squishJoint = self.roomSquishActor.find('**/scalingJoint')
         self.propSquishActor = Actor()
         self.propSquishActor.loadModel('phase_3/models/makeatoon/roomAnim_model')
         self.propSquishActor.loadAnims({'propSquish': 'phase_3/models/makeatoon/roomAnim_propSquish'})
         self.propSquishActor.reparentTo(render)
         self.propSquishActor.pose('propSquish', 0)
-        self.propSquishActor.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+        self.propSquishActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.propJoint = self.propSquishActor.find('**/propJoint')
         self.spotlightActor = Actor()
         self.spotlightActor.loadModel('phase_3/models/makeatoon/roomAnim_model')
         self.spotlightActor.loadAnims({'spotlightShake': 'phase_3/models/makeatoon/roomAnim_spotlightShake'})
         self.spotlightActor.reparentTo(render)
-        self.spotlightActor.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+        self.spotlightActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.spotlightJoint = self.spotlightActor.find('**/spotlightJoint')
         ee = DirectFrame(pos=(-1, 1, 1), frameSize=(-.01, 0.01, -.01, 0.01), frameColor=(0, 0, 0, 0.05), state='normal')
         ee.bind(DGG.B1PRESS, lambda x, ee = ee: self.toggleSlide())
@@ -602,7 +602,7 @@ class MakeAToon(StateData.StateData):
         self.ns.rejectName(TTLocalizer.RejectNameText)
 
     def __handleNameShopDone(self):
-        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+        if config.GetBool('want-qa-regression', 0):
             self.notify.info('QA-REGRESSION: MAKEATOON: Creating A Toon')
         self.guiLastButton.hide()
         self.guiCheckButton.hide()

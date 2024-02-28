@@ -41,9 +41,9 @@ class DNAStorage:
     def reset(self, type=None, scope=None):
         toPurge = set()
         for entry in self._typecode2entry.values():
-            if type != None and entry.type != type:
+            if type is not None and entry.type != type:
                 continue
-            if scope != None and entry.scope != scope:
+            if scope is not None and entry.scope != scope:
                 continue
             toPurge.add(entry)
 

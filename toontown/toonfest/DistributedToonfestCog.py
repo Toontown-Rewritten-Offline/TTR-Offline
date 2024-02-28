@@ -18,6 +18,7 @@ from otp.margins.WhisperPopup import *
 import toontown.election.ElectionGlobals
 from direct.directnotify import DirectNotifyGlobal
 from random import choice
+from .ToonfestCog import ToonfestCog
 from toontown.battle.BattleProps import globalPropPool
 from toontown.battle.BattleSounds import globalBattleSoundCache
 from toontown.parties import *
@@ -149,23 +150,23 @@ class DistributedToonfestCog(DistributedObject, FSM):
         taskMgr.remove('LoadCogs')
         self.request('Off')
         self.clearHitInterval()
-        if self.hole != None:
+        if self.hole is not None:
             self.hole.removeNode()
             self.hole = None
-        if self.actor != None:
+        if self.actor is not None:
             self.actor.cleanup()
             self.actor.removeNode()
             self.actor = None
-        if self.root != None:
+        if self.root is not None:
             self.root.removeNode()
             self.root = None
-        if self.kaboomTrack != None and self.kaboomTrack.isPlaying():
+        if self.kaboomTrack is not None and self.kaboomTrack.isPlaying():
             self.kaboomTrack.finish()
         self.kaboomTrack = None
-        if self.resetRollIval != None and self.resetRollIval.isPlaying():
+        if self.resetRollIval is not None and self.resetRollIval.isPlaying():
             self.resetRollIval.finish()
         self.resetRollIval = None
-        if self.hitInterval != None and self.hitInterval.isPlaying():
+        if self.hitInterval is not None and self.hitInterval.isPlaying():
             self.hitInterval.finish()
         self.hitInterval = None
         del self.upSound
@@ -216,12 +217,12 @@ class DistributedToonfestCog(DistributedObject, FSM):
             print('respondToPieHit self.netTimeSentToStartByHit = %s' % self.netTimeSentToStartByHit)
 
     def clearHitInterval(self):
-        if self.hitInterval != None and self.hitInterval.isPlaying():
+        if self.hitInterval is not None and self.hitInterval.isPlaying():
             self.hitInterval.clearToInitial()
         return
 
     def __showSplat(self, position, direction, hot = False):
-        if self.kaboomTrack != None and self.kaboomTrack.isPlaying():
+        if self.kaboomTrack is not None and self.kaboomTrack.isPlaying():
             self.kaboomTrack.finish()
         self.clearHitInterval()
         if not direction == 1.0:

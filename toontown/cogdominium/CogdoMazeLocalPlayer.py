@@ -141,7 +141,7 @@ class CogdoMazeLocalPlayer(CogdoMazePlayer):
         CogdoMazePlayer.exitDone(self)
 
     def hitByDrop(self):
-        if self.equippedGag != None and not self.hints['squashed']:
+        if self.equippedGag is not None and not self.hints['squashed']:
             self._guiMgr.setMessageTemporary(TTLocalizer.CogdoMazeSquashHint, Globals.HintTimeout)
             self.hints['squashed'] = True
         self._hitByDropSfx.play()
@@ -181,7 +181,7 @@ class CogdoMazeLocalPlayer(CogdoMazePlayer):
         return CogdoMazePlayer.showToonThrowingGag(self, heading, pos)
 
     def removeGag(self):
-        if self.equippedGag == None:
+        if self.equippedGag is None:
             return
         CogdoMazePlayer.removeGag(self)
         self.throwPending = False

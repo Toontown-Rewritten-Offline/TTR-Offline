@@ -18,7 +18,7 @@ class PetWander(CPetChase, DirectObject.DirectObject):
         return 0
 
     def __ignoreCollisions(self):
-        if self.collEvent != None:
+        if self.collEvent is not None:
             self.ignore(self.collEvent)
             self.collEvent = None
         return

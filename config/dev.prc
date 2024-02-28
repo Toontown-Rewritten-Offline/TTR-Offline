@@ -4,7 +4,7 @@
 
 # Client settings
 window-title Toontown Rewritten [DEV BUILD]
-server-version ttroff-beta-v2.12.2
+server-version ttrp-beta-v2.11.3
 sync-video #f
 want-dev #f
 preload-avatars #t
@@ -40,7 +40,7 @@ default-model-extension .bam
 
 
 # DC Files
-dc-file config/ttroff.dc
+dc-file config/ttrp.dc
 
 
 # Server settings

@@ -8,7 +8,7 @@ def getMazeName(gameDoId, numPlayers, mazeNames):
         return names[RandomNumGen.randHash(gameDoId) % len(names)]
 
 
-ENDLESS_GAME = config.ConfigVariableBool('endless-maze-game', 0).getValue()
+ENDLESS_GAME = config.GetBool('endless-maze-game', 0)
 GAME_DURATION = 60.0
 SHOWSCORES_DURATION = 2.0
 SUIT_TIC_FREQ = int(256)

@@ -60,7 +60,7 @@ class TownLoader(StateData.StateData):
         self.townBattle = TownBattle.TownBattle(self.townBattleDoneEvent)
         self.townBattle.load()
 
-        if config.ConfigVariableBool('want-april-toons', 0).getValue():
+        if config.GetBool('want-april-toons', 0):
             self.npc = NPCToons.createLocalNPC(91915)
             self.npc.reparentTo(base.localAvatar)
             self.npc.setZ(30)
@@ -125,7 +125,7 @@ class TownLoader(StateData.StateData):
         cleanupDialog('globalDialog')
         ModelPool.garbageCollect()
         TexturePool.garbageCollect()
-        if config.ConfigVariableBool('want-april-toons', 0).getValue():
+        if config.GetBool('want-april-toons', 0):
             self.pianoDropSequence.finish()
             self.pianoDropSound.finish()
             del self.pianoDropSequence
@@ -361,7 +361,7 @@ class TownLoader(StateData.StateData):
                 classObj = getattr(symbols[className], className)
                 interactivePropObj = classObj(interactivePropNode)
                 animPropList = self.animPropDict.get(i)
-                if animPropList == None:
+                if animPropList is None:
                     animPropList = self.animPropDict.setdefault(i, [])
                 animPropList.append(interactivePropObj)
                 if interactivePropObj.getCellIndex() == 0:
@@ -385,7 +385,7 @@ class TownLoader(StateData.StateData):
                 classObj = getattr(symbols[className], className)
                 animatedBuildingObj = classObj(animatedBuildingNode)
                 animPropList = self.animPropDict.get(i)
-                if animPropList == None:
+                if animPropList is None:
                     animPropList = self.animPropDict.setdefault(i, [])
                 animPropList.append(animatedBuildingObj)
 

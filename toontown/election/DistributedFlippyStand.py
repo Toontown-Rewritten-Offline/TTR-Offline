@@ -24,7 +24,7 @@ class DistributedFlippyStand(DistributedObject, FSM):
         DistributedObject.__init__(self, cr)
         FSM.__init__(self, 'FlippyStandFSM')
         self.flippyStand = Actor.Actor('phase_4/models/events/election_flippyStand-mod', {'idle': 'phase_4/models/events/election_flippyStand-idle'})
-        self.flippyStand.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+        self.flippyStand.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.flippyStand.reparentTo(render)
         self.flippyStand.setScale(0.55)
         self.flippyStand.setHpr(315, 0, 349.7)

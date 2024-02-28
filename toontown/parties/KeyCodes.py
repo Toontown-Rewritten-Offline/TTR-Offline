@@ -95,7 +95,7 @@ class KeyCodes(DirectObject):
 
     def __handleKeyDown(self, key):
         self._keysPressed += 1
-        if self._keyDown == None and self._keysPressed == 1:
+        if self._keyDown is None and self._keysPressed == 1:
             self.__updateElapsedTime()
             messenger.send(KeyCodes.KEY_DOWN_EVENT, [self._keyMap[key], self._keyCodeCount])
             self._keyCode += self._keyMap[key]

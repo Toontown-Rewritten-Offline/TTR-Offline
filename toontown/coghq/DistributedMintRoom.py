@@ -9,7 +9,6 @@ from . import MintRoomBase, MintRoom
 from . import FactoryEntityCreator
 from . import MintRoomSpecs
 from otp.level import LevelSpec, LevelConstants
-from otp.nametag.NametagConstants import CFThought, CFTimeout
 from toontown.toonbase import TTLocalizer
 if __dev__:
     from otp.level import EditorGlobals
@@ -143,7 +142,7 @@ class DistributedMintRoom(DistributedLevel.DistributedLevel, MintRoomBase.MintRo
         MintRoom.MintRoom.enterLtPresent(self)
         if __dev__:
             bboard.post(EditorGlobals.EditTargetPostName, self)
-        if self.mint != None:
+        if self.mint is not None:
             self.mint.currentRoomName = MintRoomSpecs.CashbotMintRoomId2RoomName[self.roomId]
 
         def printPos(self = self):
@@ -152,7 +151,7 @@ class DistributedMintRoom(DistributedLevel.DistributedLevel, MintRoomBase.MintRo
             h = base.localAvatar.getH(thisZone)
             roomName = MintRoomSpecs.CashbotMintRoomId2RoomName[self.roomId]
             print('mint pos: %s, h: %s, room: %s' % (repr(pos), h, roomName))
-            if self.mint != None:
+            if self.mint is not None:
                 floorNum = self.mint.floorNum
             else:
                 floorNum = '???'

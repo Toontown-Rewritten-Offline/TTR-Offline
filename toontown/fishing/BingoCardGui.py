@@ -243,7 +243,7 @@ class BingoCardGui(DirectFrame):
         return
 
     def getUnmarkedMatches(self, fish):
-        if self.game == None:
+        if self.game is None:
             return []
         matches = []
         for cell in self.cellGuiList:
@@ -271,7 +271,7 @@ class BingoCardGui(DirectFrame):
 
     def __indicateMatches(self, bFlipFlop, fish):
         unmarkedMatches = self.getUnmarkedMatches(fish)
-        if len(unmarkedMatches) == 0:
+        if len(unmarkedMatches) is 0:
             return Task.done
         if bFlipFlop:
             for cell in unmarkedMatches:
@@ -429,7 +429,7 @@ class BingoCardGui(DirectFrame):
             self.tutorial.hide()
 
     def onMouseEnter(self, event):
-        if self.gameType['text'] != '':
+        if self.gameType['text'] is not '':
             self.showTutorial(BG.TutorialCard)
 
     def onMouseLeave(self, event):

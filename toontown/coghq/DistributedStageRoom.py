@@ -9,7 +9,6 @@ from . import StageRoomBase, StageRoom
 from . import FactoryEntityCreator
 from . import StageRoomSpecs
 from otp.level import LevelSpec, LevelConstants
-from otp.nametag.NametagConstants import CFThought, CFTimeout
 from toontown.toonbase import TTLocalizer
 if __dev__:
     from otp.level import EditorGlobals
@@ -144,7 +143,7 @@ class DistributedStageRoom(DistributedLevel.DistributedLevel, StageRoomBase.Stag
         StageRoom.StageRoom.enterLtPresent(self)
         if __dev__:
             bboard.post(EditorGlobals.EditTargetPostName, self)
-        if self.stage != None:
+        if self.stage is not None:
             self.stage.currentRoomName = StageRoomSpecs.CashbotStageRoomId2RoomName[self.roomId]
 
         def printPos(self = self):
@@ -153,7 +152,7 @@ class DistributedStageRoom(DistributedLevel.DistributedLevel, StageRoomBase.Stag
             h = base.localAvatar.getH(thisZone)
             roomName = StageRoomSpecs.CashbotStageRoomId2RoomName[self.roomId]
             print('stage pos: %s, h: %s, room: %s' % (repr(pos), h, roomName))
-            if self.stage != None:
+            if self.stage is not None:
                 floorNum = self.stage.floorNum
             else:
                 floorNum = '???'

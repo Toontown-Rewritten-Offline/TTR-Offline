@@ -12,7 +12,7 @@ class CountryClubRoom(DirectObject.DirectObject):
     CashbotMintDoorFrame = 'phase_10/models/cashbotHQ/DoorFrame'
 
     def __init__(self, path = None):
-        if path != None:
+        if path is not None:
             if path in CountryClubRoomSpecs.BossbotCountryClubConnectorRooms:
                 loadFunc = loader.loadModelCopy
             else:

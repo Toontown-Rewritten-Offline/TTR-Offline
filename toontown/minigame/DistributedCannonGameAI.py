@@ -45,7 +45,7 @@ class DistributedCannonGameAI(DistributedMinigameAI):
 
     def enterPlay(self):
         self.notify.debug('enterPlay')
-        if not config.ConfigVariableBool('endless-cannon-game', 0).getValue():
+        if not config.GetBool('endless-cannon-game', 0):
             taskMgr.doMethodLater(CannonGameGlobals.GameTime, self.timerExpired, self.taskName('gameTimer'))
 
     def timerExpired(self, task):

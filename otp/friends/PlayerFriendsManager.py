@@ -111,7 +111,7 @@ class PlayerFriendsManager(DistributedObjectGlobal):
             self.requestAvatarInfo(info.avatarId)
         self.playerId2Info[id] = info
         av = base.cr.doId2do.get(info.avatarId, None)
-        if av != None:
+        if av is not None:
             av.considerUnderstandable()
         messenger.send(OTPGlobals.PlayerFriendUpdateEvent, [id, info])
         return
@@ -121,9 +121,9 @@ class PlayerFriendsManager(DistributedObjectGlobal):
             return
         self.playerFriendsList.remove(id)
         info = self.playerId2Info.pop(id, None)
-        if info != None:
+        if info is not None:
             av = base.cr.doId2do.get(info.avatarId, None)
-            if av != None:
+            if av is not None:
                 av.considerUnderstandable()
         messenger.send(OTPGlobals.PlayerFriendRemoveEvent, [id])
         return

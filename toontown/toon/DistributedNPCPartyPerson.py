@@ -114,7 +114,7 @@ class DistributedNPCPartyPerson(DistributedNPCToonBase):
             self.resetPartyPerson()
         elif mode == NPCToons.PARTY_MOVIE_START:
             self.av = base.cr.doId2do.get(avId)
-            if self.av == None:
+            if self.av is None:
                 self.notify.warning('Avatar %d not found in doId' % avId)
                 return
             else:
@@ -152,7 +152,7 @@ class DistributedNPCPartyPerson(DistributedNPCToonBase):
                 place.requestLeave(requestStatus)
         elif mode == NPCToons.PARTY_MOVIE_MAYBENEXTTIME:
             self.av = base.cr.doId2do.get(avId)
-            if self.av == None:
+            if self.av is None:
                 self.notify.warning('Avatar %d not found in doId' % avId)
                 return
             else:

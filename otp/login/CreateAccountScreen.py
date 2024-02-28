@@ -104,7 +104,7 @@ class CreateAccountScreen(StateData.StateData, GuiScreen.GuiScreen):
         for item in self.focusList:
             item.label.component('text0').setFg(self.labelFg)
 
-        if focusItem != None:
+        if focusItem is not None:
             focusItem.label.component('text0').setFg(self.labelFgActive)
         return
 
@@ -153,7 +153,7 @@ class CreateAccountScreen(StateData.StateData, GuiScreen.GuiScreen):
         self.cr.password = self.password
         data = {}
         referrer = launcher.getReferrerCode()
-        if referrer != None:
+        if referrer is not None:
             data['referrer'] = referrer
         error = self.loginInterface.createAccount(self.userName, self.password, data)
 

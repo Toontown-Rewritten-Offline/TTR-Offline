@@ -84,11 +84,11 @@ class DistributedPartyCannon(DistributedObject, Cannon):
 
     def unload(self):
         self.notify.debug('unload')
-        if self.gui != None:
+        if self.gui is not None:
             self.gui.unload()
             del self.gui
         Cannon.unload(self)
-        if self.sign != None:
+        if self.sign is not None:
             self.sign.removeNode()
             self.sign = None
         self.ignoreAll()

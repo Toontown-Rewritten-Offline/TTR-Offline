@@ -53,7 +53,7 @@ class ShtikerBook(DirectFrame, StateData.StateData):
         self.safeMode = setting
 
     def enter(self):
-        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+        if config.GetBool('want-qa-regression', 0):
             self.notify.info('QA-REGRESSION: SHTICKERBOOK: Open')
         if self.entered:
             return
@@ -115,7 +115,7 @@ class ShtikerBook(DirectFrame, StateData.StateData):
         self.ignore(ToontownGlobals.OptionsPageHotkey)
         self.ignore('d')
         self.ignore('a')
-        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+        if config.GetBool('want-qa-regression', 0):
             self.notify.info('QA-REGRESSION: SHTICKERBOOK: Close')
 
     def load(self):
@@ -194,7 +194,7 @@ class ShtikerBook(DirectFrame, StateData.StateData):
             messenger.send('wakeup')
             base.playSfx(self.pageSound)
             self.setPage(page)
-            if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+            if config.GetBool('want-qa-regression', 0):
                 self.notify.info('QA-REGRESSION: SHTICKERBOOK: Browse tabs %s' % page.pageName)
             localAvatar.newsButtonMgr.setGoingToNewsPageFromStickerBook(False)
             localAvatar.newsButtonMgr.showAppropriateButton()
@@ -291,7 +291,7 @@ class ShtikerBook(DirectFrame, StateData.StateData):
         return
 
     def setPage(self, page, enterPage = True):
-        if self.currPageIndex != None:
+        if self.currPageIndex is not None:
             self.pages[self.currPageIndex].exit()
         self.currPageIndex = self.pages.index(page)
         self.setPageTabIndex(self.currPageIndex)
@@ -309,7 +309,7 @@ class ShtikerBook(DirectFrame, StateData.StateData):
         self.accept(ToontownGlobals.OptionsPageHotkey, self.__close)
 
     def setPageTabIndex(self, pageTabIndex):
-        if self.currPageTabIndex != None and pageTabIndex != self.currPageTabIndex:
+        if self.currPageTabIndex is not None and pageTabIndex != self.currPageTabIndex:
             self.pageTabs[self.currPageTabIndex]['relief'] = DGG.RAISED
         self.currPageTabIndex = pageTabIndex
         self.pageTabs[self.currPageTabIndex]['relief'] = DGG.SUNKEN
@@ -317,7 +317,7 @@ class ShtikerBook(DirectFrame, StateData.StateData):
 
     def isOnPage(self, page):
         result = False
-        if self.currPageIndex != None:
+        if self.currPageIndex is not None:
             curPage = self.pages[self.currPageIndex]
             if curPage == page:
                 result = True
@@ -434,7 +434,7 @@ class ShtikerBook(DirectFrame, StateData.StateData):
         localAvatar.newsButtonMgr.setGoingToNewsPageFromStickerBook(True)
         localAvatar.newsButtonMgr.showAppropriateButton()
         self.setPage(page)
-        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+        if config.GetBool('want-qa-regression', 0):
             self.notify.info('QA-REGRESSION: SHTICKERBOOK: Browse tabs %s' % page.pageName)
         self.ignore(ToontownGlobals.StickerBookHotkey)
         self.ignore(ToontownGlobals.OptionsPageHotkey)

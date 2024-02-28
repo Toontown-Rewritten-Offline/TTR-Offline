@@ -1,7 +1,7 @@
 import os
 
 class ModuleList:
-    serverDataFolder = config.ConfigVariableString('server-data-folder', '').getValue()
+    serverDataFolder = config.GetString('server-data-folder', '')
 
     def __init__(self):
         self.moduleWhitelistFilename = self.getWhitelistFilename()

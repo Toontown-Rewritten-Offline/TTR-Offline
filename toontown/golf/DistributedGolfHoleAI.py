@@ -213,7 +213,7 @@ class DistributedGolfHoleAI(DistributedPhysicsWorldAI.DistributedPhysicsWorldAI,
             curNodePath = self.hardSurfaceNodePath.find('**/locator%d' % locatorNum)
 
     def loadBlockers(self):
-        loadAll = config.ConfigVariableBool('golf-all-blockers', 0).getValue()
+        loadAll = config.GetBool('golf-all-blockers', 0)
         self.createLocatorDict()
         self.blockerNums = self.holeInfo['blockers']
         for locatorNum in self.locDict:
@@ -278,7 +278,7 @@ class DistributedGolfHoleAI(DistributedPhysicsWorldAI.DistributedPhysicsWorldAI,
     def choosePlayerToSimulate(self):
         stillPlaying = self.golfCourse.getStillPlayingAvIds()
         playerId = 0
-        if simbase.air.config.ConfigVariableBool('golf-trust-driver-first', 0).getValue():
+        if simbase.air.config.GetBool('golf-trust-driver-first', 0):
             if stillPlaying:
                 playerId = stillPlaying[0]
         else:

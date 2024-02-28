@@ -125,7 +125,7 @@ class DistributedPartyGate(DistributedObject.DistributedObject):
         self.ignore(self.publicPartyChooseGuiDoneEvent)
         doneStatus = self.publicPartyGui.doneStatus
         self.publicPartyGui.stash()
-        if doneStatus == None:
+        if doneStatus is None:
             self.freeAvatar()
             return
         self.sendUpdate('partyChoiceRequest', [base.localAvatar.doId, doneStatus[0], doneStatus[1]])

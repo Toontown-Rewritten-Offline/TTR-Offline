@@ -1,3 +1,4 @@
+# Embedded file name: toontown.election.ToonfestCog
 import math
 from direct.actor.Actor import Actor
 from direct.interval.ActorInterval import ActorInterval
@@ -13,15 +14,16 @@ from panda3d.core import Point3, Vec4, NodePath, TextNode, Mat4
 from toontown.toonbase import ToontownGlobals
 from toontown.battle.BattleProps import globalPropPool
 from toontown.battle.BattleSounds import globalBattleSoundCache
-from . import PartyGlobals
+from toontown.parties import PartyGlobals # Still relying on PartyGlobals, soon to be changed
+from direct.distributed.ClockDelta import *
 
-class PartyCogManager:
+class ToonfestCogManager:
 
     def __init__(self):
         self.cogs = []
 
     def generateCog(self, parentNode, bounceSpeed = 3, bounceHeight = 1, rotateSpeed = 1, heightShift = 1, xMoveSpeed = 0, xMoveDistance = 0, bounceOffset = 0):
-        cog = PartyCog(parentNode, len(self.cogs), bounceSpeed, bounceHeight, rotateSpeed, heightShift, xMoveSpeed, xMoveDistance, bounceOffset)
+        cog = ToonfestCog(parentNode, len(self.cogs), bounceSpeed, bounceHeight, rotateSpeed, heightShift, xMoveSpeed, xMoveDistance, bounceOffset)
         self.cogs.append(cog)
         return cog
 
@@ -34,15 +36,15 @@ class PartyCogManager:
             self.cogs[i].updateDistance(distances[i])
 
 
-class PartyCog(FSM):
-    notify = directNotify.newCategory('PartyCog')
+class ToonfestCog(FSM):
+    notify = directNotify.newCategory('ToonfestCog')
     HpTextGenerator = TextNode('HpTextGenerator')
     hpText = None
     height = 7
 
-    def __init__(self, parentNode, id, bounceSpeed = 3, bounceHeight = 1, rotateSpeed = 1, heightShift = 1, xMoveSpeed = 0, xMoveDistance = 0, bounceOffset = 0):
-        self.id = id
-        FSM.__init__(self, 'PartyCogFSM-%d' % self.id)
+    def __init__(self, parentNode, cogid, bounceSpeed = 3, bounceHeight = 1, rotateSpeed = 1, heightShift = 1, xMoveSpeed = 0, xMoveDistance = 0, bounceOffset = 0):
+        self.cogid = cogid
+        FSM.__init__(self, 'ToonfestCogFSM-%d' % self.cogid)
         self.showFacingStatus = False
         self.xMoveSpeed = xMoveSpeed
         self.xMoveDistance = xMoveDistance
@@ -58,10 +60,12 @@ class PartyCog(FSM):
         self.netTimeSentToStartByHit = 0
         self.load()
         self.request('Down')
+        self.startPoint = self.parentNode.getPos()
+        self.endPoint = self.parentNode.getPos()
         return
 
     def load(self):
-        self.root = NodePath('PartyCog-%d' % self.id)
+        self.root = NodePath('PartyCog-%d' % self.cogid)
         self.root.reparentTo(self.parentNode)
         path = 'phase_13/models/parties/cogPinata_'
         self.actor = Actor(path + 'actor', {'idle': path + 'idle_anim',
@@ -77,25 +81,25 @@ class PartyCog(FSM):
         self.head_locator = self.actor.attachNewNode('temphead')
         self.bodyColl = CollisionTube(0, 0, 1, 0, 0, 5.75, 0.75)
         self.bodyColl.setTangible(1)
-        self.bodyCollNode = CollisionNode('PartyCog-%d-Body-Collision' % self.id)
+        self.bodyCollNode = CollisionNode('PartyCog-%d-Body-Collision' % self.cogid)
         self.bodyCollNode.setCollideMask(ToontownGlobals.PieBitmask)
         self.bodyCollNode.addSolid(self.bodyColl)
         self.bodyCollNodePath = self.root.attachNewNode(self.bodyCollNode)
         self.headColl = CollisionTube(0, 0, 3, 0, 0, 3.0, 1.5)
         self.headColl.setTangible(1)
-        self.headCollNode = CollisionNode('PartyCog-%d-Head-Collision' % self.id)
+        self.headCollNode = CollisionNode('PartyCog-%d-Head-Collision' % self.cogid)
         self.headCollNode.setCollideMask(ToontownGlobals.PieBitmask)
         self.headCollNode.addSolid(self.headColl)
         self.headCollNodePath = self.root.attachNewNode(self.headCollNode)
         self.arm1Coll = CollisionSphere(1.65, 0, 3.95, 1.0)
         self.arm1Coll.setTangible(1)
-        self.arm1CollNode = CollisionNode('PartyCog-%d-Arm1-Collision' % self.id)
+        self.arm1CollNode = CollisionNode('PartyCog-%d-Arm1-Collision' % self.cogid)
         self.arm1CollNode.setCollideMask(ToontownGlobals.PieBitmask)
         self.arm1CollNode.addSolid(self.arm1Coll)
         self.arm1CollNodePath = self.root.attachNewNode(self.arm1CollNode)
         self.arm2Coll = CollisionSphere(-1.65, 0, 3.45, 1.0)
         self.arm2Coll.setTangible(1)
-        self.arm2CollNode = CollisionNode('PartyCog-%d-Arm2-Collision' % self.id)
+        self.arm2CollNode = CollisionNode('PartyCog-%d-Arm2-Collision' % self.cogid)
         self.arm2CollNode.setCollideMask(ToontownGlobals.PieBitmask)
         self.arm2CollNode.addSolid(self.arm2Coll)
         self.arm2CollNodePath = self.root.attachNewNode(self.arm2CollNode)
@@ -111,8 +115,19 @@ class PartyCog(FSM):
         self.hole.setScale(3)
         self.hole.setBin('ground', 3)
         self.hole.reparentTo(self.parentNode)
+        self.setEndPoints(self.parentNode.getPos(), self.parentNode.getPos())
+        self.setPos(self.parentNode.getPos())
+        taskMgr.doMethodLater(10, self.toggleCog, 'toggle-cog', extraArgs=[])
+
+    def toggleCog(self):
+        if self.state == 'Down':
+            self.request('Active', globalClockDelta.getRealNetworkTime())
+        else:
+            self.request('Down')
+        taskMgr.doMethodLater(10, self.toggleCog, 'toggle-cog', extraArgs=[])
 
     def unload(self):
+        taskMgr.remove('toggle-cog')
         self.request('Off')
         self.clearHitInterval()
         if self.hole is not None:
@@ -148,11 +163,11 @@ class PartyCog(FSM):
         self.root.setR(0.0)
         updateTask = Task.Task(self.updateTask)
         updateTask.startTime = startTime
-        taskMgr.add(updateTask, 'PartyCog.update-%d' % self.id)
+        taskMgr.add(updateTask, 'ToonfestCog.update-%d' % self.cogid)
 
     def exitActive(self):
-        taskMgr.remove('PartyCog.update-%d' % self.id)
-        taskMgr.remove('PartyCog.bounceTask-%d' % self.id)
+        taskMgr.remove('ToonfestCog.update-%d' % self.cogid)
+        taskMgr.remove('ToonfestCog.bounceTask-%d' % self.cogid)
         self.clearHitInterval()
         self.resetRollIval = self.root.hprInterval(0.5, Point3(self.root.getH(), 0.0, 0.0), blendType='easeInOut')
         self.resetRollIval.start()
@@ -166,7 +181,7 @@ class PartyCog(FSM):
         self.clearHitInterval()
         startScale = self.hole.getScale()
         endScale = Point3(5, 5, 5)
-        self.hitInterval = Sequence(LerpFunc(self.setAlongSpline, duration=1.0, fromData=self.currentT, toData=0.0), LerpScaleInterval(self.hole, duration=0.175, scale=endScale, startScale=startScale, blendType='easeIn'), Parallel(SoundInterval(self.upSound, volume=0.6, node=self.actor, cutOff=PartyGlobals.PARTY_COG_CUTOFF), ActorInterval(self.actor, 'down', loop=0)), LerpScaleInterval(self.hole, duration=0.175, scale=Point3(3, 3, 3), startScale=endScale, blendType='easeOut'))
+        self.hitInterval = Sequence(LerpScaleInterval(self.hole, duration=0.175, scale=endScale, startScale=startScale, blendType='easeIn'), Parallel(SoundInterval(self.upSound, volume=0.6, node=self.actor, cutOff=PartyGlobals.PARTY_COG_CUTOFF), ActorInterval(self.actor, 'down', loop=0)), LerpScaleInterval(self.hole, duration=0.175, scale=Point3(3, 3, 3), startScale=endScale, blendType='easeOut'))
         self.hitInterval.start()
 
     def exitDown(self):
@@ -175,7 +190,6 @@ class PartyCog(FSM):
         self.targetDistance = 0.0
         self.targetFacing = 0.0
         self.currentT = 0.0
-        self.setAlongSpline(0.0)
         self.clearHitInterval()
         startScale = self.hole.getScale()
         endScale = Point3(5, 5, 5)
@@ -187,7 +201,7 @@ class PartyCog(FSM):
             return None
         else:
             return self.defaultFilter(request, args)
-        return None
+            return None
 
     def setEndPoints(self, start, end, amplitude = 1.7):
         self.sinAmplitude = amplitude
@@ -199,7 +213,6 @@ class PartyCog(FSM):
         self.targetDistance = 0.0
         self.currentFacing = 0.0
         self.targetFacing = 0.0
-        self.setAlongSpline(self.currentT)
         self.hole.setPos(self.root.getPos())
         self.hole.setZ(0.02)
 
@@ -216,10 +229,8 @@ class PartyCog(FSM):
         self.rockBackAndForth(task)
         if self.targetDistance > self.currentT:
             self.currentT += min(0.01, self.targetDistance - self.currentT)
-            self.setAlongSpline(self.currentT)
         elif self.targetDistance < self.currentT:
             self.currentT += max(-0.01, self.targetDistance - self.currentT)
-            self.setAlongSpline(self.currentT)
         if self.currentT < 0.0:
             self.targetFacing = -90.0
         elif self.currentT > 0.0:
@@ -241,7 +252,7 @@ class PartyCog(FSM):
         self.root.setPos(x, y, 0)
 
     def startBounce(self):
-        taskMgr.add(self.bounce, 'PartyCog.bounceTask-%d' % self.id)
+        taskMgr.add(self.bounce, 'ToonfestCog.bounceTask-%d' % self.cogid)
 
     def bounce(self, task):
         self.root.setZ(math.sin((self.bounceOffset + task.time) * self.bounceSpeed) * self.bounceHeight + self.heightShift)
@@ -251,6 +262,7 @@ class PartyCog(FSM):
         self.root.setPos(position)
 
     def respondToPieHit(self, timestamp, position, hot = False, direction = 1.0):
+        print('Cog has been pied!')
         if self.netTimeSentToStartByHit < timestamp:
             self.__showSplat(position, direction, hot)
             if self.netTimeSentToStartByHit < timestamp:
@@ -329,7 +341,7 @@ class PartyCog(FSM):
 
     def hideHitScore(self):
         if self.hpText:
-            taskMgr.remove('PartyCogHpText' + str(self.id))
+            taskMgr.remove('ToonfestCogHpText' + str(self.cogid))
             self.hpText.removeNode()
             self.hpText = None
         return

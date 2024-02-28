@@ -27,7 +27,7 @@ class FireworkShowMixin:
         if self.currentShow:
             self.currentShow.pause()
             self.currentShow = None
-            if base.cr.config.ConfigVariableBool('want-old-fireworks', 0).getValue():
+            if base.cr.config.GetBool('want-old-fireworks', 0):
                 ivalMgr.finishIntervalsMatching('shootFirework*')
             else:
                 self.destroyFireworkShow()
@@ -61,7 +61,7 @@ class FireworkShowMixin:
         self.timestamp = timestamp
         self.showMusic = None
         self.eventId = eventId
-        if config.ConfigVariableBool('want-old-fireworks', False).getValue():
+        if config.GetBool('want-old-fireworks', False):
             self.currentShow = self.getFireworkShowIval(eventId, style, songId, t)
             if self.currentShow:
                 self.currentShow.start(t)
@@ -121,7 +121,7 @@ class FireworkShowMixin:
 
         def __lightDecorationOn__():
             place = base.cr.playGame.getPlace()
-            if place == None:
+            if place is None:
                 return
             if hasattr(place, 'halloweenLights'):
                 if not self.__checkStreetValidity():
@@ -271,7 +271,7 @@ class FireworkShowMixin:
 
     def getFireworkShowIval(self, eventId, index, songId, startT):
         show = FireworkShows.getShow(eventId, index)
-        if show == None:
+        if show is None:
             FireworkShowMixin.notify.warning('could not find firework show: index: %s' % index)
             return
         preShow = self.preShow(eventId, songId, startT)

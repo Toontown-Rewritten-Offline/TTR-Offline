@@ -136,12 +136,12 @@ class Char(Avatar.Avatar):
 
     def setLODs(self):
         self.setLODNode()
-        levelOneIn = config.ConfigVariableInt('lod1-in', 50).getValue()
-        levelOneOut = config.ConfigVariableInt('lod1-out', 1).getValue()
-        levelTwoIn = config.ConfigVariableInt('lod2-in', 100).getValue()
-        levelTwoOut = config.ConfigVariableInt('lod2-out', 50).getValue()
-        levelThreeIn = config.ConfigVariableInt('lod3-in', 280).getValue()
-        levelThreeOut = config.ConfigVariableInt('lod3-out', 100).getValue()
+        levelOneIn = config.GetInt('lod1-in', 50)
+        levelOneOut = config.GetInt('lod1-out', 1)
+        levelTwoIn = config.GetInt('lod2-in', 100)
+        levelTwoOut = config.GetInt('lod2-out', 50)
+        levelThreeIn = config.GetInt('lod3-in', 280)
+        levelThreeOut = config.GetInt('lod3-out', 100)
         self.addLOD(LODModelDict[self.style.name][0], levelOneIn, levelOneOut)
         self.addLOD(LODModelDict[self.style.name][1], levelTwoIn, levelTwoOut)
         self.addLOD(LODModelDict[self.style.name][2], levelThreeIn, levelThreeOut)
@@ -411,7 +411,7 @@ class Char(Avatar.Avatar):
         if self.dialogueArray:
             self.notify.warning('loadDialogue() called twice.')
         self.unloadDialogue()
-        language = config.ConfigVariableString('language', 'english').getValue()
+        language = config.GetString('language', 'english')
         if char == 'mk':
             dialogueFile = base.loader.loadSfx('phase_3/audio/dial/mickey.ogg')
             for i in range(0, 6):

@@ -55,7 +55,7 @@ class PickANamePattern:
     def _computeWithNameParts(self, nameStr, nameParts):
         for splitPermutation in self._genNameSplitPermutations(nameStr):
             pattern = self._recursiveCompute(splitPermutation, nameParts)
-            if pattern != None:
+            if pattern is not None:
                 return pattern
 
         return
@@ -69,7 +69,7 @@ class PickANamePattern:
         if nwli >= len(nameParts):
             return
         if words[wi] in nameParts[nwli]:
-            if pattern == None:
+            if pattern is None:
                 pattern = [-1] * len(nameParts)
             word2index = nameParts[nwli]
             newPattern = pattern[:]

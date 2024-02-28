@@ -29,7 +29,7 @@ class ModelEntity(BasicEntities.NodePathEntity):
         if self.model:
             self.model.removeNode()
             self.model = None
-        if self.modelPath == None:
+        if self.modelPath is None:
             return
         self.model = ModelEntity.LoadFuncs[self.loadType](self.modelPath)
         if self.model:
@@ -49,7 +49,7 @@ class ModelEntity(BasicEntities.NodePathEntity):
                 floor = colNode.find('**/floor')
                 floor2 = floor.copyTo(colNode)
                 floor2.setZ(floor2, -.75)
-            if self.goonHatType != 'none':
+            if self.goonHatType is not 'none':
                 self.goonType = {'hardhat': 'pg',
                  'security': 'sg'}[self.goonHatType]
                 self.hat = self.model

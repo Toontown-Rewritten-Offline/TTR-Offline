@@ -55,7 +55,7 @@ class CatalogGardenItem(CatalogItem.CatalogItem):
             animationName = GardenGlobals.Specials[self.gardenIndex]['photoAnimation'][1]
             animationPath = photoModel + animationName
             self.model = Actor.Actor()
-            self.model.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+            self.model.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
             self.model.loadModel(modelPath)
             self.model.loadAnims(dict([[animationName, animationPath]]))
             frame, ival = self.makeFrameModel(self.model, 0)

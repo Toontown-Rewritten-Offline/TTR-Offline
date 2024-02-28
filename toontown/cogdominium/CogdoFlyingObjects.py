@@ -373,7 +373,7 @@ class CogdoFlyingPlatform:
     def __init__(self, model, type = Globals.Level.PlatformTypes.Platform, parent = None):
         self._model = model
         self._type = type
-        if parent != None:
+        if parent is not None:
             self._model.reparentTo(parent)
         self._initCollisions()
         return

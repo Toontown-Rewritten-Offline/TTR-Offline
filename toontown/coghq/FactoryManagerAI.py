@@ -16,7 +16,7 @@ class FactoryManagerAI(DirectObject.DirectObject):
 
     def createFactory(self, factoryId, entranceId, players):
         factoryZone = self.air.allocateZone()
-        if FactoryManagerAI.factoryId != None:
+        if FactoryManagerAI.factoryId is not None:
             factoryId = FactoryManagerAI.factoryId
         factory = DistributedFactoryAI.DistributedFactoryAI(self.air, factoryId, factoryZone, entranceId, players)
         factory.generateWithRequired(factoryZone)

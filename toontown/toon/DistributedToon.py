@@ -266,7 +266,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         #if hasattr(base.cr, 'aprilToonsMgr'):
             #if self.isEventActive(AprilToonsGlobals.EventGlobalGravity):
                 #self.startAprilToonsControls()
-        if config.ConfigVariableBool('want-april-toons').getValue():
+        if config.GetBool('want-april-toons'):
             self.startAprilToonsControls()
 
     def _handleClientCleanup(self):
@@ -384,7 +384,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         nearbyToons = []
         toonIds = self.cr.getObjectsOfExactClass(DistributedToon)
         for toonId, toon in list(toonIds.items()):
-            if toon != self:
+            if toon is not self:
                 dist = toon.getDistance(self)
                 if dist < radius:
                     nearbyToons.append(toonId)
@@ -406,7 +406,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         avatar = base.cr.identifyAvatar(requesterId)
         if isinstance(avatar, DistributedToon) or isinstance(avatar, FriendHandle.FriendHandle):
             self.setSystemMessage(requesterId, TTLocalizer.MovieSOSWhisperHelp % avatar.getName(), whisperType=WhisperPopup.WTBattleSOS)
-        elif avatar != None:
+        elif avatar is not None:
             self.notify.warning('got battleSOS from non-toon %s' % requesterId)
         return
 
@@ -504,7 +504,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         if fromAV in self.ignoreList:
             self.d_setWhisperIgnored(fromAV)
             return
-        if config.ConfigVariableBool('want-sleep-reply-on-regular-chat', 0).getValue():
+        if config.GetBool('want-sleep-reply-on-regular-chat', 0):
             if base.localAvatar.sleepFlag == 1:
                 self.sendUpdate('setSleepAutoReply', [base.localAvatar.doId], fromAV)
         newText, scrubbed = self.scrubTalk(chat, mods)
@@ -529,7 +529,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         if fromAV in self.ignoreList:
             self.d_setWhisperIgnored(fromAV)
             return
-        if config.ConfigVariableBool('ignore-whispers', 0).getValue():
+        if config.GetBool('ignore-whispers', 0):
             return
         if base.localAvatar.sleepFlag == 1:
             if not base.cr.identifyAvatar(fromAV) == base.localAvatar:
@@ -780,7 +780,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
 
     def setTutorialAck(self, tutorialAck):
         self.tutorialAck = 1
-        if config.ConfigVariableBool('want-toontorial', 1).getValue():
+        if config.GetBool('want-toontorial', 1):
             self.tutorialAck = tutorialAck
 
     def setEarnedExperience(self, earnedExp):
@@ -915,7 +915,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
             ts = 0.0
         else:
             ts = globalClockDelta.localElapsedTime(timestamp)
-        if config.ConfigVariableBool('check-invalid-anims', True).getValue():
+        if config.GetBool('check-invalid-anims', True):
             if animMultiplier > 1.0 and animName in ['neutral']:
                 animMultiplier = 1.0
         if self.animFSM.getStateNamed(animName):
@@ -1691,20 +1691,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
 
     def setFishBingoMarkTutorialDone(self, bDone):
         self.bFishBingoMarkTutorialDone = bDone
-        
-        
-    def stun(self, damage):
-        if self == base.localAvatar:
-            self.stunToon()
 
-    def d_stun(self, damage):
-        self.sendUpdate('squish', [damage])
-
-    def b_stun(self, damage):
-        if not self.isStunned and self.hp > 0:
-            self.stun(damage)
-            self.d_stun(damage)
-            self.playDialogueForString('!')
 
 
     def squish(self, damage):
@@ -2230,7 +2217,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
     def setNametagStyle(self, nametagStyle):
         if hasattr(self, 'gmToonLockStyle') and self.gmToonLockStyle:
             return
-        if config.ConfigVariableBool('want-nametag-avids', 0).getValue():
+        if config.GetBool('want-nametag-avids', 0):
             nametagStyle = 0
         self.nametagStyle = nametagStyle
         self.setDisplayName(self.getName())
@@ -2241,7 +2228,7 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         return '%s\n%s (%s)' % (self.getName(), self.doId, paidStr)
 
     def playCurrentDialogue(self, dialogue, chatFlags, interrupt = 1):
-        if interrupt and self.__currentDialogue != None:
+        if interrupt and self.__currentDialogue is not None:
             self.__currentDialogue.stop()
         self.__currentDialogue = dialogue
         if dialogue:

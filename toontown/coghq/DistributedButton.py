@@ -24,7 +24,7 @@ class DistributedButton(DistributedSwitch.DistributedSwitch):
         DistributedSwitch.DistributedSwitch.avatarExit(self, avatarId)
         if self.secondsOn != -1.0 and self.secondsOn > 0.0 and self.countdownSeconds > 0.0 and self.countdownSeconds < self.secondsOn and self.fsm.getCurrentState().getName() == 'playing':
             track = self.switchCountdownTrack()
-            if track != None:
+            if track is not None:
                 track.start(0.0)
                 self.countdownTrack = track
         return

@@ -26,7 +26,7 @@ class GlobalPartyManagerUD(DistributedObjectGlobalUD):
         self.partyAllocator = UniqueIdAllocator(0, 100000000)
         #self.host2Party[100000001] = {'hostId': 100000001, 'start': startTime, 'end': endTime, 'partyId': 1717986918400000, 'decorations': [[3,5,7,6]], 'activities': [[10,13,6,18],[7,8,7,0]],'inviteTheme':1,'isPrivate':0,'inviteeIds':[]}
         config = DConfig
-        self.wantInstantParties = config.ConfigVariableBool('want-instant-parties', 0).getValue()
+        self.wantInstantParties = config.GetBool('want-instant-parties', 0)
 
         # Setup tasks
         self.runAtNextInterval()

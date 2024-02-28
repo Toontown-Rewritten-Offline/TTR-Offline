@@ -70,7 +70,7 @@ class OTPClientRepository(ClientRepositoryBase):
         self.__currentAvId = 0
 
 
-        self.productName = config.ConfigVariableString('product-name', 'DisneyOnline-US').getValue()
+        self.productName = config.GetString('product-name', 'DisneyOnline-US')
 
 
         self.createAvatarClass = None
@@ -101,7 +101,7 @@ class OTPClientRepository(ClientRepositoryBase):
         if self.launcher:
             self.blue = self.launcher.getBlue()
 
-        fakeBlue = config.ConfigVariableString('fake-blue', '').getValue()
+        fakeBlue = config.GetString('fake-blue', '')
         if fakeBlue:
             self.blue = fakeBlue
 
@@ -110,7 +110,7 @@ class OTPClientRepository(ClientRepositoryBase):
         if self.launcher:
             self.playToken = self.launcher.getPlayToken()
 
-        fakePlayToken = config.ConfigVariableString('fake-playtoken', '').getValue()
+        fakePlayToken = config.GetString('fake-playtoken', '')
         if fakePlayToken:
             self.playToken = fakePlayToken
 
@@ -119,8 +119,8 @@ class OTPClientRepository(ClientRepositoryBase):
         if self.launcher:
             self.DISLToken = self.launcher.getDISLToken()
 
-        fakeDISLToken = config.ConfigVariableString('fake-DISLToken', '').getValue()
-        fakeDISLPlayerName = config.ConfigVariableString('fake-DISL-PlayerName', '').getValue()
+        fakeDISLToken = config.GetString('fake-DISLToken', '')
+        fakeDISLPlayerName = config.GetString('fake-DISL-PlayerName', '')
         if fakeDISLToken:
             self.DISLToken = fakeDISLToken
         elif fakeDISLPlayerName:
@@ -128,41 +128,41 @@ class OTPClientRepository(ClientRepositoryBase):
             defaultNumAvatars = 4
             defaultNumAvatarSlots = 4
             defaultNumConcur = 1
-            subCount = config.ConfigVariableInt('fake-DISL-NumSubscriptions', 1).getValue()
-            playerAccountId = config.ConfigVariableInt('fake-DISL-PlayerAccountId', defaultId).getValue()
+            subCount = config.GetInt('fake-DISL-NumSubscriptions', 1)
+            playerAccountId = config.GetInt('fake-DISL-PlayerAccountId', defaultId)
             self.DISLToken = ('ACCOUNT_NAME=%s' % fakeDISLPlayerName +
                               '&ACCOUNT_NUMBER=%s' % playerAccountId +
-                              '&ACCOUNT_NAME_APPROVAL=%s' % config.ConfigVariableString('fake-DISL-PlayerNameApproved', 'YES').getValue() +
-                              '&SWID=%s' % config.ConfigVariableString('fake-DISL-SWID', '{1763AC36-D73F-41C2-A54A-B579E58B69C8}').getValue() +
-                              '&FAMILY_NUMBER=%s' % config.ConfigVariableString('fake-DISL-FamilyAccountId', '-1').getValue() +
-                              '&familyAdmin=%s' % config.ConfigVariableString('fake-DISL-FamilyAdmin', '1').getValue() +
-                              '&PIRATES_ACCESS=%s' % config.ConfigVariableString('fake-DISL-PiratesAccess', 'FULL').getValue() +
-                              '&PIRATES_MAX_NUM_AVATARS=%s' % config.ConfigVariableInt('fake-DISL-MaxAvatars', defaultNumAvatars).getValue() +
-                              '&PIRATES_NUM_AVATAR_SLOTS=%s' % config.ConfigVariableInt('fake-DISL-MaxAvatarSlots', defaultNumAvatarSlots).getValue() +
-                              '&expires=%s' % config.ConfigVariableString('fake-DISL-expire', '1577898000').getValue() +
-                              '&OPEN_CHAT_ENABLED=%s' % config.ConfigVariableString('fake-DISL-OpenChatEnabled', 'YES').getValue() +
-                              '&CREATE_FRIENDS_WITH_CHAT=%s' % config.ConfigVariableString('fake-DISL-CreateFriendsWithChat', 'YES').getValue() +
-                              '&CHAT_CODE_CREATION_RULE=%s' % config.ConfigVariableString('fake-DISL-ChatCodeCreation', 'YES').getValue() +
-                              '&FAMILY_MEMBERS=%s' % config.ConfigVariableString('fake-DISL-FamilyMembers').getValue() + '&PIRATES_SUB_COUNT=%s' % subCount)
+                              '&ACCOUNT_NAME_APPROVAL=%s' % config.GetString('fake-DISL-PlayerNameApproved', 'YES') +
+                              '&SWID=%s' % config.GetString('fake-DISL-SWID', '{1763AC36-D73F-41C2-A54A-B579E58B69C8}') +
+                              '&FAMILY_NUMBER=%s' % config.GetString('fake-DISL-FamilyAccountId', '-1') +
+                              '&familyAdmin=%s' % config.GetString('fake-DISL-FamilyAdmin', '1') +
+                              '&PIRATES_ACCESS=%s' % config.GetString('fake-DISL-PiratesAccess', 'FULL') +
+                              '&PIRATES_MAX_NUM_AVATARS=%s' % config.GetInt('fake-DISL-MaxAvatars', defaultNumAvatars) +
+                              '&PIRATES_NUM_AVATAR_SLOTS=%s' % config.GetInt('fake-DISL-MaxAvatarSlots', defaultNumAvatarSlots) +
+                              '&expires=%s' % config.GetString('fake-DISL-expire', '1577898000') +
+                              '&OPEN_CHAT_ENABLED=%s' % config.GetString('fake-DISL-OpenChatEnabled', 'YES') +
+                              '&CREATE_FRIENDS_WITH_CHAT=%s' % config.GetString('fake-DISL-CreateFriendsWithChat', 'YES') +
+                              '&CHAT_CODE_CREATION_RULE=%s' % config.GetString('fake-DISL-ChatCodeCreation', 'YES') +
+                              '&FAMILY_MEMBERS=%s' % config.GetString('fake-DISL-FamilyMembers') + '&PIRATES_SUB_COUNT=%s' % subCount)
 
             for i in range(subCount):
-                self.DISLToken += ('&PIRATES_SUB_%s_ACCESS=%s' % (i, config.ConfigVariableString('fake-DISL-Sub-%s-Access' % i, 'FULL').getValue()) +
-                                   '&PIRATES_SUB_%s_ACTIVE=%s' % (i, config.ConfigVariableString('fake-DISL-Sub-%s-Active' % i, 'YES').getValue()) +
-                                   '&PIRATES_SUB_%s_ID=%s' % (i, config.ConfigVariableInt('fake-DISL-Sub-%s-Id' % i, playerAccountId).getValue() +  config.ConfigVariableInt('fake-DISL-Sub-Id-Offset', 0).getValue()) +
-                                   '&PIRATES_SUB_%s_LEVEL=%s' % (i, config.ConfigVariableInt('fake-DISL-Sub-%s-Level' % i, 3).getValue()) +
-                                   '&PIRATES_SUB_%s_NAME=%s' % (i, config.ConfigVariableString('fake-DISL-Sub-%s-Name' % i, fakeDISLPlayerName)) +
-                                   '&PIRATES_SUB_%s_NUM_AVATARS=%s' % (i, config.ConfigVariableInt('fake-DISL-Sub-%s-NumAvatars' % i, defaultNumAvatars).getValue()) +
-                                   '&PIRATES_SUB_%s_NUM_CONCUR=%s' % (i, config.ConfigVariableInt('fake-DISL-Sub-%s-NumConcur' % i, defaultNumConcur).getValue()) +
-                                   '&PIRATES_SUB_%s_OWNERID=%s' % (i, config.ConfigVariableInt('fake-DISL-Sub-%s-OwnerId' % i, playerAccountId).getValue()) +
-                                   '&PIRATES_SUB_%s_FOUNDER=%s' % (i, config.ConfigVariableString('fake-DISL-Sub-%s-Founder' % i, 'YES').getValue()))
+                self.DISLToken += ('&PIRATES_SUB_%s_ACCESS=%s' % (i, config.GetString('fake-DISL-Sub-%s-Access' % i, 'FULL')) +
+                                   '&PIRATES_SUB_%s_ACTIVE=%s' % (i, config.GetString('fake-DISL-Sub-%s-Active' % i, 'YES')) +
+                                   '&PIRATES_SUB_%s_ID=%s' % (i, config.GetInt('fake-DISL-Sub-%s-Id' % i, playerAccountId) +  config.GetInt('fake-DISL-Sub-Id-Offset', 0)) +
+                                   '&PIRATES_SUB_%s_LEVEL=%s' % (i, config.GetInt('fake-DISL-Sub-%s-Level' % i, 3)) +
+                                   '&PIRATES_SUB_%s_NAME=%s' % (i, config.GetString('fake-DISL-Sub-%s-Name' % i, fakeDISLPlayerName)) +
+                                   '&PIRATES_SUB_%s_NUM_AVATARS=%s' % (i, config.GetInt('fake-DISL-Sub-%s-NumAvatars' % i, defaultNumAvatars)) +
+                                   '&PIRATES_SUB_%s_NUM_CONCUR=%s' % (i, config.GetInt('fake-DISL-Sub-%s-NumConcur' % i, defaultNumConcur)) +
+                                   '&PIRATES_SUB_%s_OWNERID=%s' % (i, config.GetInt('fake-DISL-Sub-%s-OwnerId' % i, playerAccountId)) +
+                                   '&PIRATES_SUB_%s_FOUNDER=%s' % (i, config.GetString('fake-DISL-Sub-%s-Founder' % i, 'YES')))
 
-            self.DISLToken += ('&WL_CHAT_ENABLED=%s' % config.ConfigVariableString('fake-DISL-WLChatEnabled', 'YES').getValue() +
+            self.DISLToken += ('&WL_CHAT_ENABLED=%s' % config.GetString('fake-DISL-WLChatEnabled', 'YES') +
                                '&valid=true')
             if base.logPrivateInfo:
                 print(self.DISLToken)
 
 
-        self.requiredLogin = config.ConfigVariableString('required-login', 'auto').getValue()
+        self.requiredLogin = config.GetString('required-login', 'auto')
         if self.requiredLogin == 'auto':
 
             self.notify.info('required-login auto.')
@@ -194,7 +194,7 @@ class OTPClientRepository(ClientRepositoryBase):
             self.http = HTTPClient()
 
 
-        self.accountOldAuth = config.ConfigVariableBool('account-old-auth', 0).getValue()
+        self.accountOldAuth = config.GetBool('account-old-auth', 0)
 
         self.accountOldAuth = config.GetBool('%s-account-old-auth' % game.name,
                                              self.accountOldAuth)
@@ -202,19 +202,19 @@ class OTPClientRepository(ClientRepositoryBase):
         self.loginInterface = LoginTTRAccount.LoginTTRAccount(self)
 
 
-        self.secretChatAllowed = config.ConfigVariableBool('allow-secret-chat', 0).getValue()
-        self.openChatAllowed = config.ConfigVariableBool('allow-open-chat', 0).getValue()
+        self.secretChatAllowed = config.GetBool('allow-secret-chat', 0)
+        self.openChatAllowed = config.GetBool('allow-open-chat', 0)
 
 
-        self.secretChatNeedsParentPassword = config.ConfigVariableBool('secret-chat-needs-parent-password', 0).getValue()
+        self.secretChatNeedsParentPassword = config.GetBool('secret-chat-needs-parent-password', 0)
 
 
 
 
-        self.parentPasswordSet = config.ConfigVariableBool('parent-password-set', 0).getValue()
+        self.parentPasswordSet = config.GetBool('parent-password-set', 0)
 
 
-        self.userSignature = config.ConfigVariableString('signature', 'none').getValue()
+        self.userSignature = config.GetString('signature', 'none')
 
 
 
@@ -235,16 +235,16 @@ class OTPClientRepository(ClientRepositoryBase):
 
         self.timeManager = None
 
-        if config.ConfigVariableBool('detect-leaks', 0).getValue() or config.ConfigVariableBool('client-detect-leaks', 0).getValue():
+        if config.GetBool('detect-leaks', 0) or config.GetBool('client-detect-leaks', 0):
             self.startLeakDetector()
 
-        if config.ConfigVariableBool('detect-messenger-leaks', 0).getValue() or config.ConfigVariableBool('ai-detect-messenger-leaks', 0).getValue():
+        if config.GetBool('detect-messenger-leaks', 0) or config.GetBool('ai-detect-messenger-leaks', 0):
             self.messengerLeakDetector = MessengerLeakDetector.MessengerLeakDetector('client messenger leak detector')
 
-            if config.ConfigVariableBool('leak-messages', 0).getValue():
+            if config.GetBool('leak-messages', 0):
                 MessengerLeakDetector._leakMessengerObject()
 
-        if config.ConfigVariableBool('run-garbage-reports', 0).getValue() or config.ConfigVariableBool('client-run-garbage-reports', 0).getValue():
+        if config.GetBool('run-garbage-reports', 0) or config.GetBool('client-run-garbage-reports', 0):
             noneValue = -1.0
             reportWait = config.GetFloat('garbage-report-wait', noneValue)
             reportWaitScale = config.GetFloat('garbage-report-wait-scale', noneValue)
@@ -255,8 +255,8 @@ class OTPClientRepository(ClientRepositoryBase):
             self.garbageReportScheduler = GarbageReportScheduler(waitBetween=reportWait,
                                                                  waitScale=reportWaitScale)
 
-        self._proactiveLeakChecks = config.ConfigVariableBool('proactive-leak-checks', 1).getValue() or config.ConfigVariableBool('client-proactive-leak-checks', 1).getValue()
-        self._crashOnProactiveLeakDetect = config.ConfigVariableBool('crash-on-proactive-leak-detect', 1).getValue()
+        self._proactiveLeakChecks = config.GetBool('proactive-leak-checks', 1) or config.GetBool('client-proactive-leak-checks', 1)
+        self._crashOnProactiveLeakDetect = config.GetBool('crash-on-proactive-leak-detect', 1)
         self.activeDistrictMap = {}
         self.telemetryLimiter = TelemetryLimiter()
         self.serverVersion = serverVersion
@@ -452,8 +452,8 @@ class OTPClientRepository(ClientRepositoryBase):
         self.playGame = playGame(self.gameFSM, self.gameDoneEvent)
         self.shardListHandle = None
         self.uberZoneInterest = None
-        self.wantSwitchboard = config.ConfigVariableBool('want-switchboard', 0).getValue()
-        self.wantSwitchboardHacks = config.ConfigVariableBool('want-switchboard-hacks', 0).getValue()
+        self.wantSwitchboard = config.GetBool('want-switchboard', 0)
+        self.wantSwitchboardHacks = config.GetBool('want-switchboard-hacks', 0)
 
         self.__pendingGenerates = {}
         self.__pendingMessages = {}
@@ -527,7 +527,7 @@ class OTPClientRepository(ClientRepositoryBase):
         if self.checkHttp():
             for server in self.serverList:
                 self.http.addPreapprovedServerCertificateName(server, "/CN=Restricted AWS Client Agents")
-                if config.ConfigVariableBool('want-dev-certificate-trust', 0).getValue():
+                if config.GetBool('want-dev-certificate-trust', 0):
                     self.http.addPreapprovedServerCertificateFilename(server, Filename('/phase_3/etc/TTRDev.crt'))
 
         self.connect(self.serverList, successCallback=self._sendHello, failureCallback=self.failedToConnect)
@@ -785,7 +785,7 @@ class OTPClientRepository(ClientRepositoryBase):
     @report(types=['args', 'deltaStamp'], dConfigParam='teleport')
     def waitForGetGameListResponse(self):
         if self.isGameListCorrect():
-            if config.ConfigVariableBool('game-server-tests', 0).getValue():
+            if config.GetBool('game-server-tests', 0):
                 from otp.distributed import GameServerTestSuite
                 GameServerTestSuite.GameServerTestSuite(self)
             self.loginFSM.request('waitForShardList')
@@ -1133,7 +1133,7 @@ class OTPClientRepository(ClientRepositoryBase):
             else:
                 logFunc = self.notify.warning
                 allowExit = False
-            if config.ConfigVariableBool('direct-gui-edit', 0).getValue():
+            if config.GetBool('direct-gui-edit', 0):
                 logFunc('There are leaks: %s tasks, %s events, %s ivals, %s garbage cycles\nLeaked Events may be due to direct gui editing' % (leakedTasks,
                  leakedEvents,
                  leakedIvals,
@@ -1196,7 +1196,7 @@ class OTPClientRepository(ClientRepositoryBase):
          'garbageCollectStates',
          'RedownloadNewsTask',
          TelemetryLimiter.TaskName]
-        if extraTasks != None:
+        if extraTasks is not None:
             allowedTasks.extend(extraTasks)
         problems = []
         for task in taskMgr.getTasks():
@@ -1257,7 +1257,7 @@ class OTPClientRepository(ClientRepositoryBase):
          'gotExtraFriendHandles']
         if hasattr(loader, 'hook'):
             allowedHooks.append(loader.hook)
-        if extraHooks != None:
+        if extraHooks is not None:
             allowedHooks.extend(extraHooks)
         problems = []
         for hook in messenger.getEvents():
@@ -1346,13 +1346,13 @@ class OTPClientRepository(ClientRepositoryBase):
         self.handlerArgs = {'hoodId': hoodId,
          'zoneId': zoneId,
          'avId': avId}
-        if shardId != None:
+        if shardId is not None:
             district = self.activeDistrictMap.get(shardId)
         else:
             district = None
         if not district:
             self.distributedDistrict = self.getStartingDistrict()
-            if self.distributedDistrict == None:
+            if self.distributedDistrict is None:
                 self.loginFSM.request('noShards')
                 return
             shardId = self.distributedDistrict.doId
@@ -1408,7 +1408,7 @@ class OTPClientRepository(ClientRepositoryBase):
     @report(types=['args', 'deltaStamp'], dConfigParam='teleport')
     def enterCloseShard(self, loginState = None):
         self.notify.info('Exiting shard')
-        if loginState == None:
+        if loginState is None:
             loginState = 'waitForAvatarList'
         self._closeShardLoginState = loginState
         base.cr.setNoNewInterests(True)
@@ -1536,7 +1536,7 @@ class OTPClientRepository(ClientRepositoryBase):
         avId = self.handlerArgs['avId']
         if not self.SupportTutorial or base.localAvatar.tutorialAck:
             self.gameFSM.request('playGame', [hoodId, zoneId, avId])
-        elif config.ConfigVariableBool('force-tutorial', 1).getValue():
+        elif config.GetBool('force-tutorial', 1):
             if hasattr(self, 'skipTutorialRequest') and self.skipTutorialRequest:
                 self.gameFSM.request('skipTutorialRequest', [hoodId, zoneId, avId])
             else:
@@ -1584,9 +1584,9 @@ class OTPClientRepository(ClientRepositoryBase):
     def isFreeTimeExpired(self):
         if self.accountOldAuth:
             return 0
-        if config.ConfigVariableBool('free-time-expired', 0).getValue():
+        if config.GetBool('free-time-expired', 0):
             return 1
-        if config.ConfigVariableBool('unlimited-free-time', 0).getValue():
+        if config.GetBool('unlimited-free-time', 0):
             return 0
         if self.freeTimeExpiresAt == -1:
             return 0
@@ -1612,7 +1612,7 @@ class OTPClientRepository(ClientRepositoryBase):
         return self.blue != None
 
     def isPaid(self):
-        paidStatus = config.ConfigVariableString('force-paid-status', '').getValue()
+        paidStatus = config.GetString('force-paid-status', '')
         if not paidStatus:
             return self.__isPaid
         elif paidStatus == 'paid':
@@ -1630,7 +1630,7 @@ class OTPClientRepository(ClientRepositoryBase):
         self.__isPaid = isPaid
 
     def allowFreeNames(self):
-        return config.ConfigVariableInt('allow-free-names', 1).getValue()
+        return config.GetInt('allow-free-names', 1)
 
     def allowSecretChat(self):
         return self.secretChatAllowed or self.productName == 'Terra-DMC' and self.isBlue() and self.secretChatAllowed
@@ -1684,20 +1684,20 @@ class OTPClientRepository(ClientRepositoryBase):
             for s in list(self.activeDistrictMap.values()):
                 if s.available and s.avatarCount < lowPop:
                     self.notify.debug('%s: pop %s' % (s.name, s.avatarCount))
-                    if district == None:
+                    if district is None:
                         district = s
                     elif s.avatarCount > district.avatarCount or s.avatarCount == district.avatarCount and s.name > district.name:
                         district = s
 
-        if district == None:
+        if district is None:
             self.notify.debug('all shards over cutoff, picking lowest-population shard')
             for s in list(self.activeDistrictMap.values()):
                 if s.available:
                     self.notify.debug('%s: pop %s' % (s.name, s.avatarCount))
-                    if district == None or s.avatarCount < district.avatarCount:
+                    if district is None or s.avatarCount < district.avatarCount:
                         district = s
 
-        if district != None:
+        if district is not None:
             self.notify.debug('chose %s: pop %s' % (district.name, district.avatarCount))
         return district
 
@@ -1732,7 +1732,7 @@ class OTPClientRepository(ClientRepositoryBase):
 
     def queryObjectField(self, dclassName, fieldName, doId, context = 0):
         dclass = self.dclassesByName.get(dclassName)
-        if dclass != None:
+        if dclass is not None:
             fieldId = dclass.getFieldByName(fieldName).getNumber()
             self.queryObjectFieldId(doId, fieldId, context)
         return

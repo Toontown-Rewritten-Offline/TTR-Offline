@@ -8,10 +8,10 @@ from toontown.toonbase import TTLocalizer
 
 class TTWhiteList(WhiteList):
     RedownloadTaskName = 'RedownloadWhitelistTask'
-    WhitelistBaseDir = config.ConfigVariableString('whitelist-base-dir', '').getValue()
-    WhitelistStageDir = config.ConfigVariableString('whitelist-stage-dir', 'whitelist').getValue()
-    WhitelistOverHttp = config.ConfigVariableBool('whitelist-over-http', False).getValue()
-    WhitelistFileName = config.ConfigVariableString('whitelist-filename', 'twhitelist.dat').getValue()
+    WhitelistBaseDir = config.GetString('whitelist-base-dir', '')
+    WhitelistStageDir = config.GetString('whitelist-stage-dir', 'whitelist')
+    WhitelistOverHttp = config.GetBool('whitelist-over-http', False)
+    WhitelistFileName = config.GetString('whitelist-filename', 'twhitelist.dat')
 
     def __init__(self):
         self.redownloadingWhitelist = False
@@ -71,8 +71,8 @@ class TTWhiteList(WhiteList):
             self.updateWhitelist()
 
     def getWhitelistUrl(self):
-        result = config.ConfigVariableString('fallback-whitelist-url', 'http://cdn.toontown.disney.go.com/toontown/en/').getValue()
-        override = config.ConfigVariableString('whitelist-url', '').getValue()
+        result = config.GetString('fallback-whitelist-url', 'http://cdn.toontown.disney.go.com/toontown/en/')
+        override = config.GetString('whitelist-url', '')
         if override:
             self.notify.info('got an override url,  using %s for the whitelist' % override)
             result = override

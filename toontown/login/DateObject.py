@@ -12,16 +12,16 @@ class DateObject:
         return time.localtime(time.time())[2]
 
     def getDetailedAge(self, dobMonth, dobYear, dobDay = None, curMonth = None, curYear = None, curDay = None):
-        if curMonth == None:
+        if curMonth is None:
             curMonth = self.getMonth()
-        if curYear == None:
+        if curYear is None:
             curYear = self.getYear()
-        if curDay == None:
+        if curDay is None:
             curDay = self.getDay()
         curMonths = curYear * 12 + (curMonth - 1)
         dobMonths = dobYear * 12 + (dobMonth - 1)
         if dobMonth == curMonth:
-            if dobDay != None:
+            if dobDay is not None:
                 if dobDay > curDay:
                     curMonths -= 1
         ageMonths = curMonths - dobMonths
@@ -44,11 +44,11 @@ class DateObject:
             else:
                 return 0
 
-        if month == None:
+        if month is None:
             m = self.getMonth()
         else:
             m = month
-        if year == None:
+        if year is None:
             y = self.getYear()
         else:
             y = year

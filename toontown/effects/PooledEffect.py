@@ -9,7 +9,7 @@ class PooledEffect(DirectObject, NodePath):
 
     @classmethod
     def getEffect(cls, context = ''):
-        if cls.pool == None:
+        if cls.pool is None:
             cls.pool = Pool.Pool()
         if cls.pool.hasFree():
             return cls.pool.checkout()

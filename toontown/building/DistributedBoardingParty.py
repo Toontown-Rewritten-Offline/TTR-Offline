@@ -39,7 +39,7 @@ class DistributedBoardingParty(DistributedObject.DistributedObject, BoardingPart
         canonicalZoneId = ZoneUtil.getCanonicalZoneId(self.zoneId)
         self.notify.debug('canonicalZoneId = %s' % canonicalZoneId)
         localAvatar.chatMgr.chatInputSpeedChat.addBoardingGroupMenu(canonicalZoneId)
-        if config.ConfigVariableBool('want-singing', 0).getValue():
+        if config.GetBool('want-singing', 0):
             localAvatar.chatMgr.chatInputSpeedChat.addSingingGroupMenu()
 
     def delete(self):
@@ -136,7 +136,7 @@ class DistributedBoardingParty(DistributedObject.DistributedObject, BoardingPart
                     self.inviterPanels.forceCleanup()
                 self.groupInviteePanel = GroupInvitee.GroupInvitee()
                 self.groupInviteePanel.make(self, inviter, leaderId)
-                if config.ConfigVariableBool('reject-boarding-group-invites', 0).getValue():
+                if config.GetBool('reject-boarding-group-invites', 0):
                     self.groupInviteePanel.forceCleanup()
                     self.groupInviteePanel = None
         return

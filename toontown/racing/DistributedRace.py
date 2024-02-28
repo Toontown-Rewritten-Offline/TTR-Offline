@@ -145,7 +145,7 @@ class DistributedRace(DistributedObject.DistributedObject):
             self.musicTrack.finish()
         self.raceMusic.stop()
         self.stopSky()
-        if self.sky != None:
+        if self.sky is not None:
             self.sky.removeNode()
         if self.dummyNode:
             self.dummyNode.removeNode()
@@ -162,7 +162,7 @@ class DistributedRace(DistributedObject.DistributedObject):
             render.setFogOff()
             del self.fog
             self.fog = None
-        if self.geom != None:
+        if self.geom is not None:
             self.geom.hide()
         base.camLens.setFar(self.oldFarPlane)
         DistributedObject.DistributedObject.disable(self)
@@ -173,7 +173,7 @@ class DistributedRace(DistributedObject.DistributedObject):
         if self.gui:
             self.gui.destroy()
             self.gui = None
-        if self.geom != None:
+        if self.geom is not None:
             self.geom.removeNode()
             self.geom = None
             for i in self.gags:

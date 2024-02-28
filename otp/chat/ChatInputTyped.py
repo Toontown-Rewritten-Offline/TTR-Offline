@@ -16,9 +16,9 @@ class ChatInputTyped(DirectObject.DirectObject):
         wantHistory = 0
         if __dev__:
             wantHistory = 1
-        self.wantHistory = config.ConfigVariableBool('want-chat-history', wantHistory).getValue()
+        self.wantHistory = config.GetBool('want-chat-history', wantHistory)
         self.history = ['']
-        self.historySize = config.ConfigVariableInt('chat-history-size', 10).getValue()
+        self.historySize = config.GetInt('chat-history-size', 10)
         self.historyIndex = 0
         return
 
@@ -111,7 +111,7 @@ class ChatInputTyped(DirectObject.DirectObject):
                     pass
             elif self.whisperId:
                 pass
-            elif config.ConfigVariableBool('exec-chat', 0).getValue() and text[0] == '>':
+            elif config.GetBool('exec-chat', 0) and text[0] == '>':
                 text = self.__execMessage(text[1:])
                 base.localAvatar.setChatAbsolute(text, CFSpeech | CFTimeout)
                 return

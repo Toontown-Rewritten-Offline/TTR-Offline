@@ -74,7 +74,7 @@ class DistributedCogThiefGameAI(DistributedMinigameAI.DistributedMinigameAI):
     def enterPlay(self):
         self.notify.debug('enterPlay')
         self.startSuitGoals()
-        if not config.ConfigVariableBool('cog-thief-endless', 0).getValue():
+        if not config.GetBool('cog-thief-endless', 0):
             taskMgr.doMethodLater(CTGG.GameTime, self.timerExpired, self.taskName('gameTimer'))
 
     def exitPlay(self):
@@ -391,8 +391,8 @@ class DistributedCogThiefGameAI(DistributedMinigameAI.DistributedMinigameAI):
                 numStolen += 1
 
         self.notify.debug('numStolen = %s' % numStolen)
-        if config.ConfigVariableBool('cog-thief-check-barrels', 1).getValue():
-            if not config.ConfigVariableBool('cog-thief-endless', 0).getValue():
+        if config.GetBool('cog-thief-check-barrels', 1):
+            if not config.GetBool('cog-thief-endless', 0):
                 if numStolen == len(self.barrelInfo):
                     self.gameOver()
 
@@ -402,7 +402,7 @@ class DistributedCogThiefGameAI(DistributedMinigameAI.DistributedMinigameAI):
         return Task.done
 
     def getNumCogs(self):
-        result = config.ConfigVariableInt('cog-thief-num-cogs', 0).getValue()
+        result = config.GetInt('cog-thief-num-cogs', 0)
         if not result:
             safezone = self.getSafezoneId()
             result = CTGG.calculateCogs(self.numPlayers, safezone)

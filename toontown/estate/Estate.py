@@ -105,7 +105,7 @@ class Estate(Place.Place):
         hoodId = requestStatus['hoodId']
         zoneId = requestStatus['zoneId']
         newsManager = base.cr.newsManager
-        if config.ConfigVariableBool('want-estate-telemetry-limiter', 1).getValue():
+        if config.GetBool('want-estate-telemetry-limiter', 1):
             limiter = TLGatherAllAvs('Estate', RotationLimitToH)
         else:
             limiter = TLNull()
@@ -133,7 +133,7 @@ class Estate(Place.Place):
         #if hasattr(base.cr, 'aprilToonsMgr'):
             #if self.isEventActive(AprilToonsGlobals.EventEstateGravity):
                 #base.localAvatar.startAprilToonsControls()
-        if config.ConfigVariableBool('want-april-toons').getValue():
+        if config.GetBool('want-april-toons'):
             base.localAvatar.startAprilToonsControls()
         self.accept('doorDoneEvent', self.handleDoorDoneEvent)
         self.accept('DistributedDoor_doorTrigger', self.handleDoorTrigger)
@@ -196,7 +196,7 @@ class Estate(Place.Place):
         self.notify.info('add estate-check-toon-underwater to TaskMgr in exitPetTutorial()')
         if hasattr(self, 'fsm'):
             taskMgr.add(self.__checkToonUnderwater, 'estate-check-toon-underwater')
-        if hasattr(self, 'petTutorial') and self.petTutorial != None:
+        if hasattr(self, 'petTutorial') and self.petTutorial is not None:
             self.petTutorial.destroy()
         return
 
@@ -250,7 +250,7 @@ class Estate(Place.Place):
     def teleportInDone(self):
         self.notify.debug('teleportInDone')
         self.toonSubmerged = -1
-        if self.nextState != 'petTutorial':
+        if self.nextState is not 'petTutorial':
             self.notify.info('add estate-check-toon-underwater to TaskMgr in teleportInDone()')
             if hasattr(self, 'fsm'):
                 taskMgr.add(self.__checkToonUnderwater, 'estate-check-toon-underwater')
@@ -345,7 +345,7 @@ class Estate(Place.Place):
         self.notify.debug('continuing in __submergeToon')
         if hasattr(self, 'loader') and self.loader:
             base.playSfx(self.loader.submergeSound)
-        if config.ConfigVariableBool('disable-flying-glitch').getValue() == 0:
+        if config.GetBool('disable-flying-glitch') == 0:
             self.fsm.request('walk')
         self.walkStateData.fsm.request('swimming', [self.loader.swimSound])
         pos = base.localAvatar.getPos(render)
@@ -363,7 +363,7 @@ class Estate(Place.Place):
         #if hasattr(base.cr, 'aprilToonsMgr'):
             #if self.isEventActive(AprilToonsGlobals.EventEstateGravity):
                 #base.localAvatar.startAprilToonsControls()
-        if config.ConfigVariableBool('want-april-toons').getValue():
+        if config.GetBool('want-april-toons'):
             base.localAvatar.startAprilToonsControls()
 
     def __setUnderwaterFog(self):

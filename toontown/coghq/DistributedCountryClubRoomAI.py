@@ -104,7 +104,7 @@ class DistributedCountryClubRoomAI(DistributedLevelAI.DistributedLevelAI, Countr
         activeVictorIds = []
         for victorId in victorIds:
             toon = self.air.doId2do.get(victorId)
-            if toon != None:
+            if toon is not None:
                 activeVictors.append(toon)
                 activeVictorIds.append(victorId)
 
@@ -127,7 +127,7 @@ class DistributedCountryClubRoomAI(DistributedLevelAI.DistributedLevelAI, Countr
         DistributedLevelAI.DistributedLevelAI.allToonsGone(self, toonsThatCleared)
         if self.roomNum == 0:
             mint = simbase.air.doId2do.get(self.countryClubDoId)
-            if mint != None:
+            if mint is not None:
                 mint.allToonsGone()
             else:
                 self.notify.warning('no mint %s in allToonsGone' % self.countryClubDoId)

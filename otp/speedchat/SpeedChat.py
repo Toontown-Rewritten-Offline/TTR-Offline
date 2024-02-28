@@ -13,7 +13,7 @@ class SpeedChat(SCMenu):
         self.name = name
         self.settings = SCSettings(eventPrefix=self.name)
         self.privSetSettingsRef(self.settings)
-        if structure != None:
+        if structure is not None:
             self.rebuildFromStructure(structure)
         self._lastTransform = None
         return
@@ -37,7 +37,7 @@ class SpeedChat(SCMenu):
 
     def _detectTransformChange(self):
         newTransform = self.getTransform(aspect2d)
-        if self._lastTransform != None:
+        if self._lastTransform is not None:
             if newTransform != self._lastTransform:
                 self.invalidateAll()
         self._lastTransform = newTransform

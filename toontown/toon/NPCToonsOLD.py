@@ -108,7 +108,7 @@ def createNPC(air, npcId, desc, zoneId, posIndex = 0, questCallback = None):
     elif type == NPC_KARTCLERK:
         npc = DistributedNPCKartClerkAI.DistributedNPCKartClerkAI(air, npcId)
     elif type == NPC_PARTYPERSON:
-        if not config.ConfigVariableBool('want-parties', True).getValue():
+        if not config.GetBool('want-parties', True):
             return
         npc = DistributedNPCPartyPersonAI.DistributedNPCPartyPersonAI(air, npcId)
     elif type == NPC_SPECIALQUESTGIVER:
@@ -12298,7 +12298,7 @@ try:
 except:
     config = base.config
 
-if config.ConfigVariableBool('want-new-toonhall', 1).getValue():
+if config.GetBool('want-new-toonhall', 1):
     NPCToonDict[2001] = (2513,
      lnames[2001],
      ('dss',

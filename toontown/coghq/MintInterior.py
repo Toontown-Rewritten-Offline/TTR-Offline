@@ -214,7 +214,7 @@ class MintInterior(BattlePlace.BattlePlace):
         MintInterior.notify.debug('enterDied')
 
         def diedDone(requestStatus, self = self, callback = callback):
-            if callback != None:
+            if callback is not None:
                 callback()
             messenger.send('leavingMint')
             self.doneStatus = requestStatus

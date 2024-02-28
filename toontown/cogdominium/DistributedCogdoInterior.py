@@ -40,7 +40,7 @@ class DistributedCogdoInterior(DistributedObject.DistributedObject):
         self.reserveSuits = []
         self.joiningReserves = []
         self.distBldgDoId = None
-        self._CogdoGameRepeat = config.ConfigVariableBool('cogdo-game-repeat', 0).getValue()
+        self._CogdoGameRepeat = config.GetBool('cogdo-game-repeat', 0)
         self.currentFloor = -1
         self.elevatorName = self.__uniqueName('elevator')
         self.floorModel = None
@@ -69,7 +69,7 @@ class DistributedCogdoInterior(DistributedObject.DistributedObject):
          120,
          12,
          38]
-        self._wantBarrelRoom = config.ConfigVariableBool('cogdo-want-barrel-room', 0).getValue()
+        self._wantBarrelRoom = config.GetBool('cogdo-want-barrel-room', 0)
         self.barrelRoom = CogdoBarrelRoom.CogdoBarrelRoom()
         self.brResults = [[], []]
         self.barrelRoomIntroTrack = None

@@ -37,7 +37,7 @@ def chatmode(mode=-1):
         2 : "administrator",
         3 : "system administrator",
     }
-    if base.cr.chatAgent == None:
+    if base.cr.chatAgent is None:
         return "No ChatAgent found."
     if mode == -1:
         return "You are currently talking in the %s chat mode." % mode2name.get(base.cr.chatAgent.chatMode, "N/A")

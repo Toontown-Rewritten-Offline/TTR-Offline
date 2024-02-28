@@ -309,7 +309,7 @@ class Pet(Avatar.Avatar):
         else:
             self.clearChat()
         mood = Component2IconDict[mood]
-        if mood == None:
+        if mood is None:
             moodModel = None
         else:
             moodModel = self.moodIcons.find('**/*' + mood + '*')
@@ -461,7 +461,7 @@ class Pet(Avatar.Avatar):
     def getTeleportInTrack(self):
         if not self.teleportHole:
             self.teleportHole = Actor.Actor('phase_3.5/models/props/portal-mod', {'hole': 'phase_3.5/models/props/portal-chan'})
-            self.teleportHole.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+            self.teleportHole.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         track = Sequence(Wait(1.0), Parallel(self.getTeleportInSoundInterval(), Sequence(Func(self.showHole), ActorInterval(self.teleportHole, 'hole', startFrame=81, endFrame=71), ActorInterval(self, 'reappear'), ActorInterval(self.teleportHole, 'hole', startFrame=71, endFrame=81), Func(self.cleanupHole), Func(self.loop, 'neutral')), Sequence(Func(self.dropShadow.hide), Wait(1.0), Func(self.dropShadow.show))))
         return track
 
@@ -475,7 +475,7 @@ class Pet(Avatar.Avatar):
     def getTeleportOutTrack(self):
         if not self.teleportHole:
             self.teleportHole = Actor.Actor('phase_3.5/models/props/portal-mod', {'hole': 'phase_3.5/models/props/portal-chan'})
-            self.teleportHole.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+            self.teleportHole.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         track = Sequence(Wait(1.0), Parallel(self.getTeleportOutSoundInterval(), Sequence(ActorInterval(self, 'toDig'), Parallel(ActorInterval(self, 'dig'), Func(self.showHole), ActorInterval(self.teleportHole, 'hole', startFrame=81, endFrame=71)), ActorInterval(self, 'disappear'), ActorInterval(self.teleportHole, 'hole', startFrame=71, endFrame=81), Func(self.cleanupHole)), Sequence(Wait(1.0), Func(self.dropShadow.hide))))
         return track
 

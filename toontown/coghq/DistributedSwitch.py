@@ -99,7 +99,7 @@ class DistributedSwitch(DistributedSwitchBase.DistributedSwitchBase, BasicEntiti
 
     def enterAttract(self, ts):
         track = self.switchOffTrack()
-        if track != None:
+        if track is not None:
             track.start(ts)
             self.track = track
         return
@@ -112,7 +112,7 @@ class DistributedSwitch(DistributedSwitchBase.DistributedSwitchBase, BasicEntiti
 
     def enterPlaying(self, ts):
         track = self.switchOnTrack()
-        if track != None:
+        if track is not None:
             track.start(ts)
             self.track = track
         return

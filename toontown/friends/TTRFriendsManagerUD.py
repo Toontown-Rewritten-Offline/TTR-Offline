@@ -2,7 +2,6 @@ from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobal
 from direct.distributed.PyDatagram import *
 from direct.task import Task
 from direct.directnotify.DirectNotifyGlobal import directNotify
-from direct.distributed.MsgTypes import *
 from direct.fsm.FSM import FSM
 import functools
 from time import time
@@ -38,7 +37,7 @@ class GetToonDataFSM(FSM):
     def enterFinished(self):
         # We want to cache the basic information we got for GetFriendsListFSM.
         self.mgr.avBasicInfoCache[self.avId] = {
-            'expire' : time() + config.ConfigVariableInt('friend-detail-cache-expire', 3600).getValue(),
+            'expire' : time() + config.GetInt('friend-detail-cache-expire', 3600),
             'toonInfo' : [self.avId, self.fields['setName'][0], self.fields['setDNAString'][0], self.fields['setPetId'][0]],
         }
         self.callback(success=True, requesterId=self.requesterId, fields=self.fields)

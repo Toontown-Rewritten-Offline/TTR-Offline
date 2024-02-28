@@ -14,7 +14,7 @@ class DNAWindows(DNANode):
 
     def _makeNode(self, storage, parent):
         node = storage.findNode(self.code)
-        if node == None:
+        if node is None:
             raise DNAError('DNAWindows uses unknown code %s' % self.code)
 
         windows = parent.attachNewNode('windows')

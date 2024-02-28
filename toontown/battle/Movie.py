@@ -34,7 +34,7 @@ from otp.nametag.NametagConstants import *
 from otp.nametag import NametagGlobals
 camPos = Point3(14, 0, 10)
 camHpr = Vec3(89, -30, 0)
-randomBattleTimestamp = config.ConfigVariableBool('random-battle-timestamp', 0).getValue()
+randomBattleTimestamp = config.GetBool('random-battle-timestamp', 0)
 
 class Movie(DirectObject.DirectObject):
     notify = DirectNotifyGlobal.directNotify.newCategory('Movie')
@@ -351,7 +351,7 @@ class Movie(DirectObject.DirectObject):
 
         self.tutorialTom = NPCToons.createLocalNPC(20000)
         self.tutorialTom.uniqueName = uniqueName
-        if config.ConfigVariableString('language', 'english').getValue() == 'japanese':
+        if config.GetString('language', 'english') == 'japanese':
             self.tomDialogue03 = base.loader.loadSfx('phase_3.5/audio/dial/CC_tom_movie_tutorial_reward01.ogg')
             self.tomDialogue04 = base.loader.loadSfx('phase_3.5/audio/dial/CC_tom_movie_tutorial_reward02.ogg')
             self.tomDialogue05 = base.loader.loadSfx('phase_3.5/audio/dial/CC_tom_movie_tutorial_reward03.ogg')
@@ -399,7 +399,7 @@ class Movie(DirectObject.DirectObject):
         return
 
     def __doToonAttacks(self):
-        if config.ConfigVariableBool('want-toon-attack-anims', 1).getValue():
+        if config.GetBool('want-toon-attack-anims', 1):
             track = Sequence(name='toon-attacks')
             camTrack = Sequence(name='toon-attacks-cam')
             ival, camIval = MovieFire.doFires(self.__findToonAttack(FIRE))
@@ -881,7 +881,7 @@ class Movie(DirectObject.DirectObject):
         return
 
     def __doSuitAttacks(self):
-        if config.ConfigVariableBool('want-suit-anims', 1).getValue():
+        if config.GetBool('want-suit-anims', 1):
             track = Sequence(name='suit-attacks')
             camTrack = Sequence(name='suit-attacks-cam')
             isLocalToonSad = False
@@ -891,7 +891,7 @@ class Movie(DirectObject.DirectObject):
                     track.append(ival)
                     camTrack.append(camIval)
                 targetField = a.get('target')
-                if targetField == None:
+                if targetField is None:
                     continue
                 if a['group'] == ATK_TGT_GROUP:
                     for target in targetField:

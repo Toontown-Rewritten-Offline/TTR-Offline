@@ -243,7 +243,7 @@ class DistributedTwoDGame(DistributedMinigame):
         self.showScoreTrack.start()
 
         #For the Alpha Blueprint ARG
-        if config.ConfigVariableBool('want-blueprint4-ARG', False).getValue():
+        if config.GetBool('want-blueprint4-ARG', False):
             MinigameGlobals.generateDebugARGPhrase()
 
     def exitShowScores(self):

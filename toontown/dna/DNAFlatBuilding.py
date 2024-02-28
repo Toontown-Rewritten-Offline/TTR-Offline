@@ -35,7 +35,7 @@ class DNAFlatBuilding(DNANode):
 
         # We need to set collisions on all of our knock knock doors:
         block = DNAUtil.getBlockFromName(self.name)
-        if block != None:
+        if block is not None:
             for collisionNP in np.findAllMatches('**/door_*/+CollisionNode'):
                 collisionNP.setName('KnockKnockDoorSphere_%d' % block)
 

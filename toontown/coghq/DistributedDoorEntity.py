@@ -35,7 +35,7 @@ class DistributedDoorEntityLock(DistributedDoorEntityBase.LockBase, FourState.Fo
         del self.initialStateIndex
 
     def takedown(self):
-        if self.track != None:
+        if self.track is not None:
             self.track.pause()
             self.track = None
         for i in list(self.states.keys()):
@@ -48,7 +48,7 @@ class DistributedDoorEntityLock(DistributedDoorEntityBase.LockBase, FourState.Fo
     def setLockState(self, stateIndex):
         if self.stateIndex != stateIndex:
             state = self.states.get(stateIndex)
-            if state != None:
+            if state is not None:
                 self.fsm.request(state)
         return
 
@@ -133,10 +133,10 @@ class DistributedDoorEntity(DistributedDoorEntityBase.DistributedDoorEntityBase,
         if __dev__:
             self.shutdownWantDoors()
         self.ignoreAll()
-        if self.track != None:
+        if self.track is not None:
             self.track.finish()
         self.track = None
-        if self.innerDoorsTrack != None:
+        if self.innerDoorsTrack is not None:
             self.innerDoorsTrack.finish()
         self.innerDoorsTrack = None
         for i in self.locks:
@@ -206,7 +206,7 @@ class DistributedDoorEntity(DistributedDoorEntityBase.DistributedDoorEntityBase,
         if self.isGenerated():
             if self.stateIndex != stateIndex:
                 state = self.states.get(stateIndex)
-                if state != None:
+                if state is not None:
                     self.fsm.request(state)
         else:
             self.initialState = stateIndex
@@ -353,10 +353,10 @@ class DistributedDoorEntity(DistributedDoorEntityBase.DistributedDoorEntityBase,
         del self.initialStateTimestamp
 
     def setInnerDoorsTrack(self, track):
-        if self.innerDoorsTrack != None:
+        if self.innerDoorsTrack is not None:
             self.innerDoorsTrack.pause()
             self.innerDoorsTrack = None
-        if track != None:
+        if track is not None:
             track.start(0.0)
             self.innerDoorsTrack = track
         return

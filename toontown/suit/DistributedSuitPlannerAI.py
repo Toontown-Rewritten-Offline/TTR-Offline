@@ -371,25 +371,6 @@ class DistributedSuitPlannerAI(DistributedObjectAI.DistributedObjectAI, SuitPlan
        8,
        9),
       []],
-    [10000,
-      3,
-      15,
-      0,
-      0,
-      0,
-      4,
-      (1,
-       5,
-       10,
-       40,
-       60,
-       80),
-      (100,
-       0,
-       0,
-       0),
-      (8, 9, 10),
-      []],
      [11000,
       3,
       15,
@@ -545,7 +526,7 @@ class DistributedSuitPlannerAI(DistributedObjectAI.DistributedObjectAI, SuitPlan
         TOTAL_BWEIGHT_PER_HEIGHT[3] += weight * heights[3]
         TOTAL_BWEIGHT_PER_HEIGHT[4] += weight * heights[4]
 
-    defaultSuitName = config.ConfigVariableString('suit-type', 'random').getValue()
+    defaultSuitName = config.GetString('suit-type', 'random')
     if defaultSuitName == 'random':
         defaultSuitName = None
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedSuitPlannerAI')
@@ -556,7 +537,7 @@ class DistributedSuitPlannerAI(DistributedObjectAI.DistributedObjectAI, SuitPlan
         self.air = air
         self.zoneId = zoneId
         self.canonicalZoneId = ZoneUtil.getCanonicalZoneId(zoneId)
-        if config.ConfigVariableBool('want-cogdos', False).getValue():
+        if config.GetBool('want-cogdos', False):
             if not hasattr(self.__class__, 'CogdoPopAdjusted'):
                 self.__class__.CogdoPopAdjusted = True
                 for index in range(len(self.SuitHoodInfo)):
@@ -601,10 +582,10 @@ class DistributedSuitPlannerAI(DistributedObjectAI.DistributedObjectAI, SuitPlan
                 bldg.setSuitPlannerExt(self)
 
         self.initBuildingsAndPoints()
-        numSuits = config.ConfigVariableInt('suit-count', -1).getValue()
+        numSuits = config.GetInt('suit-count', -1)
         if numSuits >= 0:
             self.currDesired = numSuits
-        suitHood = config.ConfigVariableInt('suits-only-in-hood', -1).getValue()
+        suitHood = config.GetInt('suits-only-in-hood', -1)
         if suitHood >= 0:
             if self.SuitHoodInfo[self.hoodInfoIdx][self.SUIT_HOOD_INFO_ZONE] != suitHood:
                 self.currDesired = 0
@@ -640,7 +621,7 @@ class DistributedSuitPlannerAI(DistributedObjectAI.DistributedObjectAI, SuitPlan
         self.buildingSideDoors = {}
         for p in self.frontdoorPointList:
             blockNumber = p.getLandmarkBuildingIndex()
-            if blockNumber == None:
+            if blockNumber is None:
                 self.notify.debug('No landmark building for (%s) in zone %d' % (repr(p), self.zoneId))
             elif blockNumber in self.buildingFrontDoors:
                 self.notify.debug('Multiple front doors for building %d in zone %d' % (blockNumber, self.zoneId))
@@ -649,7 +630,7 @@ class DistributedSuitPlannerAI(DistributedObjectAI.DistributedObjectAI, SuitPlan
 
         for p in self.sidedoorPointList:
             blockNumber = p.getLandmarkBuildingIndex()
-            if blockNumber == None:
+            if blockNumber is None:
                 self.notify.debug('No landmark building for (%s) in zone %d' % (repr(p), self.zoneId))
             elif blockNumber in self.buildingSideDoors:
                 self.buildingSideDoors[blockNumber].append(p)
@@ -846,7 +827,7 @@ class DistributedSuitPlannerAI(DistributedObjectAI.DistributedObjectAI, SuitPlan
     def chooseDestination(self, suit, startTime, toonBlockTakeover = None, cogdoTakeover = None, minPathLen = None, maxPathLen = None):
         possibles = []
         backup = []
-        if cogdoTakeover == None:
+        if cogdoTakeover is None:
             cogdoTakeover = False
         if toonBlockTakeover != None:
             suit.attemptingTakeover = 1
@@ -1318,7 +1299,7 @@ class DistributedSuitPlannerAI(DistributedObjectAI.DistributedObjectAI, SuitPlan
                 toon.b_setBattleId(toonId)
         pos = self.battlePosDict[canonicalZoneId]
         interactivePropTrackBonus = -1
-        if config.ConfigVariableBool('props-buff-battles', False).getValue() and canonicalZoneId in self.cellToGagBonusDict:
+        if config.GetBool('props-buff-battles', False) and canonicalZoneId in self.cellToGagBonusDict:
             tentativeBonusTrack = self.cellToGagBonusDict[canonicalZoneId]
             trackToHolidayDict = {ToontownBattleGlobals.SQUIRT_TRACK: ToontownGlobals.HYDRANTS_BUFF_BATTLES,
              ToontownBattleGlobals.THROW_TRACK: ToontownGlobals.MAILBOXES_BUFF_BATTLES,
@@ -1354,7 +1335,7 @@ class DistributedSuitPlannerAI(DistributedObjectAI.DistributedObjectAI, SuitPlan
         if len(battle.suits) >= 4:
             return 0
         if battle:
-            if config.ConfigVariableBool('suits-always-join', 0).getValue():
+            if config.GetBool('suits-always-join', 0):
                 return 1
             jChanceList = self.SuitHoodInfo[self.hoodInfoIdx][self.SUIT_HOOD_INFO_JCHANCE]
             ratioIdx = len(battle.toons) - battle.numSuitsEver + 2

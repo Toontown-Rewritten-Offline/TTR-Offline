@@ -235,7 +235,6 @@ HoodHierarchy = {ToontownCentral: (SillyStreet, LoopyLane, PunchlinePlace),
 WelcomeValleyToken = 0
 BossbotHQ = 10000
 BossbotLobby = 10100
-BossbotExecutiveLobby =  10300
 BossbotCountryClubIntA = 10500
 BossbotCountryClubIntB = 10600
 BossbotCountryClubIntC = 10700
@@ -1551,7 +1550,6 @@ DinerBattleBPosHpr = (-20,
  0,
  0,
  0)
-BossbotOilDamage = 5
 BossbotBossMaxDamage = 500
 BossbotMaxSpeedDamage = 90
 BossbotSpeedRecoverRate = 2 # This was 20 - far too high - but we need to test and find a good value for this.

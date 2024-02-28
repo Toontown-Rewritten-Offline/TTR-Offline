@@ -34,7 +34,7 @@ class NonRepeatableRandomSourceAI(DistributedObjectAI):
         self._sampleRandom()
 
     def getRandomSamples(self, callback, num = None):
-        if num == None:
+        if num is None:
             num = 1
         context = next(self._contextGen)
         self._requests[context] = (callback,)

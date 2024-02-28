@@ -11,7 +11,7 @@ class FishAnimatedProp(AnimatedProp.AnimatedProp):
         AnimatedProp.AnimatedProp.__init__(self, node)
         parent = node.getParent()
         self.fish = Actor.Actor(node, copy=0)
-        self.fish.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+        self.fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.fish.reparentTo(parent)
         self.fish.setTransform(node.getTransform())
         node.clearMat()

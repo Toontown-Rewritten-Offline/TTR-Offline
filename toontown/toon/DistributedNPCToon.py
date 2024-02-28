@@ -119,7 +119,7 @@ class DistributedNPCToon(DistributedNPCToonBase):
             self.detectAvatars()
             return
         av = base.cr.doId2do.get(avId)
-        if av == None:
+        if av is None:
             self.notify.warning('Avatar %d not found in doId' % avId)
             return
         if mode == NPCToons.QUEST_MOVIE_REJECT:

@@ -41,7 +41,7 @@ class DistributedLevelBattle(DistributedBattle.DistributedBattle):
             return
 
         level = base.cr.doId2do.get(self.levelDoId)
-        if level == None:
+        if level is None:
             self.notify.warning('level %s not in doId2do yet, battle %s will be mispositioned.' % self.levelDoId, self.doId)
             self.levelRequest = self.cr.relatedObjectMgr.requestObjects([self.levelDoId], doPlacement)
         else:
@@ -57,7 +57,7 @@ class DistributedLevelBattle(DistributedBattle.DistributedBattle):
     def disable(self):
         if self.hasLocalToon():
             self.unlockLevelViz()
-        if self.levelRequest != None:
+        if self.levelRequest is not None:
             self.cr.relatedObjectMgr.abortRequest(self.levelRequest)
             self.levelRequest = None
         DistributedBattle.DistributedBattle.disable(self)

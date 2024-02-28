@@ -243,44 +243,7 @@ def gearExplosionBig(self):
     force0.setActive(1)
     f0.addForce(force0)
     self.addForceGroup(f0)
-    
-    
-@particle
-def raindisk(self):
-    self.reset()
-    self.setPos(0.0, 5.0, 50.0)
-    self.setHpr(0.0, 0.0, 0.0)
-    self.setScale(1.0, 1.0, 1.0)
-    p0 = Particles.Particles('particles-1')
-    p0.setFactory('PointParticleFactory')
-    p0.setRenderer('LineParticleRenderer')
-    p0.setEmitter('DiscEmitter')
-    p0.setPoolSize(3072)
-    p0.setBirthRate(0.02)
-    p0.setLitterSize(10)
-    p0.setLitterSpread(0)
-    p0.setSystemLifespan(0.0)
-    p0.setLocalVelocityFlag(1)
-    p0.setSystemGrowsOlderFlag(0)
-    p0.factory.setLifespanBase(1.0)
-    p0.factory.setLifespanSpread(0.0)
-    p0.factory.setMassBase(1.0)
-    p0.factory.setMassSpread(0.0)
-    p0.factory.setTerminalVelocityBase(400.0)
-    p0.factory.setTerminalVelocitySpread(0.0)
-    p0.renderer.setAlphaMode(BaseParticleRenderer.PRALPHANONE)
-    p0.renderer.setUserAlpha(1.0)
-    p0.renderer.setHeadColor(Vec4(0.39, 0.39, 0.58, 0.49))
-    p0.renderer.setTailColor(Vec4(0.39, 0.39, 0.39, 0.29))
-    p0.renderer.setLineScaleFactor(1.7)
-    p0.emitter.setEmissionType(BaseParticleEmitter.ETRADIATE)
-    p0.emitter.setAmplitude(1.2)
-    p0.emitter.setAmplitudeSpread(0.0)
-    p0.emitter.setOffsetForce(Vec3(11.3, 0.0, -41.0))
-    p0.emitter.setExplicitLaunchVector(Vec3(1.0, 0.0, 0.0))
-    p0.emitter.setRadiateOrigin(Point3(0.0, 0.0, 0.0))
-    p0.emitter.setRadius(100.0)
-    self.addParticles(p0)
+
 
 @particle
 def poundkey(self):

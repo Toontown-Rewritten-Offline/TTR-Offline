@@ -118,7 +118,7 @@ class CogdoFlyingObstacle(DirectObject):
             blendType = 'easeInOut'
         else:
             blendType = 'noBlend'
-        if motionPath != None:
+        if motionPath is not None:
 
             def moveObstacle(value):
                 self.motionPath.goTo(self.model, value)
@@ -147,29 +147,29 @@ class CogdoFlyingObstacle(DirectObject):
         self.accept('exit' + self.collName, self._handleExitCollision)
 
     def disable(self):
-        if self.collNode != None:
+        if self.collNode is not None:
             self.collNode.setIntoCollideMask(BitMask32(0))
         return
 
     def enable(self):
-        if self.collNode != None:
+        if self.collNode is not None:
             self.collNode.setIntoCollideMask(ToontownGlobals.WallBitmask)
         return
 
     def startMoving(self, elapsedTime = 0.0):
-        if self.motionSequence != None:
+        if self.motionSequence is not None:
             self.motionSequence.loop()
             self.motionSequence.setT(elapsedTime % self.motionSequence.getDuration())
         return
 
     def stopMoving(self):
-        if self.motionSequence != None:
+        if self.motionSequence is not None:
             self.motionSequence.pause()
         return
 
     def destroy(self):
         self.ignoreAll()
-        if self.motionSequence != None:
+        if self.motionSequence is not None:
             self.motionSequence.clearToInitial()
             del self.motionSequence
         del self.collSolid
@@ -251,7 +251,7 @@ class CogdoFlyingMinion(CogdoFlyingObstacle):
         return
 
     def attachPropeller(self):
-        if self.prop == None:
+        if self.prop is None:
             self.prop = BattleProps.globalPropPool.getProp('propeller')
             head = self.suit.find('**/joint_head')
             self.prop.reparentTo(head)

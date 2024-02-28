@@ -424,7 +424,7 @@ class TTChatInputSpeedChat(DirectObject.DirectObject):
         self.insidePartiesMenu = None
         self.createSpeedChat()
         self.whiteList = None
-        self.allowWhiteListSpeedChat = config.ConfigVariableBool('white-list-speed-chat', 0).getValue()
+        self.allowWhiteListSpeedChat = config.GetBool('white-list-speed-chat', 0)
         if self.allowWhiteListSpeedChat:
             self.addWhiteList()
         self.factoryMenu = None
@@ -498,7 +498,7 @@ class TTChatInputSpeedChat(DirectObject.DirectObject):
         structure.append([TTSCResistanceMenu, OTPLocalizer.SCMenuResistance])
         if hasattr(base, 'wantPets') and base.wantPets:
             structure += scPetMenuStructure
-        if config.ConfigVariableBool('want-doomsday', False).getValue():
+        if config.GetBool('want-doomsday', False):
           structure.append([OTPLocalizer.SCMenuElection, 10100, 10101, 10102, 10103, 10104, 10105])
         structure += scStructure
         self.createSpeedChatObject(structure)
@@ -520,7 +520,7 @@ class TTChatInputSpeedChat(DirectObject.DirectObject):
             self.chatMgr.fsm.request('mainMenu')
 
         self.terminalSelectedEvent = self.speedChat.getEventName(SpeedChatGlobals.SCTerminalSelectedEvent)
-        if config.ConfigVariableBool('want-sc-auto-hide', 1).getValue():
+        if config.GetBool('want-sc-auto-hide', 1):
             self.accept(self.terminalSelectedEvent, selectionMade)
         self.speedChat.reparentTo(base.a2dpTopLeft, DGG.FOREGROUND_SORT_INDEX)
         scZ = -0.04

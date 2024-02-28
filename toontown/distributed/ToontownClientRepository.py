@@ -103,9 +103,9 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
         self.ttrFriendsManager = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_TTR_FRIENDS_MANAGER, 'TTRFriendsManager')
         self.speedchatRelay = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_TOONTOWN_SPEEDCHAT_RELAY, 'TTSpeedchatRelay')
         self.deliveryManager = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_TOONTOWN_DELIVERY_MANAGER, 'DistributedDeliveryManager')
-        if config.ConfigVariableBool('want-code-redemption', 1).getValue():
+        if config.GetBool('want-code-redemption', 1):
             self.codeRedemptionManager = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_TOONTOWN_CODE_REDEMPTION_MANAGER, 'TTCodeRedemptionMgr')
-        if config.ConfigVariableBool('want-arg-manager', 0).getValue():
+        if config.GetBool('want-arg-manager', 0):
             self.argManager = self.generateGlobalObject(OtpDoGlobals.OTP_DO_ID_TTR_ARG_MANAGER, 'ARGManager')
 
         self.streetSign = None
@@ -138,9 +138,9 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
         state = self.loginFSM.getStateNamed('playingGame')
         state.addTransition('credits')
 
-        self.wantCogdominiums = config.ConfigVariableBool('want-cogdominiums', 1).getValue()
-        self.wantEmblems = config.ConfigVariableBool('want-emblems', 0).getValue()
-        if config.ConfigVariableBool('tt-node-check', 0).getValue():
+        self.wantCogdominiums = config.GetBool('want-cogdominiums', 1)
+        self.wantEmblems = config.GetBool('want-emblems', 0)
+        if config.GetBool('tt-node-check', 0):
             for species in ToonDNA.toonSpeciesTypes:
                 for head in ToonDNA.getHeadList(species):
                     for torso in ToonDNA.toonTorsoTypes:
@@ -218,10 +218,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
         self.sendSetAvatarIdMsg(0)
         self.clearFriendState()
         if self.music == None and base.musicManagerIsValid:
-            if ConfigVariableBool('want-retro-rewritten', False):
-                self.music = base.musicManager.getSound('phase_3/audio/bgm/ttr_theme.ogg')
-            else:
-                self.music = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase2.ogg')
+            self.music = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase2.ogg')
             if self.music:
                 self.music.setLoopStart(2.9)
                 self.music.setLoop(True)
@@ -234,7 +231,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
         self.avChoice.load(self.isPaid())
         self.avChoice.enter()
         self.accept(self.avChoiceDoneEvent, self.__handleAvatarChooserDone, [avList])
-        if config.ConfigVariableBool('want-gib-loader', 1).getValue():
+        if config.GetBool('want-gib-loader', 1):
             self.loadingBlocker = ToontownLoadingBlocker.ToontownLoadingBlocker(avList)
         return
 
@@ -292,12 +289,13 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
 
     def exitChooseAvatar(self):
         self.handler = None
-        if self.music:
-            self.music.stop()
-            self.music = None
-        if not ConfigVariableBool('want-retro-rewritten', False):
-            self.loading.exitMusic()
-        self.loading.exitMusic()
+        self.stopMusic = self.loading.exitMusic
+        if ConfigVariableBool('want-retro-rewritten', False):
+            if self.music:
+                self.music.stop()
+                self.music = None
+        else:
+            self.stopMusic()
         self.avChoice.exit()
         self.avChoice.unload()
         self.avChoice = None
@@ -668,7 +666,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
                 ignoredClass = obj.__class__.__name__ in ignoredClasses
                 if not ignoredClass and obj.parentId != localAvatar.defaultShard:
                     self.notify.info('dumpAllSubShardObjects: %s %s parent %s is not defaultShard' % (obj.__class__.__name__, obj.doId, obj.parentId))
-            if obj.parentId == localAvatar.defaultShard and obj != localAvatar:
+            if obj.parentId == localAvatar.defaultShard and obj is not localAvatar:
                 if obj.neverDisable:
                     if isNotLive:
                         if not ignoredClass:
@@ -694,7 +692,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
             self.notify.info('dumpAllSubShardObjects: doIds left: %s' % list(self.doId2do.keys()))
 
     def _removeCurrentShardInterest(self, callback):
-        if self.old_setzone_interest_handle == None:
+        if self.old_setzone_interest_handle is None:
             self.notify.warning('removeToontownShardInterest: no shard interest open')
             callback()
             return
@@ -789,7 +787,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
         else:
             self.notify.warning("Don't know who friend %s is." % doId)
             return
-        if not ((isinstance(avatar, DistributedToon.DistributedToon) and avatar.__class__ == DistributedToon.DistributedToon) or isinstance(avatar, DistributedPet.DistributedPet)):
+        if not ((isinstance(avatar, DistributedToon.DistributedToon) and avatar.__class__ is DistributedToon.DistributedToon) or isinstance(avatar, DistributedPet.DistributedPet)):
             self.notify.warning('friendsNotify%s: invalid friend object %s' % (choice(source, '(%s)' % source, ''), doId))
             return
         if base.wantPets:
@@ -986,7 +984,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
         self.sendSetLocation(base.localAvatar.doId, parentId, zoneId)
         localAvatar.setLocation(parentId, zoneId)
         interestZones = zoneId
-        if visibleZoneList != None:
+        if visibleZoneList is not None:
             interestZones = visibleZoneList
         self._addInterestOpToQueue(ToontownClientRepository.SetInterest, [parentId, interestZones, 'OldSetZoneEmulator'], event)
         return
@@ -1024,7 +1022,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
     def _handleEmuSetZoneDone(self):
         op, args, event = self.setZoneQueue.pop()
         queueIsEmpty = self.setZoneQueue.isEmpty()
-        if event != None:
+        if event is not None:
             if not base.killInterestResponse:
                 messenger.send(event)
             elif not hasattr(self, '_dontSendSetZoneDone'):
@@ -1107,7 +1105,7 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
 
     def _abandonShard(self):
         for doId, obj in list(self.doId2do.items()):
-            if obj.parentId == localAvatar.defaultShard and obj != localAvatar:
+            if obj.parentId == localAvatar.defaultShard and obj is not localAvatar:
                 self.deleteObject(doId)
 
     def askAvatarKnown(self, avId):

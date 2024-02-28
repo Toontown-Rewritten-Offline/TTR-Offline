@@ -123,13 +123,13 @@ class DistributedToonfestCannonActivity(DistributedToonfestActivity):
     def unload(self):
         self.notify.debug('unload')
         DistributedToonfestActivity.unload(self)
-        if self.shadowNode != None:
+        if self.shadowNode is not None:
             self.shadowNode.removeNode()
             del self.shadowNode
-        if self.splash != None:
+        if self.splash is not None:
             self.splash.destroy()
             del self.splash
-        if self.dustCloud != None:
+        if self.dustCloud is not None:
             self.dustCloud.destroy()
             del self.dustCloud
         del self.sndHitHouse
@@ -153,10 +153,10 @@ class DistributedToonfestCannonActivity(DistributedToonfestActivity):
 
     def offstage(self):
         self.notify.debug('offstage')
-        if self.splash != None:
+        if self.splash is not None:
             self.splash.reparentTo(hidden)
             self.splash.stop()
-        if self.dustCloud != None:
+        if self.dustCloud is not None:
             self.dustCloud.reparentTo(hidden)
             self.dustCloud.stop()
         return
@@ -174,7 +174,7 @@ class DistributedToonfestCannonActivity(DistributedToonfestActivity):
             self.__stopCollisionHandler(self.localFlyingToon)
             self.__stopLocalFlyTask(self.localFlyingToonId)
             self.setMovie(PartyGlobals.CANNON_MOVIE_CLEAR, self.localFlyingToonId)
-        if self.hitTrack != None:
+        if self.hitTrack is not None:
             self.hitTrack.finish()
             del self.hitTrack
             self.hitTrack = None
@@ -231,7 +231,7 @@ class DistributedToonfestCannonActivity(DistributedToonfestActivity):
     def setCannonWillFire(self, cannonId, zRot, angle):
         self.notify.debug('setCannonWillFire: %d %d %d' % (cannonId, zRot, angle))
         cannon = base.cr.doId2do.get(cannonId)
-        if cannon == None:
+        if cannon is None:
             self.notify.warning("Cannon has not been created, but we got this message. Don't show firing.")
             return
         if not cannon.getToonInside():
@@ -349,7 +349,7 @@ class DistributedToonfestCannonActivity(DistributedToonfestActivity):
             t = max(0.0, now - startTime)
             t *= self.TimeFactor
             toon = self.cr.getDo(avId)
-            if toon == None:
+            if toon is None:
                 ids2del.append(avId)
             else:
                 toon.setFluidPos(trajectory.getPos(t))
@@ -408,7 +408,7 @@ class DistributedToonfestCannonActivity(DistributedToonfestActivity):
     def landToon(self, toonId):
         self.notify.debug('%s landToon' % self.doId)
         toon = base.cr.doId2do.get(toonId)
-        if toon != None:
+        if toon is not None:
             toon.resetLOD()
             if toon == base.localAvatar:
                 self.__stopCollisionHandler(base.localAvatar)
@@ -421,10 +421,10 @@ class DistributedToonfestCannonActivity(DistributedToonfestActivity):
             self.__cleanupFlyingToonData(toon)
             toon.dropShadow.show()
         place = base.cr.playGame.getPlace()
-        if place != None:
+        if place is not None:
             if not hasattr(place, 'fsm'):
                 return
-        if toon != None and toon == base.localAvatar:
+        if toon is not None and toon == base.localAvatar:
             self.__localDisplayLandedResults()
         return
 
@@ -710,12 +710,12 @@ class DistributedToonfestCannonActivity(DistributedToonfestActivity):
                 entry = self.handler.getEntry(i - 1)
                 k = (str(entry.getFromNodePath()), str(entry.getIntoNodePath()))
                 curCollisions.add(k)
-                if activeEntry == None and k not in self._activeCollisions:
+                if activeEntry is None and k not in self._activeCollisions:
                     activeEntry = entry
                     self._activeCollisions.add(k)
                 i -= 1
 
-            if activeEntry != None:
+            if activeEntry is not None:
                 self.__handleFlyingToonCollision(activeEntry)
             if self.handler:
                 self.handler.clearEntries()
@@ -915,7 +915,7 @@ class DistributedToonfestCannonActivity(DistributedToonfestActivity):
             self.hitCloud = 1
             self.__hitBumper(avatar, collisionEntry, self.sndBounce1, kr=0.35, angVel=5)
             self.hitBumper = 0
-            if self._lastCloudHit == None:
+            if self._lastCloudHit is None:
                 cloud = collisionEntry.getIntoNodePath().getParent()
                 self._lastCloudHit = cloud
                 cloud.setColor(base.localAvatar.style.getHeadColor())

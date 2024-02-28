@@ -10,7 +10,7 @@ class DNAStoreNode(DNAStorageElement):
 
         self.root = root
         self.code = code
-        if node == None:
+        if node is None:
             self.node = code
         else:
             self.node = node

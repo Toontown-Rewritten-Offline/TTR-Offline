@@ -98,9 +98,9 @@ class FlowerSpeciesPanel(DirectFrame):
         DirectFrame.show(self)
 
     def hide(self):
-        if self.flowerPanel != None:
+        if self.flowerPanel is not None:
             self.flowerPanel.hide()
-        if self.beanRecipeGui != None:
+        if self.beanRecipeGui is not None:
             self.beanRecipeGui.hide()
         DirectFrame.hide(self)
         return

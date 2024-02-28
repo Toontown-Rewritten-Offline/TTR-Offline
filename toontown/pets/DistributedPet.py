@@ -42,7 +42,7 @@ class DistributedPet(DistributedSmoothNode.DistributedSmoothNode, Pet.Pet, PetBa
         self.__generateDistMoodFuncs()
         self.trickAptitudes = []
         self.avDelayDelete = None
-        self.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         return
 
     def generate(self):
@@ -54,7 +54,7 @@ class DistributedPet(DistributedSmoothNode.DistributedSmoothNode, Pet.Pet, PetBa
         self.movieTrack = None
         self.traitList = [0] * PetTraits.PetTraits.NumTraits
         self.requiredMoodComponents = {}
-        self.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         return
 
     def b_setLocation(self, parentId, zoneId):
@@ -190,7 +190,7 @@ class DistributedPet(DistributedSmoothNode.DistributedSmoothNode, Pet.Pet, PetBa
 
     def doTrick(self, trickId, timestamp):
         if not self.isLockedDown():
-            if self.trickIval != None and self.trickIval.isPlaying():
+            if self.trickIval is not None and self.trickIval.isPlaying():
                 self.trickIval.finish()
             self.trickIval = PetTricks.getTrickIval(self, trickId)
             if trickId == PetTricks.Tricks.BALK:
@@ -273,11 +273,11 @@ class DistributedPet(DistributedSmoothNode.DistributedSmoothNode, Pet.Pet, PetBa
 
     def delete(self):
         DistributedPet.notify.debug('delete(), fake=%s' % self.bFake)
-        self.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
-        if self.trickIval != None:
+        self.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        if self.trickIval is not None:
             self.trickIval.finish()
             del self.trickIval
-        if self.movieTrack != None:
+        if self.movieTrack is not None:
             self.movieTrack.finish()
             del self.movieTrack
         taskMgr.remove(self.uniqueName('Pet-Movie-%s' % self.getDoId()))
@@ -364,7 +364,7 @@ class DistributedPet(DistributedSmoothNode.DistributedSmoothNode, Pet.Pet, PetBa
         return PetBase.PetBase.isSad(self)
 
     def handleMoodChange(self, mood = None):
-        if mood == None:
+        if mood is None:
             mood = self.mood.getDominantMood()
         if mood == PetMood.PetMood.Neutral:
             self.clearChat()
@@ -456,12 +456,12 @@ class DistributedPet(DistributedSmoothNode.DistributedSmoothNode, Pet.Pet, PetBa
     def setMovie(self, mode, avId, timestamp):
         timeStamp = globalClockDelta.localElapsedTime(timestamp)
         if mode in (PetConstants.PET_MOVIE_CALL, PetConstants.PET_MOVIE_SCRATCH, PetConstants.PET_MOVIE_FEED):
-            if self.movieTrack != None and self.movieTrack.isPlaying():
+            if self.movieTrack is not None and self.movieTrack.isPlaying():
                 self.movieTrack.finish()
         if avId != 0:
             self.isLocalToon = avId == base.localAvatar.doId
             av = base.cr.doId2do.get(avId)
-            if av == None:
+            if av is None:
                 self.notify.warning('Avatar %d not found in doId' % avId)
                 return
         if mode == PetConstants.PET_MOVIE_CLEAR:

@@ -119,7 +119,7 @@ class FurnitureItemPanel(DirectButton):
     def bindHelpText(self, category):
         self.unbind(DGG.ENTER)
         self.unbind(DGG.EXIT)
-        if category == None:
+        if category is None:
             category = self.origHelpCategory
         self.bind(DGG.ENTER, base.cr.objectManager.showHelpText, extraArgs=[category, self.item.getName()])
         self.bind(DGG.EXIT, base.cr.objectManager.hideHelpText)
@@ -508,7 +508,7 @@ class ObjectManager(NodePath, DirectObject):
             self.atticRoof.hide()
 
             # In case we dont want to move the Closet, Phone, Bank or Trunk to the attic
-            if config.ConfigVariableBool('want-permanent-interactables', False).getValue():
+            if config.GetBool('want-permanent-interactables', False):
                 if selectedObject.dfitem.item.getFlags() & CatalogFurnitureItem.FLCloset or \
                     selectedObject.dfitem.item.getFlags() & CatalogFurnitureItem.FLPhone or \
                     selectedObject.dfitem.item.getFlags() & CatalogFurnitureItem.FLBank or \
@@ -1165,7 +1165,7 @@ class ObjectManager(NodePath, DirectObject):
         return
 
     def sendItemToAttic(self):
-        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+        if config.GetBool('want-qa-regression', 0):
             self.notify.info('QA-REGRESSION: ESTATE:  Send Item to Attic')
         messenger.send('wakeup')
         if self.selectedObject:
@@ -1261,13 +1261,13 @@ class ObjectManager(NodePath, DirectObject):
         if self.selectedObject != None and self.selectedObject.get_key() == objectId:
             self.selectedObject.detachNode()
             self.deselectObject()
-        if self.inRoomPicker and itemIndex != None:
+        if self.inRoomPicker and itemIndex is not None:
             del self.inRoomPanels[itemIndex]
             self.regenerateInRoomPicker()
         return
 
     def bringItemFromAttic(self, item, itemIndex):
-        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+        if config.GetBool('want-qa-regression', 0):
             self.notify.info('QA-REGRESSION: ESTATE: Place Item in Room')
         messenger.send('wakeup')
         self.__enableItemButtons(0)
@@ -1485,7 +1485,7 @@ class ObjectManager(NodePath, DirectObject):
         return
 
     def __handleVerifyDeleteOK(self):
-        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+        if config.GetBool('want-qa-regression', 0):
             self.notify.info('QA-REGRESSION: ESTATE:  Send Item to Trash')
         deleteFunction = self.verifyItems[0]
         deleteFunctionArgs = self.verifyItems[1:]
@@ -1596,7 +1596,7 @@ class ObjectManager(NodePath, DirectObject):
         self.verifyItems = (item, itemIndex)
 
     def __handleVerifyReturnFromTrashOK(self):
-        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+        if config.GetBool('want-qa-regression', 0):
             self.notify.info('QA-REGRESSION: ESTATE:  Send Item to Attic')
         item, itemIndex = self.verifyItems
         self.__cleanupVerifyDelete()

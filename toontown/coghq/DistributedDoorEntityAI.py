@@ -64,7 +64,7 @@ class DistributedDoorEntityAI(DistributedDoorEntityBase.DistributedDoorEntityBas
         self.stateDurations[2] = self.secondsOpen
         FourStateAI.FourStateAI.__init__(self, self.stateNames, durations=self.stateDurations)
         self.setup()
-        if zoneId != None:
+        if zoneId is not None:
             self.generateWithRequired(zoneId)
         return
 
@@ -202,7 +202,7 @@ class DistributedDoorEntityAI(DistributedDoorEntityBase.DistributedDoorEntityBas
 
     def requestOpen(self):
         if self.isUnlocked():
-            if self.fsm.getCurrentState() != self.states[2]:
+            if self.fsm.getCurrentState() is not self.states[2]:
                 self.fsm.request(self.states[1])
 
     if __dev__:

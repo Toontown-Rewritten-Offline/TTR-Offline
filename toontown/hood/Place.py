@@ -85,7 +85,7 @@ class Place(StateData.StateData, FriendsListManager.FriendsListManager):
             return token
 
     def removeLeftQuietZoneCallback(self, token):
-        if token != None:
+        if token is not None:
             if token in self._leftQuietZoneLocalCallbacks:
                 self._leftQuietZoneLocalCallbacks.remove(token)
             qzsd = self._getQZState()
@@ -110,7 +110,7 @@ class Place(StateData.StateData, FriendsListManager.FriendsListManager):
             return token
 
     def removeSetZoneCompleteCallback(self, token):
-        if token != None:
+        if token is not None:
             if any(token==x[1] for x in self._setZoneCompleteLocalCallbacks._callbacks):
                 self._setZoneCompleteLocalCallbacks.remove(token)
             qzsd = self._getQZState()
@@ -147,7 +147,7 @@ class Place(StateData.StateData, FriendsListManager.FriendsListManager):
         return 1
 
     def handleTeleportQuery(self, fromAvatar, toAvatar):
-        if config.ConfigVariableBool('want-tptrack', False).getValue():
+        if config.GetBool('want-tptrack', False):
             if toAvatar == localAvatar:
                 toAvatar.doTeleportResponse(fromAvatar, toAvatar, toAvatar.doId, 1, toAvatar.defaultShard, base.cr.playGame.getPlaceId(), self.getZoneId(), fromAvatar.doId)
             else:
@@ -444,7 +444,7 @@ class Place(StateData.StateData, FriendsListManager.FriendsListManager):
              'shardId': None, # ALPHA BANDAGE: should be shardId, but this causes the AI it teleports to to die right now.
              'avId': -1})
         else:
-            if hostId == None:
+            if hostId is None:
                 hostId = base.localAvatar.doId
             base.cr.partyManager.sendAvatarToParty(hostId)
             return
@@ -543,7 +543,7 @@ class Place(StateData.StateData, FriendsListManager.FriendsListManager):
     def enterDoorIn(self, requestStatus):
         NametagGlobals.setMasterArrowsOn(0)
         door = base.cr.doId2do.get(requestStatus['doorDoId'])
-        if door == None:
+        if door is None:
             # We're about to die anyway because door is None, so raise a StandardError with more information
             raise Exception("Place's door is None! Place: %s, requestStatus: %s" % (str(self.__class__), str(requestStatus)))
         door.readyToExit()
@@ -666,7 +666,7 @@ class Place(StateData.StateData, FriendsListManager.FriendsListManager):
             self.goHomeFailed(None)
             return
         if ownerId == 0 and zoneId == 0:
-            if self.doneStatus['shardId'] == None or self.doneStatus['shardId'] == base.localAvatar.defaultShard:
+            if self.doneStatus['shardId'] is None or self.doneStatus['shardId'] is base.localAvatar.defaultShard:
                 self.doneStatus['failed'] = 1
                 self.goHomeFailed(None)
                 return

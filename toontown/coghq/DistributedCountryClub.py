@@ -18,7 +18,7 @@ class DistributedCountryClub(DistributedObject.DistributedObject):
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedCountryClub')
     ReadyPost = 'CountryClubReady'
     WinEvent = 'CountryClubWinEvent'
-    doBlockRooms = config.ConfigVariableBool('block-country-club-rooms', 1).getValue()
+    doBlockRooms = config.GetBool('block-country-club-rooms', 1)
 
     def __init__(self, cr):
         DistributedObject.DistributedObject.__init__(self, cr)
@@ -183,7 +183,7 @@ class DistributedCountryClub(DistributedObject.DistributedObject):
     def toonEnterRoom(self, roomNum):
         self.notify.debug('toonEnterRoom: %s' % roomNum)
         if roomNum != self.curToonRoomNum:
-            if self.curToonRoomNum != None:
+            if self.curToonRoomNum is not None:
                 self.allRooms[self.curToonRoomNum].localToonFSM.request('notPresent')
             self.allRooms[roomNum].localToonFSM.request('present')
             self.curToonRoomNum = roomNum
@@ -216,7 +216,7 @@ class DistributedCountryClub(DistributedObject.DistributedObject):
         if avId == base.localAvatar.doId:
             return
         av = base.cr.identifyFriend(avId)
-        if av == None:
+        if av is None:
             return
         base.localAvatar.setSystemMessage(avId, TTLocalizer.CountryClubBossConfrontedMsg % av.getName())
         return
@@ -252,7 +252,7 @@ class DistributedCountryClub(DistributedObject.DistributedObject):
         if self.roomWatcher:
             self.roomWatcher.destroy()
             self.roomWatcher = None
-        if self.geom != None:
+        if self.geom is not None:
             self.geom.removeNode()
             self.geom = None
         base.localAvatar.setCameraCollisionsCanMove(0)

@@ -47,7 +47,7 @@ class RPCServer(asyncore.dispatcher):
         hostname = url.hostname
         port = url.port or 80
 
-        if hostname == None:
+        if hostname is None:
             # We're not interested in running an RPC server on this process...
             return
 
@@ -56,10 +56,10 @@ class RPCServer(asyncore.dispatcher):
         password = url.password
 
         auth = username
-        if password != None:
+        if password is not None:
             auth += ':' + password
 
-        if auth != None:
+        if auth is not None:
             self.auth = binascii.b2a_base64(auth).strip()
         else:
             self.auth = None
@@ -84,7 +84,7 @@ class RPCServer(asyncore.dispatcher):
 
     def handle_accept(self):
         pair = self.accept()
-        if pair == None: return
+        if pair is None: return
         sock, addr = pair
         RPCConnection(sock, self)
 
@@ -155,7 +155,7 @@ class RPCConnection(asynchat.async_chat, FSM):
                 key, value = tuple(header)
                 self.headers[key.lower()] = value
 
-        # Let's see if this == a keep-alive connection or not:
+        # Let's see if this is a keep-alive connection or not:
         if (self.headers.get('connection', '').lower() == 'keep-alive'):
             self.keepAlive = True
 
@@ -181,7 +181,7 @@ class RPCConnection(asynchat.async_chat, FSM):
 
         # Since we now have the *full* request, we can now decide if we want to
         # throw out the request based on headers and junk.
-        if self.server.auth != None:
+        if self.server.auth is not None:
             if self.headers.get('authorization') != 'Basic ' + self.server.auth:
                 return self.demand('HTTPError', 401)
 
@@ -231,10 +231,10 @@ class RPCConnection(asynchat.async_chat, FSM):
         # Sets a timeout, in seconds, that we will wait for before closing the
         # connection.
 
-        if self.timeout != None:
+        if self.timeout is not None:
             self.timeout.remove()
 
-        if timeout != None:
+        if timeout is not None:
             self.timeout = taskMgr.doMethodLater(timeout, self.demand,
                                                  'RPCConnection-timeout-%d' % id(self),
                                                  extraArgs=['Off'])
@@ -256,7 +256,7 @@ class RPCConnection(asynchat.async_chat, FSM):
             response += 'Content-Type: %s\r\n' % contentType
 
         # Add authentication headers:
-        if self.server.auth != None:
+        if self.server.auth is not None:
             # We take security seriously:
             response += 'WWW-Authenticate: Basic realm="OTP RPC server"\r\n'
 

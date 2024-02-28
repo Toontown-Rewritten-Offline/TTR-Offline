@@ -196,7 +196,7 @@ class LineSegment:
             return False
         u1 = top1 / bot
         u2 = top2 / bot
-        if compare == None:
+        if compare is None:
             return 0 <= u1 and u1 <= 1 and 0 <= u2 and u2 <= 1
         elif compare == 'segment-ray':
             return 0 <= u1 and u1 <= 1 and 0 <= u2

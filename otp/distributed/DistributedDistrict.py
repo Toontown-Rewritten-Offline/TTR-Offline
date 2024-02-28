@@ -18,7 +18,7 @@ class DistributedDistrict(DistributedObject):
         messenger.send('shardInfoUpdated')
 
     def delete(self):
-        if base.cr.distributedDistrict == self:
+        if base.cr.distributedDistrict is self:
             base.cr.distributedDistrict = None
         if self.doId in self.cr.activeDistrictMap:
             del self.cr.activeDistrictMap[self.doId]

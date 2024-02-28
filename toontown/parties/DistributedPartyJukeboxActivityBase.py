@@ -30,9 +30,9 @@ class DistributedPartyJukeboxActivityBase(DistributedPartyActivity):
     def load(self):
         DistributedPartyActivity.load(self)
         self.jukebox = Actor('phase_13/models/parties/jukebox_model', {'dance': 'phase_13/models/parties/jukebox_dance'})
-        self.jukebox.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+        self.jukebox.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.jukebox.reparentTo(self.root)
-        self.jukebox.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+        self.jukebox.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         self.jukebox.loop('dance', fromFrame=0, toFrame=48)
         self.collNode = CollisionNode(self.getCollisionName())
         self.collNode.setCollideMask(ToontownGlobals.CameraBitmask | ToontownGlobals.WallBitmask)
@@ -46,7 +46,7 @@ class DistributedPartyJukeboxActivityBase(DistributedPartyActivity):
     def unload(self):
         DistributedPartyActivity.unload(self)
         self.gui.unload()
-        if self.music != None:
+        if self.music is not None:
             self.music.stop()
         self.jukebox.stop()
         self.jukebox.delete()
@@ -102,7 +102,7 @@ class DistributedPartyJukeboxActivityBase(DistributedPartyActivity):
     def __activateGui(self):
         self.gui.enable(timer=JUKEBOX_TIMEOUT)
         self.gui.disableAddSongButton()
-        if self.currentSongData != None:
+        if self.currentSongData is not None:
             self.gui.setSongCurrentlyPlaying(self.currentSongData[0], self.currentSongData[1])
         self.d_queuedSongsRequest()
         return
@@ -147,7 +147,7 @@ class DistributedPartyJukeboxActivityBase(DistributedPartyActivity):
             filename = songInfo[1]
             data = self.getMusicData(phase, filename)
             if data:
-                if self.localQueuedSongListItem != None:
+                if self.localQueuedSongListItem is not None:
                     self.localQueuedSongListItem['text'] = data[0]
                 else:
                     self.__addSongToQueue(songInfo, isLocalQueue=True)
@@ -204,7 +204,7 @@ class DistributedPartyJukeboxActivityBase(DistributedPartyActivity):
             localAvatar.setSystemMessage(0, TTLocalizer.PartyJukeboxNowPlaying)
 
     def __handleMoveSongToTop(self):
-        if self.isUserHost() and self.localQueuedSongListItem != None:
+        if self.isUserHost() and self.localQueuedSongListItem is not None:
             self.d_moveHostSongToTopRequest()
         return
 

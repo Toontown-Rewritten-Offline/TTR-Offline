@@ -32,7 +32,7 @@ class DistributedPartyCogActivity(DistributedPartyTeamActivity):
         return
 
     def unload(self):
-        if hasattr(self, 'view') and self.view != None:
+        if hasattr(self, 'view') and self.view is not None:
             self.view.unload()
             del self.view
         DistributedPartyTeamActivity.unload(self)
@@ -119,38 +119,38 @@ class DistributedPartyCogActivity(DistributedPartyTeamActivity):
         DistributedPartyTeamActivity.handleToonJoined(self, toonId)
         toon = base.cr.doId2do.get(toonId, None)
         team = self.getTeam(toonId)
-        if toon != None and self.view != None:
+        if toon is not None and self.view is not None:
             self.view.handleToonJoined(toon, team)
         return
 
     def handleToonExited(self, toonId):
         toon = base.cr.doId2do.get(toonId, None)
-        if toon == None:
+        if toon is None:
             return
-        if self.view != None:
+        if self.view is not None:
             self.view.handleToonExited(toon)
         DistributedPartyTeamActivity.handleToonExited(self, toonId)
         return
 
     def handleToonShifted(self, toonId):
         toon = base.cr.doId2do.get(toonId, None)
-        if toon == None:
+        if toon is None:
             return
-        if self.view != None:
+        if self.view is not None:
             self.view.handleToonShifted(toon)
         return
 
     def handleToonSwitchedTeams(self, toonId):
         DistributedPartyTeamActivity.handleToonSwitchedTeams(self, toonId)
         toon = base.cr.doId2do.get(toonId, None)
-        if toon == None:
+        if toon is None:
             return
-        if self.view != None:
+        if self.view is not None:
             self.view.handleToonSwitchedTeams(toon)
         return
 
     def handleToonDisabled(self, toonId):
-        if self.view != None:
+        if self.view is not None:
             self.view.handleToonDisabled(toonId)
         return
 

@@ -26,7 +26,7 @@ class DistributedStageAI(DistributedObjectAI.DistributedObjectAI):
         self.notify.info('generate %s, id=%s, floor=%s' % (self.doId, self.stageId, self.floorNum))
         self.layout = StageLayout.StageLayout(self.stageId, self.floorNum, self.layoutIndex)
         self.rooms = []
-        if self.battleExpAggreg == None:
+        if self.battleExpAggreg is None:
             self.battleExpAggreg = BattleExperienceAggregatorAI.BattleExperienceAggregatorAI()
         for i in range(self.layout.getNumRooms()):
             room = DistributedStageRoomAI.DistributedStageRoomAI(self.air, self.stageId, self.doId, self.zoneId, self.layout.getRoomId(i), i * 2, self.avIds, self.battleExpAggreg)
@@ -61,7 +61,7 @@ class DistributedStageAI(DistributedObjectAI.DistributedObjectAI):
     def delete(self):
         self.notify.info('delete: %s' % self.doId)
         if __dev__:
-            if hasattr(simbase, 'stage') and simbase.stage == self:
+            if hasattr(simbase, 'stage') and simbase.stage is self:
                 del simbase.stage
         self.air.deallocateZone(self.zoneId)
         if hasattr(self, 'elevatorList'):

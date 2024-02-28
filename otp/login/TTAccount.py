@@ -9,7 +9,7 @@ import copy
 accountServer = ''
 accountServer = launcher.getAccountServer()
 print('TTAccount: accountServer from launcher: ', accountServer)
-configAccountServer = config.ConfigVariableString('account-server', '').getValue()
+configAccountServer = config.GetString('account-server', '')
 if configAccountServer:
     accountServer = configAccountServer
     print('TTAccount: overriding accountServer from config: ', accountServer)
@@ -95,7 +95,7 @@ class TTAccount:
 
     def requestPwdReminder(self, email = None, acctName = None):
         data = {}
-        if email != None:
+        if email is not None:
             data['email'] = email
         else:
             data['accountName'] = acctName

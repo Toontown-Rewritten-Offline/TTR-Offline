@@ -26,8 +26,8 @@ class ShardPage(ShtikerPage.ShtikerPage):
         self.textDisabledColor = Vec4(0.4, 0.8, 0.4, 1)
         self.ShardInfoUpdateInterval = 5.0
         self.lowPop, self.midPop, self.highPop = base.getShardPopLimits()
-        self.showPop = config.ConfigVariableBool('show-total-population', 0).getValue()
-        self.noTeleport = config.ConfigVariableBool('shard-page-disable', 0).getValue()
+        self.showPop = config.GetBool('show-total-population', 0)
+        self.noTeleport = config.GetBool('shard-page-disable', 0)
         self.adminForceReload = 0
         return
 
@@ -147,7 +147,7 @@ class ShardPage(ShtikerPage.ShtikerPage):
             self.districtName['text'] = shardName
 
     def getPopColor(self, pop):
-        if config.ConfigVariableBool('want-lerping-pop-colors', False).getValue():
+        if config.GetBool('want-lerping-pop-colors', False):
             if pop < self.midPop:
                 color1 = POP_COLORS_NTT[0]
                 color2 = POP_COLORS_NTT[1]

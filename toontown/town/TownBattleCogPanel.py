@@ -15,16 +15,30 @@ from toontown.toonbase import TTLocalizer
 
 class TownBattleCogPanel(DirectFrame):
     notify = DirectNotifyGlobal.directNotify.newCategory('TownBattleCogPanel')
-    healthColors = (Vec4(0, 1, 0, 1),
-     Vec4(1, 1, 0, 1),
-     Vec4(1, 0.5, 0, 1),
-     Vec4(1, 0, 0, 1),
-     Vec4(0.3, 0.3, 0.3, 1))
-    healthGlowColors = (Vec4(0.25, 1, 0.25, 0.5),
-     Vec4(1, 1, 0.25, 0.5),
-     Vec4(1, 0.5, 0.25, 0.5),
-     Vec4(1, 0.25, 0.25, 0.5),
-     Vec4(0.3, 0.3, 0.3, 0))
+    healthColors = (
+        Vec4(0, 1, 0, 1),
+        Vec4(0.5, 1, 0, 1), 
+        Vec4(0.75, 1, 0, 1),  
+        Vec4(1, 1, 0, 1),
+        Vec4(1, 0.866, 0, 1), 
+        Vec4(1, 0.6, 0, 1),
+        Vec4(1, 0.5, 0, 1),
+        Vec4(1, 0.25, 0, 1.0),
+        Vec4(1, 0, 0, 1),
+        Vec4(0.3, 0.3, 0.3, 1)
+    )
+    healthGlowColors = (
+        Vec4(0.25, 1, 0.25, 0.5),
+        Vec4(0.5, 1, 0.25, .5),
+        Vec4(0.75, 1, 0.25, .5),
+        Vec4(1, 1, 0.25, 0.5),
+        Vec4(1, 0.866, 0.25, .5),
+        Vec4(1, 0.6, 0.25, .5),
+        Vec4(1, 0.5, 0.25, 0.5),
+        Vec4(1, 0.25, 0.25, 0.5),
+        Vec4(1, 0.25, 0.25, 0.5),
+        Vec4(0.3, 0.3, 0.3, 0)
+    )
 
     def __init__(self, id):
         gui = loader.loadModel('phase_3.5/models/gui/battle_gui')

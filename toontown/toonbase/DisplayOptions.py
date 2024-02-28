@@ -63,7 +63,7 @@ class DisplayOptions:
         return
 
     def restrictToEmbedded(self, restrict, change_display = True):
-        if base.appRunner == None or base.appRunner.windowProperties == None:
+        if base.appRunner is None or base.appRunner.windowProperties is None:
             restrict = 0
         self.restrict_to_embedded = choice(restrict, 1, 0)
         self.notify.debug('restrict_to_embedded: %s' % self.restrict_to_embedded)

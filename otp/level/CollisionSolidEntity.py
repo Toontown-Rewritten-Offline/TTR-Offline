@@ -33,7 +33,7 @@ class CollisionSolidEntity(BasicEntities.NodePathEntity):
                 self.hideCS()
 
     def destroySolid(self):
-        if self.collNodePath != None:
+        if self.collNodePath is not None:
             self.collNodePath.removeNode()
             self.collNodePath = None
         return

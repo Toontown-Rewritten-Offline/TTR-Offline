@@ -57,7 +57,7 @@ class DistributedFactoryAI(DistributedLevelAI.DistributedLevelAI, FactoryBase.Fa
     def delete(self):
         self.notify.info('delete: %s' % self.doId)
         if __dev__:
-            if hasattr(simbase, 'factory') and simbase.factory == self:
+            if hasattr(simbase, 'factory') and simbase.factory is self:
                 del simbase.factory
         suits = self.suits
         for reserve in self.reserveSuits:
@@ -89,7 +89,7 @@ class DistributedFactoryAI(DistributedLevelAI.DistributedLevelAI, FactoryBase.Fa
         activeVictorIds = []
         for victorId in victorIds:
             toon = self.air.doId2do.get(victorId)
-            if toon != None:
+            if toon is not None:
                 activeVictors.append(toon)
                 activeVictorIds.append(victorId)
 

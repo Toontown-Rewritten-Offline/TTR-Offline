@@ -84,7 +84,7 @@ class PetMood:
 
     def getPet(self):
         pet = self.petRef()
-        if pet == None:
+        if pet is None:
             self.notify.error('pet has been deleted')
         return pet
 
@@ -171,13 +171,13 @@ class PetMood:
         now = globalClock.getFrameTime()
         if not hasattr(self, 'lastDriftTime'):
             self.lastDriftTime = now
-        if dt == None:
+        if dt is None:
             dt = now - self.lastDriftTime
         self.lastDriftTime = now
         if dt <= 0.0:
             return
         else:
-            if curMood == None:
+            if curMood is None:
                 curMood = self
 
             def doDrift(curValue, timeToMedian, dt = float(dt)):

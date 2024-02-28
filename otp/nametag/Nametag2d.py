@@ -48,7 +48,7 @@ class Nametag2d(Nametag, MarginPopup):
         self.setPriority(1)
 
         # Remove our pointer arrow:
-        if self.arrow != None:
+        if self.arrow is not None:
             self.arrow.removeNode()
         self.arrow = None
 
@@ -85,10 +85,10 @@ class Nametag2d(Nametag, MarginPopup):
 
     def tick(self):
         # Update the arrow's pointing.
-        if not self.isDisplayed() or self.arrow == None:
+        if not self.isDisplayed() or self.arrow is None:
             return # No arrow or not onscreen.
 
-        if self.avatar == None or self.avatar.isEmpty():
+        if self.avatar is None or self.avatar.isEmpty():
             return # No avatar, can't be done.
 
         # Get points needed in calculation:

@@ -29,7 +29,7 @@ class PathEntity(BasicEntities.NodePathEntity):
 
     def makePathTrack(self, node, velocity, name, turnTime = 1, lookAroundNode = None):
         track = Sequence(name=name)
-        if self.path == None:
+        if self.path is None:
             track.append(WaitInterval(1.0))
             return track
         path = self.path + [self.path[0]]

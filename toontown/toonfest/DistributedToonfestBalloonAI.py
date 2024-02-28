@@ -85,7 +85,7 @@ class DistributedToonfestBalloonAI(DistributedObjectAI, FSM):
 @magicWord(category=CATEGORY_MODERATION, types=[str])
 def balloon(state):
     event = simbase.air.doFind('ToonfestBalloon')
-    if event == None:
+    if event is None:
         return 'There is no ToonFest Balloon here!'
     elif not hasattr(event, 'enter' + state):
         return 'Invalid state'

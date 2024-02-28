@@ -30,7 +30,7 @@ def open(event = None):
         def _CompleteProc(event):
             global _ToonTownDistrictStatInterestComplete
             _ToonTownDistrictStatInterestComplete = 1
-            if event != None:
+            if event is not None:
                 messenger.send(event)
             return
 
@@ -45,14 +45,14 @@ def refresh(event = None):
     if isOpen():
         if isComplete():
             messenger.send(EventName())
-            if event != none:
+            if event is not none:
                 messenger.send(event)
     else:
 
         def _CompleteProc(event):
             global _ToonTownDistrictStatInterestComplete
             _ToonTownDistrictStatInterestComplete = 1
-            if event != None:
+            if event is not None:
                 messenger.send(event)
             close()
             return

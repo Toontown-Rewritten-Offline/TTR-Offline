@@ -223,7 +223,7 @@ class PetBrain(DirectObject.DirectObject):
     def _chase(self, target):
         if callable(target):
             target = target()
-        if target == None:
+        if target is None:
             return 0
         else:
             self.setFocus(target)
@@ -243,7 +243,7 @@ class PetBrain(DirectObject.DirectObject):
     def _flee(self, chaser):
         if callable(chaser):
             chaser = chaser()
-        if chaser == None:
+        if chaser is None:
             return 0
         else:
             self.setFocus(chaser)
@@ -251,7 +251,7 @@ class PetBrain(DirectObject.DirectObject):
             return 1
 
     def _inspectSpot(self, spot = None):
-        if spot == None:
+        if spot is None:
             spot = NodePath('randomSpot')
             spot.setPos(randFloat(-20, 20), randFloat(-20, 20), 0)
         self.setFocus(spot)
@@ -271,7 +271,7 @@ class PetBrain(DirectObject.DirectObject):
     def _heal(self, avatar):
         if callable(avatar):
             avatar = avatar()
-        if avatar == None:
+        if avatar is None:
             return 0
         else:
             self.setFocus(avatar)
@@ -349,7 +349,7 @@ class PetBrain(DirectObject.DirectObject):
              'sadness': -0.2})
             self.updateLastInteractTime(avId)
             avatar = simbase.air.doId2do.get(avId)
-            if avatar != None:
+            if avatar is not None:
                 avatar.setHatePets(0)
         elif action == OA.SCRATCH:
             dbg('avatar %s is scratching me' % avId)
@@ -364,12 +364,12 @@ class PetBrain(DirectObject.DirectObject):
              'sadness': -0.2})
             self.updateLastInteractTime(avId)
             avatar = simbase.air.doId2do.get(avId)
-            if avatar != None:
+            if avatar is not None:
                 avatar.setHatePets(0)
         elif action == OA.GARDEN:
             dbg('avatar %s is gardening' % avId)
             avatar = simbase.air.doId2do.get(avId)
-            if avatar != None:
+            if avatar is not None:
                 if self.getFocus() == avatar:
                     self._wander()
         return
@@ -418,13 +418,13 @@ class PetBrain(DirectObject.DirectObject):
 
         def _handleGoAway(avId, self = self):
             avatar = simbase.air.doId2do.get(avId)
-            if avatar != None:
+            if avatar is not None:
                 if self.getFocus() == avatar:
                     self._wander()
             return
 
         def _handleDoTrick(trickId, avId, self = self):
-            looked = self.lookedAtBy(avId) or config.ConfigVariableBool('pet-brain-ignore-looked-tricks', True).getValue()
+            looked = self.lookedAtBy(avId) or config.GetBool('pet-brain-ignore-looked-tricks', True)
             avatar = simbase.air.doId2do.get(avId)
             if avatar:
                 if looked:
@@ -466,7 +466,7 @@ class PetBrain(DirectObject.DirectObject):
 
     def _addGoalsReAvatar(self, avId):
         av = self.pet.air.doId2do.get(avId)
-        if av == None:
+        if av is None:
             PetBrain.notify.warning('%s._addGoalsReAvatar: %s not in doId2do' % (self.pet.doId, avId))
             return
         else:
@@ -491,7 +491,7 @@ class PetBrain(DirectObject.DirectObject):
 
     def _considerBecomeAwareOf(self, avId):
         av = simbase.air.doId2do.get(avId)
-        if av == None:
+        if av is None:
             PetBrain.notify.warning('_considerBecomeAwareOf: av %s does not exist' % avId)
             return
         elif avId in self.avAwareness:

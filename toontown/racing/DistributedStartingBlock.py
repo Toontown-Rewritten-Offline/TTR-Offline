@@ -480,7 +480,7 @@ class DistributedStartingBlock(DistributedObject.DistributedObject, FSM):
 
         if not self.holeActor:
             self.holeActor = Actor.Actor('phase_3.5/models/props/portal-mod', {'hole': 'phase_3.5/models/props/portal-chan'})
-            self.holeActor.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+            self.holeActor.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         holeTrack = getHoleTrack(self.holeActor, self.kartNode)
         shrinkTrack = getKartShrinkTrack(self.kart)
         kartTrack = Parallel(shrinkTrack, holeTrack)
@@ -495,14 +495,14 @@ class DistributedStartingBlock(DistributedObject.DistributedObject, FSM):
 
     def enterEnterMovie(self):
         self.notify.debug('%d enterEnterMovie: Entering the Enter Movie State.' % self.doId)
-        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+        if config.GetBool('want-qa-regression', 0):
             raceName = TTLocalizer.KartRace_RaceNames[self.kartPad.trackType]
             self.notify.info('QA-REGRESSION: KARTING: %s' % raceName)
         toonTrack = self.generateToonMoveTrack()
         kartTrack = self.generateKartAppearTrack()
         jumpTrack = self.generateToonJumpTrack()
         name = self.av.uniqueName('EnterRaceTrack')
-        if self.av != None and self.localToonKarting:
+        if self.av is not None and self.localToonKarting:
             kartAppearSfx = base.loader.loadSfx(self.SFX_KartAppear)
             cameraTrack = self.generateCameraMoveTrack()
             engineStartTrack = self.kart.generateEngineStartTrack()
@@ -531,7 +531,7 @@ class DistributedStartingBlock(DistributedObject.DistributedObject, FSM):
         kartTrack = self.generateKartDisappearTrack()
         self.finishMovie()
         self.movieTrack = Sequence(Func(self.kart.kartLoopSfx.stop), jumpTrack, kartTrack, name=self.av.uniqueName('ExitRaceTrack'), autoFinish=1)
-        if self.av != None and self.localToonKarting:
+        if self.av is not None and self.localToonKarting:
             cameraTrack = self.generateCameraReturnMoveTrack()
             self.movieTrack.append(cameraTrack)
             self.movieTrack.append(Func(self.d_movieFinished))
@@ -576,7 +576,7 @@ class DistributedViewingBlock(DistributedStartingBlock):
         return
 
     def delete(self):
-        if self.timer != None:
+        if self.timer is not None:
             self.timer.destroy()
             del self.timer
         DistributedStartingBlock.delete(self)
@@ -647,7 +647,7 @@ class DistributedViewingBlock(DistributedStartingBlock):
 
     def makeGui(self):
         self.notify.debugStateCall(self)
-        if self.timer != None:
+        if self.timer is not None:
             return
         self.timer = ToontownTimer()
         self.timer.setScale(0.3)
@@ -663,7 +663,7 @@ class DistributedViewingBlock(DistributedStartingBlock):
 
     def hideGui(self):
         self.notify.debugStateCall(self)
-        if not hasattr(self, 'timer') or self.timer == None:
+        if not hasattr(self, 'timer') or self.timer is None:
             return
         self.timer.reset()
         self.timer.hide()
@@ -676,7 +676,7 @@ class DistributedViewingBlock(DistributedStartingBlock):
 
     def enterEnterMovie(self):
         self.notify.debug('%d enterEnterMovie: Entering the Enter Movie State.' % self.doId)
-        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+        if config.GetBool('want-qa-regression', 0):
             raceName = TTLocalizer.KartRace_RaceNames[self.kartPad.trackType]
             self.notify.info('QA-REGRESSION: KARTING: %s' % raceName)
         pos = self.nodePath.getPos(render)
@@ -688,7 +688,7 @@ class DistributedViewingBlock(DistributedStartingBlock):
         kartTrack = self.generateKartAppearTrack()
         jumpTrack = self.generateToonJumpTrack()
         name = self.av.uniqueName('EnterRaceTrack')
-        if self.av != None and self.localToonKarting:
+        if self.av is not None and self.localToonKarting:
             cameraTrack = self.generateCameraMoveTrack()
             self.finishMovie()
             self.movieTrack = Sequence(Parallel(cameraTrack, Sequence()), kartTrack, jumpTrack, Func(self.makeGui), Func(self.showGui), Func(self.countdown), Func(self.request, 'Waiting'), Func(self.d_movieFinished), name=name, autoFinish=1)

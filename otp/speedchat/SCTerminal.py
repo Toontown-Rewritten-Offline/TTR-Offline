@@ -30,7 +30,7 @@ class SCTerminal(SCElement):
 
     def privSetSettingsRef(self, settingsRef):
         SCElement.privSetSettingsRef(self, settingsRef)
-        if self._handleWhisperModeFC == None:
+        if self._handleWhisperModeFC is None:
             self._handleWhisperModeFC = FunctionCall(self._handleWhisperModeSVChanged, self._handleWhisperModeSV)
             self._handleWhisperModeFC.pushCurrentState()
         self._handleWhisperModeSV.set(self.settingsRef is not None and not self.isWhisperable())
@@ -75,7 +75,7 @@ class SCTerminal(SCElement):
 
     def setCharges(self, nCharges):
         self.__numCharges = nCharges
-        if nCharges == 0:
+        if nCharges is 0:
             self.setDisabled(True)
 
     def isDisabled(self):
@@ -162,7 +162,7 @@ class SCTerminal(SCElement):
             self.ignore(Emote.globalEmote.EmoteEnableStateChanged)
 
     def getDisplayText(self):
-        if self.getCharges() != -1:
+        if self.getCharges() is not -1:
             return self.text + ' (%s)' % self.getCharges()
         else:
             return self.text

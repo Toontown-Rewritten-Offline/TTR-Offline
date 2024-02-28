@@ -47,11 +47,11 @@ class DedicatedServer:
         else:
             self.notify.info('Starting dedicated server...')
 
-        if config.ConfigVariableBool('auto-start-server', True).getValue() and not self.localServer:
+        if config.GetBool('auto-start-server', True) and not self.localServer:
             self.notify.error("You are trying to start the server manually, but auto-start-server is enabled!\n"
                                 "You do not need to run this file offline, the server will start for you.")
 
-        if config.ConfigVariableBool('want-mongo-client', False).getValue():
+        if config.GetBool('want-mongo-client', False):
             taskMgr.add(self.startAstronMongo, 'startAstronMongo')
         else:
             taskMgr.add(self.startAstronYAML, 'startAstronYAML')
@@ -76,7 +76,7 @@ class DedicatedServer:
         self.notify.info('Opened new Astron log: %s' % astronLogFile)
 
         # Use the Astron config file based on the database.
-        astronConfig = config.ConfigVariableString('astron-config-path', 'astron/config/astrond-yaml.yml').getValue()
+        astronConfig = config.GetString('astron-config-path', 'astron/config/astrond-yaml.yml')
 
         # Start Astron process.
         self.openAstronProcess(astronConfig)
@@ -97,11 +97,11 @@ class DedicatedServer:
         self.astronLog = open(astronLogFile, 'a')
         self.notify.info('Opened new Astron log: %s' % astronLogFile)
 
-        if config.ConfigVariableBool('auto-start-server', True).getValue():
+        if config.GetBool('auto-start-server', True):
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesAstron
 
         # Use the Astron config file based on the database.
-        astronConfig = config.ConfigVariableString('astron-config-path', 'astron/config/astrond-mongo.yml').getValue()
+        astronConfig = config.GetString('astron-config-path', 'astron/config/astrond-mongo.yml')
 
         # Start Astron process.
         self.openAstronProcess(astronConfig)
@@ -119,7 +119,7 @@ class DedicatedServer:
             return task.again
 
         # Astron has started
-        if config.ConfigVariableBool('want-mongo-client', False).getValue():
+        if config.GetBool('want-mongo-client', False):
             self.notify.info('MongoDB started successfully!')
         self.notify.info('Astron started successfully!')
 
@@ -140,11 +140,11 @@ class DedicatedServer:
 
         else:
             if sys.platform == 'win32':
-                uberDogArguments = 'TTROFFEngine.exe --uberdog'
+                uberDogArguments = 'TTRPEngine.exe --uberdog'
             else:
-                uberDogArguments = 'TTROFFEngine --uberdog'
+                uberDogArguments = 'TTRPEngine --uberdog'
 
-        if config.ConfigVariableBool('auto-start-server', True).getValue():
+        if config.GetBool('auto-start-server', True):
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesUberdog
 
         # Start UberDOG process.
@@ -187,11 +187,11 @@ class DedicatedServer:
                 aiArguments = 'python3 -m toontown.ai.ServiceStartAI'
         else:
             if sys.platform == 'win32':
-                aiArguments = 'TTROFFEngine.exe --ai'
+                aiArguments = 'TTRPEngine.exe --ai'
             else:
-                aiArguments = 'TTROFFEngine --ai'
+                aiArguments = 'TTRPEngine --ai'
 
-        if config.ConfigVariableBool('auto-start-server', True).getValue():
+        if config.GetBool('auto-start-server', True):
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesAI
 
         # Start AI process.
@@ -302,7 +302,7 @@ class DedicatedServer:
             self.astronProcess.terminate()
 
         # And lastly, MongoDB
-        if config.ConfigVariableBool('want-mongo-client', False).getValue():
+        if config.GetBool('want-mongo-client', False):
             if self.mongoProcess:
                 self.astronProcess.terminate()
 

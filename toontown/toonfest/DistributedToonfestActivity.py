@@ -50,13 +50,13 @@ class DistributedToonfestActivity(DistributedObject.DistributedObject):
         self._localToonRequestStatus = PartyGlobals.ActivityRequestStatus.Joining
 
     def d_toonJoinRequest(self):
-        if self._localToonRequestStatus == None:
+        if self._localToonRequestStatus is None:
             self.localToonJoining()
             self.sendUpdate('toonJoinRequest')
         return
 
     def d_toonExitRequest(self):
-        if self._localToonRequestStatus == None:
+        if self._localToonRequestStatus is None:
             self.localToonExiting()
             self.sendUpdate('toonExitRequest')
         return
@@ -92,7 +92,7 @@ class DistributedToonfestActivity(DistributedObject.DistributedObject):
         for toonId in exitedToons:
             if toonId != base.localAvatar.doId or toonId == base.localAvatar.doId and self.isLocalToonRequestStatus(PartyGlobals.ActivityRequestStatus.Exiting):
                 toon = self.getAvatar(toonId)
-                if toon != None:
+                if toon is not None:
                     self.ignore(toon.uniqueName('disable'))
                 self.handleToonExited(toonId)
                 if toonId == base.localAvatar.doId:
@@ -128,7 +128,7 @@ class DistributedToonfestActivity(DistributedObject.DistributedObject):
 
     def _enableHandleToonDisabled(self, toonId):
         toon = self.getAvatar(toonId)
-        if toon != None:
+        if toon is not None:
             self.acceptOnce(toon.uniqueName('disable'), self.handleToonDisabled, [toonId])
         else:
             self.notify.warning('BASE: unable to get handle to toon with toonId:%d. Hook for handleToonDisabled not set.' % toonId)
@@ -204,7 +204,7 @@ class DistributedToonfestActivity(DistributedObject.DistributedObject):
             del self._toonId2ror[toonId]
 
         self.ignore(self.messageDoneEvent)
-        if self.messageGui != None and not self.messageGui.isEmpty():
+        if self.messageGui is not None and not self.messageGui.isEmpty():
             self.messageGui.cleanup()
             self.messageGui = None
         return
@@ -287,7 +287,7 @@ class DistributedToonfestActivity(DistributedObject.DistributedObject):
         cn.setIntoCollideMask(OTPGlobals.WallBitmask)
         self.leverTube = self.leverModel.attachNewNode(cn)
         host = base.cr.doId2do.get(self.party.partyInfo.hostId)
-        if host == None:
+        if host is None:
             self.notify.debug('%s loadLever : Host has left the game before lever could be created.' % self.activityName)
             return
         scale = host.getGeomNode().getChild(0).getSz(render)
@@ -372,7 +372,7 @@ class DistributedToonfestActivity(DistributedObject.DistributedObject):
             else:
                 self.notify.warning("messageGui has no endState, defaulting to 'walk'")
                 base.cr.playGame.getPlace().fsm.request('walk')
-        if self.messageGui != None and not self.messageGui.isEmpty():
+        if self.messageGui is not None and not self.messageGui.isEmpty():
             self.messageGui.cleanup()
             self.messageGui = None
         return
@@ -421,7 +421,7 @@ class DistributedToonfestActivity(DistributedObject.DistributedObject):
         del self.activityType
         del self.wantLever
         del self.messageGui
-        if self.rewardGui != None:
+        if self.rewardGui is not None:
             self.rewardGui.destroy()
         del self.rewardGui
         if hasattr(self, 'toonIds'):

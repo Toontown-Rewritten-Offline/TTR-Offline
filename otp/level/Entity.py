@@ -13,7 +13,7 @@ class Entity(DirectObject):
     def initializeEntity(self, level, entId):
         self.level = level
         self.entId = entId
-        if self.level != None and self.entId != None:
+        if self.level is not None and self.entId is not None:
             self.level.initializeEntity(self)
         return
 
@@ -39,7 +39,7 @@ class Entity(DirectObject):
         del self.entId
 
     def getUniqueName(self, name, entId = None):
-        if entId == None:
+        if entId is None:
             entId = self.entId
         return '%s-%s-%s' % (name, self.level.levelId, entId)
 
@@ -47,7 +47,7 @@ class Entity(DirectObject):
         return self.level.getParentTokenForEntity(self.entId)
 
     def getOutputEventName(self, entId = None):
-        if entId == None:
+        if entId is None:
             entId = self.entId
         return self.getUniqueName('entityOutput', entId)
 
@@ -76,7 +76,7 @@ class Entity(DirectObject):
         for attrib in attribs:
             if hasattr(self, attrib):
                 setter = self.privGetSetter(attrib)
-                if setter != None:
+                if setter is not None:
                     value = getattr(self, attrib)
                     if doDelete:
                         delattr(self, attrib)
@@ -91,7 +91,7 @@ class Entity(DirectObject):
 
         def handleAttribChange(self, attrib, value):
             setter = self.privGetSetter(attrib)
-            if setter != None:
+            if setter is not None:
                 setter(value)
             else:
                 self.__dict__[attrib] = value

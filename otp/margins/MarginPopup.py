@@ -17,7 +17,7 @@ class MarginPopup:
 
         self.__visible = visibility
 
-        if self.__manager != None:
+        if self.__manager is not None:
             if visibility:
                 self.__manager.addVisiblePopup(self)
             else:
@@ -28,7 +28,7 @@ class MarginPopup:
 
     def setPriority(self, priority):
         self.__priority = priority
-        if self.__manager != None:
+        if self.__manager is not None:
             self.__manager.reorganize()
 
     def isDisplayed(self):
@@ -46,7 +46,7 @@ class MarginPopup:
             manager.addVisiblePopup(self)
 
     def unmanage(self, manager):
-        if self.__manager != None:
+        if self.__manager is not None:
             if self.__visible:
                 self.__manager.removeVisiblePopup(self)
             self.__manager = None

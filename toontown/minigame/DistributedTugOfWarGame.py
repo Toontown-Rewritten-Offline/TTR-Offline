@@ -944,7 +944,7 @@ class DistributedTugOfWarGame(DistributedMinigame):
             return
         if self.suit:
             #For the Alpha Blueprint ARG
-            if config.ConfigVariableBool('want-blueprint4-ARG', False).getValue():
+            if config.GetBool('want-blueprint4-ARG', False):
                 MinigameGlobals.generateDebugARGPhrase()
             if self.suitId in winners:
                 newPos = VBase3(2.65, 18, 0.1)

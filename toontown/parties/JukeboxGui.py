@@ -79,12 +79,12 @@ class JukeboxGui(DirectObject):
         self.ignoreAll()
         if not self.isLoaded():
             return
-        if self._windowFrame != None:
+        if self._windowFrame is not None:
             self._windowFrame.destroy()
             self._windowFrame = None
             self._moveToTopButton.destroy()
             del self._moveToTopButton
-        if self._timerGui != None:
+        if self._timerGui is not None:
             self._timerGui.destroy()
             self._timerGui = None
         self._loaded = False

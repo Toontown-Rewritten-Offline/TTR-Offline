@@ -6,10 +6,10 @@ class RemoteValueSet:
     notify = DirectNotifyGlobal.directNotify.newCategory('RemoteValueSet')
 
     def __init__(self, url, http, body = '', expectedHeader = None, expectedFields = [], onUnexpectedResponse = None):
-        if onUnexpectedResponse == None:
+        if onUnexpectedResponse is None:
             onUnexpectedResponse = self.__onUnexpectedResponse
         response = HTTPUtil.getHTTPResponse(url, http, body)
-        if expectedHeader != None:
+        if expectedHeader is not None:
             if response[0] != expectedHeader:
                 errMsg = 'unexpected response: %s' % response
                 self.notify.warning(errMsg)
@@ -61,7 +61,7 @@ class RemoteValueSet:
         return self.__getValue(name, str, default)
 
     def __getValue(self, name, convOp, default):
-        if default == None:
+        if default is None:
             return convOp(self.dict[name])
         else:
             return convOp(self.dict.get(name, default))

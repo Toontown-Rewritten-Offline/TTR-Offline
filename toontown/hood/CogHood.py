@@ -17,11 +17,10 @@ class CogHood(Hood.Hood):
 
     def load(self):
         Hood.Hood.load(self)
-        skyInner = self.sky.find('**/InnerSky')
+        skyInner = self.sky.find('**/InnerGroup')
         skyMiddle = self.sky.find('**/MiddleGroup')
         skyOuter = self.sky.find('**/OutterSky')
         if not skyOuter.isEmpty():
-            skyOuter.setDepthWrite(0)
             skyOuter.setBin('background', 0)
         if not skyMiddle.isEmpty():
             skyMiddle.setDepthWrite(0)
@@ -30,6 +29,7 @@ class CogHood(Hood.Hood):
             skyInner.setDepthWrite(0)
             skyInner.setBin('background', 20)
             
+
     def unload(self):
         Hood.Hood.unload(self)
 

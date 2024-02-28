@@ -62,13 +62,13 @@ class PartyCogTrackerGui:
             self.cogLayers[cogNumber][2].unstash()
 
     def destory(self):
-        if self.blinkIntervals != None:
+        if self.blinkIntervals is not None:
             for interval in self.blinkIntervals:
-                if interval != None:
+                if interval is not None:
                     interval.clearToInitial()
                     interval = None
 
-        if self.cogTracker != None:
+        if self.cogTracker is not None:
             self.cogTracker.removeNode()
             self.cogTracker = None
         return
@@ -99,19 +99,19 @@ class PartyCogActivityGui(DirectObject):
         self._initVictoryBalanceBar()
 
     def unload(self):
-        if self._cogTracker != None:
+        if self._cogTracker is not None:
             self._cogTracker.destory()
             self._cogTracker = None
-        if self._piePowerMeter != None:
+        if self._piePowerMeter is not None:
             self._piePowerMeter.destroy()
             self._piePowerMeter = None
-        if self._piePowerTitle != None:
+        if self._piePowerTitle is not None:
             self._piePowerTitle.destroy()
             self._piePowerTitle = None
-        if self._scoreLabel != None:
+        if self._scoreLabel is not None:
             self._scoreLabel.destroy()
             self._scoreLabel = None
-        if self._scoreTitle != None:
+        if self._scoreTitle is not None:
             self._scoreTitle.destroy()
             self._scoreTitle = None
         taskMgr.remove(self._spamWarningIvalName)
@@ -272,7 +272,7 @@ class PartyCogActivityGui(DirectObject):
         taskMgr.add(self.trackCogs, 'trackCogs')
 
     def trackCogs(self, task):
-        if self.cogs == None:
+        if self.cogs is None:
             return
         self._updateVictoryBar()
         for i, cog in enumerate(self.cogs):

@@ -15,19 +15,19 @@ class OTPBase(ShowBase):
     def __init__(self, windowType = None):
         self.wantEnviroDR = False
         ShowBase.__init__(self, windowType=windowType)
-        if config.ConfigVariableBool('want-phase-checker', 0).getValue():
+        if config.GetBool('want-phase-checker', 0):
             from direct.showbase import Loader
             Loader.phaseChecker = self.loaderPhaseChecker
             self.errorAccumulatorBuffer = ''
             taskMgr.add(self.delayedErrorCheck, 'delayedErrorCheck', priority=10000)
-        self.idTags = config.ConfigVariableBool('want-id-tags', 0).getValue()
+        self.idTags = config.GetBool('want-id-tags', 0)
         if not self.idTags:
             del self.idTags
-        self.wantNametags = self.config.ConfigVariableBool('want-nametags', 1).getValue()
-        self.slowCloseShard = self.config.ConfigVariableBool('slow-close-shard', 0).getValue()
+        self.wantNametags = self.config.GetBool('want-nametags', 1)
+        self.slowCloseShard = self.config.GetBool('slow-close-shard', 0)
         self.slowCloseShardDelay = self.config.GetFloat('slow-close-shard-delay', 10.0)
-        self.fillShardsToIdealPop = self.config.ConfigVariableBool('fill-shards-to-ideal-pop', 1).getValue()
-        self.logPrivateInfo = self.config.ConfigVariableBool('log-private-info', __dev__).getValue()
+        self.fillShardsToIdealPop = self.config.GetBool('fill-shards-to-ideal-pop', 1)
+        self.logPrivateInfo = self.config.GetBool('log-private-info', __dev__)
         self.wantDynamicShadows = 1
         self.stereoEnabled = False
         self.enviroDR = None
@@ -45,7 +45,7 @@ class OTPBase(ShowBase):
         return
 
     def setTaskChainNetThreaded(self):
-        if config.ConfigVariableBool('want-threaded-network', 0).getValue():
+        if config.GetBool('want-threaded-network', 0):
             taskMgr.setupTaskChain('net', numThreads=1, frameBudget=0.001, threadPriority=TPLow)
 
     def setTaskChainNetNonthreaded(self):
@@ -137,7 +137,7 @@ class OTPBase(ShowBase):
         self.pixelZoomCamHistory = 2.0
         self.pixelZoomCamMovedList = []
         self.pixelZoomStarted = None
-        flag = self.config.ConfigVariableBool('enable-pixel-zoom', True).getValue()
+        flag = self.config.GetBool('enable-pixel-zoom', True)
         self.enablePixelZoom(flag)
         return
 
@@ -229,7 +229,7 @@ class OTPBase(ShowBase):
     def openMainWindow(self, *args, **kw):
         result = ShowBase.openMainWindow(self, *args, **kw)
         if result:
-            self.wantEnviroDR = not self.win.getGsg().isHardware() or config.ConfigVariableBool('want-background-region', 1).getValue()
+            self.wantEnviroDR = not self.win.getGsg().isHardware() or config.GetBool('want-background-region', 1)
             self.backgroundDrawable = self.win
         return result
 

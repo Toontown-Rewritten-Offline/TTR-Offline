@@ -22,8 +22,8 @@ class DistributedGolfSpot(DistributedObject.DistributedObject, FSM.FSM):
     toonGolfOffsetPos = Point3(-2, 0, -GolfGlobals.GOLF_BALL_RADIUS)
     toonGolfOffsetHpr = Point3(-90, 0, 0)
     rotateSpeed = 20
-    golfPowerSpeed = config.ConfigVariableDouble('golf-power-speed', 3).getValue()
-    golfPowerExponent = config.ConfigVariableDouble('golf-power-exponent', 0.75).getValue()
+    golfPowerSpeed = config.GetDouble('golf-power-speed', 3)
+    golfPowerExponent = config.GetDouble('golf-power-exponent', 0.75)
 
     def __init__(self, cr):
         DistributedObject.DistributedObject.__init__(self, cr)

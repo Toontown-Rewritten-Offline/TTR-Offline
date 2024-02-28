@@ -167,7 +167,7 @@ class DistributedRacePad(DistributedKartPad, FSM):
 
     def makeClockGui(self):
         self.notify.debugStateCall(self)
-        if self.clockNodepath != None:
+        if self.clockNodepath is not None:
             return
         self.clockNode, self.clockNodepath = self.getSignTextNodes('racePadClock')
         self.clockNodepath.setPos(0, 0.125, -3.0)

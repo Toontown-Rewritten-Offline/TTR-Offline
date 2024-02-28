@@ -42,7 +42,7 @@ class AvatarChoice(DirectButton):
                     self.mode = AvatarChoice.MODE_LOCKED
                     self.name = ''
                     self.dna = None
-        if self.mode != AvatarChoice.MODE_LOCKED:
+        if self.mode is not AvatarChoice.MODE_LOCKED:
             if not av:
                 self.mode = AvatarChoice.MODE_CREATE
                 self.name = ''
@@ -68,7 +68,7 @@ class AvatarChoice(DirectButton):
         self.buttonBgs.append(self.pickAToonGui.find('**/tt_t_gui_pat_squareYellow'))
         self['image'] = self.buttonBgs[position]
         self.setScale(1.01)
-        if self.mode == AvatarChoice.MODE_LOCKED:
+        if self.mode is AvatarChoice.MODE_LOCKED:
             self['command'] = self.__handleTrialer
             self['text'] = TTLocalizer.AvatarChoiceSubscribersOnly
             self['text0_scale'] = 0.1
@@ -87,7 +87,7 @@ class AvatarChoice(DirectButton):
             logo.instanceTo(self.stateNodePath[2], 20)
             self.logo = logo
             upsellModel.removeNode()
-        elif self.mode == AvatarChoice.MODE_CREATE:
+        elif self.mode is AvatarChoice.MODE_CREATE:
             self['command'] = self.__handleCreate
             self['text'] = (TTLocalizer.AvatarChoiceMakeAToon,)
             self['text_pos'] = (0, 0)
@@ -240,10 +240,10 @@ class AvatarChoice(DirectButton):
             self.deleteWithPasswordFrame.hide()
             base.transitions.noTransitions()
             messenger.send(self.doneEvent, ['delete', self.position])
-            if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+            if config.GetBool('want-qa-regression', 0):
                 self.notify.info('QA-REGRESSION: DELETEATOON: Deleting A Toon')
         else:
-            if errorMsg != None:
+            if errorMsg is not None:
                 self.notify.warning('authenticateDelete returned unexpected error: %s' % errorMsg)
             self.deleteWithPasswordFrame['text'] = TTLocalizer.AvatarChoiceDeleteWrongPassword
             self.passwordEntry['focus'] = 1
@@ -259,7 +259,7 @@ class AvatarChoice(DirectButton):
             self.deleteWithPasswordFrame.hide()
             base.transitions.noTransitions()
             messenger.send(self.doneEvent, ['delete', self.position])
-            if config.ConfigVariableBool('want-qa-regression', 0).getValue():
+            if config.GetBool('want-qa-regression', 0):
                 self.notify.info('QA-REGRESSION: DELETEATOON: Deleting A Toon')
         else:
             self.deleteWithPasswordFrame['text'] = TTLocalizer.AvatarChoiceDeleteWrongConfirm % {'name': self.name,

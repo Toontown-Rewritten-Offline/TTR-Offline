@@ -364,7 +364,7 @@ class DistributedCannonGame(DistributedMinigame):
         DistributedMinigame.setGameStart(self, timestamp)
         self.__stopIntro()
         self.__putCameraBehindCannon()
-        if not config.ConfigVariableBool('endless-cannon-game', 0).getValue():
+        if not config.GetBool('endless-cannon-game', 0):
             self.timer.show()
             self.timer.countdown(CannonGameGlobals.GameTime, self.__gameTimerExpired)
         self.rewardPanel.reparentTo(base.a2dTopRight)
@@ -886,7 +886,7 @@ class DistributedCannonGame(DistributedMinigame):
         if not hasattr(self, 'rewardPanel'):
             return Task.cont
         curTime = self.getCurrentGameTime()
-        if self.clockStopTime != None:
+        if self.clockStopTime is not None:
             if self.clockStopTime < curTime:
                 self.__killRewardCountdown()
                 curTime = self.clockStopTime

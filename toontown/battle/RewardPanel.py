@@ -24,7 +24,7 @@ class RewardPanel(DirectFrame):
     SkipBattleMovieEvent = 'skip-battle-movie-event'
 
     def __init__(self, name):
-        if config.ConfigVariableBool('want-skip-button', False).getValue():
+        if config.GetBool('want-skip-button', False):
             gscale = (TTLocalizer.RPdirectFrame[0], TTLocalizer.RPdirectFrame[1], TTLocalizer.RPdirectFrame[2] * 1.1)
             gpos = Point3(0, 0, -0.05)
         else:
@@ -86,7 +86,7 @@ class RewardPanel(DirectFrame):
              1), text='0/0', text_scale=0.18, text_fg=(0, 0, 0, 1), text_align=TextNode.ACenter, text_pos=(0, -0.05), pos=(0.4, 0, -0.09 * i)))
 
         self._battleGui = loader.loadModel('phase_3.5/models/gui/battle_gui')
-        if config.ConfigVariableBool('want-skip-button', 0).getValue():
+        if config.GetBool('want-skip-button', 0):
             self.skipButton = DirectButton(parent=self, relief=None, image=(self._battleGui.find('**/tt_t_gui_gen_skipSectionUp'),
              self._battleGui.find('**/tt_t_gui_gen_skipSectionDown'),
              self._battleGui.find('**/tt_t_gui_gen_skipSectionRollOver'),
@@ -191,7 +191,7 @@ class RewardPanel(DirectFrame):
         self.missedItemFrame.hide()
         trackBarOffset = 0
 
-        if config.ConfigVariableBool('want-skip-button', 0).getValue():
+        if config.GetBool('want-skip-button', 0):
             self.skipButton['state'] = DGG.DISABLED if noSkip else DGG.NORMAL
 
         for i in range(len(SuitDNA.suitDepts)):
@@ -574,7 +574,7 @@ class RewardPanel(DirectFrame):
         intervalList = []
         toonShortList = []
         for t in toonList:
-            if t != None:
+            if t is not None:
                 toonShortList.append(t)
 
         cogList = []
@@ -586,7 +586,7 @@ class RewardPanel(DirectFrame):
             activeToonIds = []
             for j in range(8):
                 if activeToonBits & 1 << j:
-                    if toonList[j] != None:
+                    if toonList[j] is not None:
                         activeToonIds.append(toonList[j].getDoId())
 
             isSkelecog = flags & ToontownBattleGlobals.DLF_SKELECOG
@@ -647,7 +647,7 @@ class RewardPanel(DirectFrame):
                         else:
                             num = quest.doesCogCount(avId, cogDict, zoneId, toonShortList)
                         if num:
-                            if config.ConfigVariableBool('battle-passing-no-credit', True).getValue():
+                            if config.GetBool('battle-passing-no-credit', True):
                                 if avId in helpfulToonsList:
                                     earned += num
                                 else:
@@ -763,7 +763,7 @@ class RewardPanel(DirectFrame):
             track.append(Func(self.vanishFrames))
             track.append(Fanfare.makeFanfare(0, toon)[0])
             for i in range(len(endTracks)):
-                if endTracks[i] == 1:
+                if endTracks[i] is 1:
                     track += self.getEndTrackIntervalList(toon, toonList, i)
 
             track.append(Func(self.cleanupEndTrack))

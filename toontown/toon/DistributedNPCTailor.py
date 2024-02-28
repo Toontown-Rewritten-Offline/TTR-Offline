@@ -114,7 +114,7 @@ class DistributedNPCTailor(DistributedNPCToonBase):
                 self.browsing = 0
                 self.roomAvailable = 0
             self.av = base.cr.doId2do.get(avId)
-            if self.av == None:
+            if self.av is None:
                 self.notify.warning('Avatar %d not found in doId' % avId)
                 return
             else:

@@ -5,7 +5,7 @@ from toontown.quest import Quests
 from direct.directnotify import DirectNotifyGlobal
 
 class DistributedNPCToonAI(DistributedNPCToonBaseAI):
-    FourthGagVelvetRopeBan = config.ConfigVariableBool('want-ban-fourth-gag-velvet-rope', 0).getValue()
+    FourthGagVelvetRopeBan = config.GetBool('want-ban-fourth-gag-velvet-rope', 0)
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedNPCToonAI')
 
     def __init__(self, air, npcId, questCallback = None, hq = 0):
@@ -39,7 +39,7 @@ class DistributedNPCToonAI(DistributedNPCToonBaseAI):
         if self.pendingAvId != avId:
             self.notify.warning('chooseQuest: not expecting an answer from this avatar: %s' % avId)
             return
-        if self.pendingQuests == None:
+        if self.pendingQuests is None:
             self.notify.warning('chooseQuest: not expecting a quest choice from this avatar: %s' % avId)
             self.air.writeServerEvent('suspicious', avId=avId, issue='unexpected chooseQuest')
             return
@@ -81,7 +81,7 @@ class DistributedNPCToonAI(DistributedNPCToonBaseAI):
         if self.pendingAvId != avId:
             self.notify.warning('chooseTrack: not expecting an answer from this avatar: %s' % avId)
             return
-        if self.pendingTracks == None:
+        if self.pendingTracks is None:
             self.notify.warning('chooseTrack: not expecting a track choice from this avatar: %s' % avId)
             self.air.writeServerEvent('suspicious', avId=avId, issue='unexpected chooseTrack')
             return

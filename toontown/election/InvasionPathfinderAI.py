@@ -64,13 +64,13 @@ class InvasionPathfinderAI:
             isApproximate = False
             try:
                 if not toVertex.getNeighbors():
-                    if closeEnough == 0:
+                    if closeEnough is 0:
                         return
                     isApproximate = True
                     closeEnoughSquared = closeEnough * closeEnough
                     for border in self.borders:
                         projected = self._projectPointToLine(toVertex.pos, border)
-                        if projected == None:
+                        if projected is None:
                             continue
                         if (projected - toVertex.pos).lengthSquared() > closeEnoughSquared:
                             continue
@@ -205,7 +205,7 @@ class AStarVertex:
         self.extrudeVector = Vec2(math.cos(extrudeAngle), math.sin(extrudeAngle))
 
     def isVertexInsideAngle(self, other):
-        if self.prevPolyNeighbor == None or self.interiorAngle == None:
+        if self.prevPolyNeighbor is None or self.interiorAngle is None:
             return False
         else:
             vecToPrev = self.prevPolyNeighbor.pos - self.pos
@@ -215,7 +215,7 @@ class AStarVertex:
             return angle < self.interiorAngle
 
     def isVertexInsideOpposite(self, other):
-        if self.prevPolyNeighbor == None or self.interiorAngle == None:
+        if self.prevPolyNeighbor is None or self.interiorAngle is None:
             return False
         else:
             vecToPrev = self.prevPolyNeighbor.pos - self.pos
@@ -226,7 +226,7 @@ class AStarVertex:
             return angle < self.interiorAngle
 
     def extrudeVertex(self, distance):
-        if self.extrudeVector == None:
+        if self.extrudeVector is None:
             return
         else:
             self.pos += self.extrudeVector * distance

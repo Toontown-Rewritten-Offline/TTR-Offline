@@ -8,10 +8,10 @@ class PetChase(Impulse.Impulse):
     def __init__(self, target = None, minDist = None, moveAngle = None):
         Impulse.Impulse.__init__(self)
         self.target = target
-        if minDist == None:
+        if minDist is None:
             minDist = 5.0
         self.minDist = minDist
-        if moveAngle == None:
+        if moveAngle is None:
             moveAngle = 20.0
         self.moveAngle = moveAngle
         self.lookAtNode = NodePath('lookatNode')

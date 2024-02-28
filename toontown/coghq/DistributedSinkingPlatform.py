@@ -125,7 +125,7 @@ class DistributedSinkingPlatform(BasicEntities.DistributedNodePathEntity):
         duration = max(0.0, duration)
         moveNode = self.platform
         self.moveIval = Sequence()
-        if pause != None:
+        if pause is not None:
             self.moveIval.append(WaitInterval(pause))
         self.moveIval.append(LerpPosInterval(moveNode, duration, endPos, startPos=moveNode.getPos(), blendType='easeInOut', name='%s-move' % self.platform.name, fluid=1))
         self.moveIval.start()

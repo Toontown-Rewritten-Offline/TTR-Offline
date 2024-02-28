@@ -31,10 +31,10 @@ class StretchingArrow(DirectFrame):
         model.removeNode()
 
     def unload(self):
-        if self.body != None:
+        if self.body is not None:
             self.body.removeNode()
             self.body = None
-        if self.head != None:
+        if self.head is not None:
             self.body.removeNode()
             self.body = None
         return
@@ -44,7 +44,7 @@ class StretchingArrow(DirectFrame):
 
     def draw(self, fromPoint, toPoint, rotation = 0, animate = True):
         arrowlength = 2.72
-        if self.body == None or self.head == None:
+        if self.body is None or self.head is None:
             return
         actualDifference = fromPoint - toPoint
         actualLength = actualDifference.length()

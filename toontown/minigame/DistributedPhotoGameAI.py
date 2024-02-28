@@ -55,7 +55,7 @@ class DistributedPhotoGameAI(DistributedMinigameAI, PhotoGameBase.PhotoGameBase)
 
     def enterPlay(self):
         self.notify.debug('enterPlay')
-        if not config.ConfigVariableBool('endless-photo-game', 0).getValue():
+        if not config.GetBool('endless-photo-game', 0):
             taskMgr.doMethodLater(self.data['TIME'], self.timerExpired, self.taskName('gameTimer'))
 
     def timerExpired(self, task = None):
@@ -105,7 +105,7 @@ class DistributedPhotoGameAI(DistributedMinigameAI, PhotoGameBase.PhotoGameBase)
         if avId not in self.avIdList:
             self.air.writeServerEvent('suspicious', avId=avId, issue='PhotoGameAI.filmOut: unknown avatar')
             return
-        if self.gameFSM.getCurrentState() == None or self.gameFSM.getCurrentState().getName() != 'play':
+        if self.gameFSM.getCurrentState() is None or self.gameFSM.getCurrentState().getName() != 'play':
             self.air.writeServerEvent('suspicious', avId=avId, issue='PhotoGameAI.filmOut: game not in play state')
             return
         playerIndex = self.avIdList.index(avId)
@@ -115,8 +115,8 @@ class DistributedPhotoGameAI(DistributedMinigameAI, PhotoGameBase.PhotoGameBase)
 
     def newClientPhotoScore(self, subjectIndex, pose, score):
         avId = self.air.getAvatarIdFromSender()
-        if self.gameFSM.getCurrentState() == None or self.gameFSM.getCurrentState().getName() != 'play':
-            if self.gameFSM.getCurrentState() == None:
+        if self.gameFSM.getCurrentState() is None or self.gameFSM.getCurrentState().getName() != 'play':
+            if self.gameFSM.getCurrentState() is None:
                 gameState = None
             else:
                 gameState = self.gameFSM.getCurrentState().getName()

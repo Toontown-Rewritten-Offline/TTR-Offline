@@ -209,7 +209,7 @@ class ToonTeleportPanel(DirectFrame):
 
     def enterOtherShard(self, shardId, hoodId, zoneId):
         shardName = base.cr.getShardName(shardId)
-        if shardName == None:
+        if shardName is None:
             self.fsm.request('notAvailable')
             return
         myShardName = base.cr.getShardName(base.localAvatar.defaultShard)

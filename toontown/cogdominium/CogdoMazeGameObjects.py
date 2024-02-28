@@ -257,7 +257,7 @@ class CogdoMazeWaterCooler(NodePath, DirectObject):
         self._update = taskMgr.add(self._updateTask, self.UpdateTaskName, 45)
 
     def __stopUpdateTask(self):
-        if self._update != None:
+        if self._update is not None:
             taskMgr.remove(self._update)
         return
 

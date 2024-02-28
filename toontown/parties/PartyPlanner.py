@@ -58,7 +58,7 @@ class PartyPlanner(DirectFrame, FSM):
          'minute': (15, -15),
          'ampm': (1, -1)}
         self.partyInfo = None
-        self.asapMinuteRounding = config.ConfigVariableInt('party-asap-minute-rounding', PartyGlobals.PartyPlannerAsapMinuteRounding).getValue()
+        self.asapMinuteRounding = config.GetInt('party-asap-minute-rounding', PartyGlobals.PartyPlannerAsapMinuteRounding)
         self.load()
         self.request('Welcome')
         return
@@ -109,7 +109,7 @@ class PartyPlanner(DirectFrame, FSM):
     def enterDate(self, *args):
         self.prevButton.show()
         self.prevButton['state'] = DirectGuiGlobals.NORMAL
-        if self.selectedCalendarGuiDay == None:
+        if self.selectedCalendarGuiDay is None:
             self.nextButton['state'] = DirectGuiGlobals.DISABLED
             self.nextButton.hide()
             self.makePartyNowButton.show()
@@ -119,7 +119,7 @@ class PartyPlanner(DirectFrame, FSM):
     def exitDate(self):
         self.datePage.hide()
         self.nextButton.show()
-        if self.selectedCalendarGuiDay != None:
+        if self.selectedCalendarGuiDay is not None:
             self.partyTime = self.cleanPartyTime
             self.alterPartyTime(year=self.selectedCalendarGuiDay.myDate.year, month=self.selectedCalendarGuiDay.myDate.month, day=self.selectedCalendarGuiDay.myDate.day)
         else:
@@ -162,7 +162,7 @@ class PartyPlanner(DirectFrame, FSM):
                 defaultInviteTheme = PartyGlobals.InviteTheme.Racing
             elif ToontownGlobals.VALENTINES_DAY in base.cr.newsManager.getHolidayIdList():
                 defaultInviteTheme = PartyGlobals.InviteTheme.Valentoons
-        if self.partyInfo != None:
+        if self.partyInfo is not None:
             del self.partyInfo
         activityList = self.partyEditor.partyEditorGrid.getActivitiesOnGrid()
         decorationList = self.partyEditor.partyEditorGrid.getDecorationsOnGrid()
@@ -363,7 +363,7 @@ class PartyPlanner(DirectFrame, FSM):
         self.partyTime = datetime(year=self.positiveTime('year', year), month=self.positiveTime('month', month), day=self.positiveTime('day', day), hour=self.positiveTime('hour', hour), minute=self.positiveTime('minute', minute), tzinfo=self.partyTime.tzinfo)
 
     def positiveTime(self, type, amount):
-        if amount == None:
+        if amount is None:
             return getattr(self.partyTime, type)
         if type == 'hour' or type == 'minute':
             if amount < 0:
@@ -729,7 +729,7 @@ class PartyPlanner(DirectFrame, FSM):
         if self.state == 'Date' and self.noFriends:
             self.request('PartyEditor')
             return
-        if self.state == 'Invitation' and self.selectedCalendarGuiDay == None:
+        if self.state == 'Invitation' and self.selectedCalendarGuiDay is None:
             self.request('Guests')
             return
         self.requestPrev()

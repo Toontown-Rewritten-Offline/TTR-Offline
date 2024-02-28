@@ -71,7 +71,7 @@ class DistributedMinigameAI(DistributedObjectAI.DistributedObjectAI):
 
     def setDifficultyOverrides(self, difficultyOverride, trolleyZoneOverride):
         self.difficultyOverride = difficultyOverride
-        if self.difficultyOverride != None:
+        if self.difficultyOverride is not None:
             self.difficultyOverride = MinigameGlobals.QuantizeDifficultyOverride(difficultyOverride)
         self.trolleyZoneOverride = trolleyZoneOverride
         return
@@ -117,12 +117,12 @@ class DistributedMinigameAI(DistributedObjectAI.DistributedObjectAI):
 
     def getDifficultyOverrides(self):
         response = [self.difficultyOverride, self.trolleyZoneOverride]
-        if response[0] == None:
+        if response[0] is None:
             response[0] = MinigameGlobals.NoDifficultyOverride
         else:
             response[0] *= MinigameGlobals.DifficultyOverrideMult
             response[0] = int(response[0])
-        if response[1] == None:
+        if response[1] is None:
             response[1] = MinigameGlobals.NoTrolleyZoneOverride
         return response
 
@@ -409,14 +409,14 @@ class DistributedMinigameAI(DistributedObjectAI.DistributedObjectAI):
         return self.local2GameTime(globalClock.getFrameTime())
 
     def getDifficulty(self):
-        if self.difficultyOverride != None:
+        if self.difficultyOverride is not None:
             return self.difficultyOverride
         if hasattr(self.air, 'minigameDifficulty'):
             return float(self.air.minigameDifficulty)
         return MinigameGlobals.getDifficulty(self.getSafezoneId())
 
     def getSafezoneId(self):
-        if self.trolleyZoneOverride != None:
+        if self.trolleyZoneOverride is not None:
             return self.trolleyZoneOverride
         if hasattr(self.air, 'minigameSafezoneId'):
             return MinigameGlobals.getSafezoneId(self.air.minigameSafezoneId)

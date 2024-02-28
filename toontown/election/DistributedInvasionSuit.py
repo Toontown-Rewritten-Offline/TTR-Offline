@@ -371,7 +371,7 @@ class DistributedInvasionSuit(DistributedSuitBase, InvasionSuitBase, FSM, DelayD
     def d_takeShakerDamage(self, damage, toon):
         if toon.isStunned:
             return
-        if toon == base.localAvatar:
+        if toon is base.localAvatar:
             if toon.hp > 0:
                 self.sendUpdate('takeShakerDamage', [damage])
                 if toon.hp > 0:

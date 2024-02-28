@@ -101,7 +101,7 @@ class PartyEditorGridElement(DirectButton):
             newPos = vMouse2render2d
             if newPos[0] > PartyGlobals.PartyEditorGridBounds[0][0] and newPos[0] < PartyGlobals.PartyEditorGridBounds[1][0] and newPos[2] < PartyGlobals.PartyEditorGridBounds[0][1] and newPos[2] > PartyGlobals.PartyEditorGridBounds[1][1]:
                 centerGridSquare = self.snapToGrid(newPos)
-                if centerGridSquare != None:
+                if centerGridSquare is not None:
                     self.centerGridSquare = centerGridSquare
                     if not self.overValidSquare:
                         self.setOverValidSquare(True)
@@ -135,7 +135,7 @@ class PartyEditorGridElement(DirectButton):
             self.setColorScale(0.9, 0.9, 0.9, 0.7)
 
     def removeFromGrid(self):
-        if self.centerGridSquare != None:
+        if self.centerGridSquare is not None:
             self.partyEditor.partyEditorGrid.removeElement(self.centerGridSquare, self.getGridSize())
         self.setOverValidSquare(False)
         self.lastValidPosition = None
@@ -204,7 +204,7 @@ class PartyEditorGridElement(DirectButton):
             self.partyEditor.partyEditorGrid.registerNewElement(self, self.centerGridSquare, self.getGridSize())
             self.partyEditor.updateCostsAndBank()
             self.partyEditor.handleMutuallyExclusiveActivities()
-        elif self.lastValidPosition != None:
+        elif self.lastValidPosition is not None:
             if self.mouseOverTrash:
                 self.partyEditor.trashCanButton['state'] = DirectGuiGlobals.NORMAL
                 self.lastValidPosition = None
@@ -223,7 +223,7 @@ class PartyEditorGridElement(DirectButton):
 
     def placeInPartyGrounds(self, desiredXY = None):
         self.centerGridSquare = self.partyEditor.partyEditorGrid.getClearGridSquare(self.getGridSize(), desiredXY)
-        if self.centerGridSquare != None:
+        if self.centerGridSquare is not None:
             self.setOverValidSquare(True)
             self.unstash()
             self.setPosHprBasedOnGridSquare(self.centerGridSquare)
@@ -238,7 +238,7 @@ class PartyEditorGridElement(DirectButton):
 
     def clicked(self, mouseEvent):
         PartyEditorGridElement.notify.debug('clicked grid element %s' % self.name_)
-        if self.centerGridSquare != None:
+        if self.centerGridSquare is not None:
             self.attach(mouseEvent)
             self.partyEditor.partyEditorGrid.removeElement(self.centerGridSquare, self.getGridSize())
         return

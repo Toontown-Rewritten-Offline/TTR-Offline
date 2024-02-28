@@ -132,13 +132,13 @@ class PurchaseManagerAI(DistributedObjectAI.DistributedObjectAI):
         return globalClockDelta.getRealNetworkTime()
 
     def startCountdown(self):
-        if not config.ConfigVariableBool('disable-purchase-timer', 0).getValue():
+        if not config.GetBool('disable-purchase-timer', 0):
             taskMgr.doMethodLater(PURCHASE_COUNTDOWN_TIME, self.timeIsUpTask, self.uniqueName('countdown-timer'))
 
     def requestExit(self):
         avId = self.air.getAvatarIdFromSender()
         avIndex = self.findAvIndex(avId)
-        if avIndex == None:
+        if avIndex is None:
             self.air.writeServerEvent('suspicious', avId=avId, issue='PurchaseManager.requestExit: unknown avatar: %s' % (avId,))
             return
         if self.receivingButtons:
@@ -285,7 +285,7 @@ class PurchaseManagerAI(DistributedObjectAI.DistributedObjectAI):
                 else:
                     newRound = 0
                     newVotesArray = [TravelGameGlobals.DefaultStartingVotes] * len(playAgainList)
-            if len(playAgainList) == 1 and config.ConfigVariableBool('metagame-min-2-players', 1).getValue():
+            if len(playAgainList) == 1 and config.GetBool('metagame-min-2-players', 1):
                 newRound = -1
             MinigameCreatorAI.createMinigame(self.air, playAgainList, self.trolleyZone, minigameZone=self.zoneId, previousGameId=self.previousMinigameId, newbieIds=newbieIdsToPass, startingVotes=newVotesArray, metagameRound=newRound, desiredNextGame=self.desiredNextGame)
         else:

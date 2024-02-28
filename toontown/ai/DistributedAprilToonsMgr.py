@@ -26,7 +26,7 @@ class DistributedAprilToonsMgr(DistributedObject):
     def isEventActive(self, eventId):
         # NOTE: Possible race condition where the client checks for if an event is active
         # *before* it gets a response from the AI.
-        if not base.cr.config.ConfigVariableBool('want-april-toons', False).getValue():
+        if not base.cr.config.GetBool('want-april-toons', False):
             # If this DO is generated but we don't want april toons, always return
             # false regardless.
             return False

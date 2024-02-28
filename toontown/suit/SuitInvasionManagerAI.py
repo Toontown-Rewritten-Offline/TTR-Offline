@@ -28,10 +28,10 @@ class SuitInvasionManagerAI:
         self.numSuits = 0
         self.spawnedSuits = 0
 
-        if config.ConfigVariableBool('want-mega-invasions', False).getValue(): # TODO - config for this
+        if config.GetBool('want-mega-invasions', False): # TODO - config for this
             # Mega invasion configuration.
             self.randomInvasionProbability = config.GetFloat('mega-invasion-probability', 0.4)
-            self.megaInvasionCog = config.ConfigVariableString('mega-invasion-cog-type', '').getValue()
+            self.megaInvasionCog = config.GetString('mega-invasion-cog-type', '')
             if not self.megaInvasionCog:
                 raise AttributeError("No mega invasion cog specified, but mega invasions are on!")
             if self.megaInvasionCog not in SuitDNA.suitHeadTypes:
@@ -39,7 +39,7 @@ class SuitInvasionManagerAI:
             # Start ticking.
             taskMgr.doMethodLater(randint(1800, 5400), self.__randomInvasionTick, 'random-invasion-tick')
 
-        elif config.ConfigVariableBool('want-random-invasions', True).getValue():
+        elif config.GetBool('want-random-invasions', True):
             # Random invasion configuration.
             self.randomInvasionProbability = config.GetFloat('random-invasion-probability', 0.3)
             # Start ticking.
@@ -69,7 +69,7 @@ class SuitInvasionManagerAI:
             # Take the mega invasion probability and test it. If we get lucky
             # a second time, spawn a mega invasion, otherwise spawn a normal
             # invasion.
-            if config.ConfigVariableBool('want-mega-invasions', False).getValue() and random() <= self.randomInvasionProbability:
+            if config.GetBool('want-mega-invasions', False) and random() <= self.randomInvasionProbability:
                 # N.B.: randomInvasionProbability = mega invasion probability.
                 suitName = self.megaInvasionCog
                 numSuits = randint(2000, 15000)
@@ -99,7 +99,7 @@ class SuitInvasionManagerAI:
             self.numSuits, self.specialSuit
         ])
         # Remove the invasion timeout.
-        if task != None:
+        if task is not None:
             task.remove()
         else:
             taskMgr.remove('invasion-timeout')

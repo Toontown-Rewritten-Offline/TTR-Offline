@@ -18,7 +18,7 @@ class HolidayManagerAI:
         self.currentHolidays = []
 
         # TODO: Properly create a holiday manager to run this.
-        if config.ConfigVariableBool('want-hourly-fireworks', False).getValue():
+        if config.GetBool('want-hourly-fireworks', False):
             self.__startFireworksTick()
 
     """
@@ -34,7 +34,7 @@ class HolidayManagerAI:
         # The next tick will occur in exactly an hour.
         task.delayTime = 3600
 
-        showName = config.ConfigVariableString('hourly-fireworks-type', 'july4').getValue()
+        showName = config.GetString('hourly-fireworks-type', 'july4')
 
         if showName == 'july4':
             showType = ToontownGlobals.JULY4_FIREWORKS

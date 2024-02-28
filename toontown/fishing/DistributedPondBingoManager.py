@@ -77,7 +77,7 @@ class DistributedPondBingoManager(DistributedObject.DistributedObject, FSM.FSM):
         self.initGameState = gameState
 
     def checkForUpdate(self, cellId):
-        if self.lastCatch != None:
+        if self.lastCatch is not None:
             genus = self.lastCatch[0]
             species = self.lastCatch[1]
             self.d_cardUpdate(cellId, genus, species)
@@ -97,7 +97,7 @@ class DistributedPondBingoManager(DistributedObject.DistributedObject, FSM.FSM):
 
     def updateGameState(self, gameState, cellId):
         game = self.card.getGame()
-        if game != None:
+        if game is not None:
             game.setGameState(gameState)
             self.card.cellUpdate(cellId)
         return

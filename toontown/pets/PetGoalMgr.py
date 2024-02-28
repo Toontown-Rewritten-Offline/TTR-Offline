@@ -55,7 +55,7 @@ class PetGoalMgr(DirectObject.DirectObject):
             return
         if __dev__:
             self.pscSetup.start()
-        if self.primaryGoal == None:
+        if self.primaryGoal is None:
             highestPriority = -99999.0
             candidates = []
         else:
@@ -93,11 +93,11 @@ class PetGoalMgr(DirectObject.DirectObject):
     def _setPrimaryGoal(self, goal):
         if self.primaryGoal == goal:
             return
-        if self.primaryGoal != None:
+        if self.primaryGoal is not None:
             self.primaryGoal.fsm.request('background')
         self.primaryGoal = goal
         self.primaryStartT = globalClock.getFrameTime()
-        if goal != None:
+        if goal is not None:
             goal.fsm.request('foreground')
         return
 

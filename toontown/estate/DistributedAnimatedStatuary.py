@@ -15,7 +15,7 @@ class DistributedAnimatedStatuary(DistributedStatuary.DistributedStatuary):
     def loadModel(self):
         self.rotateNode = self.plantPath.attachNewNode('rotate')
         self.model = Actor.Actor()
-        self.model.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+        self.model.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
         animPath = self.modelPath + self.anims[1]
         self.model.loadModel(self.modelPath + self.anims[0])
         self.model.loadAnims(dict([[self.anims[1], animPath]]))

@@ -81,7 +81,7 @@ class TraitDistribution:
         return (traitValue - gMin) / (gMax - gMin)
 
     def getPercentile(self, traitValue):
-        if self.TraitType == TraitDistribution.TraitTypes.INCREASING:
+        if self.TraitType is TraitDistribution.TraitTypes.INCREASING:
             return self._getTraitPercent(traitValue)
         else:
             return 1.0 - self._getTraitPercent(traitValue)
@@ -90,7 +90,7 @@ class TraitDistribution:
         TraitQuality = TraitDistribution.TraitQuality
         TraitCutoffs = self.TraitCutoffs[self.TraitType]
         percent = self._getTraitPercent(traitValue)
-        if self.TraitType == TraitDistribution.TraitTypes.INCREASING:
+        if self.TraitType is TraitDistribution.TraitTypes.INCREASING:
             if percent <= TraitCutoffs[TraitQuality.VERY_BAD]:
                 return TraitQuality.VERY_BAD
             elif percent <= TraitCutoffs[TraitQuality.BAD]:
@@ -169,7 +169,7 @@ class PetTraits:
 
         def __init__(self, index, traitsObj, value = None):
             self.name, distrib, self.hasWorth = PetTraits.TraitDescs[index]
-            if value != None:
+            if value is not None:
                 self.value = value
             else:
                 szId = traitsObj.safeZoneId

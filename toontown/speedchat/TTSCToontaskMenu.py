@@ -31,7 +31,7 @@ class TTSCToontaskMenu(SCMenu):
         for task in lt.quests:
             taskId, fromNpcId, toNpcId, rewardId, toonProgress = task
             q = Quests.getQuest(taskId)
-            if q == None:
+            if q is None:
                 continue
             msgs = q.getSCStrings(toNpcId, toonProgress)
             if type(msgs) != type([]):

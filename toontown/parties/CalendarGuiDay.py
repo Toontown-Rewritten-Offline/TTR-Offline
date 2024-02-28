@@ -34,7 +34,7 @@ class CalendarGuiDay(DirectFrame):
         self.partiesInvitedToToday = []
         self.hostedPartiesToday = []
         self.yearlyHolidaysToday = []
-        self.showMarkers = config.ConfigVariableBool('show-calendar-markers', 0).getValue()
+        self.showMarkers = config.GetBool('show-calendar-markers', 0)
         self.filter = ToontownGlobals.CalendarFilterShowAll
         self.load()
         self.createGuiObjects()
@@ -131,7 +131,7 @@ class CalendarGuiDay(DirectFrame):
                 self.numberWidget.setColorScale(1, 1, 1, 1)
         if self.myDate.month != self.startDate.month:
             self.setColorScale(0.75, 0.75, 0.75, 1.0)
-            if self.dayClickCallback != None:
+            if self.dayClickCallback is not None:
                 self.numberWidget['state'] = DirectGuiGlobals.DISABLED
         else:
             self.setColorScale(1, 1, 1, 1)
@@ -144,7 +144,7 @@ class CalendarGuiDay(DirectFrame):
         return
 
     def destroy(self):
-        if self.dayClickCallback != None:
+        if self.dayClickCallback is not None:
             self.numberWidget.destroy()
         self.dayClickCallback = None
         self.notify.debug('desroying %s' % self.myDate)
@@ -181,7 +181,7 @@ class CalendarGuiDay(DirectFrame):
                 self.addTitleAndDescToScrollList(holidayName, holidayDesc)
 
             self.scrollList.refresh()
-        if config.ConfigVariableBool('calendar-test-items', 0).getValue():
+        if config.GetBool('calendar-test-items', 0):
             if self.myDate.date() + datetime.timedelta(days=-1) == base.cr.toontownTimeManager.getCurServerDateTime().date():
                 testItems = ('1:00 AM Party', '2:00 AM CEO', '11:15 AM Party', '5:30 PM CJ', '11:00 PM Party', 'Really Really Long String')
                 for text in testItems:

@@ -73,7 +73,7 @@ class CogdoMazeSuit(MazeSuit, FSM, CogdoMazeSplattable):
         newRate = frames / duration
         playRate = newRate / frameRate
         ival = Sequence(ActorInterval(self.suit, animName, startTime=startFrame / newRate, endTime=totalFrames / newRate, playRate=playRate, partName=partName))
-        if nextState != None:
+        if nextState is not None:
 
             def done():
                 self.request(nextState)

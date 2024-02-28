@@ -23,7 +23,7 @@ class AttackBehavior(FSM):
 
     def assessDistance(self):
         toon = self.getToon()
-        if toon == None:
+        if toon is None:
             self.brain.demand('Idle')
             return
         else:

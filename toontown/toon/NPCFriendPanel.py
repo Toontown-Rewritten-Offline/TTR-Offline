@@ -156,7 +156,7 @@ class NPCFriendCard(DirectFrame):
             if self.NPCHead:
                 self.NPCHead.detachNode()
                 self.NPCHead.delete()
-            if NPCID == None:
+            if NPCID is None:
                 self.showBack()
                 return
             self.front.show()

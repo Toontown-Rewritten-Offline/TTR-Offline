@@ -1,4 +1,4 @@
-EndlessGame = config.ConfigVariableBool('endless-catch-game', 0).getValue()
+EndlessGame = config.GetBool('endless-catch-game', 0)
 GameDuration = 55.0
 
 class DropObject:
