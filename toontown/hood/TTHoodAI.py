@@ -4,6 +4,7 @@ from toontown.safezone import ButterflyGlobals
 from toontown.safezone.DistributedButterflyAI import DistributedButterflyAI
 from toontown.toon import NPCToons
 from toontown.election.DistributedElectionEventAI import DistributedElectionEventAI
+from toontown.election.DistributedTelevisionAI import DistributedTelevisionAI
 from direct.task import Task
 import time
 
@@ -15,6 +16,9 @@ class TTHoodAI(SZHoodAI):
         self.spawnObjects()
         self.butterflies = []
         self.createButterflies()
+        if self.air.config.ConfigVariableBool('want-ttc-television', False).getValue() and not self.air.config.ConfigVariableBool('want-doomsday', False).getValue():
+            tv = DistributedTelevisionAI(self.air)
+            tv.generateWithRequired(self.HOOD)
 
         if self.air.config.ConfigVariableBool('want-doomsday', False).getValue():
             self.spawnElection()
@@ -24,7 +28,6 @@ class TTHoodAI(SZHoodAI):
         if election == None:
             election = DistributedElectionEventAI(self.air)
             election.generateWithRequired(self.HOOD)
-        election.b_setState('Idle')
         if self.air.config.ConfigVariableBool('want-hourly-doomsday', False).getValue():
             self.__startElectionTick()
         
