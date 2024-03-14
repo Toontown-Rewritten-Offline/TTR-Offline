@@ -1557,8 +1557,8 @@ class OTPClientRepository(ClientRepositoryBase):
             # TODO: HACKFIX HERE, FIX PROPERLY!!!
             try:
                 self.handleUpdateField(di)
-            except AssertionError as e:
-                self.notify.warning('AssertionError: %s' % e.message)
+            except AssertionError as msg:
+                self.notify.warning('AssertionError: %s' % msg)
         elif msgType == CLIENT_OBJECT_LEAVING:
             self.handleDelete(di)
         else:
