@@ -266,11 +266,11 @@ class OptionsPage(DirectFrame):
 
         # Controls Components
         self.ControlsMovementText = OnscreenText(
-            parent=self.ControlsScrollFrameCanvas
-            align=TextNode.ALeft
-            text=TTLocalizer.NewOptionsTabControlsMovement
-            font=self.SectionTextFont
-            scale=self.SectionTextScale
+            parent=self.ControlsScrollFrameCanvas,
+            align=TextNode.ALeft,
+            text=TTLocalizer.NewOptionsTabControlsMovement,
+            font=self.SectionTextFont,
+            scale=self.SectionTextScale,
             pos=(self.SectionTextXOffset, 1.85)
         )
 
@@ -376,11 +376,10 @@ class OptionsPage(DirectFrame):
 
         self.VideoScrollFrame = DirectFrame(
             parent=self.OptionsPageVideo,
-            font=self.TitleTextFont,
-            text=TTLocalizer.NewOptionsTabVideoTitle,
-            fg=self.TitleTextColor,
-            pos=self.TitleTextPos,
-            scale=self.TitleTextScale
+            state=DGG.NORMAL,
+            pos=self.ScrollFramePos,
+            frameSize=self.ScrollFrameSize,
+            pgFunc=PGScrollFrame
         )
         self.VideoScrollFrameCanvas = NodePath(self.VideoScrollFrame.guiItem.getCanvasNode())
         self.VideoScrollFrame.guiItem.setVirtualFrame(self.ScrollFrameCanvasSize)
