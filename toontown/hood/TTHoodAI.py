@@ -28,6 +28,7 @@ class TTHoodAI(SZHoodAI):
         if election == None:
             election = DistributedElectionEventAI(self.air)
             election.generateWithRequired(self.HOOD)
+        election.b_setState('Idle')
         if self.air.config.ConfigVariableBool('want-hourly-doomsday', False).getValue():
             self.__startElectionTick()
         
