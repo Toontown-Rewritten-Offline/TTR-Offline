@@ -126,7 +126,6 @@ class DistributedToonfestTrampolineActivity(DistributedToonfestActivity):
 
         self.beans[-1].setScale(2.5)
         self.toonPos = self.trampHeight + self.root.getZ() # This isn't the BEST fix, but I spent too long on the shitty mod for Toonfest
-        print(self.toonPos)
         self.beginningBoostThreshold = self.toonPos + 1.5
 
     def loadCollision(self):

@@ -32,4 +32,4 @@ class DistributedToonfestTower(DistributedObject, FSM):
         DistributedObject.delete(self)
 
     def updateTower(self, operation, base):
-        print('Tower changing!')
+        pass

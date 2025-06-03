@@ -41,16 +41,12 @@ class DistributedToonfestTowerAI(DistributedObjectAI, FSM):
             print('DistributedToonfestTower: Operation %s is not a valid operation.' % operation)
         if base < 0 or base > 2:
             print('DistributedToonfestTower: Invalid base ' + str(base))
-        print('Made base ' + str(base + 1) + ' ' + operation)
         if operation == 'SpeedUp':
             rpm = rpm + round(random.uniform(1, 3), 3)
-            print(rpm)
             self.air.tfb.setSpeed(rpm, offset, timestamp, base, operation, avName)
         if operation == 'SlowDown':
             rpm = rpm - round(random.uniform(1, 3), 3)
-            print(rpm)
             self.air.tfb.setSpeed(rpm, offset, timestamp, base, operation, avName)
         if operation == 'Reverse':
             rpm = rpm + round(random.uniform(-6, -8), 3)
-            print(rpm)
             self.air.tfb.setSpeed(rpm, offset, timestamp, base, operation, avName)
