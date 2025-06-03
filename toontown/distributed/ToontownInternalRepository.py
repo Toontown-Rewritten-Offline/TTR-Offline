@@ -1,4 +1,4 @@
-from direct.distributed.AstronInternalRepository import AstronInternalRepository
+from otp.astron.AstronInternalRepository import AstronInternalRepository
 from otp.distributed.OtpDoGlobals import *
 from otp.rpc.RPCClient import RPCClient
 from direct.distributed.PyDatagram import PyDatagram
