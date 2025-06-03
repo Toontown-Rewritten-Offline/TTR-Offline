@@ -40,8 +40,6 @@ class TFSafeZoneLoader(SafeZoneLoader):
         self.flippy.initializeBodyCollisions('toon')
         self.flippy.addActive()
         self.flippy.startBlink()
-        self.flippyBlatherSequence = Sequence(Wait(10), Func(self.flippy.setChatAbsolute, 'Welcome Toons, far and wide!', CFSpeech | CFTimeout), Func(self.flippy.play, 'wave'), Func(self.flippy.loop, 'neutral'), Wait(5), Func(self.flippy.setChatAbsolute, "It's been an amazing year at Toontown, and we're glad you could join us!", CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, "Oh, don't mind the little guy back there. That's my new pet, Fluffy.", CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, "He's a real rascal, but he already has the Cog-fighting down to a science!", CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, 'Doctor Surlee says he\'s some sort of creature called a "Doodle". Funny name, right?', CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, 'Anyway, what are you waiting for?', CFSpeech | CFTimeout), Wait(8), Func(self.flippy.setChatAbsolute, 'Grab some pies, catch some fish, and go for a spin. ToonFest is in full swing!', CFSpeech | CFTimeout))
-        self.flippyBlatherSequence.loop()
         self.npctest = NPCToons.createLocalNPC(91000)
         self.npctest.setPickable(0)
         self.npctest.setPos(109, -329, 8.35)

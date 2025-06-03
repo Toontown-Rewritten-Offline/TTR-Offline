@@ -16,12 +16,8 @@ class SZTreasurePlannerAI(RegenTreasurePlannerAI):
 
     def validAvatar(self, treasure, av):
         # Avatars can only heal if they are missing some health, but aren't sad.
-        if self.treasureType == 10:
-            av.addMoney(self.healAmount)
+        if av.getHp() < av.getMaxHp() and av.getHp() > 0:
+            av.toonUp(self.healAmount)
             return True
         else:
-            if av.getHp() < av.getMaxHp() and av.getHp() > 0:
-                av.toonUp(self.healAmount)
-                return True
-            else:
-                return False
+            return False

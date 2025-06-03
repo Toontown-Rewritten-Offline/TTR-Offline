@@ -1,7 +1,4 @@
-from panda3d.core import *
-from direct.task import Task
 from .SZHoodAI import SZHoodAI
-from toontown.hood.HoodAI import *
 from toontown.toonbase import ToontownGlobals
 from toontown.safezone.DistributedPicnicBasketAI import DistributedPicnicBasketAI
 from toontown.safezone.DistributedPicnicTableAI import DistributedPicnicTableAI
@@ -12,6 +9,8 @@ from toontown.toonfest.DistributedToonfestTowerBaseAI import DistributedToonfest
 from toontown.toonfest.DistributedToonfestVictoryTrampolineActivityAI import DistributedToonfestVictoryTrampolineActivityAI
 from toontown.toonfest.DistributedToonfestCogAI import DistributedToonfestCogAI
 #from toontown.toonfest.DistributedToonfestCannonActivityAI import DistributedToonfestCannonActivityAI
+from toontown.safezone.SZTreasurePlannerAI import SZTreasurePlannerAI
+from toontown.safezone import TreasureGlobals
 
 class TFHoodAI(SZHoodAI):
     notify = directNotify.newCategory('SZHoodAI')
@@ -49,3 +48,7 @@ class TFHoodAI(SZHoodAI):
         #self.cog2.generateWithRequired(self.HOOD)
         #self.cogs.append(self.cog2)
 
+    def createTreasurePlanner(self):
+        treasureType, healAmount, spawnPoints, spawnRate, maxTreasures = TreasureGlobals.SafeZoneTreasureSpawns[self.HOOD]
+        self.treasurePlanner = SZTreasurePlannerAI(self.safezone, treasureType, healAmount, spawnPoints, spawnRate, maxTreasures)
+        self.treasurePlanner.start()
