@@ -50,21 +50,7 @@ class DistributedToonfestCog(DistributedObject, FSM):
         self.sendUpdate('setProperties')
         self.setCogProperties()
 
-    def setCogProperties(self):
-        self.parentNode.reparentTo(render)
-        self.root.reparentTo(render)
-        path = 'phase_13/models/parties/cogPinata_'
-        self.actor = Actor.Actor(path + 'actor', {'idle': path + 'idle_anim',
-         'down': path + 'down_anim',
-         'up': path + 'up_anim',
-         'bodyHitBack': path + 'bodyHitBack_anim',
-         'bodyHitFront': path + 'bodyHitFront_anim',
-         'headHitBack': path + 'headHitBack_anim',
-         'headHitFront': path + 'headHitFront_anim'})
-        self.actor.setBlend(ConfigVariableBool('smoothanimations', False))
-        self.actor.reparentTo(self.root)
-        self.temp_transform = Mat4()
-        self.head_locator = self.actor.attachNewNode('temphead')
+    def enableCollisions(self):
         self.bodyColl = CollisionTube(0, 0, 1, 0, 0, 5.75, 0.75)
         self.bodyColl.setTangible(1)
         self.bodyCollNode = CollisionNode('ToonfestCog-Body-Collision')
@@ -93,6 +79,28 @@ class DistributedToonfestCog(DistributedObject, FSM):
         self.arm2CollNode.addSolid(self.arm2Coll)
         self.arm2CollNode.setTag('pieCode', str(ToontownGlobals.PieCodeToonfestCog))
         self.arm2CollNodePath = self.root.attachNewNode(self.arm2CollNode)
+
+    def disableCollisions(self):
+        for child in self.root.getChildren():
+            if child.getName() != 'cogPinata':
+                child.removeNode()
+
+    def setCogProperties(self):
+        self.parentNode.reparentTo(render)
+        self.root.reparentTo(render)
+        path = 'phase_13/models/parties/cogPinata_'
+        self.actor = Actor.Actor(path + 'actor', {'idle': path + 'idle_anim',
+         'down': path + 'down_anim',
+         'up': path + 'up_anim',
+         'bodyHitBack': path + 'bodyHitBack_anim',
+         'bodyHitFront': path + 'bodyHitFront_anim',
+         'headHitBack': path + 'headHitBack_anim',
+         'headHitFront': path + 'headHitFront_anim'})
+        self.actor.setBlend(ConfigVariableBool('smoothanimations', False))
+        self.actor.reparentTo(self.root)
+        self.temp_transform = Mat4()
+        self.head_locator = self.actor.attachNewNode('temphead')
+        self.enableCollisions()
         splatName = 'splat-creampie'
         self.splat = globalPropPool.getProp(splatName)
         self.splat.setBillboardPointEye()
@@ -172,7 +180,7 @@ class DistributedToonfestCog(DistributedObject, FSM):
         self.clearHitInterval()
         startScale = self.hole.getScale()
         endScale = Point3(5, 5, 5)
-        self.hitInterval = Sequence(LerpScaleInterval(self.hole, duration=0.175, scale=endScale, startScale=startScale, blendType='easeIn'), Parallel(SoundInterval(self.upSound, volume=0.6, node=self.actor, cutOff=PartyGlobals.PARTY_COG_CUTOFF), ActorInterval(self.actor, 'down', loop=0)), LerpScaleInterval(self.hole, duration=0.175, scale=Point3(3, 3, 3), startScale=endScale, blendType='easeOut'))
+        self.hitInterval = Sequence(LerpScaleInterval(self.hole, duration=0.175, scale=endScale, startScale=startScale, blendType='easeIn'), Parallel(SoundInterval(self.upSound, volume=0.6, node=self.actor, cutOff=PartyGlobals.PARTY_COG_CUTOFF), Sequence(ActorInterval(self.actor, 'down', loop=0), Wait(0.2), Func(self.disableCollisions))), LerpScaleInterval(self.hole, duration=0.175, scale=Point3(3, 3, 3), startScale=endScale, blendType='easeOut'))
         self.hitInterval.start()
 
     def enterUp(self):
@@ -187,7 +195,7 @@ class DistributedToonfestCog(DistributedObject, FSM):
             print('Done')
         startScale = self.hole.getScale()
         endScale = Point3(5, 5, 5)
-        self.hitInterval = Sequence(LerpScaleInterval(self.hole, duration=0.175, scale=endScale, startScale=startScale, blendType='easeIn'), Parallel(SoundInterval(self.upSound, volume=0.6, node=self.actor, cutOff=PartyGlobals.PARTY_COG_CUTOFF), ActorInterval(self.actor, 'up', loop=0)), Func(self.actor.loop, 'idle'), LerpScaleInterval(self.hole, duration=0.175, scale=Point3(3, 3, 3), startScale=endScale, blendType='easeOut'))
+        self.hitInterval = Sequence(LerpScaleInterval(self.hole, duration=0.175, scale=endScale, startScale=startScale, blendType='easeIn'), Parallel(SoundInterval(self.upSound, volume=0.6, node=self.actor, cutOff=PartyGlobals.PARTY_COG_CUTOFF), ActorInterval(self.actor, 'up', loop=0), Func(self.enableCollisions)), Func(self.actor.loop, 'idle'), LerpScaleInterval(self.hole, duration=0.175, scale=Point3(3, 3, 3), startScale=endScale, blendType='easeOut'))
         self.hitInterval.start()
 
     def __localPieSplat(self, pieCode, entry):
