@@ -202,12 +202,7 @@ if not ConfigVariableBool('want-retro-rewritten', False):
     '''New Loading Screen'''
     from toontown.toontowngui import NewLoadingScreen
 
-    loading = NewLoadingScreen.NewLoadingScreen()
-
-    loading.newMusic()
-    loading.newVersion()
-    loading.connectBackground()
-    loading.newLogo()
+    base.loadingScreen = NewLoadingScreen.NewLoadingScreen()
 
 if config.ConfigVariableBool('auto-start-server', False).getValue():
     # Start DedicatedServer
