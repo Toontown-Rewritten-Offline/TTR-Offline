@@ -9,7 +9,6 @@ from direct.gui.DirectGui import *
 from panda3d.core import *
 from toontown.toonbase import TTLocalizer
 from toontown.toonbase import DisplayOptions
-from toontown.toontowngui import NewLoadingScreen
 from direct.directnotify import DirectNotifyGlobal
 from direct.interval.IntervalGlobal import *
 import random
@@ -39,7 +38,6 @@ class AvatarChooser(StateData.StateData):
         self.fsm.enterInitialState()
         self.parentFSM = parentFSM
         self.parentFSM.getCurrentState().addChild(self.fsm)
-        self.loading = NewLoadingScreen.NewLoadingScreen()
         return
 
     def enter(self):
@@ -97,8 +95,8 @@ class AvatarChooser(StateData.StateData):
         self.quitButton = DirectButton(image=(quitHover, quitHover, quitHover), parent=base.a2dBottomRight, relief=None, text=TTLocalizer.AvatarChooserQuit, text_font=ToontownGlobals.getSignFont(), text_fg=(0.977, 0.816, 0.133, 1), text_pos=TTLocalizer.ACquitButtonPos, text_scale=TTLocalizer.ACquitButton, image_scale=1, image1_scale=1.05, image2_scale=1.05, scale=1.05, pos=(-0.25, 0, 0.1), command=self.__handleQuit)
         self.questionableButton = DirectButton(relief=None, image=(quitHover, quitHover, quitHover), parent=base.a2dBottomLeft, text=TTLocalizer.AvatarChooserQuestionable, text_font=ToontownGlobals.getSignFont(), text_fg=(0.977, 0.816, 0.133, 1), text_scale=TTLocalizer.ACquestionableButton, text_pos=(0, -0.035), image_scale=1, image1_scale=1.05, image2_scale=1.05, scale=1.05, pos=(0.25, 0, 0.1), command=self.__handleTestCutscene)
         if not ConfigVariableBool('want-retro-rewritten', False):
-            self.loading.cleanup()
-            self.loading.musicLoadIn()
+            base.loadingScreen.cleanup()
+            base.loadingScreen.musicLoadIn()
         self.questionableButton.hide()
         gui.removeNode()
         gui2.removeNode()
