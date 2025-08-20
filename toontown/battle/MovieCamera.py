@@ -480,8 +480,6 @@ def chooseSuitShot(attack, attackDuration):
         camTrack.append(defaultCamera(openShotDuration=1.7))
     elif name == SYNERGY:
         camTrack.append(defaultCamera(openShotDuration=1.7))
-    elif name == SYNERGYAUDITOR:
-        camTrack.append(defaultCamera(openShotDuration=1.7))
     elif name == TABULATE:
         camTrack.append(defaultCamera())
     elif name == TEE_OFF:
