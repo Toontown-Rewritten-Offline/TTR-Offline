@@ -144,7 +144,7 @@ SuitSizes = {
     'mh': 7.0,
 }
 
-# Formatted by Toontown Mods (Kingdom Hearts): Cogs go to level 50; all values from TTR wiki; damage caps like TTR; includes new TTR cog attacks and Supervisors
+# Formatted by Toontown Mods (Kingdom Hearts): Cogs go to level 50; all values from TTR wiki; damage caps like TTR
 SuitAttributes = {'f': {'name': TTLocalizer.SuitFlunky,  # full cog name used in-game
            'singularname': TTLocalizer.SuitFlunkyS,  # singular form of cog name for grammar
            'pluralname': TTLocalizer.SuitFlunkyP,  # plural form of cog name for grammar

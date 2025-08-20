@@ -3,8 +3,7 @@ from direct.actor import Actor
 from direct.directnotify import DirectNotifyGlobal
 from otp.otpbase import OTPGlobals
 import random
-Props = ((4, 'ttr_m_prp_ext_bouncyBall', 'ttr_m_prp_ext_bouncyBall'),
- (5, 'partyBall', 'partyBall'), # 'ttr_m_prp_bat_partyBall'
+Props = ((5, 'partyBall', 'partyBall'), 
  (5,
   'feather',
   'feather-mod',

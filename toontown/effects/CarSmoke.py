@@ -35,7 +35,7 @@ class CarSmoke(NodePath):
         notify.debug('Loading particle file: %s' % pfile)
         self.effect.loadConfig(pfile)
         ren = self.effect.getParticlesNamed('particles-1').getRenderer()
-        ren.setTextureFromNode('phase_4/models/props/tt_m_efx_ext_smoke', '**/*')
+        ren.setTextureFromNode('phase_4/models/props/ttr_m_efx_ext_smoke', '**/*')
 
     def start(self):
         self.effect.start(parent=self.effectNode)

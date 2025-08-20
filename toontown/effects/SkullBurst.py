@@ -13,7 +13,7 @@ class SkullBurst(PooledEffect, EffectController):
         self.startDelay = 0.0
         self.effectScale = 1.0
         self.effectColor = Vec4(1, 1, 1, 1)
-        model = loader.loadModel('phase_4/models/props/tt_m_efx_ext_fireworkCards')
+        model = loader.loadModel('phase_4/models/props/ttr_m_efx_ext_fireworkCards')
         self.effectModel = model.find('**/tt_t_efx_ext_skull')
         self.effectModel.reparentTo(self)
         self.effectModel.setColorScale(0, 0, 0, 0)

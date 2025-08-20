@@ -10,7 +10,7 @@ class GlowTrail(PooledEffect, EffectController):
     def __init__(self):
         PooledEffect.__init__(self)
         EffectController.__init__(self)
-        model = loader.loadModel('phase_4/models/props/tt_m_efx_ext_particleCards')
+        model = loader.loadModel('phase_4/models/props/ttr_m_efx_ext_particleCards')
         self.card = model.find('**/tt_t_efx_ext_particleWhiteGlow')
         self.cardScale = 64.0
         self.effectColor = Vec4(1, 1, 1, 1)

@@ -9,7 +9,7 @@ class Wake(NodePath):
         NodePath.__init__(self)
         self.assign(parent.attachNewNode('wake'))
         self.target = target
-        self.ripples = globalPropPool.getProp('ripples')
+        self.ripples = globalPropPool.getProp('ttr_m_efx_gen_ripples')
         tformNode = self.ripples.getChild(0)
         tformNode.setZ(0.01)
         self.seqNodePath = self.ripples.find('**/+SequenceNode')

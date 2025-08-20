@@ -75,12 +75,18 @@ def createParticleEffect(name = None, file = None, numParticles = None, color = 
         return loadParticleFile('fingerwag.ptf')
     elif name == 'FiredFlame':
         return loadParticleFile('firedFlame.ptf')
+    elif name == 'Flood':
+        return loadParticleFile('flood.ptf')
     elif name == 'FreezeAssets':
         return loadParticleFile('freezeAssets.ptf')
     elif name == 'GlowerPower':
         return loadParticleFile('glowerPowerKnives.ptf')
+    elif name == 'HostileTakeover':
+        return loadParticleFile('glowerPowerKnives.ptf')
     elif name == 'HotAir':
         return loadParticleFile('hotAirSpray.ptf')
+    elif name == 'NickelDime':
+        return loadParticleFile('nickelDime.ptf')
     elif name == 'PoundKey':
         return loadParticleFile('poundkey.ptf')
     elif name == 'ShiftSpray':

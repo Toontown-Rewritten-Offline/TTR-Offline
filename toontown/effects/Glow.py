@@ -10,7 +10,7 @@ class Glow(PooledEffect, EffectController):
         EffectController.__init__(self)
 
     def createTrack(self):
-        model = loader.loadModel('phase_4/models/props/tt_m_efx_ext_particleCards')
+        model = loader.loadModel('phase_4/models/props/ttr_m_efx_ext_particleCards')
         self.spark = model.find('**/tt_t_efx_ext_particleSparkle')
         self.effectModel = self.attachNewNode('effectModelNode')
         self.spark.reparentTo(self.effectModel)
