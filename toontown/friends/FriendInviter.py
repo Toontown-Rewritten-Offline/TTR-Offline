@@ -45,7 +45,7 @@ class FriendInviter(DirectFrame):
     notify = DirectNotifyGlobal.directNotify.newCategory('FriendInviter')
 
     def __init__(self, avId, avName, avDisableName):
-        self.wantPlayerFriends = config.GetBool('want-player-friends', 0)
+        self.wantPlayerFriends = config.ConfigVariableBool('want-player-friends', 0).getValue()
         DirectFrame.__init__(self, pos=(-1.033, 0.1, -0.35), parent=base.a2dTopRight, image_color=GlobalDialogColor, image_scale=(1.0, 1.0, 0.6), text='', text_wordwrap=TTLocalizer.FIdirectFrameWordwrap, text_scale=TTLocalizer.FIdirectFrame, text_pos=TTLocalizer.FIdirectFramePos)
         self['image'] = DGG.getDefaultDialogGeom()
         self.avId = avId
@@ -455,7 +455,7 @@ class FriendInviter(DirectFrame):
         pass
 
     def __handleOk(self):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: MAKEAFRIENDSHIP: Make a friendship')
         unloadFriendInviter()
 
@@ -466,7 +466,7 @@ class FriendInviter(DirectFrame):
         unloadFriendInviter()
 
     def __handleStop(self):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: BREAKAFRIENDSHIP: Break a friendship')
         self.fsm.request('endFriendship')
 

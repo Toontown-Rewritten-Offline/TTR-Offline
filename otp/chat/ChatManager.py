@@ -40,7 +40,7 @@ def removeThoughtPrefix(message):
 
 class ChatManager(DirectObject.DirectObject):
     notify = DirectNotifyGlobal.directNotify.newCategory('ChatManager')
-    execChat = config.GetBool('exec-chat', 0)
+    execChat = config.ConfigVariableBool('exec-chat', 0).getValue()
 
     def __init__(self, cr, localAvatar):
         self.cr = cr
@@ -297,8 +297,8 @@ class ChatManager(DirectObject.DirectObject):
             if base.cr.playerFriendsManager.askAvatarOnline(avatarId):
                 online = 1
 
-        avatarUnderstandable = base.cr.config.GetBool('force-avatar-understandable', False)
-        playerUnderstandable = base.cr.config.GetBool('force-player-understandable', False)
+        avatarUnderstandable = base.cr.config.ConfigVariableBool('force-avatar-understandable', False).getValue()
+        playerUnderstandable = base.cr.config.ConfigVariableBool('force-player-understandable', False).getValue()
         av = None
         if avatarId:
             av = self.cr.identifyAvatar(avatarId)
@@ -344,7 +344,7 @@ class ChatManager(DirectObject.DirectObject):
                 else:
                     self.chatInputNormal.chatEntry['backgroundFocus'] = 0
                 self.acceptOnce('enterNormalChat', self.fsm.request, ['whisperChat', [avatarName, avatarId]])
-        if base.cr.config.GetBool('force-typed-whisper-enabled', 0):
+        if base.cr.config.ConfigVariableBool('force-typed-whisper-enabled', 0).getValue():
             self.whisperButton['state'] = 'normal'
             self.enablewhisperButton()
         return

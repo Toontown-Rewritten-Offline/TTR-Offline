@@ -101,7 +101,7 @@ class ToontownLauncher(LauncherBase):
         return 'toontown'
 
     def parseWebAcctParams(self):
-        s = config.GetString('fake-web-acct-params', '')
+        s = config.ConfigVariableString('fake-web-acct-params', '').getValue()
         if not s:
             s = self.getRegistry(self.webAcctParams)
         self.setRegistry(self.webAcctParams, '')

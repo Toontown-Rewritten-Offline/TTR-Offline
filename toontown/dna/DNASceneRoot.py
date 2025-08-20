@@ -10,7 +10,7 @@ class DNASceneRoot(DNASceneElement):
     def __init__(self, zone=None):
         DNASceneElement.__init__(self)
 
-        if zone is not None:
+        if zone != None:
             self.zone = int(zone)
         else:
             self.zone = None

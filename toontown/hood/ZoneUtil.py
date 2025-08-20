@@ -220,9 +220,9 @@ def getWakeInfo(hoodId = None, zoneId = None):
     wakeWaterHeight = 0
     showWake = 0
     try:
-        if hoodId is None:
+        if hoodId == None:
             hoodId = base.cr.playGame.getPlaceId()
-        if zoneId is None:
+        if zoneId == None:
             zoneId = base.cr.playGame.getPlace().getZoneId()
         canonicalZoneId = getCanonicalZoneId(zoneId)
         if canonicalZoneId == DonaldsDock:

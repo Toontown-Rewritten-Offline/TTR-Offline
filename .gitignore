@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+backups/
+logs/
+screenshots/
+astron/databases/
+.DS_Store
+*.pyc
+resources/
+settings.json
+*.json
+*.log
+PrivacyMatters.py
+PrivacyStart.py
+files.py
+ai-crash.txt

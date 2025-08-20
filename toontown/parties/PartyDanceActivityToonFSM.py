@@ -27,7 +27,7 @@ class PartyDanceActivityToonFSM(FSM):
 
     def destroy(self):
         self.toon = None
-        if self.danceNode is not None:
+        if self.danceNode != None:
             self.danceNode.removeNode()
             self.danceNode = None
         self.activity = None
@@ -55,7 +55,7 @@ class PartyDanceActivityToonFSM(FSM):
             self.toon.reparentTo(self.activity.getParentNodePath())
             self.toon.setPos(pos)
             self.toon.setHpr(hpr)
-        if self.danceNode is not None:
+        if self.danceNode != None:
             self.danceNode.removeNode()
             self.danceNode = None
         self.enteredAlready = False
@@ -65,7 +65,7 @@ class PartyDanceActivityToonFSM(FSM):
         pass
 
     def enterDanceMove(self, anim = ''):
-        if self.lastAnim is None and anim == '':
+        if self.lastAnim == None and anim == '':
             self.toon.loop('victory', fromFrame=98, toFrame=122)
         else:
             if anim == '':

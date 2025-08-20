@@ -65,7 +65,7 @@ class CogHQExterior(BattlePlace.BattlePlace):
         BattlePlace.BattlePlace.unload(self)
 
     def enter(self, requestStatus):
-        if self.dnaFile is not None:
+        if self.dnaFile != None:
             dna = loader.loadDNA(self.dnaFile)
             visgroups = DNAUtil.getVisGroups(dna)
             visZones = []

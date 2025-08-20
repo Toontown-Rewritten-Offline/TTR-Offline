@@ -177,7 +177,7 @@ class MailboxScreen(DirectObject.DirectObject):
             messenger.send(self.doneEvent)
 
     def __handleAccept(self):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: MAILBOX: Accept item')
         if self.acceptingIndex != None:
             return

@@ -213,41 +213,41 @@ class PetAvatarPanel(AvatarPanel.AvatarPanel):
     def __ownerDetailsLoaded(self, avatar):
         self.notify.debug('__ownerDetailsLoaded(): doId=%s' % self.avatar.doId)
         self.cleanup()
-        if avatar is not None:
+        if avatar != None:
             messenger.send('clickedNametag', [avatar])
         return
 
     def __handleCall(self):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: PET: Call')
         self.notify.debug('__handleCall(): doId=%s' % self.avatar.doId)
         base.localAvatar.b_setPetMovie(self.avId, PetConstants.PET_MOVIE_CALL)
         base.panel.disableInteractionButtons()
-        if self.avatar.trickIval is not None and self.avatar.trickIval.isPlaying():
+        if self.avatar.trickIval != None and self.avatar.trickIval.isPlaying():
             self.avatar.trickIval.finish()
         base.cr.playGame.getPlace().setState('pet')
         base.localAvatar.lock()
         return
 
     def __handleFeed(self):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: PET: Feed')
         self.notify.debug('__handleFeed(): doId=%s' % self.avatar.doId)
         base.localAvatar.b_setPetMovie(self.avId, PetConstants.PET_MOVIE_FEED)
         base.panel.disableInteractionButtons()
-        if self.avatar.trickIval is not None and self.avatar.trickIval.isPlaying():
+        if self.avatar.trickIval != None and self.avatar.trickIval.isPlaying():
             self.avatar.trickIval.finish()
         base.cr.playGame.getPlace().setState('pet')
         base.localAvatar.lock()
         return
 
     def __handleScratch(self):
-        if config.GetBool('want-qa-regression', 1):
+        if config.ConfigVariableBool('want-qa-regression', 1).getValue():
             self.notify.info('QA-REGRESSION: PET: Scratch')
         self.notify.debug('__handleScratch(): doId=%s' % self.avatar.doId)
         base.localAvatar.b_setPetMovie(self.avId, PetConstants.PET_MOVIE_SCRATCH)
         base.panel.disableInteractionButtons()
-        if self.avatar.trickIval is not None and self.avatar.trickIval.isPlaying():
+        if self.avatar.trickIval != None and self.avatar.trickIval.isPlaying():
             self.avatar.trickIval.finish()
         base.cr.playGame.getPlace().setState('pet')
         base.localAvatar.lock()

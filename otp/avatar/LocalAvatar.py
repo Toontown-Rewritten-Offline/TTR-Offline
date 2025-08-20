@@ -31,13 +31,13 @@ from toontown.toonbase import ToontownGlobals
 
 class LocalAvatar(DistributedAvatar.DistributedAvatar, DistributedSmoothNode.DistributedSmoothNode):
     notify = DirectNotifyGlobal.directNotify.newCategory('LocalAvatar')
-    wantDevCameraPositions = config.GetBool('want-dev-camera-positions', 0)
-    wantMouse = config.GetBool('want-mouse', 0)
-    sleepTimeout = config.GetInt('sleep-timeout', 120)
-    swimTimeout = config.GetInt('afk-timeout', 600)
-    __enableMarkerPlacement = config.GetBool('place-markers', 0)
-    acceptingNewFriends = config.GetBool('accepting-new-friends', 1)
-    acceptingNonFriendWhispers = config.GetBool('accepting-non-friend-whispers', 0)
+    wantDevCameraPositions = config.ConfigVariableBool('want-dev-camera-positions', 0).getValue()
+    wantMouse = config.ConfigVariableBool('want-mouse', 0).getValue()
+    sleepTimeout = config.ConfigVariableInt('sleep-timeout', 120).getValue()
+    swimTimeout = config.ConfigVariableInt('afk-timeout', 600).getValue()
+    __enableMarkerPlacement = config.ConfigVariableBool('place-markers', 0).getValue()
+    acceptingNewFriends = config.ConfigVariableBool('accepting-new-friends', 1).getValue()
+    acceptingNonFriendWhispers = config.ConfigVariableBool('accepting-non-friend-whispers', 0).getValue()
 
     def __init__(self, cr, chatMgr, talkAssistant = None, passMessagesThrough = False):
         try:

@@ -14,7 +14,7 @@ class DNAWall(DNANode):
 
     def _makeNode(self, storage, parent):
         node = storage.findNode(self.code)
-        if node is None:
+        if node == None:
             raise DNAError('DNAWall uses unknown code %s' % self.code)
 
         buildingHeight = parent.getPythonTag('wall_height') or 0.0

@@ -17,7 +17,7 @@ WIN_WIDTH = 800
 WIN_HEIGHT = 600
 
 class IssueFrame(DirectFrame):
-    NewsBaseDir = config.GetString('news-base-dir', '/httpNews')
+    NewsBaseDir = config.ConfigVariableString('news-base-dir', '/httpNews').getValue()
     FrameDimensions = (-1.30666637421,
      1.30666637421,
      -0.751666665077,
@@ -323,7 +323,7 @@ class IssueFrame(DirectFrame):
         return
 
     def gotoPage(self, section, subsection):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: INGAMENEWS: Goto Page')
         self.sectionFrames[self.curSection][self.curSubsection].hide()
         self.sectionFrames[section][subsection].show()
@@ -386,6 +386,6 @@ class IssueFrame(DirectFrame):
         pass
 
     def changeWeek(self, newIssueWeek):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: INGAMENEWS: Change Week')
         messenger.send('newsChangeWeek', [newIssueWeek])

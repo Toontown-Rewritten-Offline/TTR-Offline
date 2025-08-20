@@ -4,22 +4,22 @@
 
 # Client settings
 window-title Toontown Rewritten [DEV BUILD]
-server-version ttrp-beta-v2.11.3
+server-version ttroff-beta-v2.12.2
 sync-video #f
 want-dev #f
 preload-avatars #t
 texture-anisotropic-degree 16
 want-speedhack-fix #t
 load-display pandagl
+default-directnotify-level info
 
 
 # New Addons!
 want-WASD #t
 tt-framerate #t
-want-new-ttrloader #t
 want-new-toonhall #t
 want-max-font #t
-want-smooth-animations #f
+want-ttc-television #f
 
 
 # Resource settings
@@ -41,7 +41,7 @@ default-model-extension .bam
 
 
 # DC Files
-dc-file config/ttrp.dc
+dc-file config/ttroff.dc
 
 
 # Server settings

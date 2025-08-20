@@ -14,7 +14,7 @@ class DistributedSwitchAI(DistributedSwitchBase.DistributedSwitchBase, Distribut
         self.fsm.enterInitialState()
         self.avatarId = 0
         self.doLaterTask = None
-        if zoneId is not None:
+        if zoneId != None:
             self.generateWithRequired(zoneId)
         return
 

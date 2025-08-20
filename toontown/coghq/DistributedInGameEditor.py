@@ -266,7 +266,7 @@ class DistributedInGameEditor(DistributedObject.DistributedObject, Level.Level, 
 
     def getEntInstanceNP(self, entId):
         entity = self.getEntInstance(entId)
-        if entity is None:
+        if entity == None:
             return
         if isinstance(entity, NodePath):
             return entity
@@ -276,7 +276,7 @@ class DistributedInGameEditor(DistributedObject.DistributedObject, Level.Level, 
 
     def getEntInstanceNPCopy(self, entId):
         np = self.getEntInstanceNP(entId)
-        if np is None:
+        if np == None:
             return np
         stashNodeGroups = []
         searches = ('**/+ActorNode', '**/+Character')
@@ -308,7 +308,7 @@ class DistributedInGameEditor(DistributedObject.DistributedObject, Level.Level, 
             self.setEntityParent(ent, self)
             return
         parentEnt = self.getEntity(ent.parentEntId)
-        if parentEnt is not None:
+        if parentEnt != None:
             self.setEntityParent(ent, parentEnt)
             return
         self.setEntityParent(ent, self.uberZoneEntity)
@@ -348,7 +348,7 @@ class DistributedInGameEditor(DistributedObject.DistributedObject, Level.Level, 
             entityNP = self.getEntInstanceNP(entId)
             if entityNP in self.nodePathId2EntId:
                 del self.nodePathId2EntId[entityNP.id()]
-            if ent is self.selectedEntity:
+            if ent == self.selectedEntity:
                 self.editor.clearAttribEditPane()
                 self.selectedEntity = None
             ent._parentEntity.removeChild(ent)
@@ -361,11 +361,11 @@ class DistributedInGameEditor(DistributedObject.DistributedObject, Level.Level, 
         self.selectedEntity = entity
         if hasattr(self, 'identifyIval'):
             self.identifyIval.finish()
-        if entity is self:
+        if entity == self:
             self.editor.clearAttribEditPane()
         else:
             entityNP = self.getEntInstanceNP(entity.entId)
-            if entityNP is not None:
+            if entityNP != None:
                 dur = float(0.5)
                 oColor = entityNP.getColorScale()
                 flashIval = Sequence(Func(Functor(entityNP.setColorScale, 1, 0, 0, 1)), WaitInterval(dur / 3), Func(Functor(entityNP.setColorScale, 0, 1, 0, 1)), WaitInterval(dur / 3), Func(Functor(entityNP.setColorScale, 0, 0, 1, 1)), WaitInterval(dur / 3), Func(Functor(entityNP.setColorScale, oColor[0], oColor[1], oColor[2], oColor[3])))
@@ -460,7 +460,7 @@ class DistributedInGameEditor(DistributedObject.DistributedObject, Level.Level, 
         messenger.send('magicWord', ['~tex'])
 
     def insertEntity(self, entType, parentEntId = None, callback = None):
-        if parentEntId is None:
+        if parentEntId == None:
             try:
                 parentEntId = self.selectedEntity.entId
             except AttributeError:
@@ -750,7 +750,7 @@ class DistributedInGameEditor(DistributedObject.DistributedObject, Level.Level, 
             return
 
         entNp = self.getEntInstanceNP(selectedEntId)
-        if entNp is None:
+        if entNp == None:
             zoneEntId = self.levelSpec.getEntityZoneEntId(selectedEntId)
             entNp = self.getEntInstanceNP(zoneEntId)
         base.localAvatar.setPos(entNp, 0, 0, 0)

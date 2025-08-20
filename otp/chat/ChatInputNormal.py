@@ -18,9 +18,9 @@ class ChatInputNormal(DirectObject.DirectObject):
         wantHistory = 0
         if __dev__:
             wantHistory = 1
-        self.wantHistory = config.GetBool('want-chat-history', wantHistory)
+        self.wantHistory = config.ConfigVariableBool('want-chat-history', wantHistory).getValue()
         self.history = ['']
-        self.historySize = config.GetInt('chat-history-size', 10)
+        self.historySize = config.ConfigVariableInt('chat-history-size', 10).getValue()
         self.historyIndex = 0
         return
 

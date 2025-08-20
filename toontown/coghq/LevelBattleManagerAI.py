@@ -10,7 +10,7 @@ class LevelBattleManagerAI(BattleManagerAI.BattleManagerAI):
         self.battleCtor = battleCtor
         self.level = level
         self.battleBlockers = {}
-        if battleExpAggreg is None:
+        if battleExpAggreg == None:
             battleExpAggreg = BattleExperienceAggregatorAI.BattleExperienceAggregatorAI()
         self.battleExpAggreg = battleExpAggreg
         return
@@ -21,7 +21,7 @@ class LevelBattleManagerAI(BattleManagerAI.BattleManagerAI):
             self.destroy(battle)
 
         for cellId, battleBlocker in list(self.battleBlockers.items()):
-            if battleBlocker is not None:
+            if battleBlocker != None:
                 battleBlocker.deactivate()
 
         del self.battleBlockers

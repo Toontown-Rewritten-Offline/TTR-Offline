@@ -66,7 +66,7 @@ class DistributedPartyTeamActivity(DistributedPartyActivity):
     def d_toonJoinRequest(self, team):
         if self.isLocalToonInActivity():
             return
-        if self.activityFSM.state in ['WaitForEnough', 'WaitToStart'] and self._localToonRequestStatus is None:
+        if self.activityFSM.state in ['WaitForEnough', 'WaitToStart'] and self._localToonRequestStatus == None:
             base.cr.playGame.getPlace().fsm.request('activity')
             self.localToonJoining()
             self.sendUpdate('toonJoinRequest', [team])
@@ -75,8 +75,8 @@ class DistributedPartyTeamActivity(DistributedPartyActivity):
     def d_toonExitRequest(self):
         toonId = base.localAvatar.doId
         team = self.getTeam(toonId)
-        if team is not None:
-            if self._localToonRequestStatus is None:
+        if team != None:
+            if self._localToonRequestStatus == None:
                 self.localToonExiting()
                 self.sendUpdate('toonExitRequest', [team])
         else:
@@ -266,7 +266,7 @@ class DistributedPartyTeamActivity(DistributedPartyActivity):
         self.d_toonJoinRequest(PartyGlobals.TeamActivityTeams.RightTeam)
 
     def showWaitToStartCountdown(self):
-        if self.waitToStartTimestamp is None:
+        if self.waitToStartTimestamp == None:
             self.notify.warning('showWaitToStartCountdown was called when self.waitToStartTimestamp was None')
             return
         self.teamActivityGui.showWaitToStartCountdown(self._startDelay, self.waitToStartTimestamp, almostDoneCallback=self._onCountdownAlmostDone)
@@ -289,12 +289,12 @@ class DistributedPartyTeamActivity(DistributedPartyActivity):
             self.showStatus()
 
     def showStatus(self):
-        if self.teamActivityGui is not None:
+        if self.teamActivityGui != None:
             self.teamActivityGui.showStatus(self._currentStatus)
         return
 
     def hideStatus(self):
-        if self.teamActivityGui is not None:
+        if self.teamActivityGui != None:
             self.teamActivityGui.hideStatus()
         return
 

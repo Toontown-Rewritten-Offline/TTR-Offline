@@ -9,11 +9,11 @@ class PetShopFishAnimatedProp(AnimatedProp.AnimatedProp):
         AnimatedProp.AnimatedProp.__init__(self, node)
         parent = node.getParent()
         self.fish = Actor.Actor(node, copy=0)
-        self.fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.fish.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.fish.reparentTo(parent)
         self.fish.loadAnims({'swim': 'phase_4/models/props/exteriorfish-swim'})
         self.fish.pose('swim', 0)
-        self.fish.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.fish.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.node = self.fish
 
     def delete(self):

@@ -48,7 +48,7 @@ class CountryClubManagerAI(DirectObject.DirectObject):
                     CountryClubManagerAI.notify.warning('room %s (%s) not found in any floor of countryClub %s' % (roomId, roomName, countryClubId))
 
         countryClubZone = self.air.allocateZone()
-        if layoutIndex is None:
+        if layoutIndex == None:
             layoutIndex = random.choice(CountryClubId2Layouts[countryClubId])
         countryClub = DistributedCountryClubAI.DistributedCountryClubAI(self.air, countryClubId, countryClubZone, floor, players, layoutIndex)
         countryClub.generateWithRequired(countryClubZone)

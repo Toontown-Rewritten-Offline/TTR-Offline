@@ -18,13 +18,13 @@ class CogdoGameSfx:
         return self._audioSound
 
     def play(self, loop = False, playRate = 1.0, volume = 1.0, source = None):
-        if source is None:
+        if source == None:
             source = self._source
         self._audioMgr.playSound(self._audioSound, loop=loop, source=source, playRate=playRate, volume=volume)
         return
 
     def loop(self, playRate = 1.0, volume = 1.0, source = None):
-        if source is None:
+        if source == None:
             source = self._source
         self.play(loop=True, source=source, playRate=playRate, volume=volume)
         return
@@ -61,13 +61,13 @@ class CogdoGameAudioManager:
         return
 
     def stopMusic(self):
-        if self.currentMusic is not None:
+        if self.currentMusic != None:
             self.currentMusic.stop()
         return
 
     def playMusic(self, name, loop = True, swap = False):
         time = 0.0
-        if self.currentMusic is not None:
+        if self.currentMusic != None:
             if swap:
                 time = self.currentMusic.getTime()
             self.stopMusic()
@@ -106,7 +106,7 @@ class CogdoGameAudioManager:
 
     def playSound(self, audioSound, loop = False, source = None, playRate = 1.0, volume = 1.0):
         audioSound.setPlayRate(playRate)
-        if source is not None and loop:
+        if source != None and loop:
             self._cleanupSoundIval(audioSound)
             ival = self._createSoundIval(audioSound, volume=volume, source=source)
             self._soundIvals[audioSound] = ival

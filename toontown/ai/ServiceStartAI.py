@@ -63,7 +63,7 @@ except Exception:
     info = traceback.format_exc()
     simbase.air.writeServerEvent('ai-exception', simbase.air.getAvatarIdFromSender(), simbase.air.getAccountIdFromSender(), info)
     # TEMP! (due to lack of Kibana) Dump crash to the FS.
-    with open(config.GetString('ai-crash-log-name', 'ai-crash.txt'), 'w+') as file:
+    with open(config.ConfigVariableString('ai-crash-log-name', 'ai-crash.txt').getValue(), 'w+') as file:
         # w+ empties log and writes fresh (meaning 1 exception at a time)
         file.write(info + "\n")
     raise

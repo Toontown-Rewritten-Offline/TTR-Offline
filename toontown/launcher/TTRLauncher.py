@@ -67,7 +67,7 @@ class TTRLauncher(LauncherBase):
         os.environ[key] = str(value)
 
     def getVerifyFiles(self):
-        return config.GetInt('launcher-verify', 0)
+        return config.ConfigVariableInt('launcher-verify', 0).getValue()
 
     def getTestServerFlag(self):
         return self.getValue('IS_TEST_SERVER', 0)

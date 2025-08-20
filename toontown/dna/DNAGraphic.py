@@ -13,7 +13,7 @@ class DNAGraphic(DNASceneElement):
 
     def _makeNode(self, storage, parent):
         node = storage.findNode(self.code)
-        if node is None:
+        if node == None:
             raise DNAError('DNAGraphic uses unknown code %s' % self.code)
         return node.copyTo(parent)
 

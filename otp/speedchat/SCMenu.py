@@ -11,7 +11,7 @@ import types
 class SCMenu(SCObject, NodePath):
     config = DConfig
     SpeedChatRolloverTolerance = config.GetFloat('speedchat-rollover-tolerance', 0.08)
-    WantFade = config.GetBool('want-speedchat-fade', 0)
+    WantFade = config.ConfigVariableBool('want-speedchat-fade', 0).getValue()
     FadeDuration = config.GetFloat('speedchat-fade-duration', 0.2)
     SerialNum = 0
     BackgroundModelName = None
@@ -107,7 +107,7 @@ class SCMenu(SCObject, NodePath):
                     child = item
                 if type(child) == type(0):
                     terminal = SCStaticTextTerminal(child)
-                    if emote is not None:
+                    if emote != None:
                         terminal.setLinkedEmote(emote)
                     menu.append(terminal)
                 elif type(child) == type([]):
@@ -141,7 +141,7 @@ class SCMenu(SCObject, NodePath):
         self.setColorScale(cs[0], cs[1], cs[2], t)
 
     def stopFade(self):
-        if self.fadeIval is not None:
+        if self.fadeIval != None:
             self.fadeIval.pause()
             self.fadeIval = None
         return
@@ -157,8 +157,8 @@ class SCMenu(SCObject, NodePath):
         self.childHasFaded = 0
         alreadyFaded = 0
         parentMenu = None
-        if self.holder is not None:
-            if self.holder.parentMenu is not None:
+        if self.holder != None:
+            if self.holder.parentMenu != None:
                 parentMenu = self.holder.parentMenu
                 alreadyFaded = parentMenu.childHasFaded
         if SCMenu.WantFade:
@@ -168,7 +168,7 @@ class SCMenu(SCObject, NodePath):
                 self.stopFade()
                 self.fadeIval = LerpFunctionInterval(self.fadeFunc, fromData=0.0, toData=1.0, duration=SCMenu.FadeDuration)
                 self.fadeIval.play()
-                if parentMenu is not None:
+                if parentMenu != None:
                     parentMenu.childHasFaded = 1
         return
 
@@ -198,21 +198,21 @@ class SCMenu(SCObject, NodePath):
         self.__setActiveMember(member)
 
     def __setActiveMember(self, member):
-        if self.activeMember is member:
+        if self.activeMember == member:
             return
-        if self.activeMember is not None:
+        if self.activeMember != None:
             self.activeMember.exitActive()
         self.activeMember = member
-        if self.activeMember is not None:
+        if self.activeMember != None:
             self.activeMember.reparentTo(self)
             self.activeMember.enterActive()
         return
 
     def memberGainedInputFocus(self, member):
         self.__cancelActiveMemberSwitch()
-        if member is self.activeMember:
+        if member == self.activeMember:
             return
-        if self.activeMember is None or SCMenu.SpeedChatRolloverTolerance == 0 or member.posInParentMenu < self.activeMember.posInParentMenu:
+        if self.activeMember == None or SCMenu.SpeedChatRolloverTolerance == 0 or member.posInParentMenu < self.activeMember.posInParentMenu:
             self.__setActiveMember(member)
         else:
 
@@ -235,9 +235,9 @@ class SCMenu(SCObject, NodePath):
         return
 
     def memberLostInputFocus(self, member):
-        if member is self.activeCandidate:
+        if member == self.activeCandidate:
             self.__cancelActiveMemberSwitch()
-        if member is not self.activeMember:
+        if member != self.activeMember:
             pass
         elif not member.hasStickyFocus():
             self.__setActiveMember(None)
@@ -278,7 +278,7 @@ class SCMenu(SCObject, NodePath):
                 member.reparentTo(self)
             else:
                 member.reparentTo(hidden)
-                if self.activeMember is member:
+                if self.activeMember == member:
                     self.__setActiveMember(None)
 
         maxWidth = 0.0
@@ -289,7 +289,7 @@ class SCMenu(SCObject, NodePath):
             maxHeight = max(maxHeight, height)
 
         holder = self.getHolder()
-        if holder is not None:
+        if holder != None:
             widthToCover = holder.getMinSubmenuWidth()
             maxWidth = max(maxWidth, widthToCover)
         memberWidth, memberHeight = maxWidth, maxHeight
@@ -341,7 +341,7 @@ class SCMenu(SCObject, NodePath):
         r, g, b = self.getColorScheme().getFrameColor()
         a = self.getColorScheme().getAlpha()
         self.bg.setColorScale(r, g, b, a)
-        if self.activeMember is not None:
+        if self.activeMember != None:
             self.activeMember.reparentTo(self)
         self.validate()
         self.inFinalize = 0
@@ -410,22 +410,22 @@ class SCMenu(SCObject, NodePath):
         return self
 
     def privMemberListChanged(self, added = None, removed = None):
-        if removed is not None:
+        if removed != None:
             for element in removed:
-                if element is self.activeMember:
+                if element == self.activeMember:
                     self.__setActiveMember(None)
-                if element.getParentMenu() is self:
+                if element.getParentMenu() == self:
                     if element.isVisible():
                         element.exitVisible()
                     element.setParentMenu(None)
                     element.reparentTo(hidden)
 
-        if added is not None:
+        if added != None:
             for element in added:
                 self.privAdoptSCObject(element)
                 element.setParentMenu(self)
 
-        if self.holder is not None:
+        if self.holder != None:
             self.holder.updateViewability()
         for i in range(len(self.__members)):
             self.__members[i].posInParentMenu = i

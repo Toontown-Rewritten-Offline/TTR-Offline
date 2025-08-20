@@ -95,7 +95,7 @@ class ZeroAnimatedProp(GenericAnimatedProp.GenericAnimatedProp, FSM.FSM):
 
     def chooseAnimToRun(self):
         result = self.curPhase
-        if config.GetBool('anim-props-randomized', True):
+        if config.ConfigVariableBool('anim-props-randomized', True).getValue():
             pairs = []
             for i in range(self.curPhase + 1):
                 pairs.append((math.pow(2, i), i))

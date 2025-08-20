@@ -272,7 +272,7 @@ class DistributedLawbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FSM
              (1, 1),
              (1, 1, 1, 1, 1))
             listVersion = list(SuitBuildingGlobals.SuitBuildingInfo)
-            if config.GetBool('lawbot-boss-cheat', 0):
+            if config.ConfigVariableBool('lawbot-boss-cheat', 0).getValue():
                 listVersion[13] = weakenedValue
                 SuitBuildingGlobals.SuitBuildingInfo = tuple(listVersion)
             return self.invokeSuitPlanner(13, 0)
@@ -500,7 +500,7 @@ class DistributedLawbotBossAI(DistributedBossCogAI.DistributedBossCogAI, FSM.FSM
         jurorsOver = self.numToonJurorsSeated - ToontownGlobals.LawbotBossJurorsForBalancedScale
         dmgAdjust = jurorsOver * ToontownGlobals.LawbotBossDamagePerJuror
         self.b_setBossDamage(ToontownGlobals.LawbotBossInitialDamage + dmgAdjust, 0, 0)
-        if config.GetBool('lawbot-boss-cheat', 0):
+        if config.ConfigVariableBool('lawbot-boss-cheat', 0).getValue():
             self.b_setBossDamage(ToontownGlobals.LawbotBossMaxDamage - 1, 0, 0)
         self.battleThreeStart = globalClock.getFrameTime()
         for toonId in self.involvedToons:

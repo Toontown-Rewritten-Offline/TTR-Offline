@@ -635,7 +635,7 @@ class DistributedCatchGame(DistributedMinigame):
         self.timer.hide()
 
         #For the Alpha Blueprint ARG
-        if config.GetBool('want-blueprint4-ARG', False):
+        if config.ConfigVariableBool('want-blueprint4-ARG', False).getValue():
             MinigameGlobals.generateDebugARGPhrase()
 
         if self.fruitsCaught >= self.numFruits:

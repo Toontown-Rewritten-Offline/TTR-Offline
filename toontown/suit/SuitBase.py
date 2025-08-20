@@ -28,13 +28,13 @@ class SuitBase:
         return
 
     def delete(self):
-        if self.legList is not None:
+        if self.legList != None:
             del self.legList
         # I have no idea if this will fix anything... but it looks like it isn't
         # deleted, so w/e.
-        if self.path is not None:
+        if self.path != None:
             del self.path
-        if self.suitGraph is not None:
+        if self.suitGraph != None:
             del self.suitGraph
 
     def getStyleName(self):

@@ -91,7 +91,7 @@ class DistributedNPCClerk(DistributedNPCToonBase):
             self.resetClerk()
         elif mode == NPCToons.PURCHASE_MOVIE_START:
             self.av = base.cr.doId2do.get(avId)
-            if self.av is None:
+            if self.av == None:
                 self.notify.warning('Avatar %d not found in doId' % avId)
                 return
             else:

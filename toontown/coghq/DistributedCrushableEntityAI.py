@@ -31,7 +31,7 @@ class DistributedCrushableEntityAI(DistributedEntityAI.DistributedEntityAI):
         return
 
     def attachToGrid(self):
-        if self.gridId is not None:
+        if self.gridId != None:
 
             def setGrid(gridId = self.gridId, self = self):
                 grid = self.level.entities.get(gridId, None)

@@ -75,7 +75,7 @@ class InteractiveAnimatedProp(GenericAnimatedProp.GenericAnimatedProp, FSM.FSM):
         self.idleInterval = None
         anim = node.getTag('DNAAnim')
         self.trashcan = Actor.Actor(node, copy=0)
-        self.trashcan.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.trashcan.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.trashcan.reparentTo(node)
         animDict = {}
         animDict['anim'] = '%s/%s' % (self.path, anim)
@@ -111,7 +111,7 @@ class InteractiveAnimatedProp(GenericAnimatedProp.GenericAnimatedProp, FSM.FSM):
             animDict[animKey] = animStr
         self.trashcan.loadAnims(animDict)
         self.trashcan.pose('anim', 0)
-        self.trashcan.setBlend(frameBlend = config.GetBool('want-smooth-animations', False))
+        self.trashcan.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
         self.node = self.trashcan
         self.idleInterval = self.createIdleInterval()
         self.battleCheerInterval = self.createBattleCheerInterval()
@@ -203,13 +203,13 @@ class InteractiveAnimatedProp(GenericAnimatedProp.GenericAnimatedProp, FSM.FSM):
 
     def enter(self):
         GenericAnimatedProp.GenericAnimatedProp.enter(self)
-        if config.GetBool('props-buff-battles', True):
+        if config.ConfigVariableBool('props-buff-battles', True).getValue():
             self.notify.debug('props buff battles is true')
             if base.cr.newsManager.isHolidayRunning(self.holidayId):
                 self.notify.debug('holiday is running, doing idle interval')
                 self.node.stop()
                 self.node.pose('idle0', 0)
-                if config.GetBool('interactive-prop-random-idles', 1):
+                if config.ConfigVariableBool('interactive-prop-random-idles', 1).getValue():
                     self.requestIdleOrSad()
                 else:
                     self.idleInterval.loop()
@@ -265,7 +265,7 @@ class InteractiveAnimatedProp(GenericAnimatedProp.GenericAnimatedProp, FSM.FSM):
 
     def chooseIdleAnimToRun(self):
         result = self.numIdles - 1
-        if config.GetBool('randomize-interactive-idles', True):
+        if config.ConfigVariableBool('randomize-interactive-idles', True).getValue():
             pairs = []
             for i in range(self.numIdles):
                 reversedChance = self.numIdles - i - 1
@@ -485,16 +485,16 @@ class InteractiveAnimatedProp(GenericAnimatedProp.GenericAnimatedProp, FSM.FSM):
         if self.hasSpecialIval(origAnimName):
             specialIval = self.getSpecialIval(origAnimName)
             idleAnimAndSound = Parallel(animIval, soundIval, specialIval)
-            if config.GetBool('interactive-prop-info', False):
+            if config.ConfigVariableBool('interactive-prop-info', False).getValue():
                 idleAnimAndSound.append(printFunc)
         else:
             idleAnimAndSound = Parallel(animIval, soundIval)
-            if config.GetBool('interactive-prop-info', False):
+            if config.ConfigVariableBool('interactive-prop-info', False).getValue():
                 idleAnimAndSound.append(printFunc)
         return idleAnimAndSound
 
     def printAnimIfClose(self, animKey):
-        if config.GetBool('interactive-prop-info', False):
+        if config.ConfigVariableBool('interactive-prop-info', False).getValue():
             try:
                 animName = self.node.getAnimFilename(animKey)
                 baseAnimName = animName.split('/')[-1]

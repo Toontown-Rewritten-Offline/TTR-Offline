@@ -14,7 +14,7 @@ username2entIdBase = {'darren': 1 * EntIdRange,
  'rurbino': 11 * EntIdRange}
 usernameConfigVar = 'level-edit-username'
 undefinedUsername = 'UNDEFINED_USERNAME'
-editUsername = config.GetString(usernameConfigVar, undefinedUsername)
+editUsername = config.ConfigVariableString(usernameConfigVar, undefinedUsername)
 
 def checkNotReadyToEdit():
     if editUsername == undefinedUsername:
@@ -26,7 +26,7 @@ def checkNotReadyToEdit():
 
 def assertReadyToEdit():
     msg = checkNotReadyToEdit()
-    if msg is not None:
+    if msg != None:
         pass
     return
 

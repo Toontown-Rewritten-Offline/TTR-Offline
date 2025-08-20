@@ -14,7 +14,7 @@ class LevelSuitPlannerAI(DirectObject.DirectObject):
         self.level = level
         self.cogCtor = cogCtor
         self.cogSpecs = cogSpecs
-        if config.GetBool('level-reserve-suits', 0):
+        if config.ConfigVariableBool('level-reserve-suits', 0).getValue():
             self.reserveCogSpecs = reserveCogSpecs
         else:
             self.reserveCogSpecs = []
@@ -118,7 +118,7 @@ class LevelSuitPlannerAI(DirectObject.DirectObject):
         maxSuits = 4
         self.battleMgr.newBattle(cellIndex, zone, pos, suit, toonId, self.__handleRoundFinished, self.__handleBattleFinished, maxSuits)
         for otherSuit in self.battleCellId2suits[cellIndex]:
-            if otherSuit is not suit:
+            if otherSuit != suit:
                 if self.__suitCanJoinBattle(cellIndex):
                     self.battleMgr.requestBattleAddSuit(cellIndex, otherSuit)
                 else:
@@ -196,7 +196,7 @@ class LevelSuitPlannerAI(DirectObject.DirectObject):
         suit.requestDelete()
 
     def suitBattleCellChange(self, suit, oldCell, newCell):
-        if oldCell is not None:
+        if oldCell != None:
             if oldCell in self.battleCellId2suits:
                 self.battleCellId2suits[oldCell].remove(suit)
             else:
@@ -204,7 +204,7 @@ class LevelSuitPlannerAI(DirectObject.DirectObject):
             blocker = self.battleMgr.battleBlockers.get(oldCell)
             if blocker:
                 blocker.removeSuit(suit)
-        if newCell is not None:
+        if newCell != None:
             self.battleCellId2suits[newCell].append(suit)
 
             def addSuitToBlocker(self = self):

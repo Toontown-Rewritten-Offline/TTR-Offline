@@ -60,7 +60,7 @@ class LawbotCogHQLoader(CogHQLoader.CogHQLoader):
             ug = self.geom.find('**/underground')
             ug.setBin('ground', -10)
         elif zoneId == ToontownGlobals.LawbotLobby:
-            if config.GetBool('want-qa-regression', 0):
+            if config.ConfigVariableBool('want-qa-regression', 0).getValue():
                 self.notify.info('QA-REGRESSION: COGHQ: Visit LawbotLobby')
             self.notify.debug('cogHQLobbyModelPath = %s' % self.cogHQLobbyModelPath)
             self.geom = loader.loadModel(self.cogHQLobbyModelPath)

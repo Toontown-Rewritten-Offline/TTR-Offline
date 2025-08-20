@@ -69,7 +69,7 @@ class Nametag(ClickablePopup):
 
     def getButton(self):
         cs = self.getClickState()
-        if self.buttons is None:
+        if self.buttons == None:
             return None
         elif cs in self.buttons:
             return self.buttons[cs]

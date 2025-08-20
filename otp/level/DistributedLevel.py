@@ -17,7 +17,7 @@ import random
 
 class DistributedLevel(DistributedObject.DistributedObject, Level.Level):
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedLevel')
-    WantVisibility = config.GetBool('level-visibility', 1)
+    WantVisibility = config.ConfigVariableBool('level-visibility', 1).getValue()
     ColorZonesAllDOs = 0
     FloorCollPrefix = 'zoneFloor'
     OuchTaskName = 'ouchTask'
@@ -42,7 +42,7 @@ class DistributedLevel(DistributedObject.DistributedObject, Level.Level):
         DistributedObject.DistributedObject.generate(self)
         self.parent2pendingChildren = {}
         self.curSpec = None
-        if base.cr.timeManager is not None:
+        if base.cr.timeManager != None:
             base.cr.timeManager.synchronize('DistributedLevel.generate')
         else:
             self.notify.warning('generate(): no TimeManager!')
@@ -100,7 +100,7 @@ class DistributedLevel(DistributedObject.DistributedObject, Level.Level):
                 blobSender.sendAck()
                 from .LevelSpec import LevelSpec
                 spec = eval(specBlob)
-                if spec is None:
+                if spec == None:
                     spec = self.candidateSpec
                 del self.candidateSpec
                 self.privGotSpec(spec)
@@ -155,7 +155,7 @@ class DistributedLevel(DistributedObject.DistributedObject, Level.Level):
                 initialZoneEnt = self.getEntity(LevelConstants.UberZoneEntId)
                 if moveLocalAvatar:
                     base.localAvatar.setPos(render, 0, 0, 0)
-        if initialZoneEnt is not None:
+        if initialZoneEnt != None:
             self.enterZone(initialZoneEnt.entId)
         return
 
@@ -245,7 +245,7 @@ class DistributedLevel(DistributedObject.DistributedObject, Level.Level):
 
     def requestReparent(self, entity, parentId, wrt = False):
         parent = self.getEntity(parentId)
-        if parent is not None:
+        if parent != None:
             if wrt:
                 entity.wrtReparentTo(parent.getNodePath())
             else:
@@ -277,7 +277,7 @@ class DistributedLevel(DistributedObject.DistributedObject, Level.Level):
 
     def warpToZone(self, zoneNum):
         zoneNode = self.getZoneNode(zoneNum)
-        if zoneNode is None:
+        if zoneNode == None:
             return
         base.localAvatar.setPos(zoneNode, 0, 0, 0)
         base.localAvatar.setHpr(zoneNode, 0, 0, 0)
@@ -306,7 +306,7 @@ class DistributedLevel(DistributedObject.DistributedObject, Level.Level):
 
     def setTransparency(self, alpha, zone = None):
         self.geom.setTransparency(1)
-        if zone is None:
+        if zone == None:
             node = self.geom
         else:
             node = self.getZoneNode(zoneNum)
@@ -360,7 +360,7 @@ class DistributedLevel(DistributedObject.DistributedObject, Level.Level):
             self.spawnTitleText()
 
     def lockVisibility(self, zoneNum = None, zoneId = None):
-        if zoneId is not None:
+        if zoneId != None:
             zoneNum = self.getZoneNumFromId(zoneId)
         self.notify.debug('lockVisibility to zoneNum %s' % zoneNum)
         self.lockVizZone = zoneNum
@@ -386,9 +386,9 @@ class DistributedLevel(DistributedObject.DistributedObject, Level.Level):
         self.updateVisibility(zoneNum)
 
     def updateVisibility(self, zoneNum = None):
-        if zoneNum is None:
+        if zoneNum == None:
             zoneNum = self.curZoneNum
-            if zoneNum is None:
+            if zoneNum == None:
                 return
         if hasattr(self, 'lockVizZone'):
             zoneNum = self.lockVizZone
@@ -397,7 +397,7 @@ class DistributedLevel(DistributedObject.DistributedObject, Level.Level):
         visibleZoneNums.update(list2dict(zoneEnt.getVisibleZoneNums()))
         if not __debug__:
             if self.lastToonZone not in visibleZoneNums:
-                if self.lastToonZone is not None:
+                if self.lastToonZone != None:
                     self.notify.warning('adding zoneNum %s to visibility list because toon is standing in that zone!' % self.lastToonZone)
                     visibleZoneNums.update(list2dict([self.lastToonZone]))
         zoneEntIds = list(self.entType2ids['zone'])
@@ -445,7 +445,7 @@ class DistributedLevel(DistributedObject.DistributedObject, Level.Level):
         uberZone = self.getZoneId(LevelConstants.UberZoneEntId)
         visibleZoneIds = [OTPGlobals.UberZone, self.levelZone, uberZone]
         for vz in vizList:
-            if vz is not LevelConstants.UberZoneEntId:
+            if vz != LevelConstants.UberZoneEntId:
                 visibleZoneIds.append(self.getZoneId(vz))
 
         DistributedLevel.notify.debug('new viz list: %s' % visibleZoneIds)

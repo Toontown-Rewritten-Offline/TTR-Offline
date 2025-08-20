@@ -31,7 +31,7 @@ class QuestMap(DirectFrame):
         self.buildingMarkers = []
         self.av = av
         self.wantToggle = False
-        if config.GetBool('want-toggle-quest-map', True):
+        if config.ConfigVariableBool('want-toggle-quest-map', True).getValue():
             self.wantToggle = True
         self.updateMarker = True
         self.cornerPosInfo = None
@@ -84,7 +84,7 @@ class QuestMap(DirectFrame):
 
     def updateCogInfo(self):
         currPercentage = self.suitPercentage.get(self.zoneId)
-        if currPercentage is None:
+        if currPercentage == None:
             return
         self.cInfo['text'] = '%s%%' % currPercentage[0]
         self.lInfo['text'] = '%s%%' % currPercentage[1]
@@ -127,7 +127,7 @@ class QuestMap(DirectFrame):
         dnaData = base.cr.playGame.dnaData
         for questIndex in list(self.av.questPage.quests.keys()):
             questDesc = self.av.questPage.quests.get(questIndex)
-            if questDesc is None:
+            if questDesc == None:
                 continue
             mapIndex = questIndex + 1
             questId, fromNpcId, toNpcId, rewardId, toonProgress = questDesc
@@ -156,7 +156,7 @@ class QuestMap(DirectFrame):
                             self.putBuildingMarker(Point3(building.getPos()), building.getHpr(), mapIndex=mapIndex)
 
     def transformAvPos(self, pos):
-        if self.cornerPosInfo is None:
+        if self.cornerPosInfo == None:
             return (0, 0)
         topRight = self.cornerPosInfo[0]
         bottomLeft = self.cornerPosInfo[1]

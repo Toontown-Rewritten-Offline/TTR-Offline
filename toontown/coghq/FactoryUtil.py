@@ -35,7 +35,7 @@ class CyclePlacer(DirectObject.DirectObject):
         self.gotoLocation()
 
     def gotoLocation(self, index = None):
-        if index is None:
+        if index == None:
             index = self.index
         pos, h = self.locations[index]
         base.localAvatar.reparentTo(render)

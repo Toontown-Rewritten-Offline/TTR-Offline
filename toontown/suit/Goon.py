@@ -26,7 +26,7 @@ class Goon(Avatar.Avatar):
             self.strength = 15
             self.velocity = 4
             self.scale = 1.0
-            if dnaName is not None:
+            if dnaName != None:
                 self.initGoon(dnaName)
 
         return

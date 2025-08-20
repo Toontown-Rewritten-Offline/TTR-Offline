@@ -115,7 +115,7 @@ class DistributedNPCFisherman(DistributedNPCToonBase):
             self.resetFisherman()
         elif mode == NPCToons.SELL_MOVIE_START:
             self.av = base.cr.doId2do.get(avId)
-            if self.av is None:
+            if self.av == None:
                 self.notify.warning('Avatar %d not found in doId' % avId)
                 return
             else:
@@ -134,7 +134,7 @@ class DistributedNPCFisherman(DistributedNPCToonBase):
             self.resetFisherman()
         elif mode == NPCToons.SELL_MOVIE_TROPHY:
             self.av = base.cr.doId2do.get(avId)
-            if self.av is None:
+            if self.av == None:
                 self.notify.warning('Avatar %d not found in doId' % avId)
                 return
             else:

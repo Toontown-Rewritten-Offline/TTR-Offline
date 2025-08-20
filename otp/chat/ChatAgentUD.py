@@ -10,8 +10,8 @@ class ChatAgentUD(DistributedObjectGlobalUD):
 
     def announceGenerate(self):
         DistributedObjectGlobalUD.announceGenerate(self)
-        self.wantBlacklistSequence = config.GetBool('want-blacklist-sequence', True)
-        self.wantWhitelist = config.GetBool('want-whitelist', True)
+        self.wantBlacklistSequence = config.ConfigVariableBool('want-blacklist-sequence', True).getValue()
+        self.wantWhitelist = config.ConfigVariableBool('want-whitelist', True).getValue()
         if self.wantWhitelist:
             self.whiteList = TTWhiteList()
             if self.wantBlacklistSequence:

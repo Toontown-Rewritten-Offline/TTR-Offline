@@ -410,14 +410,14 @@ class DistributedMinigame(DistributedObject.DistributedObject):
         return self.local2GameTime(globalClock.getFrameTime())
 
     def getDifficulty(self):
-        if self.difficultyOverride is not None:
+        if self.difficultyOverride != None:
             return self.difficultyOverride
         if hasattr(base, 'minigameDifficulty'):
             return float(base.minigameDifficulty)
         return MinigameGlobals.getDifficulty(self.getSafezoneId())
 
     def getSafezoneId(self):
-        if self.trolleyZoneOverride is not None:
+        if self.trolleyZoneOverride != None:
             return self.trolleyZoneOverride
         if hasattr(base, 'minigameSafezoneId'):
             return MinigameGlobals.getSafezoneId(base.minigameSafezoneId)

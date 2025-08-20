@@ -623,7 +623,7 @@ class DistributedSuit(DistributedSuitBase.DistributedSuitBase, DelayDeletable):
         self.detachPropeller()
 
     def playCurrentDialogue(self, dialogue, chatFlags, interrupt = 1):
-        if interrupt and self.__currentDialogue is not None:
+        if interrupt and self.__currentDialogue != None:
             self.__currentDialogue.stop()
         self.__currentDialogue = dialogue
         if dialogue:

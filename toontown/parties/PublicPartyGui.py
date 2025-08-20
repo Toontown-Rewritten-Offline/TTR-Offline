@@ -136,7 +136,7 @@ class PublicPartyGui(DirectFrame):
 
     def partyClicked(self, item):
         self.partyStartButton['state'] = DirectGuiGlobals.NORMAL
-        if self.selectedItem is not None:
+        if self.selectedItem != None:
             self.selectedItem['state'] = DirectGuiGlobals.NORMAL
             self.selectedItem['frameColor'] = self.normalFrameColor
             numLabel = self.selectedItem.numLabel
@@ -182,7 +182,7 @@ class PublicPartyGui(DirectFrame):
         return
 
     def _startParty(self):
-        if self.selectedItem is None:
+        if self.selectedItem == None:
             self.partyStartButton['state'] = DirectGuiGlobals.DISABLED
             return
         self.doneStatus = (self.selectedItem.getPythonTag('shardId'), self.selectedItem.getPythonTag('zoneId'))

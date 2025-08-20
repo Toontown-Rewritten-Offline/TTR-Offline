@@ -69,9 +69,9 @@ class PetNameGenerator:
 
     def randomName(self, gender = None, seed = None):
         S = random.getstate()
-        if seed is not None:
+        if seed != None:
             random.seed(seed)
-        if gender is None:
+        if gender == None:
             gender = random.choice([0, 1])
         retString = ''
         firstList = self.neutralFirsts[:]

@@ -1,9 +1,17 @@
-# TTR-Private
+# TTR-Offline
 
-Toontown Rewritten Private DEVELOPMENT Repository
+Toontown Rewritten Offline DEVELOPMENT Repository
 
-Resources: https://github.com/RegDogg/resources
+Resources: https://github.com/Toontown-Rewritten-Offline/resources
 
-Panda3D: https://github.com/panda3d/panda3d/tree/v1.10.12
+Panda3D: https://github.com/Toontown-Rewritten-Offline/panda3d
 
-Astron: https://github.com/RegDogg/Astron/tree/c5bcdba42f496dedcc22265198ee292069716ad5
+Astron: https://github.com/Astron/Astron/
+
+# Dependencies
+Panda3D: https://github.com/Toontown-Rewritten-Offline/panda3d/releases/tag/v1.10.11
+
+To install the dependencies, use this command...
+```sh
+pip install -r requirements.txt
+```

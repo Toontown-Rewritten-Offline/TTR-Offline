@@ -93,7 +93,7 @@ class ShardStatusSender:
         self.air.netMessenger.send('shardStatus', [status])
 
         # Fire up another interval:
-        if self.interval is not None:
+        if self.interval != None:
             self.interval.remove()
 
         self.interval = taskMgr.doMethodLater(
@@ -117,7 +117,7 @@ class ShardStatusReceiver:
 
     def _handleStatus(self, status):
         channel = status.get('channel')
-        if channel is None:
+        if channel == None:
             return # ???
 
         if status.get('offline'):

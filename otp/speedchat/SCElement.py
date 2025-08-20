@@ -47,12 +47,12 @@ class SCElement(SCObject, NodePath):
         self.notify.error('getDisplayText is pure virtual, derived class must override')
 
     def onMouseEnter(self, event):
-        if self.parentMenu is not None:
+        if self.parentMenu != None:
             self.parentMenu.memberGainedInputFocus(self)
         return
 
     def onMouseLeave(self, event):
-        if self.parentMenu is not None:
+        if self.parentMenu != None:
             self.parentMenu.memberLostInputFocus(self)
         return
 
@@ -74,7 +74,7 @@ class SCElement(SCObject, NodePath):
     def setViewable(self, viewable):
         if not boolEqual(self.__viewable, viewable):
             self.__viewable = viewable
-            if self.parentMenu is not None:
+            if self.parentMenu != None:
                 self.parentMenu.memberViewabilityChanged(self)
         return
 
@@ -100,7 +100,7 @@ class SCElement(SCObject, NodePath):
     def invalidate(self):
         SCObject.invalidate(self)
         parentMenu = self.getParentMenu()
-        if parentMenu is not None:
+        if parentMenu != None:
             if not parentMenu.isFinalizing():
                 parentMenu.invalidate()
         return
@@ -116,7 +116,7 @@ class SCElement(SCObject, NodePath):
     def privScheduleFinalize(self):
 
         def finalizeElement(task, self = self):
-            if self.parentMenu is not None:
+            if self.parentMenu != None:
                 if self.parentMenu.isDirty():
                     return Task.done
             self.finalize()

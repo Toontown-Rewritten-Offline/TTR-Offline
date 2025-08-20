@@ -2,7 +2,7 @@ from direct.showbase import PythonUtil
 import traceback
 
 MINIMUM_MAGICWORD_ACCESS = 300
-MINIMUM_AI_OBJ_MW_ACCESS = config.GetInt('mw-minimum-ai-manipulation-access', 500)
+MINIMUM_AI_OBJ_MW_ACCESS = config.ConfigVariableInt('mw-minimum-ai-manipulation-access', 500).getValue()
 
 class MagicError(Exception): pass
 
@@ -72,7 +72,7 @@ class Spellbook:
                 raise MagicError('Target must have lower access')
 
         result = word.run(args)
-        if result is not None:
+        if result != None:
             return (str(result), True)
         return ('Magic word executed successfully!', True)
 
@@ -105,7 +105,7 @@ class MagicWordCategory:
         self.words.append(word)
 
     def getDefinedAccess(self):
-        return config.GetInt('mw-category-' + self.name.replace(' ', '-').lower(), 0)
+        return config.ConfigVariableInt('mw-category-' + self.name.replace(' ', '-').lower(), 0).getValue()
 
 CATEGORY_UNKNOWN = MagicWordCategory('Unknown')
 CATEGORY_GRAPHICAL = MagicWordCategory('Graphical debugging', defaultAccess=300,
@@ -200,7 +200,7 @@ class MagicWordDecorator:
         self.name = name
         self.types = types
         self.category = category
-        if access is not None:
+        if access != None:
             self.access = access
         else:
             self.access = self.category.defaultAccess
@@ -213,10 +213,10 @@ class MagicWordDecorator:
         # time.
 
         name = self.name
-        if name is None:
+        if name == None:
             name = mw.__name__
 
-        config_access = config.GetInt('mw-word-' + name.lower(), 0)
+        config_access = config.ConfigVariableInt('mw-word-' + name.lower(), 0).getValue()
         if config_access:
             self.access = config_access
 

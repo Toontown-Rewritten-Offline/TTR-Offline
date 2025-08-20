@@ -27,7 +27,7 @@ from otp.friends.FriendManagerAI import FriendManagerAI
 from toontown.estate.EstateManagerAI import EstateManagerAI
 
 # Par-tay!
-if config.GetBool('want-parties', True):
+if config.ConfigVariableBool('want-parties', True).getValue():
     from toontown.uberdog.DistributedPartyManagerAI import DistributedPartyManagerAI
     from otp.distributed.OtpDoGlobals import *
 
@@ -65,7 +65,7 @@ from otp.ai.MagicWordGlobal import *
 import otp.ai.DiagnosticMagicWords
 
 # ToonFest!
-if config.GetBool('want-toonfest', False):
+if config.ConfigVariableBool('want-toonfest', False).getValue():
     from toontown.hood import TFHoodAI
 
 class ToontownAIRepository(ToontownInternalRepository):
@@ -87,8 +87,8 @@ class ToontownAIRepository(ToontownInternalRepository):
         self.hoods = []
         self.zoneDataStore = AIZoneDataStore()
 
-        self.useAllMinigames = self.config.GetBool('want-all-minigames', False)
-        self.doLiveUpdates = self.config.GetBool('want-live-updates', True)
+        self.useAllMinigames = self.config.ConfigVariableBool('want-all-minigames', False).getValue()
+        self.doLiveUpdates = self.config.ConfigVariableBool('want-live-updates', True).getValue()
 
         self.holidayManager = HolidayManagerAI(self)
 
@@ -182,7 +182,7 @@ class ToontownAIRepository(ToontownInternalRepository):
         self.friendManager = FriendManagerAI(self)
         self.friendManager.generateWithRequired(2)
 
-        if config.GetBool('want-parties', True):
+        if config.ConfigVariableBool('want-parties', True).getValue():
             self.partyManager = DistributedPartyManagerAI(self)
             self.partyManager.generateWithRequired(2)
 
@@ -226,23 +226,23 @@ class ToontownAIRepository(ToontownInternalRepository):
         self.hoods.append(GZHoodAI.GZHoodAI(self))
         clearQueue()
 
-        if config.GetBool('want-toonfest', False):
+        if config.ConfigVariableBool('want-toonfest', False).getValue():
             self.hoods.append(TFHoodAI.TFHoodAI(self))
             clearQueue()
             
-        if config.GetBool('want-sbhq', True):
+        if config.ConfigVariableBool('want-sbhq', True).getValue():
             self.hoods.append(SellbotHQAI.SellbotHQAI(self))
             clearQueue()
 
-        if config.GetBool('want-cbhq', True):
+        if config.ConfigVariableBool('want-cbhq', True).getValue():
             self.hoods.append(CashbotHQAI.CashbotHQAI(self))
             clearQueue()
 
-        if config.GetBool('want-lbhq', True):
+        if config.ConfigVariableBool('want-lbhq', True).getValue():
             self.hoods.append(LawbotHQAI.LawbotHQAI(self))
             clearQueue()
 
-        if config.GetBool('want-bbhq', True):
+        if config.ConfigVariableBool('want-bbhq', True).getValue():
             self.hoods.append(BossbotHQAI.BossbotHQAI(self))
             clearQueue()
 

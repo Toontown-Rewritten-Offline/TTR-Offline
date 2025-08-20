@@ -71,7 +71,7 @@ class DataStore:
         return
 
     def writeDataToFile(self):
-        if self.data is not None:
+        if self.data != None:
             self.notify.debug('Data is now synced with disk at %s' % self.filepath)
             if self.wantAnyDbm:
                 self.data.sync()
@@ -112,7 +112,7 @@ class DataStore:
         self.writeCount = 0
 
     def close(self):
-        if self.data is not None:
+        if self.data != None:
             self.writeDataToFile()
             if self.wantAnyDbm:
                 self.data.close()
@@ -165,7 +165,7 @@ class DataStore:
                 os.remove(self.filepath)
 
     def query(self, query):
-        if self.data is not None:
+        if self.data != None:
             qData = pickle.loads(query)
             results = self.handleQuery(qData)
             qResults = pickle.dumps(results)

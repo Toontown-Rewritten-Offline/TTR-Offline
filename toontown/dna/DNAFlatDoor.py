@@ -13,7 +13,7 @@ class DNAFlatDoor(DNANode):
 
     def _makeNode(self, storage, parent):
         node = storage.findNode(self.code)
-        if node is None:
+        if node == None:
             raise DNAError('DNAFlatDoor uses unknown code %s' % self.code)
 
         return self.__apply(node, parent)

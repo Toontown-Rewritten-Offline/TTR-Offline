@@ -24,7 +24,7 @@ class SCMenuHolder(SCElement):
         return
 
     def destroy(self):
-        if self.menu is not None:
+        if self.menu != None:
             self.menu.destroy()
             self.menu = None
         SCElement.destroy(self)
@@ -38,10 +38,10 @@ class SCMenuHolder(SCElement):
         return self.title
 
     def setMenu(self, menu):
-        if self.menu is not None:
+        if self.menu != None:
             self.menu.destroy()
         self.menu = menu
-        if self.menu is not None:
+        if self.menu != None:
             self.privAdoptSCObject(self.menu)
             self.menu.setHolder(self)
             self.menu.reparentTo(self, 1)
@@ -53,7 +53,7 @@ class SCMenuHolder(SCElement):
         return self.menu
 
     def showMenu(self):
-        if self.menu is not None:
+        if self.menu != None:
             cS = SCMenuHolder.MenuColorScaleDown
             self.menu.setColorScale(cS, cS, cS, 1)
             self.menu.enterVisible()
@@ -61,7 +61,7 @@ class SCMenuHolder(SCElement):
         return
 
     def hideMenu(self):
-        if self.menu is not None:
+        if self.menu != None:
             self.menu.hide()
             self.menu.exitVisible()
         return
@@ -101,7 +101,7 @@ class SCMenuHolder(SCElement):
         return self.title
 
     def updateViewability(self):
-        if self.menu is None:
+        if self.menu == None:
             self.setViewable(0)
             return
         isViewable = False
@@ -115,7 +115,7 @@ class SCMenuHolder(SCElement):
 
     def getMinSubmenuWidth(self):
         parentMenu = self.getParentMenu()
-        if parentMenu is None:
+        if parentMenu == None:
             myWidth, myWeight = self.getMinDimensions()
         else:
             myWidth = parentMenu.getWidth()
@@ -128,7 +128,7 @@ class SCMenuHolder(SCElement):
 
     def invalidate(self):
         SCElement.invalidate(self)
-        if self.menu is not None:
+        if self.menu != None:
             self.menu.invalidate()
         return
 
@@ -138,7 +138,7 @@ class SCMenuHolder(SCElement):
         r, g, b = self.getColorScheme().getArrowColor()
         a = self.getColorScheme().getAlpha()
         self.scArrow.setColorScale(r, g, b, a)
-        if self.menu is not None:
+        if self.menu != None:
             self.menu.setPos(self.getMenuOffset())
         if self.isActive():
             r, g, b = self.getColorScheme().getMenuHolderActiveColor()
@@ -161,18 +161,18 @@ class SCMenuHolder(SCElement):
 
     def privSetSettingsRef(self, settingsRef):
         SCObject.privSetSettingsRef(self, settingsRef)
-        if self.menu is not None:
+        if self.menu != None:
             self.menu.privSetSettingsRef(settingsRef)
         return
 
     def invalidateAll(self):
         SCObject.invalidateAll(self)
-        if self.menu is not None:
+        if self.menu != None:
             self.menu.invalidateAll()
         return
 
     def finalizeAll(self):
         SCObject.finalizeAll(self)
-        if self.menu is not None:
+        if self.menu != None:
             self.menu.finalizeAll()
         return

@@ -43,7 +43,7 @@ class DistributedSuitBaseAI(DistributedAvatarAI.DistributedAvatarAI, SuitBase.Su
 
     def setLevel(self, lvl = None):
         attributes = SuitBattleGlobals.SuitAttributes[self.dna.name]
-        if lvl is not None:
+        if lvl != None:
             self.level = lvl - attributes['level'] - 1
         else:
             self.level = SuitBattleGlobals.pickFromFreqList(attributes['freq'])

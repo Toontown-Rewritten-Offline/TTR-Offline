@@ -1,5 +1,6 @@
 from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobalUD
 from direct.directnotify.DirectNotifyGlobal import directNotify
+from direct.distributed.MsgTypes import *
 from direct.fsm.FSM import FSM
 from direct.distributed.PyDatagram import *
 from toontown.toon.ToonDNA import ToonDNA
@@ -23,7 +24,7 @@ REPORT_REASONS = [
 class LocalAccountDB:
     def __init__(self, csm):
         self.csm = csm
-        if not config.GetBool('want-mongo-client', False):
+        if not config.ConfigVariableBool('want-mongo-client', False).getValue():
             filename = config.GetString(
                 'account-bridge-filename', 'astron/databases/account-bridge-yaml')
         else:
@@ -40,9 +41,9 @@ class LocalAccountDB:
 
         try:
             callback({'success': True,
-                      'accountId': int(self.dbm[str(cookie)]),
-                      'databaseId': cookie,
-                      'adminAccess': 507})
+                    'accountId': int(self.dbm[str(cookie)]),
+                    'databaseId': cookie,
+                    'adminAccess': 507})
         except KeyError:
             # Returning KeyError? Seems we can't find the cookie in the DB, creating new account!
             callback({'success': True,
@@ -65,7 +66,7 @@ class RemoteAccountDB:
 
     def lookup(self, cookie, callback):
         def rpcCallback(result=None):
-            if result is None:
+            if result == None:
                 # This is an errback:
                 callback({'success': False,
                           'reason': 'Could not contact the account server'})
@@ -144,7 +145,7 @@ class LoginAccountFSM(OperationFSM):
         # Binary bitmask in base10 form, added to the adminAccess.
         # To find out what they have access to, convert the serverAccess to 3-bit binary.
         # 2^2 = dev, 2^1 = qa, 2^0 = test
-        serverType = config.GetString('server-type', 'dev')
+        serverType = config.ConfigVariableString('server-type', 'dev').getValue()
         serverAccess = self.adminAccess % 10 # Get the last digit in their access.
         if (serverType == 'dev' and not serverAccess & 4) or \
            (serverType == 'qa' and not serverAccess & 2) or \
@@ -755,6 +756,12 @@ class LoadAvatarFSM(AvatarOperationFSM):
         dg.addChannel(self.csm.GetPuppetConnectionChannel(self.avId))
         self.csm.air.send(dg)
 
+        # Then, set the avatar as the client's session object:
+        dg = PyDatagram()
+        dg.addServerHeader(channel, self.csm.air.ourChannel, CLIENTAGENT_ADD_SESSION_OBJECT)
+        dg.addUint32(self.avId)
+        self.csm.air.send(dg)
+
         # Now set their sender channel to represent their account affiliation:
         dg = PyDatagram()
         dg.addServerHeader(channel, self.csm.air.ourChannel, CLIENTAGENT_SET_CLIENT_ID)
@@ -813,6 +820,12 @@ class UnloadAvatarFSM(OperationFSM):
         dg.addChannel(self.target<<32) # accountId in high 32 bits, no avatar in low
         self.csm.air.send(dg)
 
+        # Reset session object:
+        dg = PyDatagram()
+        dg.addServerHeader(channel, self.csm.air.ourChannel, CLIENTAGENT_REMOVE_SESSION_OBJECT)
+        dg.addUint32(self.avId)
+        self.csm.air.send(dg)
+
         # Unload avatar object:
         dg = PyDatagram()
         dg.addServerHeader(self.avId, channel, STATESERVER_OBJECT_DELETE_RAM)
@@ -841,7 +854,7 @@ class ClientServicesManagerUD(DistributedObjectGlobalUD):
         self.nameGenerator = NameGenerator()
 
         # Instantiate our account DB interface using config:
-        dbtype = config.GetString('accountdb-type', 'local')
+        dbtype = config.ConfigVariableString('accountdb-type', 'local').getValue()
         if dbtype == 'local':
             self.accountDB = LocalAccountDB(self)
         elif dbtype == 'remote':
@@ -923,7 +936,7 @@ class ClientServicesManagerUD(DistributedObjectGlobalUD):
         # Encode the login info
         cookie = cookie.encode('utf-8') # PY3
 
-        key = config.GetString('csmud-secret', 'streetlamps') + config.GetString('server-version', 'no_version_set') + FIXED_KEY
+        key = config.ConfigVariableString('csmud-secret', 'streetlamps').getValue() + config.ConfigVariableString('server-version', 'no_version_set').getValue() + FIXED_KEY
         key = key.encode('utf-8') # PY3
 
         # Test the signature

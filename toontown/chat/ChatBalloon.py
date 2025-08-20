@@ -88,7 +88,7 @@ class ChatBalloon(NodePath):
             self.textNodePath.setZ(self.textNodePath, -centerZ)
         self.textNodePath.setX(self.textNodePath, self.TEXT_X_OFFSET)
 
-        # Add a button if one is given:
+        # Add a button if one == given:
         if self.button != None:
             self.buttonNodePath = button.copyTo(self)
             self.buttonNodePath.setPos(self.textNodePath, self.textWidth, 0, -self.textHeight)

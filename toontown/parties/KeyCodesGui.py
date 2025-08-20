@@ -47,7 +47,7 @@ class KeyCodesGui(DirectObject):
             arrow = None
 
         self._arrowNodes = []
-        if self._danceMoveLabel is not None:
+        if self._danceMoveLabel != None:
             self._danceMoveLabel.removeNode()
             self._danceMoveLabel = None
         return
@@ -97,7 +97,7 @@ class KeyCodesGui(DirectObject):
         self.timeoutTask = taskMgr.doMethodLater(KEYCODE_TIMEOUT_SECONDS, self.__handleTimeoutTask, KeyCodesGui.TIMEOUT_TASK)
 
     def __stopTimeout(self):
-        if self.timeoutTask is not None:
+        if self.timeoutTask != None:
             taskMgr.remove(self.timeoutTask)
             self.timeoutTask = None
         return

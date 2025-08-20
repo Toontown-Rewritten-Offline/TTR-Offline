@@ -103,7 +103,7 @@ class DistributedMintRoomAI(DistributedLevelAI.DistributedLevelAI, MintRoomBase.
         activeVictorIds = []
         for victorId in victorIds:
             toon = self.air.doId2do.get(victorId)
-            if toon is not None:
+            if toon != None:
                 activeVictors.append(toon)
                 activeVictorIds.append(victorId)
 
@@ -129,7 +129,7 @@ class DistributedMintRoomAI(DistributedLevelAI.DistributedLevelAI, MintRoomBase.
         DistributedLevelAI.DistributedLevelAI.allToonsGone(self, toonsThatCleared)
         if self.roomNum == 0:
             mint = simbase.air.doId2do.get(self.mintDoId)
-            if mint is not None:
+            if mint != None:
                 mint.allToonsGone()
             else:
                 self.notify.warning('no mint %s in allToonsGone' % self.mintDoId)

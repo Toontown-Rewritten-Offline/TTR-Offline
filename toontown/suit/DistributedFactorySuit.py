@@ -112,7 +112,7 @@ class DistributedFactorySuit(DistributedSuitBase.DistributedSuitBase, DelayDelet
 
     def disable(self):
         self.ignoreAll()
-        if self.factoryRequest is not None:
+        if self.factoryRequest != None:
             self.cr.relatedObjectMgr.abortRequest(self.factoryRequest)
             self.factoryRequest = None
         self.notify.debug('DistributedSuit %d: disabling' % self.getDoId())

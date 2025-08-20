@@ -85,10 +85,10 @@ class DistributedBank(DistributedFurnitureItem.DistributedFurnitureItem):
 
     def __handleExitSphere(self, collEntry):
         self.notify.debug('Exiting Bank Sphere....')
-        if self.bankTrack is not None:
+        if self.bankTrack != None:
             self.bankTrack.pause()
             self.bankTrack = None
-        if self.bankDialog is not None:
+        if self.bankDialog != None:
             self.bankDialog.cleanup()
             self.bankDialog = None
         self.__handleBankDone(0)
@@ -99,7 +99,7 @@ class DistributedBank(DistributedFurnitureItem.DistributedFurnitureItem):
         self.sendUpdate('transferMoney', [transactionAmount])
         self.ignore(self.bankGuiDoneEvent)
         self.ignore(self.bankSphereExitEvent)
-        if self.bankGui is not None:
+        if self.bankGui != None:
             self.bankGui.destroy()
             self.bankGui = None
         return
@@ -161,7 +161,7 @@ class DistributedBank(DistributedFurnitureItem.DistributedFurnitureItem):
 
     def __clearDialog(self, event):
         self.notify.debug('__clearDialog(event=%s)' % (event,))
-        if self.bankDialog is not None:
+        if self.bankDialog != None:
             self.bankDialog.cleanup()
             self.bankDialog = None
         self.freeAvatar()
@@ -201,7 +201,7 @@ class DistributedBank(DistributedFurnitureItem.DistributedFurnitureItem):
     def __putAwayToonJar(self, avId):
         self.notify.debug('__putAwayToonJar(avId=%s)' % (avId,))
         toon = base.cr.doId2do.get(avId)
-        if toon is None:
+        if toon == None:
             return
         if not self.hasJarOut:
             return

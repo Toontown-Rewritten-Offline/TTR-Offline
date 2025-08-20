@@ -255,7 +255,7 @@ class CogdoMazeHud:
         self._update = taskMgr.add(self._updateTask, 'CogdoMazeHud_Update', 45)
 
     def __stopUpdateTask(self):
-        if self._update is not None:
+        if self._update != None:
             taskMgr.remove(self._update)
         return
 

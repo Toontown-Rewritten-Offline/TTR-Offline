@@ -52,7 +52,7 @@ class ToontownChatManager(ChatManager.ChatManager):
         self.whisperCancelButton = DirectButton(parent=self.whisperFrame, image=(gui.find('**/CloseBtn_UP'), gui.find('**/CloseBtn_DN'), gui.find('**/CloseBtn_Rllvr')), pos=(-0.06, 0, 0.033), scale=1.179, relief=None, text=('', OTPLocalizer.ChatManagerCancel, OTPLocalizer.ChatManagerCancel), text_scale=0.05, text_fg=(0, 0, 0, 1), text_pos=(0, -0.09), textMayChange=0, command=self.__whisperCancelPressed)
         gui.removeNode()
         ChatManager.ChatManager.__init__(self, cr, localAvatar)
-        self.defaultToWhiteList = config.GetBool('white-list-is-default', 1)
+        self.defaultToWhiteList = config.ConfigVariableBool('white-list-is-default', 1).getValue()
         self.chatInputSpeedChat = TTChatInputSpeedChat(self)
         self.normalPos = Vec3(0.25, 0, -0.196)
         self.whisperPos = Vec3(0.25, 0, -0.28)
@@ -366,13 +366,13 @@ class ToontownChatManager(ChatManager.ChatManager):
         self.problemActivatingChat.hide()
 
     def __normalButtonPressed(self):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: CHAT: Speedchat Plus')
         messenger.send('wakeup')
         self.fsm.request('normalChat')
 
     def __scButtonPressed(self):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: CHAT: Speedchat')
         messenger.send('wakeup')
         if self.fsm.getCurrentState().getName() == 'speedChat':
@@ -458,7 +458,7 @@ class ToontownChatManager(ChatManager.ChatManager):
         self.fsm.request('mainMenu')
 
     def __whisperScButtonPressed(self, avatarName, avatarId, playerId):
-        if config.GetBool('want-qa-regression', 0):
+        if config.ConfigVariableBool('want-qa-regression', 0).getValue():
             self.notify.info('QA-REGRESSION: CHAT: Whisper')
         messenger.send('wakeup')
         hasManager = hasattr(base.cr, 'playerFriendsManager')

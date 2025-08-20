@@ -117,7 +117,7 @@ class PartyEditorListElement(DirectButton):
 
     def checkSoldOutAndPaidStatusAndAffordability(self):
         if self.partyEditor.currentElement != self:
-            if self.partyEditor.currentElement is not None:
+            if self.partyEditor.currentElement != None:
                 self.partyEditor.currentElement.checkSoldOutAndPaidStatusAndAffordability()
             return
         if self.isDecoration:

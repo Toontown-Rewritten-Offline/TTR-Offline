@@ -15,7 +15,7 @@ from otp.ai.MagicWordGlobal import *
 from otp.ai import MagicWordManager
 teleportNotify = DirectNotifyGlobal.directNotify.newCategory('Teleport')
 teleportNotify.showTime = True
-if config.GetBool('want-teleport-debug', 1):
+if config.ConfigVariableBool('want-teleport-debug', 1).getValue():
     teleportNotify.setDebug(1)
 
 def reconsiderAllUnderstandable():
@@ -165,7 +165,7 @@ class Avatar(Actor, ShadowCaster):
         elif base.cr.getFriendFlags(self.doId) & OTPGlobals.FriendChat:
             self.understandable = 1
             self.setPlayerType(NametagGroup.CCFreeChat)
-        elif base.cr.playerFriendsManager.findPlayerIdFromAvId(self.doId) is not None:
+        elif base.cr.playerFriendsManager.findPlayerIdFromAvId(self.doId) != None:
             playerInfo = base.cr.playerFriendsManager.findPlayerInfoFromAvId(self.doId)
             if playerInfo.openChatFriendshipYesNo:
                 self.understandable = 1
@@ -272,7 +272,7 @@ class Avatar(Actor, ShadowCaster):
         return None
 
     def playCurrentDialogue(self, dialogue, chatFlags, interrupt = 1):
-        if interrupt and self.__currentDialogue is not None:
+        if interrupt and self.__currentDialogue != None:
             self.__currentDialogue.stop()
         self.__currentDialogue = dialogue
         if dialogue:
@@ -329,7 +329,7 @@ class Avatar(Actor, ShadowCaster):
 
         # The standard cog phrase gets too repetitive when there are so many cogs running around.
         # Let's just choose a random one.
-        if config.GetBool('want-doomsday', False) and self.playerType == NametagGroup.CCSuit:
+        if config.ConfigVariableBool('want-doomsday', False).getValue() and self.playerType == NametagGroup.CCSuit:
             sfxIndex = random.choice([1, 2, 2, 2, 2, 3, 3, 3]) #Duplicates are Intentional
 
         if sfxIndex != None and sfxIndex < len(dialogueArray) and dialogueArray[sfxIndex] != None:
@@ -435,7 +435,7 @@ class Avatar(Actor, ShadowCaster):
         self.__chatPageNumber = None
         self.__chatParagraph = paragraph
         self.__chatMessage = message
-        if extraChatFlags is None:
+        if extraChatFlags == None:
             self.__chatFlags = CFSpeech
         else:
             self.__chatFlags = CFSpeech | extraChatFlags
@@ -458,7 +458,7 @@ class Avatar(Actor, ShadowCaster):
         self.__chatPageNumber = None
         self.__chatParagraph = None
         self.__chatMessage = message
-        if extraChatFlags is None:
+        if extraChatFlags == None:
             self.__chatFlags = CFSpeech
         else:
             self.__chatFlags = CFSpeech | extraChatFlags

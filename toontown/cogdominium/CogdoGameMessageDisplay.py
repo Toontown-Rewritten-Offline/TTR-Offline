@@ -39,7 +39,7 @@ class CogdoGameMessageDisplay:
 
     def updateMessage(self, message = '', color = None, transition = 'fade'):
         taskMgr.remove(CogdoGameMessageDisplay.UpdateMessageTaskName)
-        if color is None:
+        if color == None:
             color = self.color
         self.transitionInterval.finish()
         self.transitionInterval.clearIntervals()

@@ -51,7 +51,7 @@ class CogdoFlyingProgressGui(DirectFrame):
 
     def removeToon(self, toon):
         marker = self._toonMarkers.get(toon, None)
-        if marker is not None:
+        if marker != None:
             marker.removeNode()
             del self._toonMarkers[toon]
         return

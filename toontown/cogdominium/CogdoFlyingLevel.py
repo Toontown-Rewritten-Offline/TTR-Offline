@@ -143,7 +143,7 @@ class CogdoFlyingLevel(DirectObject):
         return self.convertYToQuadNum(camY - y)
 
     def update(self, dt = 0.0):
-        if self._camera is None:
+        if self._camera == None:
             return
         quadNum = clamp(self.getCameraActualQuadrant(), 0, self._numQuads - 1)
         if quadNum < self._numQuads:
@@ -233,11 +233,11 @@ class CogdoFlyingLevelFactory:
         self._level.ready()
 
     def createLevel(self, safezoneId = 2000):
-        if self._level is None:
+        if self._level == None:
             self.loadAndBuildLevel(safezoneId)
         return self._level
 
     def createLevelFog(self):
-        if self._level is None:
+        if self._level == None:
             self.loadAndBuildLevel()
         return CogdoFlyingLevelFog(self._level)

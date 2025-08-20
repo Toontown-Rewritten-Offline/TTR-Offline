@@ -26,7 +26,7 @@ class MazeMapGui(DirectFrame):
         self._mazeWidth = len(self._mazeCollTable[0])
         self._mazeHeight = len(self._mazeCollTable)
         self._maskResolution = maskResolution or DEFAULT_MASK_RESOLUTION
-        if radiusRatio is None:
+        if radiusRatio == None:
             self._radius = self._maskResolution * DEFAULT_RADIUS_RATIO
         else:
             self._radius = self._maskResolution * radiusRatio

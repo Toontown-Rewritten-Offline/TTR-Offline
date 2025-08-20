@@ -14,7 +14,7 @@ class DNAStreet(DNANode):
 
     def _makeNode(self, storage, parent):
         node = storage.findNode(self.code)
-        if node is None:
+        if node == None:
             raise DNAError('DNAStreet uses unknown code %s' % self.code)
 
         np = node.copyTo(parent)
@@ -22,7 +22,7 @@ class DNAStreet(DNANode):
         for textureElement, nodeName in zip(self.findChildren(DNATexture),
                                             ('street', 'sidewalk', 'curb')):
             texture = storage.findTexture(textureElement.code)
-            if texture is None:
+            if texture == None:
                 raise DNAError('DNATexture uses unknown code %s' % textureElement.code)
 
             texNode = np.find('**/*_' + nodeName)

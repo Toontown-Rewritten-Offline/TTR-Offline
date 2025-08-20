@@ -5,8 +5,6 @@ from . import Level
 from direct.directnotify import DirectNotifyGlobal
 from . import EntityCreatorAI
 from direct.showbase.PythonUtil import Functor, weightedChoice
-if __dev__:
-    from .EditMgrAI import EditMgrAI
 
 class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI, Level.Level):
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedLevelAI')
@@ -22,8 +20,6 @@ class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI, Level.Level):
         self.numPlayers = len(self.avIdList)
         self.presentAvIds = list(self.avIdList)
         self.notify.debug('expecting avatars: %s' % str(self.avIdList))
-        if __dev__:
-            self.editMgrEntity = EditMgrAI()
         if __dev__:
             self.modified = 0
 
@@ -125,7 +121,7 @@ class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI, Level.Level):
         if hash(self.levelSpec) != specHash:
             self.notify.info('spec hashes do not match, sending our spec')
             spec = self.levelSpec
-            useDisk = config.GetBool('spec-by-disk', 1)
+            useDisk = config.ConfigVariableBool('spec-by-disk', 1).getValue()
         else:
             self.notify.info('spec hashes match, sending null spec')
             spec = None

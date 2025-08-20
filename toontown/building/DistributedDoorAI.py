@@ -95,7 +95,7 @@ class DistributedDoorAI(DistributedObjectAI.DistributedObjectAI):
         self.lockedDoor = locked
 
     def isLockedDoor(self):
-        if config.GetBool('no-locked-doors', 0):
+        if config.ConfigVariableBool('no-locked-doors', 0).getValue():
             return 0
         else:
             return self.lockedDoor

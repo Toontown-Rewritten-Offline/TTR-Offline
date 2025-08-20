@@ -47,14 +47,25 @@ class DedicatedServer:
         else:
             self.notify.info('Starting dedicated server...')
 
-        if config.GetBool('auto-start-server', True) and not self.localServer:
+        if config.ConfigVariableBool('auto-start-server', True).getValue() and not self.localServer:
             self.notify.error("You are trying to start the server manually, but auto-start-server is enabled!\n"
                                 "You do not need to run this file offline, the server will start for you.")
 
-        if config.GetBool('want-mongo-client', False):
+        if config.ConfigVariableBool('want-mongo-client', False).getValue():
             taskMgr.add(self.startAstronMongo, 'startAstronMongo')
         else:
             taskMgr.add(self.startAstronYAML, 'startAstronYAML')
+
+    def openAstronProcess(self, astronConfig):
+        if sys.platform == 'win32':
+            self.astronProcess = subprocess.Popen('astron/astrond.exe --loglevel info %s' % astronConfig,
+                                                  stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
+        elif sys.platform == 'darwin':
+            self.astronProcess = subprocess.Popen('astron/astrondmac --loglevel info %s' % astronConfig,
+                                                  stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog, shell=True)
+        elif sys.platform in ['linux', 'linux2']:
+            self.astronProcess = subprocess.Popen('astron/astrondlinux --loglevel info %s' % astronConfig,
+                                                  stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
 
     def startAstronYAML(self, task):
         self.notify.info('Starting Astron with YAML...')
@@ -65,13 +76,10 @@ class DedicatedServer:
         self.notify.info('Opened new Astron log: %s' % astronLogFile)
 
         # Use the Astron config file based on the database.
-        astronConfig = config.GetString('astron-config-path', 'astron/config/astrond-yaml.yml')
+        astronConfig = config.ConfigVariableString('astron-config-path', 'astron/config/astrond-yaml.yml').getValue()
 
         # Start Astron process.
-        if sys.platform == 'win32':
-            self.astronProcess = subprocess.Popen('astron\\astrond.exe --loglevel info {0}'.format(astronConfig.replace('/', '\\')),
-                                                  stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
-
+        self.openAstronProcess(astronConfig)
         # Setup a Task to start the UberDOG process when Astron is done.
         taskMgr.add(self.startUberDog, 'startUberDog')
 
@@ -81,23 +89,22 @@ class DedicatedServer:
         # Start MongoDB Process.
         if sys.platform == 'win32':
             self.mongoProcess = subprocess.Popen('astron\\mongo\\Server\\5.0\\bin\\mongod.exe --dbpath astron\\mongo\\astrondb --logpath astron\\mongo\\logs\\mongodb.log --logappend --storageEngine wiredTiger')
-
+        else:
+            # Other os
+            self.mongoProcess = subprocess.Popen('./astron/mongo/Server/5.0/bin/mongod --dbpath astron/mongo/astrondb --logpath astron/mongo/logs/mongodb.log --logappend --storageEngine wiredTiger')
         # Create and open the log file to use for Astron.
         astronLogFile = self.generateLog('astron')
         self.astronLog = open(astronLogFile, 'a')
         self.notify.info('Opened new Astron log: %s' % astronLogFile)
 
-        if config.GetBool('auto-start-server', True):
+        if config.ConfigVariableBool('auto-start-server', True).getValue():
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesAstron
 
         # Use the Astron config file based on the database.
-        astronConfig = config.GetString('astron-config-path', 'astron/config/astrond-mongo.yml')
+        astronConfig = config.ConfigVariableString('astron-config-path', 'astron/config/astrond-mongo.yml').getValue()
 
         # Start Astron process.
-        if sys.platform == 'win32':
-            self.astronProcess = subprocess.Popen('astron\\astrond.exe --loglevel info {0}'.format(astronConfig.replace('/', '\\')),
-                                                  stdin=self.astronLog, stdout=self.astronLog, stderr=self.astronLog)
-
+        self.openAstronProcess(astronConfig)
         # Setup a Task to start the UberDOG process when Astron is done.
         taskMgr.add(self.startUberDog, 'startUberDog')
 
@@ -112,7 +119,7 @@ class DedicatedServer:
             return task.again
 
         # Astron has started
-        if config.GetBool('want-mongo-client', False):
+        if config.ConfigVariableBool('want-mongo-client', False).getValue():
             self.notify.info('MongoDB started successfully!')
         self.notify.info('Astron started successfully!')
 
@@ -126,16 +133,25 @@ class DedicatedServer:
 
         # Setup UberDOG arguments.
         if __debug__:
-            uberDogArguments = '%s -m toontown.uberdog.ServiceStartUD' % open('PPYTHON_PATH').read()
-        else:
-            uberDogArguments = 'TTRPEngine.exe --uberdog'
+            if sys.platform == 'win32':
+                uberDogArguments = '%s -m toontown.uberdog.ServiceStartUD' % open('PPYTHON_PATH').read()
+            else:
+                uberDogArguments = 'python3 -m toontown.uberdog.ServiceStartUD'
 
-        if config.GetBool('auto-start-server', True):
+        else:
+            if sys.platform == 'win32':
+                uberDogArguments = 'TTROFFEngine.exe --uberdog'
+            else:
+                uberDogArguments = 'TTROFFEngine --uberdog'
+
+        if config.ConfigVariableBool('auto-start-server', True).getValue():
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesUberdog
 
         # Start UberDOG process.
-        self.uberDogProcess = subprocess.Popen(uberDogArguments, stdin=self.uberDogLog, stdout=self.uberDogLog, stderr=self.uberDogLog)
-
+        if sys.platform == 'win32':
+            self.uberDogProcess = subprocess.Popen(uberDogArguments, stdin=self.uberDogLog, stdout=self.uberDogLog, stderr=self.uberDogLog)
+        else:
+            self.uberDogProcess = subprocess.Popen(uberDogArguments, stdin=self.uberDogLog, stdout=self.uberDogLog, stderr=self.uberDogLog, shell=True)
         # Start the AI process when UberDOG is done.
         taskMgr.add(self.startAI, 'startAI')
 
@@ -165,16 +181,24 @@ class DedicatedServer:
 
         # Setup AI arguments.
         if __debug__:
-            aiArguments = '%s -m toontown.ai.ServiceStartAI' % open('PPYTHON_PATH').read()
+            if sys.platform == 'win32':
+                aiArguments = '%s -m toontown.ai.ServiceStartAI' % open('PPYTHON_PATH').read()
+            else:
+                aiArguments = 'python3 -m toontown.ai.ServiceStartAI'
         else:
-            aiArguments = 'TTRPEngine.exe --ai'
+            if sys.platform == 'win32':
+                aiArguments = 'TTROFFEngine.exe --ai'
+            else:
+                aiArguments = 'TTROFFEngine --ai'
 
-        if config.GetBool('auto-start-server', True):
+        if config.ConfigVariableBool('auto-start-server', True).getValue():
             gameServicesDialog['text'] = OTPLocalizer.CRLoadingGameServices + '\n\n' + OTPLocalizer.CRLoadingGameServicesAI
 
         # Start AI process.
-        self.aiProcess = subprocess.Popen(aiArguments, stdin=self.aiLog, stdout=self.aiLog, stderr=self.aiLog)
-
+        if sys.platform == 'win32':
+            self.aiProcess = subprocess.Popen(aiArguments, stdin=self.aiLog, stdout=self.aiLog, stderr=self.aiLog)
+        else:
+            self.aiProcess = subprocess.Popen(aiArguments, stdin=self.aiLog, stdout=self.aiLog, stderr=self.aiLog, shell=True)
         # Send a message to note the server has started.
         taskMgr.add(self.serverStarted, 'serverStarted')
 
@@ -195,7 +219,7 @@ class DedicatedServer:
         self.notify.info('AI started successfully!')
 
         # Every aspect of the server has started. Let's finish with the done message.
-        self.notify.info('Server now ready. Have fun on Toontown Rewritten Private!')
+        self.notify.info('Server now ready. Have fun on Toontown Rewritten Offline!')
         if self.localServer:
             messenger.send('localServerReady')
 
@@ -278,7 +302,7 @@ class DedicatedServer:
             self.astronProcess.terminate()
 
         # And lastly, MongoDB
-        if config.GetBool('want-mongo-client', False):
+        if config.ConfigVariableBool('want-mongo-client', False).getValue():
             if self.mongoProcess:
                 self.astronProcess.terminate()
 

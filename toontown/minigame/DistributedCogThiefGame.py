@@ -43,7 +43,7 @@ class DistributedCogThiefGame(DistributedMinigame):
         self.cogInfo = {}
         self.lastTimeControlPressed = 0
         self.stolenBarrels = []
-        self.useOrthoWalk = config.GetBool('cog-thief-ortho', 0)
+        self.useOrthoWalk = config.ConfigVariableBool('cog-thief-ortho', 0).getValue()
         self.resultIval = None
         self.gameIsEnding = False
         self.__textGen = TextNode('cogThiefGame')
@@ -250,7 +250,7 @@ class DistributedCogThiefGame(DistributedMinigame):
             return
         self.notify.debug('setGameStart')
         DistributedMinigame.setGameStart(self, timestamp)
-        if not config.GetBool('cog-thief-endless', 0):
+        if not config.ConfigVariableBool('cog-thief-endless', 0).getValue():
             self.timer.show()
             self.timer.countdown(CTGG.GameTime, self.__gameTimerExpired)
         self.clockStopTime = None
@@ -766,8 +766,8 @@ class DistributedCogThiefGame(DistributedMinigame):
             self.stolenBarrels.append(barrelIndex)
             barrel = self.barrels[barrelIndex]
             barrel.hide()
-        if config.GetBool('cog-thief-check-barrels', 1):
-            if not config.GetBool('cog-thief-endless', 0):
+        if config.ConfigVariableBool('cog-thief-check-barrels', 1).getValue():
+            if not config.ConfigVariableBool('cog-thief-endless', 0).getValue():
                 if len(self.stolenBarrels) == len(self.barrels):
                     localStamp = globalClockDelta.networkToLocalTime(timestamp, bits=32)
                     gameTime = self.local2GameTime(localStamp)
@@ -790,7 +790,7 @@ class DistributedCogThiefGame(DistributedMinigame):
 
     def __updateRewardCountdown(self, task):
         curTime = self.getCurrentGameTime()
-        if self.clockStopTime is not None:
+        if self.clockStopTime != None:
             if self.clockStopTime < curTime:
                 self.notify.debug('self.clockStopTime < curTime %s %s' % (self.clockStopTime, curTime))
                 self.__killRewardCountdown()
@@ -838,7 +838,7 @@ class DistributedCogThiefGame(DistributedMinigame):
         return False
 
     def getNumCogs(self):
-        result = config.GetInt('cog-thief-num-cogs', 0)
+        result = config.ConfigVariableInt('cog-thief-num-cogs', 0).getValue()
         if not result:
             safezone = self.getSafezoneId()
             result = CTGG.calculateCogs(self.numPlayers, safezone)
@@ -899,7 +899,7 @@ class DistributedCogThiefGame(DistributedMinigame):
             self.resultIval = Parallel(textTrack, soundTrack)
             self.resultIval.start()
             #For the Alpha Blueprint ARG
-            if config.GetBool('want-blueprint4-ARG', False):
+            if config.ConfigVariableBool('want-blueprint4-ARG', False).getValue():
                 MinigameGlobals.generateDebugARGPhrase()
 
     def __genText(self, text):

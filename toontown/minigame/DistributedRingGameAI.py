@@ -101,7 +101,7 @@ class DistributedRingGameAI(DistributedMinigameAI):
         if avId not in self.avIdList:
             self.air.writeServerEvent('suspicious', avId=avId, issue='RingGameAI.setToonGotRing: invalid avId')
             return
-        if self.gameFSM.getCurrentState() is None or self.gameFSM.getCurrentState().getName() != 'swimming':
+        if self.gameFSM.getCurrentState() == None or self.gameFSM.getCurrentState().getName() != 'swimming':
             self.air.writeServerEvent('suspicious', avId=avId, issue='RingGameAI.setToonGotRing: game not in swimming state')
             return
         ringGroupIndex = self.__nextRingGroup[avId]

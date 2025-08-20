@@ -28,7 +28,7 @@ class DistributedCountryClubAI(DistributedObjectAI.DistributedObjectAI):
         DistributedObjectAI.DistributedObjectAI.generate(self)
         self.notify.info('generate %s, id=%s, floor=%s' % (self.doId, self.countryClubId, self.floorNum))
         self.rooms = []
-        if self.battleExpAggreg is None:
+        if self.battleExpAggreg == None:
             self.battleExpAggreg = BattleExperienceAggregatorAI.BattleExperienceAggregatorAI()
         for i in range(self.layout.getNumRooms()):
             room = DistributedCountryClubRoomAI.DistributedCountryClubRoomAI(self.air, self.countryClubId, self.doId, self.zoneId, self.layout.getRoomId(i), i * 2, self.avIds, self.battleExpAggreg)
@@ -62,7 +62,7 @@ class DistributedCountryClubAI(DistributedObjectAI.DistributedObjectAI):
     def delete(self):
         self.notify.info('delete: %s' % self.doId)
         if __dev__:
-            if hasattr(simbase, 'countryClub') and simbase.countryClub is self:
+            if hasattr(simbase, 'countryClub') and simbase.countryClub == self:
                 del simbase.countryClub
         del self.rooms
         del self.layout

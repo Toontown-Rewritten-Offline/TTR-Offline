@@ -74,7 +74,7 @@ class DistributedPartyCatchActivity(DistributedPartyActivity, DistributedPartyCa
         return
 
     def getCurGeneration(self):
-        if self._orderedGenerationIndex is None:
+        if self._orderedGenerationIndex == None:
             return
         return self._orderedGenerations[self._orderedGenerationIndex]
 
@@ -93,7 +93,7 @@ class DistributedPartyCatchActivity(DistributedPartyActivity, DistributedPartyCa
                 break
             i += 1
         self._orderedGenerations = self._orderedGenerations[:i] + [generation] + self._orderedGenerations[i:]
-        if self._orderedGenerationIndex is not None:
+        if self._orderedGenerationIndex != None:
             if self._orderedGenerationIndex >= i:
                 self._orderedGenerationIndex += 1
 
@@ -101,7 +101,7 @@ class DistributedPartyCatchActivity(DistributedPartyActivity, DistributedPartyCa
         del self._id2gen[generation]
         i = self._orderedGenerations.index(generation)
         self._orderedGenerations = self._orderedGenerations[:i] + self._orderedGenerations[i + 1:]
-        if self._orderedGenerationIndex is not None:
+        if self._orderedGenerationIndex != None:
             if len(self._orderedGenerations):
                 if self._orderedGenerationIndex >= i:
                     self._orderedGenerationIndex -= 1
@@ -357,7 +357,7 @@ class DistributedPartyCatchActivity(DistributedPartyActivity, DistributedPartyCa
         self.ShowToonSpheres = 0
         self.useGravity = True
         self.trickShadows = True
-        if forceNumPlayers is None:
+        if forceNumPlayers == None:
             numPlayers = self.getNumPlayers()
         else:
             numPlayers = forceNumPlayers
@@ -612,7 +612,7 @@ class DistributedPartyCatchActivity(DistributedPartyActivity, DistributedPartyCa
                 self._addGeneration(id, gen2t[id], gen2nt[id], gen2np[id])
 
     def scheduleDrops(self, genId = None):
-        if genId is None:
+        if genId == None:
             genId = self.getCurGeneration()
         gen = self._id2gen[genId]
         if gen.hasBeenScheduled:
@@ -651,7 +651,7 @@ class DistributedPartyCatchActivity(DistributedPartyActivity, DistributedPartyCa
         genIndex = self._orderedGenerationIndex
         newGenIndex = genIndex
         while genIndex is None or genIndex < len(self._orderedGenerations) - 1:
-            if genIndex is None:
+            if genIndex == None:
                 nextGenIndex = 0
             else:
                 nextGenIndex = genIndex + 1
@@ -671,7 +671,7 @@ class DistributedPartyCatchActivity(DistributedPartyActivity, DistributedPartyCa
     def dropTask(self, task):
         self._scheduleGenerations()
         curT = self.getCurrentCatchActivityTime()
-        if self._orderedGenerationIndex is not None:
+        if self._orderedGenerationIndex != None:
             i = self._orderedGenerationIndex
             genIndex = self._orderedGenerations[i]
             gen = self._id2gen[genIndex]

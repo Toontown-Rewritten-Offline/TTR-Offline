@@ -4,8 +4,8 @@ import string
 import types
 
 try:
-    language = config.GetString('language', 'english')
-    checkLanguage = config.GetBool('check-language', 0)
+    language = config.ConfigVariableString('language', 'english').getValue()
+    checkLanguage = config.ConfigVariableBool('check-language', 0).getValue()
 except NameError:
     # __builtin__.config not defined yet.
     language = getConfigExpress().GetString('language', 'english')

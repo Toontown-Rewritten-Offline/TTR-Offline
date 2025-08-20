@@ -56,7 +56,7 @@ class DistributedLawOfficeFloor(DistributedLevel.DistributedLevel, LawOfficeBase
         if avId == base.localAvatar.doId:
             return
         av = base.cr.identifyFriend(avId)
-        if av is None:
+        if av == None:
             return
         base.localAvatar.setSystemMessage(avId, TTLocalizer.ForemanConfrontedMsg % av.getName())
         return
@@ -188,6 +188,6 @@ class DistributedLawOfficeFloor(DistributedLevel.DistributedLevel, LawOfficeBase
                 initialZoneEnt = self.getEntity(zoneEntId)
             else:
                 initialZoneEnt = self.getEntity(LevelConstants.UberZoneEntId)
-        if initialZoneEnt is not None:
+        if initialZoneEnt != None:
             self.enterZone(initialZoneEnt.entId)
         return

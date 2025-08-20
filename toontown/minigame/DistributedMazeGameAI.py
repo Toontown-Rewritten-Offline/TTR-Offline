@@ -69,7 +69,7 @@ class DistributedMazeGameAI(DistributedMinigameAI):
         taskMgr.remove(self.taskName('gameTimer'))
 
     def claimTreasure(self, treasureNum):
-        if self.gameFSM.getCurrentState() is None or self.gameFSM.getCurrentState().getName() != 'play':
+        if self.gameFSM.getCurrentState() == None or self.gameFSM.getCurrentState().getName() != 'play':
             return
         avId = self.air.getAvatarIdFromSender()
         if avId not in self.scoreDict:

@@ -25,9 +25,9 @@ class CogHoodAI(HoodAI):
 
     def createElevator(self, dclass, mgr, extZone, intZone, index=0, minLaff=0, boss=False):
         if boss:
-            elevator = dclass(self.air, mgr, intZone, antiShuffle=self.air.config.GetInt('want-anti-shuffle', 0), minLaff=minLaff)
+            elevator = dclass(self.air, mgr, intZone, antiShuffle=self.air.config.ConfigVariableInt('want-anti-shuffle', 0).getValue(), minLaff=minLaff)
         else:
-            elevator = dclass(self.air, mgr, intZone, index, antiShuffle=self.air.config.GetInt('want-anti-shuffle', 0), minLaff=minLaff)
+            elevator = dclass(self.air, mgr, intZone, index, antiShuffle=self.air.config.ConfigVariableInt('want-anti-shuffle', 0).getValue(), minLaff=minLaff)
         elevator.generateWithRequired(extZone)
         self.elevators.append(elevator)
         return elevator
@@ -37,7 +37,7 @@ class CogHoodAI(HoodAI):
         pass
 
     def createBoardingGroup(self, air, elevators, zone, maxSize=4):
-        if config.GetBool('want-boarding-groups', True):
+        if config.ConfigVariableBool('want-boarding-groups', True).getValue():
             boardingGroup = DistributedBoardingPartyAI.DistributedBoardingPartyAI(air, elevators, maxSize)
             boardingGroup.generateWithRequired(zone)
 

@@ -10,7 +10,7 @@ class MintRoom(DirectObject.DirectObject):
     CashbotMintDoorFrame = 'phase_10/models/cashbotHQ/DoorFrame'
 
     def __init__(self, path = None):
-        if path is not None:
+        if path != None:
             if path in MintRoomSpecs.CashbotMintConnectorRooms:
                 loadFunc = loader.loadModelCopy
             else:

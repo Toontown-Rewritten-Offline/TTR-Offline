@@ -35,7 +35,7 @@ class VariableContainer:
 class DevVariableContainer:
 
     def __init__(self, name):
-        self.__dict__['_enabled'] = config.GetBool('%s-dev' % name, False)
+        self.__dict__['_enabled'] = config.ConfigVariableBool('%s-dev' % name, False).getValue()
 
     def __setattr__(self, name, value):
         self.__dict__[name] = self._enabled and value
@@ -69,7 +69,7 @@ class CogdoGameMovie:
         self._dialogueLabel.reparentTo(hidden)
 
     def unload(self):
-        if self._ival is not None and self._ival.isPlaying():
+        if self._ival != None and self._ival.isPlaying():
             self.finish()
         self._ival = None
         self._dialogueLabel.removeNode()
@@ -87,7 +87,7 @@ class CogdoGameMovie:
         self._task = taskMgr.add(self._updateTask, 'CogdoGameMovie_updateTask', 45)
 
     def _stopUpdateTask(self):
-        if self._task is not None:
+        if self._task != None:
             taskMgr.remove(self._task)
             self._task = None
         return

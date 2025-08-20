@@ -85,7 +85,7 @@ class Level:
         while len(self.createdEntIds) > 0:
             entId = self.createdEntIds.pop()
             entity = self.getEntity(entId)
-            if entity is not None:
+            if entity != None:
                 Level.notify.debug('destroying %s %s' % (self.getEntityType(entId), entId))
                 entity.destroy()
             else:
@@ -105,9 +105,9 @@ class Level:
         Level.notify.debug('creating %s %s' % (spec['type'], entId))
         entity = self.entityCreator.createEntity(entId)
         announce = False
-        if entity is 'nonlocal':
+        if entity == 'nonlocal':
             self.nonlocalEntIds[entId] = None
-        elif entity is 'nothing':
+        elif entity == 'nothing':
             self.nothingEntIds[entId] = None
             announce = True
         else:
@@ -196,7 +196,7 @@ class Level:
 
     def setEntityCreateCallback(self, entId, callback):
         ent = self.getEntity(entId)
-        if ent is not None:
+        if ent != None:
             callNow = True
         elif entId in self.nothingEntIds:
             callNow = True
@@ -234,7 +234,7 @@ class Level:
 
         def handleAttribChange(self, entId, attrib, value, username = None):
             entity = self.getEntity(entId)
-            if entity is not None:
+            if entity != None:
                 entity.handleAttribChange(attrib, value)
             messenger.send(self.getAttribChangeEventName(), [entId,
              attrib,

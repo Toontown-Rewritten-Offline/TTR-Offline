@@ -9,7 +9,7 @@ class DropScheduler:
         self.maxDropDuration = maxDropDuration
         self.fasterDropDelay = fasterDropDelay
         self.fasterDropPeriodMult = fasterDropPeriodMult
-        if startTime is None:
+        if startTime == None:
             startTime = 0
         self._startTime = startTime
         self.curT = self._startTime + self.firstDropDelay
@@ -29,7 +29,7 @@ class DropScheduler:
 
     def doneDropping(self, continuous = None):
         landTime = self.getT() - self._startTime + self.maxDropDuration
-        if continuous is None:
+        if continuous == None:
             continuous = False
         else:
             continuous = True

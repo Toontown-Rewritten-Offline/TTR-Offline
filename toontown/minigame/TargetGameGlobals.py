@@ -1,7 +1,7 @@
 from panda3d.core import *
 from toontown.toonbase import TTLocalizer
 from toontown.toonbase import ToontownGlobals
-ENDLESS_GAME = config.GetBool('endless-ring-game', 0)
+ENDLESS_GAME = config.ConfigVariableBool('endless-ring-game', 0).getValue()
 NUM_RING_GROUPS = 16
 MAX_TOONXZ = 15.0
 MAX_LAT = 5

@@ -37,7 +37,7 @@ class DummyLauncherBase:
         return
 
     def isTestServer(self):
-        return config.GetBool('is-test-server', 0)
+        return config.ConfigVariableBool('is-test-server', 0).getValue()
 
     def setPhaseCompleteArray(self, newPhaseComplete):
         self.phaseComplete = newPhaseComplete
@@ -72,7 +72,7 @@ class DummyLauncherBase:
         return self.ServerVersion
 
     def getIsNewInstallation(self):
-        return config.GetBool('new-installation', 0)
+        return config.ConfigVariableBool('new-installation', 0).getValue()
 
     def setIsNotNewInstallation(self):
         pass

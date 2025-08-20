@@ -22,7 +22,7 @@ class DNASpawnerAI:
 
         # Match regexes within:
         for pattern, constructor in constructorList:
-            if pattern is None:
+            if pattern == None:
                 return constructor, None
 
             match = pattern.match(element.name)
@@ -55,7 +55,7 @@ class DNASpawnerAI:
 
         zone = int(vis.name.split(':', 1)[0]) + zoneOffset
 
-        if match is not None:
+        if match != None:
             # This is a regex-matched constructor; 4 parameters.
             constructor(self.air, zone, element, match)
         else:
