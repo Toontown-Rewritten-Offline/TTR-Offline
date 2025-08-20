@@ -1,4 +1,4 @@
-from direct.gui.DirectGui import *
+from direct.gui.DirectGui import DirectFrame, DirectLabel, DirectButton, DirectWaitBar, DGG
 from panda3d.core import *
 from toontown.toonbase.ToontownBattleGlobals import *
 from . import InventoryBase
@@ -29,7 +29,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
     ShadowBuffedColor = Vec4(1, 1, 1, 1)
     UnpressableShadowBuffedColor = Vec4(1, 1, 1, 0.3)
     TrackYOffset = 0.0
-    TrackYSpacing = -0.16
+    TrackYSpacing = -0.155
     ButtonXOffset = -1.4
     ButtonXSpacing = 0.785
 
@@ -238,7 +238,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
         self.trackBars = []
         self.buttons = []
         for track in range(0, len(Tracks)):
-            trackFrame = DirectFrame(parent=self.invFrame, image=self.rowModel, scale=(0.25, 0.25, 0.275), pos=(0, 0.3, self.TrackYOffset + track * self.TrackYSpacing), image_color=(TrackColors[track][0],
+            trackFrame = DirectFrame(parent=self.invFrame, image=self.rowModel, scale=(0.267, 0.28, 0.27), pos=(0, 0.3, self.TrackYOffset + track * self.TrackYSpacing), image_color=(TrackColors[track][0],
              TrackColors[track][1],
              TrackColors[track][2],
              1), state=DGG.NORMAL, relief=None)
@@ -246,7 +246,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
             trackFrame.bind(DGG.WITHOUT, self.exitTrackFrame, extraArgs=[track])
             self.trackRows.append(trackFrame)
             adjustLeft = -0.26
-            self.trackNameLabels.append(DirectLabel(text=TextEncoder.upper(Tracks[track]), parent=self.trackRows[track], pos=(-3.1 + adjustLeft, -0.1, 0.01), scale=TTLocalizer.INtrackNameLabels, relief=None, text_fg=(0.2, 0.2, 0.2, 1), text_font=getInterfaceFont(), text_align=TextNode.ALeft, textMayChange=0))
+            self.trackNameLabels.append(DirectLabel(text=TextEncoder.upper(Tracks[track]), parent=self.trackRows[track], pos=(-3.1 + adjustLeft, -0.1, 0.05), scale=TTLocalizer.INtrackNameLabels, relief=None, text_fg=(0.2, 0.2, 0.2, 1), text_font=getInterfaceFont(), text_align=TextNode.ALeft, textMayChange=0))
             self.trackBars.append(DirectWaitBar(parent=self.trackRows[track], pos=(-2.54 + adjustLeft, -0.1, -0.1), relief=DGG.SUNKEN, frameSize=(-0.6,
              0.6,
              -0.1,
@@ -913,10 +913,10 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
         if self.battleFrame == None:
             self.loadBattleFrame()
         self.battleFrame.show()
-        self.battleFrame.setScale(0.9)
+        self.battleFrame.setScale(0.3)
         self.invFrame.reparentTo(self.battleFrame)
-        self.invFrame.setPos(-0.26, 0, 0.35)
-        self.invFrame.setScale(1)
+        self.invFrame.setPos(-0.9, 0, 1.275)
+        self.invFrame.setScale(3)
         self.detailFrame.setPos(1.125, 0, -0.08)
         self.detailFrame.setScale(1)
         self.deleteEnterButton.hide()
@@ -1221,12 +1221,12 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
             self.updateGUI(track, level)
 
     def loadBattleFrame(self):
-        battleModels = loader.loadModel('phase_3.5/models/gui/battle_gui')
-        self.battleFrame = DirectFrame(relief=None, image=battleModels.find('**/BATTLE_Menu'), image_scale=0.8, parent=self)
-        self.runButton = DirectButton(parent=self.battleFrame, relief=None, pos=(0.73, 0, -0.398), text=TTLocalizer.InventoryRun, text_scale=TTLocalizer.INrunButton, text_pos=(0, -0.02), text_fg=Vec4(1, 1, 1, 1), textMayChange=0, image=(self.upButton, self.downButton, self.rolloverButton), image_scale=1.05, image_color=(0, 0.6, 1, 1), command=self.__handleRun)
-        self.sosButton = DirectButton(parent=self.battleFrame, relief=None, pos=(0.96, 0, -0.398), text=TTLocalizer.InventorySOS, text_scale=0.05, text_pos=(0, -0.02), text_fg=Vec4(1, 1, 1, 1), textMayChange=0, image=(self.upButton, self.downButton, self.rolloverButton), image_scale=1.05, image_color=(0, 0.6, 1, 1), command=self.__handleSOS)
-        self.passButton = DirectButton(parent=self.battleFrame, relief=None, pos=(0.96, 0, -0.242), text=TTLocalizer.InventoryPass, text_scale=TTLocalizer.INpassButton, text_pos=(0, -0.02), text_fg=Vec4(1, 1, 1, 1), textMayChange=1, image=(self.upButton, self.downButton, self.rolloverButton), image_scale=1.05, image_color=(0, 0.6, 1, 1), command=self.__handlePass)
-        self.fireButton = DirectButton(parent=self.battleFrame, relief=None, pos=(0.73, 0, -0.242), text=TTLocalizer.InventoryFire, text_scale=TTLocalizer.INfireButton, text_pos=(0, -0.02), text_fg=Vec4(1, 1, 1, 1), textMayChange=0, image=(self.upButton, self.downButton, self.rolloverButton), image_scale=1.05, image_color=(0, 0.6, 1, 1), command=self.__handleFire)
+        battleModels = loader.loadModel('phase_3.5/models/gui/ttr_m_gui_bat_battleMenu')
+        self.battleFrame = DirectFrame(relief=None, image=battleModels.find('**/ttr_t_gui_bat_battleMenu_base_card'), image_scale=0.8, parent=self)
+        self.runButton = DirectButton(parent=self.battleFrame, relief=None, pos=(0.73, 0, -0.398), text=TTLocalizer.InventoryRun, text_scale=TTLocalizer.INrunButton, text_pos=(0, -0.02), text_fg=Vec4(1, 1, 1, 1), textMayChange=0, image=(self.upButton, self.downButton, self.rolloverButton), image_scale=0.22, image_color=(0, 0.6, 1, 1), command=self.__handleRun)
+        self.sosButton = DirectButton(parent=self.battleFrame, relief=None, pos=(0.96, 0, -0.398), text=TTLocalizer.InventorySOS, text_scale=0.05, text_pos=(0, -0.02), text_fg=Vec4(1, 1, 1, 1), textMayChange=0, image=(self.upButton, self.downButton, self.rolloverButton), image_scale=0.22, image_color=(0, 0.6, 1, 1), command=self.__handleSOS)
+        self.passButton = DirectButton(parent=self.battleFrame, relief=None, pos=(0.96, 0, -0.242), text=TTLocalizer.InventoryPass, text_scale=TTLocalizer.INpassButton, text_pos=(0, -0.02), text_fg=Vec4(1, 1, 1, 1), textMayChange=1, image=(self.upButton, self.downButton, self.rolloverButton), image_scale=0.22, image_color=(0, 0.6, 1, 1), command=self.__handlePass)
+        self.fireButton = DirectButton(parent=self.battleFrame, relief=None, pos=(0.73, 0, -0.242), text=TTLocalizer.InventoryFire, text_scale=TTLocalizer.INfireButton, text_pos=(0, -0.02), text_fg=Vec4(1, 1, 1, 1), textMayChange=0, image=(self.upButton, self.downButton, self.rolloverButton), image_scale=0.22, image_color=(0, 0.6, 1, 1), command=self.__handleFire)
         self.tutText = DirectFrame(parent=self.battleFrame, relief=None, pos=(0.05, 0, -0.1133), scale=0.143, image=DGG.getDefaultDialogGeom(), image_scale=5.125, image_pos=(0, 0, -0.65), image_color=ToontownGlobals.GlobalDialogColor, text_scale=TTLocalizer.INclickToAttack, text=TTLocalizer.InventoryClickToAttack, textMayChange=0)
         self.tutText.hide()
         self.tutArrows = BlinkingArrows.BlinkingArrows(parent=self.battleFrame)
