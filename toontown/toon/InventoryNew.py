@@ -23,8 +23,8 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
     UnpressableImageColor = Vec4(0.3, 0.3, 0.3, 0.8)
     BookUnpressableTextColor = Vec4(1, 1, 1, 1)
     BookUnpressableGeomColor = Vec4(1, 1, 1, 1)
-    BookUnpressableImage0Color = Vec4(0, 0.6, 1, 1)
-    BookUnpressableImage2Color = Vec4(0.1, 0.7, 1, 1)
+    BookUnpressableImage0Color = Vec4(0, 0.52, 0.87, 1)
+    BookUnpressableImage2Color = Vec4(0.08, 0.58, 0.9, 1)
     ShadowColor = Vec4(0, 0, 0, 0)
     ShadowBuffedColor = Vec4(1, 1, 1, 1)
     UnpressableShadowBuffedColor = Vec4(1, 1, 1, 0.3)
@@ -262,7 +262,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
                 button = DirectButton(parent=self.trackRows[track], image=(self.upButton,
                  self.downButton,
                  self.rolloverButton,
-                 self.flatButton), geom=self.invModels[track][item], text='50', text_scale=0.16, text_align=TextNode.ARight, geom_scale=2.8, geom_pos=(-0.01, -0.1, 0), text_fg=Vec4(1, 1, 1, 1), text_pos=(0.28, -0.16), textMayChange=1, relief=None, image_color=(0, 0.6, 1, 1), pos=(self.ButtonXOffset + item * self.ButtonXSpacing + adjustLeft, -0.1, 0), command=self.__handleSelection, extraArgs=[track, item])
+                 self.flatButton), geom=self.invModels[track][item], text='50', text_scale=0.16, text_align=TextNode.ARight, geom_scale=3, geom_pos=(-0.05, 0, 0.025), text_fg=Vec4(1, 1, 1, 1), text_pos=(0.28, -0.16), textMayChange=1, relief=None, image_color=(0, 0.6, 1, 1), pos=(self.ButtonXOffset + item * self.ButtonXSpacing + adjustLeft, -0.1, 0), command=self.__handleSelection, extraArgs=[track, item])
                 button.bind(DGG.ENTER, self.showDetail, extraArgs=[track, item])
                 button.bind(DGG.EXIT, self.hideDetail)
                 self.buttons[track].append(button)
