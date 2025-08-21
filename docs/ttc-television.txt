@@ -1,0 +1,2 @@
+To play a video file on the TTC television, the file must be name "movie.ogv" and be in the root folder: "TTR-Offline/movie.ogv"
+The video file must be a .ogv file, you can do this by using any conversion tool to convert any file input (.mp4, .mkv, .mov) and convert it to .ogv

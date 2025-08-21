@@ -566,6 +566,7 @@ from toontown.toonfest import DistributedToonfestCannonActivity/AI
 from toontown.election import DistributedSafezoneInvasion/AI
 from toontown.election import DistributedElectionCamera/AI
 from toontown.election import DistributedElectionCameraManager/AI
+from toontown.election import DistributedTelevision/AI
 from toontown.fishing import DistributedFishingPond/AI
 from toontown.fishing import DistributedFishingTarget/AI
 from toontown.fishing import DistributedPondBingoManager/AI
@@ -1532,6 +1533,7 @@ dclass DistributedToonfestTower : DistributedObject {
 dclass DistributedToonfestCog : DistributedObject {
   generateRequest() clsend airecv;
   toggleCog(string) broadcast;
+  setProperties() clsend airecv;
   setCogPosId(int16, int16, int16, int16) broadcast;
   setCogId(int16) broadcast;
   setCogPos(int16, int16, int16) broadcast;
@@ -1611,6 +1613,9 @@ dclass DistributedElectionCamera : DistributedNode {
 dclass DistributedElectionCameraManager : DistributedObject {
   setMainCamera(uint32) required broadcast ram;
   setCameraIds(uint32 []) required broadcast ram;
+};
+
+dclass DistributedTelevision : DistributedObject {
 };
 
 dclass DistributedHotAirBalloon : DistributedObject {

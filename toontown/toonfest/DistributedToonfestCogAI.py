@@ -1,15 +1,6 @@
 from panda3d.core import *
 from direct.interval.IntervalGlobal import *
 from direct.fsm.FSM import FSM
-from otp.ai.MagicWordGlobal import *
-from toontown.election.DistributedHotAirBalloonAI import DistributedHotAirBalloonAI
-from toontown.election.DistributedElectionCameraManagerAI import DistributedElectionCameraManagerAI
-from toontown.election.DistributedSafezoneInvasionAI import DistributedSafezoneInvasionAI
-from toontown.election.DistributedInvasionSuitAI import DistributedInvasionSuitAI
-from toontown.election.InvasionMasterAI import InvasionMasterAI
-from toontown.toonbase import ToontownGlobals
-import toontown.election.SafezoneInvasionGlobals
-import toontown.election.ElectionGlobals
 from toontown.toonfest import DistributedToonfestTowerAI
 import random
 from otp.distributed.OtpDoGlobals import *
@@ -20,40 +11,25 @@ from direct.directnotify import DirectNotifyGlobal
 class DistributedToonfestCogAI(DistributedObjectAI, FSM):
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedToonfestTowerAI')
 
-    def __init__(self, air, operation = 'SpeedUp'):
+    def __init__(self, air):
         DistributedObjectAI.__init__(self, air)
         FSM.__init__(self, 'ToonfestCogFSM')
-        self.clientStarted = False
-        self.cogTaskDone = False
+        self.position = (0, 0, 0)
+        self.cogid = 0
         self.state = 'Down'
         self.air = air
 
     def enterOff(self):
         self.requestDelete()
 
-    def generateRequest(self):
-        self.clientStarted = True
+    def generate(self):
+        self.toggleCogTask()
 
-    def checkClientTask(self, x, y, z, cogid):
-        taskMgr.add(self.loadClientResources, extraArgs=[x, y, z, cogid])
-
-    def loadClientResources(self, x, y, z, cogid):
-        if self.clientStarted:
-            self.sendUpdate('setCogPosId', [x, y, z, cogid])
-            if not self.cogTaskDone:
-                self.toggleCogTask()
-            print('Cog Done!')
-            self.clientStarted = False
-            return Task.cont
-        else:
-            return Task.cont
-
-    #def setCogPosIdTask(self, x, y, z, cogid):
-    #    taskMgr.add(self.setCogPosId, extraArgs=[x, y, z, cogid])
+    def setProperties(self):
+        self.setCogPosId(self.position[0], self.position[1], self.position[2], self.cogid)
 
     def toggleCogTask(self):
         taskMgr.doMethodLater(10, self.toggleCog, 'toggle-cog', extraArgs=[])
-        self.cogTaskDone = True
 
     def toggleCog(self):
         if self.state == 'Down':
@@ -65,12 +41,7 @@ class DistributedToonfestCogAI(DistributedObjectAI, FSM):
         taskMgr.doMethodLater(10, self.toggleCog, 'toggle-cog', extraArgs=[])
 
     def setCogPosId(self, x, y, z, cogid):
-        if self.clientStarted:
-            self.sendUpdate('setCogPosId', [x, y, z, cogid])
-            self.clientStarted = False
-            return Task.cont
-        else:
-            return Task.cont
+        self.sendUpdate('setCogPosId', [x, y, z, cogid])
 
     def setCogId(self, cogid):
         self.sendUpdate('setCogId', [cogid])

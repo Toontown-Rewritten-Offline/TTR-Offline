@@ -1,7 +1,7 @@
 general:
     eventlogger: 127.0.0.1:7197
     dc_files:
-        - ../dclass/ttroff.dc
+        - ../../config/ttroff.dc
 
 messagedirector:
     bind: 127.0.0.1:7199

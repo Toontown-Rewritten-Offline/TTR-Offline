@@ -12,8 +12,6 @@ from toontown.toonfest.DistributedToonfestTowerBaseAI import DistributedToonfest
 from toontown.toonfest.DistributedToonfestVictoryTrampolineActivityAI import DistributedToonfestVictoryTrampolineActivityAI
 from toontown.toonfest.DistributedToonfestCogAI import DistributedToonfestCogAI
 #from toontown.toonfest.DistributedToonfestCannonActivityAI import DistributedToonfestCannonActivityAI
-#from toontown.toonfest.DistributedToonfestCannonAI import DistributedToonfestCannonAI
-#from toontown.toonfest import DistributedToonfestBalloonAI
 
 class TFHoodAI(SZHoodAI):
     notify = directNotify.newCategory('SZHoodAI')
@@ -40,15 +38,14 @@ class TFHoodAI(SZHoodAI):
 
     def loadActivities(self):
         self.cog1 = DistributedToonfestCogAI(self.air)
-        self.cog1.checkClientTask(139, -94, 4.579, 1)
+        self.cog1.position = (139, -94, 4.579)
+        self.cog1.cogid = 1
         self.cog1.generateWithRequired(self.HOOD)
         self.cogs.append(self.cog1)
 
-        self.cog2 = DistributedToonfestCogAI(self.air)
-        self.cog2.checkClientTask(130, -94, 4.579, 2)
+        #self.cog2 = DistributedToonfestCogAI(self.air)
+        #self.cog2.position = (130, -94, 4.579)
+        #self.cog2.cogid = 1
         #self.cog2.generateWithRequired(self.HOOD)
-        self.cogs.append(self.cog2)
+        #self.cogs.append(self.cog2)
 
-        #self.cannon1 = DistributedToonfestCannonAI(self.air)
-        #self.cannon1.setActivityDoId(self.cannonActivity.doId)
-        #self.cannon1.generateWithRequired(self.HOOD)

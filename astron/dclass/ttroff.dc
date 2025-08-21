@@ -566,6 +566,7 @@ from toontown.toonfest import DistributedToonfestCannonActivity/AI
 from toontown.election import DistributedSafezoneInvasion/AI
 from toontown.election import DistributedElectionCamera/AI
 from toontown.election import DistributedElectionCameraManager/AI
+from toontown.election import DistributedTelevision/AI
 from toontown.fishing import DistributedFishingPond/AI
 from toontown.fishing import DistributedFishingTarget/AI
 from toontown.fishing import DistributedPondBingoManager/AI
@@ -809,20 +810,20 @@ from toontown.ai.DistributedHydrantZeroMgr/AI import DistributedHydrantZeroMgr/A
 from toontown.ai.DistributedMailboxZeroMgr/AI import DistributedMailboxZeroMgr/AI
 from toontown.ai.DistributedTrashcanZeroMgr/AI import DistributedTrashcanZeroMgr/AI
 from toontown.ai import DistributedSillyMeterMgr/AI
-from toontown.cogdominium import DistributedCogdoInterior/AI
-from toontown.cogdominium import DistributedCogdoBattleBldg/AI
-from toontown.cogdominium import DistributedCogdoElevatorExt/AI
-from toontown.cogdominium import DistributedCogdoElevatorInt/AI
-from toontown.cogdominium import DistributedCogdoBarrel/AI
-from toontown.cogdominium import DistCogdoGame/AI
-from toontown.cogdominium import DistCogdoLevelGame/AI
-from toontown.cogdominium import DistCogdoBoardroomGame/AI
-from toontown.cogdominium import DistCogdoCraneGame/AI
-from toontown.cogdominium import DistCogdoMazeGame/AI
-from toontown.cogdominium import DistCogdoFlyingGame/AI
-from toontown.cogdominium import DistCogdoCrane/AI
-from toontown.cogdominium import DistCogdoCraneMoneyBag/AI
-from toontown.cogdominium import DistCogdoCraneCog/AI
+//from toontown.cogdominium import DistributedCogdoInterior/AI
+//from toontown.cogdominium import DistributedCogdoBattleBldg/AI
+//from toontown.cogdominium import DistributedCogdoElevatorExt/AI
+//from toontown.cogdominium import DistributedCogdoElevatorInt/AI
+//from toontown.cogdominium import DistributedCogdoBarrel/AI
+//from toontown.cogdominium import DistCogdoGame/AI
+//from toontown.cogdominium import DistCogdoLevelGame/AI
+//from toontown.cogdominium import DistCogdoBoardroomGame/AI
+//from toontown.cogdominium import DistCogdoCraneGame/AI
+//from toontown.cogdominium import DistCogdoMazeGame/AI
+//from toontown.cogdominium import DistCogdoFlyingGame/AI
+//from toontown.cogdominium import DistCogdoCrane/AI
+//from toontown.cogdominium import DistCogdoCraneMoneyBag/AI
+//from toontown.cogdominium import DistCogdoCraneCog/AI
 from toontown.parties.GlobalPartyManager/AI/UD import GlobalPartyManager/AI/UD
 from toontown.uberdog.ARGManager/AI/UD import ARGManager/AI/UD
 
@@ -1532,6 +1533,7 @@ dclass DistributedToonfestTower : DistributedObject {
 dclass DistributedToonfestCog : DistributedObject {
   generateRequest() clsend airecv;
   toggleCog(string) broadcast;
+  setProperties() clsend airecv;
   setCogPosId(int16, int16, int16, int16) broadcast;
   setCogId(int16) broadcast;
   setCogPos(int16, int16, int16) broadcast;
@@ -1611,6 +1613,9 @@ dclass DistributedElectionCamera : DistributedNode {
 dclass DistributedElectionCameraManager : DistributedObject {
   setMainCamera(uint32) required broadcast ram;
   setCameraIds(uint32 []) required broadcast ram;
+};
+
+dclass DistributedTelevision : DistributedObject {
 };
 
 dclass DistributedHotAirBalloon : DistributedObject {

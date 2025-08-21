@@ -19,6 +19,7 @@ want-WASD #t
 tt-framerate #t
 want-new-toonhall #t
 want-max-font #t
+want-ttc-television #f
 
 
 # Resource settings

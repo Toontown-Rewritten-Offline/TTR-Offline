@@ -219,7 +219,7 @@ class DedicatedServer:
         self.notify.info('AI started successfully!')
 
         # Every aspect of the server has started. Let's finish with the done message.
-        self.notify.info('Server now ready. Have fun on Toontown Rewritten Private!')
+        self.notify.info('Server now ready. Have fun on Toontown Rewritten Offline!')
         if self.localServer:
             messenger.send('localServerReady')
 

@@ -29,12 +29,11 @@ class DistributedToonfestCog(DistributedObject, FSM):
     def __init__(self, cr):
         DistributedObject.__init__(self, cr)
         FSM.__init__(self, 'ToonfestCogFSM')
-        taskMgr.add(self.d_generateRequest, 'GenerateRequest')
-        taskMgr.add(self.load, 'LoadCogs')
         self.root = NodePath('ToonfestCog')
         self.parentNode = NodePath('Parent')
         self.requestSent = False
         self.state = 'Down'
+        self.cogPos = (0, 0, 0)
         self.cogid = 0
         self.accept('localPieSplat', self.__localPieSplat)
         self.targetDistance = 0.0
@@ -46,21 +45,10 @@ class DistributedToonfestCog(DistributedObject, FSM):
         self.position = self.toon.getPos()
         self.netTimeSentToStartByHit = 0
         self.currentFacing = 0.0
-
-    def d_generateRequest(self, task):
-        if self.isGenerated():
-            self.sendUpdate('generateRequest', [])
-            self.requestSent = True
-            return Task.done
-        else:
-            return Task.cont
-
-    def load(self, task):
-        if self.requestSent:
-            self.setCogProperties()
-            return Task.done
-        else:
-            return Task.cont
+    
+    def generate(self):
+        self.sendUpdate('setProperties')
+        self.setCogProperties()
 
     def setCogProperties(self):
         self.parentNode.reparentTo(render)
