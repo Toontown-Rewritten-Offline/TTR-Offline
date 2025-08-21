@@ -15,16 +15,18 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
     PressableGeomColor = Vec4(1, 1, 1, 1)
     PressableImageColor = Vec4(0, 0.52, 0.86, 1)
     PropBonusPressableImageColor = Vec4(1.0, 0.6, 0.0, 1)
-    NoncreditPressableImageColor = Vec4(0.3, 0.6, 0.6, 1)
+    NoncreditPressableImageColor = Vec4(0.34, 0.45, 0.54, 1)
     PropBonusNoncreditPressableImageColor = Vec4(0.6, 0.6, 0.3, 1)
     DeletePressableImageColor = Vec4(0.7, 0.1, 0.1, 1)
     UnpressableTextColor = Vec4(1, 1, 1, 0.3)
-    UnpressableGeomColor = Vec4(1, 1, 1, 0.3)
-    UnpressableImageColor = Vec4(0.3, 0.3, 0.3, 0.8)
+    UnpressableGeomColor = Vec4(0.3, 0.3, 0.3, 0.3)
+    UnpressableImageColor = Vec4(0.32, 0.31, 0.37, 1)
+    UnpressableImageHighlightBaseColor = Vec4(1, 1, 1, 0.2)
+    UnpressableImageHighlightRolloverColor = Vec4(1, 1, 1, 0.2625)
     BookUnpressableTextColor = Vec4(1, 1, 1, 1)
     BookUnpressableGeomColor = Vec4(1, 1, 1, 1)
     BookUnpressableImage0Color = Vec4(0, 0.52, 0.87, 1)
-    BookUnpressableImage2Color = Vec4(0.08, 0.58, 0.9, 1)
+    BookUnpressableImage2Color = Vec4(0, 0.52, 0.87, 1)
     ShadowColor = Vec4(0, 0, 0, 0)
     ShadowBuffedColor = Vec4(1, 1, 1, 1)
     UnpressableShadowBuffedColor = Vec4(1, 1, 1, 0.3)
@@ -144,7 +146,8 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
         del self.upButton
         del self.downButton
         del self.rolloverButton
-        del self.flatButton
+        del self.disabledFlatButtonModel
+        del self.disabledRolloverButtonModel
         del self.invFrame
         del self.battleFrame
         del self.purchaseFrame
@@ -193,7 +196,6 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
         self.rowModel.find('**/ttr_t_gui_bat_inventoryGUI_lockedOut_card').removeNode()
         self.gagButtons = self.etcModels.find('**/gagButton')
 
-
         self.upButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_up_card')
         self.upButtonHighlight = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card')
         self.upButtonHighlight.reparentTo(self.upButton)
@@ -209,11 +211,15 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
         self.rolloverButtonHighlight.reparentTo(self.rolloverButton)
         self.rolloverButtonHighlight.setColorOff()
 
-        self.flatButton = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_up_card')
-        self.flatButtonHighlight = self.gagButtons.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card')
-        self.flatButtonHighlight.reparentTo(self.flatButton)
-        self.flatButtonHighlight.setColorOff()
+        self.disabledFlatButtonModel = loader.loadModel('phase_3.5/models/gui/ttr_m_gui_bat_inventoryGUI').find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_up_card')
+        self.disabledFlatButtonHighlight = self.disabledFlatButtonModel.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card')
+        self.disabledFlatButtonHighlight.reparentTo(self.disabledFlatButtonModel)
+        self.disabledFlatButtonHighlight.setColor(self.UnpressableImageHighlightBaseColor)
 
+        self.disabledRolloverButtonModel = loader.loadModel('phase_3.5/models/gui/ttr_m_gui_bat_inventoryGUI').find('**/ttr_t_gui_bat_inventoryGUI_gagButton_base_up_card')
+        self.disabledRolloverButtonHighlight = self.disabledRolloverButtonModel.find('**/ttr_t_gui_bat_inventoryGUI_gagButton_highlight_up_card')
+        self.disabledRolloverButtonHighlight.reparentTo(self.disabledRolloverButtonModel)
+        self.disabledRolloverButtonHighlight.setColor(self.UnpressableImageHighlightRolloverColor)
 
         self.invFrame = DirectFrame(relief=None, parent=self)
         self.battleFrame = None
@@ -261,8 +267,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
             for item in range(0, len(Levels[track])):
                 button = DirectButton(parent=self.trackRows[track], image=(self.upButton,
                  self.downButton,
-                 self.rolloverButton,
-                 self.flatButton), geom=self.invModels[track][item], text='50', text_scale=0.16, text_align=TextNode.ARight, geom_scale=3, geom_pos=(-0.05, 0, 0.025), text_fg=Vec4(1, 1, 1, 1), text_pos=(0.28, -0.16), textMayChange=1, relief=None, image_color=(0, 0.6, 1, 1), pos=(self.ButtonXOffset + item * self.ButtonXSpacing + adjustLeft, -0.1, 0), command=self.__handleSelection, extraArgs=[track, item])
+                 self.rolloverButton), geom=self.invModels[track][item], text='50', text_scale=0.16, text_align=TextNode.ARight, geom_scale=3, geom_pos=(-0.05, 0, 0.025), text_fg=Vec4(1, 1, 1, 1), text_pos=(0.28, -0.16), textMayChange=1, relief=None, image_color=(0, 0.6, 1, 1), pos=(self.ButtonXOffset + item * self.ButtonXSpacing + adjustLeft, -0.1, 0), command=self.__handleSelection, extraArgs=[track, item])
                 button.bind(DGG.ENTER, self.showDetail, extraArgs=[track, item])
                 button.bind(DGG.EXIT, self.hideDetail)
                 self.buttons[track].append(button)
@@ -1057,7 +1062,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
             shadowColor = self.ShadowBuffedColor
         else:
             shadowColor = self.ShadowColor
-        button.configure(image0_image=self.upButton, image2_image=self.rolloverButton, text_shadow=shadowColor, geom_color=self.PressableGeomColor, commandButtons=(DGG.LMB,))
+        button.configure(text_shadow=shadowColor, geom_color=self.PressableGeomColor, commandButtons=(DGG.LMB,))
         if self._interactivePropTrackBonus == track:
             button.configure(image_color=self.PropBonusPressableImageColor)
             self.addToPropBonusIval(button)
@@ -1072,7 +1077,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
             shadowColor = self.UnpressableShadowBuffedColor
         else:
             shadowColor = self.ShadowColor
-        button.configure(text_shadow=shadowColor, geom_color=self.UnpressableGeomColor, image_image=self.flatButton, commandButtons=(DGG.LMB,))
+        button.configure(text_shadow=shadowColor, geom_color=self.UnpressableGeomColor, commandButtons=(DGG.LMB,))
         button.configure(image_color=self.UnpressableImageColor)
 
     def makeNoncreditPressable(self, button, track, level):
@@ -1083,7 +1088,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
             shadowColor = self.ShadowBuffedColor
         else:
             shadowColor = self.ShadowColor
-        button.configure(image0_image=self.upButton, image2_image=self.rolloverButton, text_shadow=shadowColor, geom_color=self.PressableGeomColor, commandButtons=(DGG.LMB,))
+        button.configure(text_shadow=shadowColor, geom_color=self.PressableGeomColor, commandButtons=(DGG.LMB,))
         if self._interactivePropTrackBonus == track:
             button.configure(image_color=self.PropBonusNoncreditPressableImageColor)
             self.addToPropBonusIval(button)
@@ -1098,7 +1103,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
             shadowColor = self.ShadowBuffedColor
         else:
             shadowColor = self.ShadowColor
-        button.configure(image0_image=self.upButton, image2_image=self.rolloverButton, text_shadow=shadowColor, geom_color=self.PressableGeomColor, commandButtons=(DGG.LMB,))
+        button.configure(text_shadow=shadowColor, geom_color=self.PressableGeomColor, commandButtons=(DGG.LMB,))
         button.configure(image_color=self.DeletePressableImageColor)
 
     def makeUnpressable(self, button, track, level):
@@ -1109,7 +1114,7 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
             shadowColor = self.UnpressableShadowBuffedColor
         else:
             shadowColor = self.ShadowColor
-        button.configure(text_shadow=shadowColor, geom_color=self.UnpressableGeomColor, image_image=self.flatButton, commandButtons=())
+        button.configure(text_shadow=shadowColor, geom_color=self.UnpressableGeomColor, image=(self.disabledFlatButtonModel, self.disabledFlatButtonModel, self.disabledRolloverButtonModel), commandButtons=())
         button.configure(image_color=self.UnpressableImageColor)
 
     def makeBookUnpressable(self, button, track, level):
@@ -1120,8 +1125,8 @@ class InventoryNew(InventoryBase.InventoryBase, DirectFrame):
             shadowColor = self.ShadowBuffedColor
         else:
             shadowColor = self.ShadowColor
-        button.configure(text_shadow=shadowColor, geom_color=self.BookUnpressableGeomColor, image_image=self.flatButton, commandButtons=())
-        button.configure(image0_color=self.BookUnpressableImage0Color, image2_color=self.BookUnpressableImage2Color)
+        button.configure(text_shadow=shadowColor, geom_color=self.BookUnpressableGeomColor, commandButtons=())
+        button.configure(image_color=self.BookUnpressableImage0Color)
         
 
     def hideTrack(self, trackIndex):
