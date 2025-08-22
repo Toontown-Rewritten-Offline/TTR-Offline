@@ -123,6 +123,7 @@ setInterfaceFont(TTLocalizer.InterfaceFont)
 setSignFont(TTLocalizer.SignFont)
 from toontown.toontowngui import TTDialog
 setDialogClasses(TTDialog.TTDialog, TTDialog.TTGlobalDialog)
+InterfaceBoldFont = None
 ToonFont = None
 BuildingNametagFont = None
 MinnieFont = None
@@ -130,6 +131,12 @@ SuitFont = None
 MickeyFontClassic = None
 MickeyFontStandard = None
 MickeyFontMaximum = None
+
+def getInterfaceBoldFont():
+    global InterfaceBoldFont
+    if InterfaceBoldFont == None:
+        InterfaceBoldFont = loader.loadFont(TTLocalizer.InterfaceBoldFont)
+    return InterfaceBoldFont
 
 def getToonFont():
     global ToonFont
