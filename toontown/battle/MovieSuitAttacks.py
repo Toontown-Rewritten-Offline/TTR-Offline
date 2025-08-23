@@ -889,29 +889,24 @@ def doPoundKey(attack):
     soundTrack = getSoundTrack('SA_hangup.ogg', delay=1.3, node=suit)
     return Parallel(suitTrack, toonTrack, propTrack, partTrack, soundTrack)
 
-def doCloseTheLoop(attack): # Placeholder attributes
+def doCloseTheLoop(attack): # ToDo: Add particles and new sound effect ('ttr_s_ene_bat_closeTheLoop.ogg' / 'ttr_s_ene_bat_closeTheLoopMiss.ogg') 
     suit = attack['suit']
     battle = attack['battle']
-    centerColor = Vec4(0.1, 0.1, 0.1, 0.4)
-    edgeColor = Vec4(0.4, 0.1, 0.9, 0.7)
-    powerBar1 = BattleParticles.createParticleEffect(file='powertrip')
-    powerBar2 = BattleParticles.createParticleEffect(file='powertrip2')
-    powerBar1.setPos(0, 6.1, 0.4)
-    powerBar1.setHpr(-60, 0, 0)
-    powerBar2.setPos(0, 6.1, 0.4)
-    powerBar2.setHpr(60, 0, 0)
-    powerBar1Particles = powerBar1.getParticlesNamed('particles-1')
-    powerBar2Particles = powerBar2.getParticlesNamed('particles-1')
-    powerBar1Particles.renderer.setCenterColor(centerColor)
-    powerBar1Particles.renderer.setEdgeColor(edgeColor)
-    powerBar2Particles.renderer.setCenterColor(centerColor)
-    powerBar2Particles.renderer.setEdgeColor(edgeColor)
-    waterfallEffect = BattleParticles.createParticleEffect('Waterfall')
-    waterfallEffect.setScale(11)
-    waterfallParticles = waterfallEffect.getParticlesNamed('particles-1')
-    waterfallParticles.renderer.setCenterColor(centerColor)
-    waterfallParticles.renderer.setEdgeColor(edgeColor)
+    phone = globalPropPool.getProp('phone')
+    receiver = globalPropPool.getProp('receiver')
+    suitTrack = getSuitAnimTrack(attack)
     suitName = suit.getStyleName()
+    phonePosPoints = [Point3(0.23, 0.17, -0.11), VBase3(5.939, 2.763, -177.591)]
+    receiverPosPoints = [Point3(0.23, 0.17, -0.11), VBase3(5.939, 2.763, -177.591)]
+    receiverAdjustScale = MovieUtil.PNT3_ONE
+    pickupDelay = 0.74
+    dialDuration = 3.07
+    finalPhoneDelay = 0.69
+    scaleUpPoint = MovieUtil.PNT3_ONE
+    propTrack = Sequence(Wait(0.3), Func(__showProp, phone, suit.getLeftHand(), phonePosPoints[0], phonePosPoints[1]), Func(__showProp, receiver, suit.getLeftHand(), receiverPosPoints[0], receiverPosPoints[1]), LerpScaleInterval(phone, 0.5, scaleUpPoint, MovieUtil.PNT3_NEARZERO), Wait(pickupDelay), Func(receiver.wrtReparentTo, suit.getRightHand()), LerpScaleInterval(receiver, 0.01, receiverAdjustScale), LerpPosHprInterval(receiver, 0.0001, Point3(-0.53, 0.21, -0.54), VBase3(-99.49, -35.27, 1.84)), Wait(dialDuration), Func(receiver.wrtReparentTo, phone), Wait(finalPhoneDelay), LerpScaleInterval(phone, 0.5, MovieUtil.PNT3_NEARZERO), Func(MovieUtil.removeProps, [receiver, phone]))
+    toonTracks = getToonTracks(attack, 5.5, ['slip-backward'], 4.7, ['jump'])
+    soundTrack = getSoundTrack('SA_hangup.ogg', delay=1.3, node=suit)
+    return Parallel(suitTrack, toonTracks, propTrack, soundTrack)
     suitTrack = getSuitAnimTrack(attack)
 
     def getPowerTrack(effect, suit = suit, battle = battle):
@@ -923,8 +918,6 @@ def doCloseTheLoop(attack): # Placeholder attributes
     waterfallTrack = getPartTrack(waterfallEffect, 0.6, 1.3, [waterfallEffect, suit, 0])
     toonTracks = getToonTracks(attack, 1.8, ['slip-forward'], 1.29, ['jump'])
     return Parallel(suitTrack, partTrack1, partTrack2, waterfallTrack, toonTracks)
-
-
 
 def doShred(attack):
     suit = attack['suit']
