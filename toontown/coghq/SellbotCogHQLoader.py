@@ -30,8 +30,9 @@ class SellbotCogHQLoader(CogHQLoader.CogHQLoader):
 
         self.musicFile = 'phase_9/audio/bgm/encntr_suit_HQ_nbrhood.ogg'
         self.cogHQExteriorModelPath = 'phase_9/models/cogHQ/SellbotHQExterior'
+        self.hideOutModelPath = 'phase_9/models/cogHQ/ttr_m_ara_shq_resistanceHideout'
         self.cogHQLobbyModelPath = 'phase_9/models/cogHQ/SellbotHQLobby'
-        self.factoryExteriorModelPath = 'phase_9/models/cogHQ/SellbotFactoryExterior'
+        self.factoryExteriorModelPath = 'phase_9/models/cogHQ/ttr_m_ara_shq_sellbotFactoryExterior'
         self.geom = None
         return
 
@@ -106,16 +107,12 @@ class SellbotCogHQLoader(CogHQLoader.CogHQLoader):
             fdSign = cogSign.copyTo(frontDoor)
             fdSign.setPosHprScale(62.74, -87.99, 17.26, 2.72, 0.0, 0.0, elevatorSignSF, elevatorSignSF, elevatorSignSF * aspectSF)
             fdSign.node().setEffect(DecalEffect.make())
-            fdTypeText = DirectGui.OnscreenText(text=TTLocalizer.Factory, font=ToontownGlobals.getSuitFont(), pos=(0, -0.25), scale=TTLocalizer.SCHQLfdTypeText, mayChange=False, parent=fdSign)
-            fdTypeText.setDepthWrite(0)
             fdText = DirectGui.OnscreenText(text=TTLocalizer.SellbotFrontEntrance, font=ToontownGlobals.getSuitFont(), pos=(0, -0.34), scale=TTLocalizer.SCHQLdgText, mayChange=False, parent=fdSign)
             fdText.setDepthWrite(0)
             sideDoor = self.geom.find('**/doorway2')
             sdSign = cogSign.copyTo(sideDoor)
-            sdSign.setPosHprScale(-164.78, 26.28, 17.25, -89.89, 0.0, 0.0, elevatorSignSF, elevatorSignSF, elevatorSignSF * aspectSF)
+            sdSign.setPosHprScale(-133.45, -15.22, 17.26, 360.0, 0.0, 0.0, elevatorSignSF, elevatorSignSF, elevatorSignSF * aspectSF) 
             sdSign.node().setEffect(DecalEffect.make())
-            sdTypeText = DirectGui.OnscreenText(text=TTLocalizer.Factory, font=ToontownGlobals.getSuitFont(), pos=(0, -0.25), scale=0.075, mayChange=False, parent=sdSign)
-            sdTypeText.setDepthWrite(0)
             sdText = DirectGui.OnscreenText(text=TTLocalizer.SellbotSideEntrance, font=ToontownGlobals.getSuitFont(), pos=(0, -0.34), scale=0.1, mayChange=False, parent=sdSign)
             sdText.setDepthWrite(0)
         elif zoneId == ToontownGlobals.SellbotLobby:

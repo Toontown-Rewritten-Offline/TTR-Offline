@@ -49,8 +49,8 @@ class SellbotHQAI(CogHoodAI):
         
         # Create factory elevators.
         mins = ToontownGlobals.FactoryLaffMinimums[0]
-        self.frontEntrance = self.createElevator(DistributedFactoryElevatorExtAI, self.air.factoryMgr, ToontownGlobals.SellbotFactoryExt, ToontownGlobals.SellbotFactoryInt, 0, minLaff=mins[0])
-        self.sideEntrance = self.createElevator(DistributedFactoryElevatorExtAI, self.air.factoryMgr, ToontownGlobals.SellbotFactoryExt, ToontownGlobals.SellbotFactoryInt, 1, minLaff=mins[1])
+        self.frontEntrance = self.createElevator(DistributedFactoryElevatorExtAI, self.air.factoryMgr, ToontownGlobals.SellbotFactoryExt, ToontownGlobals.SellbotScrapFactoryInt, 0, minLaff=mins[0])
+        self.sideEntrance = self.createElevator(DistributedFactoryElevatorExtAI, self.air.factoryMgr, ToontownGlobals.SellbotFactoryExt, ToontownGlobals.SellbotSteelFactoryInt, 1, minLaff=mins[1])
 
         # Create boarding groups
         # VP Boarding Group

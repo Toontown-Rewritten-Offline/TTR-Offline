@@ -24,11 +24,14 @@ class DistributedBattleFactory(DistributedLevelBattle.DistributedLevelBattle):
         offState.addTransition('FactoryReward')
         playMovieState = self.fsm.getStateNamed('PlayMovie')
         playMovieState.addTransition('FactoryReward')
+        self.victoryMusic = base.loader.loadMusic('phase_9/audio/bgm/ttr_s_ara_shq_facilityBossVictory.ogg')
 
     def enterFactoryReward(self, ts):
         self.notify.info('enterFactoryReward()')
         self.disableCollision()
         self.delayDeleteMembers()
+        base.musicManager.stopAllSounds()
+        base.playMusic(self.victoryMusic, looping=1, volume=0.9)
         if self.hasLocalToon():
             NametagGlobals.setMasterArrowsOn(0)
             if self.bossBattle:
@@ -43,6 +46,7 @@ class DistributedBattleFactory(DistributedLevelBattle.DistributedLevelBattle):
         self.fsm.request('Resume')
 
     def exitFactoryReward(self):
+        self.victoryMusic.stop()
         self.notify.info('exitFactoryReward()')
         self.movie.resetReward(finish=1)
         self._removeMembersKeep()

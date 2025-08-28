@@ -1,6 +1,8 @@
 from toontown.toonbase import ToontownGlobals
-from . import SellbotLegFactorySpec
-from . import SellbotLegFactoryCogs
+from . import SellbotScrapFactorySpec
+from . import SellbotScrapFactoryCogs
+from . import SellbotSteelFactorySpec
+from . import SellbotSteelFactoryCogs
 from . import LawbotLegFactorySpec
 from . import LawbotLegFactoryCogs
 
@@ -12,9 +14,11 @@ def getCogSpecModule(factoryId):
     return CogSpecModules[factoryId]
 
 
-FactorySpecModules = {ToontownGlobals.SellbotFactoryInt: SellbotLegFactorySpec,
+FactorySpecModules = {ToontownGlobals.SellbotScrapFactoryInt: SellbotScrapFactorySpec,
+                      ToontownGlobals.SellbotSteelFactoryInt: SellbotSteelFactorySpec,
  ToontownGlobals.LawbotOfficeInt: LawbotLegFactorySpec}
-CogSpecModules = {ToontownGlobals.SellbotFactoryInt: SellbotLegFactoryCogs,
+CogSpecModules = {ToontownGlobals.SellbotScrapFactoryInt: SellbotScrapFactoryCogs,
+                  ToontownGlobals.SellbotSteelFactoryInt: SellbotSteelFactoryCogs,
  ToontownGlobals.LawbotOfficeInt: LawbotLegFactoryCogs}
 if __dev__:
     from . import FactoryMockupSpec

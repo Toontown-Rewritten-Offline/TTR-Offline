@@ -1,6 +1,7 @@
 from panda3d.core import *
 from toontown.toonbase import ToontownGlobals
-taskZoneId2pathId = {ToontownGlobals.SellbotFactoryInt: 'sellbotFactory',
+taskZoneId2pathId = {ToontownGlobals.SellbotScrapFactoryInt: 'sellbotFactory',
+                     ToontownGlobals.SellbotSteelFactoryInt: 'sellbotFactory',
  ToontownGlobals.CashbotMintIntA: 'cashbotMint',
  ToontownGlobals.CashbotMintIntB: 'cashbotMint',
  ToontownGlobals.CashbotMintIntC: 'cashbotMint',

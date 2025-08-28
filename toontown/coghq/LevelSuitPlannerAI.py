@@ -1,6 +1,7 @@
 from panda3d.core import *
 from direct.showbase import DirectObject
 from toontown.suit import SuitDNA
+from toontown.toonbase import ToontownGlobals
 from direct.directnotify import DirectNotifyGlobal
 from . import LevelBattleManagerAI
 import types
@@ -9,11 +10,12 @@ import random
 class LevelSuitPlannerAI(DirectObject.DirectObject):
     notify = DirectNotifyGlobal.directNotify.newCategory('LevelSuitPlannerAI')
 
-    def __init__(self, air, level, cogCtor, battleCtor, cogSpecs, reserveCogSpecs, battleCellSpecs, battleExpAggreg = None):
+    def __init__(self, air, level, cogCtor, battleCtor, cogSpecs, reserveCogSpecs, battleCellSpecs, battleExpAggreg = None, zoneId = None):
         self.air = air
         self.level = level
         self.cogCtor = cogCtor
         self.cogSpecs = cogSpecs
+        self.zoneId = zoneId
         if config.ConfigVariableBool('level-reserve-suits', 0).getValue():
             self.reserveCogSpecs = reserveCogSpecs
         else:
@@ -74,7 +76,10 @@ class LevelSuitPlannerAI(DirectObject.DirectObject):
     def __genSuitObject(self, suitDict, reserve):
         suit = self.cogCtor(simbase.air, self)
         dna = SuitDNA.SuitDNA()
-        dna.newSuitRandom(level=SuitDNA.getRandomSuitType(suitDict['level']), dept=suitDict['track'])
+        if self.zoneId == ToontownGlobals.SellbotSteelFactoryInt:
+            dna.newSuitRandom(level=SuitDNA.getRandomSuitTypeExtended(suitDict['level']), dept=suitDict['track'])
+        else:
+            dna.newSuitRandom(level=SuitDNA.getRandomSuitType(suitDict['level']), dept=suitDict['track'])
         suit.dna = dna
         suit.setLevel(suitDict['level'])
         suit.setSkeleRevives(suitDict.get('revives'))

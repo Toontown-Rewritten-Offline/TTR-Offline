@@ -3,6 +3,7 @@ from otp.otpbase.OTPGlobals import *
 from direct.showbase.PythonUtil import invertDict
 from enum import Enum
 from panda3d.core import *
+import random
 MapHotkeyOn = 'alt'
 MapHotkeyOff = 'alt-up'
 MapHotkey = 'alt'
@@ -242,7 +243,8 @@ BossbotCountryClubIntC = 10700
 SellbotHQ = 11000
 SellbotLobby = 11100
 SellbotFactoryExt = 11200
-SellbotFactoryInt = 11500
+SellbotScrapFactoryInt = 11500
+SellbotSteelFactoryInt = 11600
 CashbotHQ = 12000
 CashbotLobby = 12100
 CashbotMintIntA = 12500
@@ -303,6 +305,23 @@ def dept2cogHQ(dept):
 
 
 MockupFactoryId = 0
+# Sellbot Scrap Factory Cog Levels
+SellbotScrapFactoryCogLevels = [3, 4, 5, 6]
+SellbotScrapFactoryCogLevel = lambda: random.choice(SellbotScrapFactoryCogLevels)
+SellbotScrapFactorySiloMediumLevel = lambda: 6
+SellbotScrapFactorySiloHigherLevel = lambda: 7
+SellbotScrapFactoryControlRoomMediumLevel = lambda: 5
+SellbotScrapFactoryControlRoomHigherLevel = lambda: 6
+SellbotScrapFactorySupervisorLevel = lambda: 9 # Placeholder, Final Level will be 14
+
+# Sellbot Steel Factory Cog Levels
+SellbotSteelFactoryCogLevels = [8, 9, 10, 11]
+SellbotSteelFactoryCogLevel = lambda: random.choice(SellbotSteelFactoryCogLevels)
+SellbotSteelFactorySiloMediumLevel = lambda: 11
+SellbotSteelFactorySiloHigherLevel = lambda: 12
+SellbotSteelFactoryControlRoomMediumLevel = lambda: 11
+SellbotSteelFactoryControlRoomHigherLevel = lambda: 12
+SellbotSteelFactorySupervisorLevel = lambda: 12 # Placeholder, Final Level will be 26
 MintNumFloors = {CashbotMintIntA: 20,
  CashbotMintIntB: 20,
  CashbotMintIntC: 20}
@@ -350,7 +369,8 @@ FT_Leg = 'leg'
 FT_Arm = 'arm'
 FT_Torso = 'torso'
 factoryId2factoryType = {MockupFactoryId: FT_FullSuit,
- SellbotFactoryInt: FT_FullSuit,
+ SellbotScrapFactoryInt: FT_FullSuit,
+ SellbotSteelFactoryInt: FT_FullSuit,
  LawbotOfficeInt: FT_FullSuit}
 StreetNames = TTLocalizer.GlobalStreetNames
 StreetBranchZones = list(StreetNames.keys())

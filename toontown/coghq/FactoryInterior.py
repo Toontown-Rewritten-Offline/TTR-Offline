@@ -20,7 +20,7 @@ class FactoryInterior(BattlePlace.BattlePlace):
     def __init__(self, loader, parentFSM, doneEvent):
         BattlePlace.BattlePlace.__init__(self, loader, doneEvent)
         self.parentFSM = parentFSM
-        self.zoneId = ToontownGlobals.SellbotFactoryInt
+        self.zoneId = ToontownGlobals.SellbotScrapFactoryInt
         self.elevatorDoneEvent = 'elevatorDone'
 
     def load(self):
@@ -70,11 +70,13 @@ class FactoryInterior(BattlePlace.BattlePlace):
         self.parentFSM.getStateNamed('factoryInterior').addChild(self.fsm)
         BattlePlace.BattlePlace.load(self)
         self.music = base.loader.loadMusic('phase_9/audio/bgm/CHQ_FACT_bg.ogg')
+        self.loader.battleMusic = base.loadMusic('phase_9/audio/bgm/ttr_s_ara_shq_facilityBattle.ogg') 
 
     def unload(self):
         self.parentFSM.getStateNamed('factoryInterior').removeChild(self.fsm)
         del self.fsm
         del self.music
+        self.loader.battleMusic = base.loadMusic('phase_9/audio/bgm/encntr_suit_winning.ogg') 
         BattlePlace.BattlePlace.unload(self)
 
     def enter(self, requestStatus):

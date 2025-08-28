@@ -9,7 +9,7 @@ class SellbotHQ(CogHood.CogHood):
         self.id = ToontownGlobals.SellbotHQ
         self.cogHQLoaderClass = SellbotCogHQLoader.SellbotCogHQLoader
         self.storageDNAFile = None
-        self.skyFile = 'phase_9/models/cogHQ/cog_sky'
+        self.skyFile = 'phase_9/models/cogHQ/ttr_m_ara_shq_extSkybox'
         self.titleColor = (0.5, 0.5, 0.5, 1.0)
         return
 
