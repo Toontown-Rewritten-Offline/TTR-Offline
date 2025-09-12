@@ -1,5 +1,6 @@
 from panda3d.core import *
 from toontown.toonbase.ToonBaseGlobal import *
+from direct.actor.Actor import Actor
 from direct.gui.DirectGui import *
 from panda3d.core import *
 from direct.distributed.ClockDelta import *
@@ -28,6 +29,7 @@ from toontown.estate import DistributedStatuary
 from . import GardenDropGame
 from . import GardenProgressMeter
 from toontown.estate import FlowerSellGUI
+from toontown.fishing import FishSellGUI
 from toontown.toontowngui import TTDialog
 
 class DistributedEstate(DistributedObject.DistributedObject):
@@ -48,6 +50,7 @@ class DistributedEstate(DistributedObject.DistributedObject):
         self.idList = []
         base.estate = self
         self.flowerGuiDoneEvent = 'flowerGuiDone'
+        self.fishGuiDoneEvent = 'fishGuiDone'
         return
 
     def disable(self):
@@ -56,6 +59,7 @@ class DistributedEstate(DistributedObject.DistributedObject):
         self.__stopCrickets()
         DistributedObject.DistributedObject.disable(self)
         self.ignore('enterFlowerSellBox')
+        self.ignore('enterFishSellBox')
 
     def delete(self):
         self.notify.debug('delete')
@@ -71,10 +75,12 @@ class DistributedEstate(DistributedObject.DistributedObject):
                 self.loadWitch()
             else:
                 self.loadAirplane()
+        self.loadFishSellBox()
+        self.fishBucketSfx = loader.loadSfx('phase_5.5/audio/sfx/fishing_bucket.ogg')
         self.loadFlowerSellBox()
         self.oldClear = base.win.getClearColor()
         base.win.setClearColor(Vec4(0.09, 0.55, 0.21, 1.0))
-
+        
     def unload(self):
         self.ignoreAll()
         base.win.setClearColor(self.oldClear)
@@ -96,6 +102,11 @@ class DistributedEstate(DistributedObject.DistributedObject):
             self.airplane.removeNode()
             del self.airplane
             self.airplane = None
+        if self.fishSellBox:
+            self.fishSellBox.removeNode()
+            del self.fishSellBox
+            self.fishSellBox = None
+            del self.fishBucketSfx 
         if self.flowerSellBox:
             self.flowerSellBox.removeNode()
             del self.flowerSellBox
@@ -404,3 +415,72 @@ class DistributedEstate(DistributedObject.DistributedObject):
 
     def gameTableOver(self, arg = None):
         base.localAvatar.setSystemMessage(0, TTLocalizer.GameTableRentalEnd)
+     
+    def loadFishSellBox(self):
+        self.fishSellBox = Actor('phase_5.5/models/estate/ttr_m_prp_ext_fishbucket_mod.bam', {'anim': 'phase_5.5/models/estate/ttr_m_prp_ext_fishbucket_anim.bam'})
+        self.fishSellBox.setBlend(frameBlend = config.ConfigVariableBool('want-smooth-animations', False).getValue())
+        self.fishSellBox.setPos(36, -165.75, 0.025)
+        self.fishSellBox.setH(210)
+        self.fishSellBox.reparentTo(render)
+        self.fishDialog = None
+        colNode = self.fishSellBox.find('**/collision')
+        colNode.setName('FishSellBox')
+        self.accept('enterFishSellBox', self.__touchedFishSellBox)
+
+    def __touchedFishSellBox(self, entry):
+        if base.localAvatar.doId in self.idList:
+            if base.localAvatar.fishTank.getFish():
+                self.popupFishGUI()
+            else:
+                self.promptNoFish()
+
+    def __handleFishSaleDone(self, sell=0):
+        if sell:
+            self.sendUpdate('completeFishSale')
+        else:
+            base.localAvatar.setSystemMessage(0, TTLocalizer.STOREOWNER_NOFISH)
+
+        base.setCellsAvailable(base.bottomCells, 1)
+        base.cr.playGame.getPlace().setState('walk')
+        self.ignore(self.fishGuiDoneEvent)
+        self.ignore('stoppedAsleep')
+        self.fishGui.destroy()
+        self.fishGui = None
+
+    def popupFishGUI(self):
+        base.setCellsAvailable(base.bottomCells, 0)
+        base.cr.playGame.getPlace().setState('stopped')
+        self.acceptOnce(self.fishGuiDoneEvent, self.__handleFishSaleDone)
+        self.fishGui = FishSellGUI.FishSellGUI(self.fishGuiDoneEvent)
+        self.accept('stoppedAsleep', self.__handleFishSaleDone)
+    
+    def promptNoFish(self):
+        base.cr.playGame.getPlace().setState('stopped')
+        self.fishDialog = TTDialog.TTDialog(
+                    dialogName='FishBucketEmpty',
+                    style=TTDialog.Acknowledge,
+                    text=TTLocalizer.STOREOWNER_NOFISH,
+                    text_wordwrap=15,
+                    fadeScreen=1,
+                    command=self.__clearNoFishDialog,
+                )
+        self.accept('stoppedAsleep', self.__clearNoFishDialog)
+    
+    def __clearNoFishDialog(self, event = None):
+        self.fishDialog.cleanup()
+        self.fishDialog = None
+        self.freeAvatar()
+
+    def freeAvatar(self):
+        curState = base.cr.playGame.getPlace().getState()
+        if curState == 'stopped':
+            base.cr.playGame.getPlace().setState("walk")
+
+    def thankSeller(self, mode, fish, maxFish):
+        base.playSfx(self.fishBucketSfx)
+        self.fishSellBox.play('anim')
+        if mode == ToontownGlobals.FISHSALE_TROPHY:
+            base.localAvatar.setSystemMessage(0, TTLocalizer.STOREOWNER_ESTATE_PREFIX + TTLocalizer.STOREOWNER_TROPHY % (fish, maxFish))
+        elif mode == ToontownGlobals.FISHSALE_COMPLETE:
+            base.localAvatar.setSystemMessage(0, TTLocalizer.STOREOWNER_ESTATE_PREFIX + TTLocalizer.ESTATE_THANKSFISH)
+

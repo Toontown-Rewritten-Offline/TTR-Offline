@@ -1881,6 +1881,8 @@ dclass DistributedEstate : DistributedObject {
   setClouds(uint8 clouds) required broadcast ram;
   cannonsOver() broadcast;
   gameTableOver() broadcast;
+  completeFishSale() airecv clsend;
+  thankSeller(int8, int8, int8);
 };
 
 dclass DistributedHouse : DistributedObject {
