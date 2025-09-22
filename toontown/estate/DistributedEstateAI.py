@@ -5,6 +5,7 @@ from . import HouseGlobals
 from . import GardenGlobals
 import time
 from toontown.fishing.DistributedFishingPondAI import DistributedFishingPondAI
+from toontown.fishing import FishGlobals
 from toontown.fishing.DistributedFishingTargetAI import DistributedFishingTargetAI
 #from toontown.fishing.DistributedPondBingoManagerAI import DistributedPondBingoManagerAI
 from toontown.fishing import FishingTargetGlobals
@@ -398,6 +399,18 @@ class DistributedEstateAI(DistributedObjectAI):
 
     def getClouds(self):
         return self.cloudType
+
+    def completeFishSale(self):
+        avId = self.air.getAvatarIdFromSender()
+        av = self.air.doId2do.get(avId)
+
+        if not av:
+            return
+
+        if self.air.fishManager.creditFishTank(av):
+            self.sendUpdateToAvatarId(avId, 'thankSeller', [ToontownGlobals.FISHSALE_TROPHY, len(av.fishCollection), FishGlobals.getTotalNumFish()])
+        else:
+            self.sendUpdateToAvatarId(avId, 'thankSeller', [ToontownGlobals.FISHSALE_COMPLETE, 0, 0])
 
     def cannonsOver(self):
         pass

@@ -113,6 +113,8 @@ MaxHpLimit = 137
 MaxCarryLimit = 80
 MaxQuestCarryLimit = 4
 GravityValue = 32.174
+FISHSALE_COMPLETE = 1
+FISHSALE_TROPHY = 2
 MaxCogSuitLevel = 50 - 1
 CogSuitHPLevels = (15 - 1,
  20 - 1,

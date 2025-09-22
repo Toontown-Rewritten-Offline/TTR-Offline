@@ -14,27 +14,30 @@ class NewLoadingScreen(DirectObject.DirectObject):
         else:
             base.setBackgroundColor(Vec4(0.145, 0.368, 0.78, 1))
 
+        self.newMusic()
+        self.newVersion()
+        self.connectBackground()
+        self.newLogo()
+
     def musicVolCont1(self, t):
-        musPhase1.setVolume(t)
+        self.musPhase1.setVolume(t)
     
     def musicVolCont2(self, t):
-        musPhase2.setVolume(t)
+        self.musPhase2.setVolume(t)
 
     def newMusic(self):
         base.musicManager.setConcurrentSoundLimit(2)
-        global musPhase1
-        global musPhase2
-        musPhase1 = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase1.ogg')
-        musPhase2 = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase2.ogg')
-        if musPhase1:
+        self.musPhase1 = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase1.ogg')
+        self.musPhase2 = base.musicManager.getSound('phase_3/audio/bgm/ttr_d_theme_phase2.ogg')
+        if self.musPhase1:
             self.musicVolCont1(1)
             self.musicVolCont2(0)
-            musPhase1.setLoopStart(2.9)
-            musPhase2.setLoopStart(2.9)
-            musPhase1.setLoop(True)
-            musPhase2.setLoop(True)
-            musPhase1.play()
-            musPhase2.play()
+            self.musPhase1.setLoopStart(2.9)
+            self.musPhase2.setLoopStart(2.9)
+            self.musPhase1.setLoop(True)
+            self.musPhase2.setLoop(True)
+            self.musPhase1.play()
+            self.musPhase2.play()
         base.musicManager.update()
 
     def musicLoadIn(self):
@@ -62,35 +65,32 @@ class NewLoadingScreen(DirectObject.DirectObject):
         phase2.start()
 
     def exitMusic(self):
-        musPhase1.stop()
-        musPhase2.stop()
+        self.musPhase1.stop()
+        self.musPhase2.stop()
 
     def newVersion(self):
         serverVersion = config.ConfigVariableString('server-version', 'no_version_set').getValue()
-        global version
-        version = OnscreenText(serverVersion, pos=(-1, -1.2), scale=0.055, font=loader.loadFont('phase_3/fonts/ImpressBT.ttf'), fg=Vec4(1, 1, 1, 1), align=TextNode.ALeft)
-        version.setPos(0.12,0.045)
-        version.reparentTo(base.a2dBottomLeft)
-        return version
+        self.version = OnscreenText(serverVersion, pos=(-1, -1.2), scale=0.055, font=loader.loadFont('phase_3/fonts/ImpressBT.ttf'), fg=Vec4(1, 1, 1, 1), align=TextNode.ALeft)
+        self.version.setPos(0.12,0.045)
+        self.version.reparentTo(base.a2dBottomLeft)
+        return self.version
 
     def connectBackground(self):
-        global connectbg
-        connectbg = OnscreenImage(image='phase_3/maps/tt_t_gui_pat_background.jpg', scale = (2, 2, 1))
-        connectbg.setBin('background', 1)
+        self.connectbg = OnscreenImage(image='phase_3/maps/tt_t_gui_pat_background.jpg', scale = (2, 2, 1))
+        self.connectbg.setBin('background', 1)
 
     def newLogo(self):
         logobam = loader.loadModel('phase_3/models/gui/toontown-logo')
         findlogo = logobam.find('**/logo')
-        global logo
-        logo = OnscreenGeom(geom = findlogo, pos = (0, 0, 0.35))
+        self.logo = OnscreenGeom(geom = findlogo, pos = (0, 0, 0.35))
         logoSeq = Sequence(
-            LerpScaleInterval(logo, 3.25, Vec3(0.20625, 0.225, 0.20625), Vec3(0.1375, 0.3, 0.1375), blendType='easeInOut'),
-            LerpScaleInterval(logo, 3.25, Vec3(0.1375, 0.3, 0.1375), Vec3(0.20625, 0.225, 0.20625), blendType='easeInOut')
+            LerpScaleInterval(self.logo, 3.25, Vec3(0.20625, 0.225, 0.20625), Vec3(0.1375, 0.3, 0.1375), blendType='easeInOut'),
+            LerpScaleInterval(self.logo, 3.25, Vec3(0.1375, 0.3, 0.1375), Vec3(0.20625, 0.225, 0.20625), blendType='easeInOut')
         )
         logoSeq.loop()
 
     def cleanup(self):
-        version.cleanup()
-        version.destroy()
-        logo.destroy()
-        connectbg.destroy()
+        self.version.cleanup()
+        self.version.destroy()
+        self.logo.destroy()
+        self.connectbg.destroy()

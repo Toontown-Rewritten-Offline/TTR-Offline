@@ -53,7 +53,6 @@ from .ToontownMsgTypes import *
 from . import HoodMgr
 from . import PlayGame
 from toontown.toontowngui import ToontownLoadingBlocker
-from toontown.toontowngui import NewLoadingScreen
 from toontown.hood import StreetSign
 
 class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
@@ -73,7 +72,6 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
         setSignFont(TTLocalizer.SignFont)
         setFancyFont(TTLocalizer.FancyFont)
         nameTagFontIndex = 0
-        self.loading = NewLoadingScreen.NewLoadingScreen()
         
         for font in TTLocalizer.NametagFonts:
             setNametagFont(nameTagFontIndex, TTLocalizer.NametagFonts[nameTagFontIndex])
@@ -296,8 +294,8 @@ class ToontownClientRepository(OTPClientRepository.OTPClientRepository):
             self.music.stop()
             self.music = None
         if not ConfigVariableBool('want-retro-rewritten', False):
-            self.loading.exitMusic()
-        self.loading.exitMusic()
+            base.loadingScreen.exitMusic()
+        base.loadingScreen.exitMusic()
         self.avChoice.exit()
         self.avChoice.unload()
         self.avChoice = None
