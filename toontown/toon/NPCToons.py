@@ -81,6 +81,7 @@ def createNPC(air, npcId, desc, zoneId, posIndex = 0, questCallback = None):
     from . import DistributedNPCClerkAI
     from . import DistributedNPCTailorAI
     from . import DistributedNPCBlockerAI
+    from . import DistributedNPCFisherman
     from . import DistributedNPCPetclerkAI
     from . import DistributedNPCKartClerkAI
     from . import DistributedNPCPartyPersonAI
@@ -101,7 +102,7 @@ def createNPC(air, npcId, desc, zoneId, posIndex = 0, questCallback = None):
     elif type == NPC_BLOCKER:
         npc = DistributedNPCBlockerAI.DistributedNPCBlockerAI(air, npcId)
     elif type == NPC_FISHERMAN:
-        npc = DistributedNPCPrizeClerkAI.DistributedNPCPrizeClerkAI(air, npcId)
+        npc = DistributedNPCFisherman.DistributedNPCFisherman(air, npcId)
     elif type == NPC_PETCLERK:
         return False
         npc = DistributedNPCPetclerkAI.DistributedNPCPetclerkAI(air, npcId)
