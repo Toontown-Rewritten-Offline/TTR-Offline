@@ -1602,6 +1602,9 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
             if numPies == 0:
                 self.interruptPie()
 
+    def getNumPies(self):
+        return self.numPies
+
     def setPieType(self, pieType):
         self.pieType = pieType
         if self.isLocal():

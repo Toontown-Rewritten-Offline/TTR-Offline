@@ -162,6 +162,7 @@ class PlayGame(StateData.StateData):
             self.dnaStore.storeFont(ToontownGlobals.getInterfaceFont(), 'humanist')
             self.dnaStore.storeFont(ToontownGlobals.getSignFont(), 'mickey')
             self.dnaStore.storeFont(ToontownGlobals.getSuitFont(), 'suit')
+            self.dnaStore.storeFont(ToontownGlobals.getFancyFont(), 'TT_Comedy')
 
             loader.loadDNA('phase_3.5/dna/storage_interior.xml').store(self.dnaStore)
 

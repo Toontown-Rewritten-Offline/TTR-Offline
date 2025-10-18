@@ -357,7 +357,8 @@ Shirts = [
  'phase_4/maps/tt_t_chr_avt_shirt_trolley05.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_saveBuilding4.jpg',
  'phase_4/maps/tt_t_chr_avt_shirt_saveBuilding05.jpg',
- 'phase_4/maps/tt_t_chr_avt_shirt_anniversary.jpg'
+ 'phase_4/maps/tt_t_chr_avt_shirt_anniversary.jpg',
+ 'phase_4/maps/tt_t_chr_avt_shirt_tokenTaker.jpg'
 ]
 BoyShirts = [
  (0, 0),
@@ -549,7 +550,9 @@ Sleeves = [
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_trolley05.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_saveBuilding4.jpg',
  'phase_4/maps/tt_t_chr_avt_shirtSleeve_saveBuilding05.jpg',
- 'phase_4/maps/tt_t_chr_avt_shirtSleeve_anniversary.jpg']
+ 'phase_4/maps/tt_t_chr_avt_shirtSleeve_anniversary.jpg',
+ 'phase_4/maps/tt_t_chr_avt_shirtSleeve_tokenTaker.jpg'
+]
 BoyShorts = [
  'phase_3/maps/desat_shorts_1.jpg',
  'phase_3/maps/desat_shorts_2.jpg',
@@ -609,7 +612,9 @@ BoyShorts = [
  'phase_4/maps/tt_t_chr_avt_shorts_golf05.jpg',
  'phase_4/maps/tt_t_chr_avt_shorts_racing04.jpg',
  'phase_4/maps/tt_t_chr_avt_shorts_racing05.jpg',
- 'phase_4/maps/tt_t_chr_avt_shorts_slappy.jpg']
+ 'phase_4/maps/tt_t_chr_avt_shorts_slappy.jpg',
+ 'phase_4/maps/tt_t_chr_avt_shorts_tokenTaker.jpg'
+]
 SHORTS = 0
 SKIRT = 1
 GirlBottoms = [('phase_3/maps/desat_skirt_1.jpg', SKIRT),
@@ -2174,7 +2179,9 @@ HatModels = [None,
  'phase_4/models/accessories/tt_m_chr_avt_acc_hat_bandana',
  'phase_4/models/accessories/tt_m_chr_avt_acc_hat_dinosaur',
  'phase_4/models/accessories/tt_m_chr_avt_acc_hat_band',
- 'phase_4/models/accessories/tt_m_chr_avt_acc_hat_birdNest']
+ 'phase_4/models/accessories/tt_m_chr_avt_acc_hat_birdNest',
+ 'phase_4/models/accessories/ttr_m_chr_avt_acc_hat_strawBoater'
+]
 HatTextures = [None,
  'phase_4/maps/tt_t_chr_avt_acc_hat_ribbonRed.jpg',
  'phase_4/maps/tt_t_chr_avt_acc_hat_ribbonPurple.jpg',

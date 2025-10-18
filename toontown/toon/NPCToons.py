@@ -81,7 +81,6 @@ def createNPC(air, npcId, desc, zoneId, posIndex = 0, questCallback = None):
     from . import DistributedNPCClerkAI
     from . import DistributedNPCTailorAI
     from . import DistributedNPCBlockerAI
-    from . import DistributedNPCFishermanAI
     from . import DistributedNPCPetclerkAI
     from . import DistributedNPCKartClerkAI
     from . import DistributedNPCPartyPersonAI
@@ -89,6 +88,7 @@ def createNPC(air, npcId, desc, zoneId, posIndex = 0, questCallback = None):
     from . import DistributedNPCFlippyInToonHallAI
     from . import DistributedNPCScientistAI
     from . import DistributedNPCSnowballGiverAI
+    from . import DistributedNPCPrizeClerkAI
     canonicalZoneId, name, dnaType, gender, protected, type, hat = desc
     if type == NPC_REGULAR:
         npc = DistributedNPCToonAI.DistributedNPCToonAI(air, npcId, questCallback=questCallback)
@@ -101,7 +101,7 @@ def createNPC(air, npcId, desc, zoneId, posIndex = 0, questCallback = None):
     elif type == NPC_BLOCKER:
         npc = DistributedNPCBlockerAI.DistributedNPCBlockerAI(air, npcId)
     elif type == NPC_FISHERMAN:
-        npc = DistributedNPCFishermanAI.DistributedNPCFishermanAI(air, npcId)
+        npc = DistributedNPCPrizeClerkAI.DistributedNPCPrizeClerkAI(air, npcId)
     elif type == NPC_PETCLERK:
         return False
         npc = DistributedNPCPetclerkAI.DistributedNPCPetclerkAI(air, npcId)
@@ -158,7 +158,7 @@ def createNPC(air, npcId, desc, zoneId, posIndex = 0, questCallback = None):
         rtDnaFile.close()
     dna.newToonFromProperties(*dnaList)
     npc.setDNAString(dna.makeNetString())
-    npc.setHat(hat[0], hat[1], hat[2])
+    #npc.setHat(hat[0], hat[1], hat[2])
     npc.setHp(15)
     npc.setMaxHp(15)
     npc.setPositionIndex(posIndex)
@@ -12273,7 +12273,7 @@ NPCToonDict = {
         NPC_REGULAR,
         (0, 0, 0)),
 # ToonFest Token Takers, used random number for Id to prevent mixing up Id's
-91000: (-1,
+91000: (7000,
         lnames[91000],
         ('bll',
          'm',
@@ -12283,16 +12283,16 @@ NPCToonDict = {
          0,
          8,
          8,
-         153,
+         152,
          27,
-         140,
+         139,
          27,
-         60,
+         59,
          27),
         'm',
         1,
         NPC_PRIZECLERK,
-        (1, 0, 0))}
+        (57, 0, 0))}
 try:
     config = simbase.config
 except:

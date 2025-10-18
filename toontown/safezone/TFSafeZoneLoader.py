@@ -32,22 +32,6 @@ class TFSafeZoneLoader(SafeZoneLoader):
 
     def load(self):
         SafeZoneLoader.load(self)
-        self.flippy = NPCToons.createLocalNPC(2001)
-        self.flippy.reparentTo(render)
-        self.flippy.setPickable(0)
-        self.flippy.setPos(188, -260, 4.597)
-        self.flippy.setH(108.411)
-        self.flippy.initializeBodyCollisions('toon')
-        self.flippy.addActive()
-        self.flippy.startBlink()
-        self.npctest = NPCToons.createLocalNPC(91000)
-        self.npctest.setPickable(0)
-        self.npctest.setPos(109, -329, 8.35)
-        self.npctest.setH(60)
-        self.npctest.reparentTo(render)
-        self.npctest.initializeBodyCollisions('toon')
-        self.npctest.addActive()
-        self.npctest.startBlink()
         self.towerGeom = self.geom.find('**/toonfest_tower_DNARoot')
         self.toonfestDoorsClosed = self.towerGeom.find('**/tf_tower_doors_closed')
         self.toonfestDoorsClosedColl1 = self.towerGeom.find('**/collision_walls_closed_1')
@@ -75,16 +59,6 @@ class TFSafeZoneLoader(SafeZoneLoader):
         del self.confetti_2
         del self.confettiRender
         self.flippyBlatherSequence.finish()
-        if self.flippy:
-            self.flippy.stopBlink()
-            self.flippy.removeActive()
-            self.flippy.cleanup()
-            self.flippy.removeNode()
-        if self.npctest:
-            self.npctest.stopBlink()
-            self.npctest.removeActive()
-            self.npctest.cleanup()
-            self.npctest.removeNode()
 
     def enter(self, requestStatus):
         SafeZoneLoader.enter(self, requestStatus)
