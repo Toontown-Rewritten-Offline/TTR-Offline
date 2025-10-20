@@ -10,78 +10,6 @@ class PrizeClerkPurchase(DirectObject):
     def __init__(self, doneEvent):
         self.doneEvent = doneEvent
 
-        self.tokenGUI = loader.loadModel("phase_6/models/gui/ttr_m_tf_gui_PrizePanel")
-
-        self.mainPanel = self.tokenGUI.find("**/prizePanelMain")
-        self.prizePanel = DirectFrame(
-            relief=None,
-            image=self.mainPanel,
-            pos=(-0.5, 0, 0)
-        )
-
-        self.tokenJarOrigin = self.tokenGUI.find("**/jar_origin")
-        self.tokenJarOrigin.reparentTo(self.prizePanel)
-        self.tokenJarGui = loader.loadModel('phase_6/models/gui/ttr_m_tf_gui_tokens')
-        self.tokenDisplay = DirectLabel(
-            parent=self.tokenJarOrigin,
-            relief=None,
-            text=str(base.localAvatar.getTokens()),
-            text_scale=0.18,
-            text_fg=(0.95, 0.95, 0, 1),
-            text_shadow=(0, 0, 0, 1),
-            text_pos=(0, -0.1, 0),
-            image=self.tokenJarGui.find('**/jar'),
-            text_font=ToontownGlobals.getSignFont()
-        )
-
-        self.tokenJarGui.removeNode()
-
-        self.cancelIcon = self.tokenGUI.find("**/cancelIcon")
-        self.cancelPressed = self.tokenGUI.find("**/cancelIcon_pressed")
-        self.cancelRollover = self.tokenGUI.find("**/cancelIcon_rollover")
-        self.cancelButton = DirectButton(
-            parent=self.prizePanel,
-            image=(
-                self.cancelIcon,
-                self.cancelPressed,
-                self.cancelRollover
-            ),
-            relief=None,
-            command=self.closingTime
-        )
-
-        self.leftArrow = self.tokenGUI.find("**/arrowLeft")
-        self.leftArrowPressed = self.tokenGUI.find("**/arrowLeft_pressed")
-        self.leftArrowRollover = self.tokenGUI.find("**/arrowLeft_rollover")
-        self.leftArrowFlat = self.tokenGUI.find("**/arrowLeft_inactive")
-        self.leftArrowButton = DirectButton(
-            parent=self.prizePanel,
-            image=(
-                self.leftArrow,
-                self.leftArrowPressed,
-                self.leftArrowRollover,
-                self.leftArrowFlat
-            ),
-            relief=None
-        )
-
-        self.rightArrow = self.tokenGUI.find("**/arrowRight")
-        self.rightArrowPressed = self.tokenGUI.find("**/arrowRight_pressed")
-        self.rightArrowRollover = self.tokenGUI.find("**/arrowRight_rollover")
-        self.rightArrowFlat = self.tokenGUI.find("**/arrowRight_inactive")
-        self.rightArrowButton = DirectButton(
-            parent=self.prizePanel,
-            image=(
-                self.rightArrow,
-                self.rightArrowPressed,
-                self.rightArrowRollover,
-                self.rightArrowFlat
-            ),
-            relief=None
-        )
-
-        self.createPage()
-
     def createPage(self):
         self.page = DirectFrame(parent=self.prizePanel)
 
@@ -220,6 +148,78 @@ class PrizeClerkPurchase(DirectObject):
         self.tokenDisplay.setText(str(base.localAvatar.getTokens()))
 
     def load(self):
+        self.tokenGUI = loader.loadModel("phase_6/models/gui/ttr_m_tf_gui_PrizePanel")
+
+        self.mainPanel = self.tokenGUI.find("**/prizePanelMain")
+        self.prizePanel = DirectFrame(
+            relief=None,
+            image=self.mainPanel,
+            pos=(-0.5, 0, 0)
+        )
+
+        self.tokenJarOrigin = self.tokenGUI.find("**/jar_origin")
+        self.tokenJarOrigin.reparentTo(self.prizePanel)
+        self.tokenJarGui = loader.loadModel('phase_6/models/gui/ttr_m_tf_gui_tokens')
+        self.tokenDisplay = DirectLabel(
+            parent=self.tokenJarOrigin,
+            relief=None,
+            text=str(base.localAvatar.getTokens()),
+            text_scale=0.18,
+            text_fg=(0.95, 0.95, 0, 1),
+            text_shadow=(0, 0, 0, 1),
+            text_pos=(0, -0.1, 0),
+            image=self.tokenJarGui.find('**/jar'),
+            text_font=ToontownGlobals.getSignFont()
+        )
+
+        self.tokenJarGui.removeNode()
+
+        self.cancelIcon = self.tokenGUI.find("**/cancelIcon")
+        self.cancelPressed = self.tokenGUI.find("**/cancelIcon_pressed")
+        self.cancelRollover = self.tokenGUI.find("**/cancelIcon_rollover")
+        self.cancelButton = DirectButton(
+            parent=self.prizePanel,
+            image=(
+                self.cancelIcon,
+                self.cancelPressed,
+                self.cancelRollover
+            ),
+            relief=None,
+            command=self.closingTime
+        )
+
+        self.leftArrow = self.tokenGUI.find("**/arrowLeft")
+        self.leftArrowPressed = self.tokenGUI.find("**/arrowLeft_pressed")
+        self.leftArrowRollover = self.tokenGUI.find("**/arrowLeft_rollover")
+        self.leftArrowFlat = self.tokenGUI.find("**/arrowLeft_inactive")
+        self.leftArrowButton = DirectButton(
+            parent=self.prizePanel,
+            image=(
+                self.leftArrow,
+                self.leftArrowPressed,
+                self.leftArrowRollover,
+                self.leftArrowFlat
+            ),
+            relief=None
+        )
+
+        self.rightArrow = self.tokenGUI.find("**/arrowRight")
+        self.rightArrowPressed = self.tokenGUI.find("**/arrowRight_pressed")
+        self.rightArrowRollover = self.tokenGUI.find("**/arrowRight_rollover")
+        self.rightArrowFlat = self.tokenGUI.find("**/arrowRight_inactive")
+        self.rightArrowButton = DirectButton(
+            parent=self.prizePanel,
+            image=(
+                self.rightArrow,
+                self.rightArrowPressed,
+                self.rightArrowRollover,
+                self.rightArrowFlat
+            ),
+            relief=None
+        )
+
+        self.createPage()
+
         self.prizePanel.reparentTo(aspect2d)
 
     def unload(self):
