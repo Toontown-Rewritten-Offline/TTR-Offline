@@ -22,7 +22,18 @@ class PrizeClerkPurchase(DirectObject):
         self.tokenJarOrigin = self.tokenGUI.find("**/jar_origin")
         self.tokenJarOrigin.reparentTo(self.prizePanel)
         self.tokenJarGui = loader.loadModel('phase_6/models/gui/ttr_m_tf_gui_tokens')
-        self.tokenDisplay = DirectLabel(parent=self.tokenJarOrigin, relief=None, text=str(base.localAvatar.getTokens()), text_scale=0.18, text_fg=(0.95, 0.95, 0, 1), text_shadow=(0, 0, 0, 1), text_pos=(0, -0.1, 0), image=self.tokenJarGui.find('**/jar'), text_font=ToontownGlobals.getSignFont())
+        self.tokenDisplay = DirectLabel(
+            parent=self.tokenJarOrigin,
+            relief=None,
+            text=str(base.localAvatar.getTokens()),
+            text_scale=0.18,
+            text_fg=(0.95, 0.95, 0, 1),
+            text_shadow=(0, 0, 0, 1),
+            text_pos=(0, -0.1, 0),
+            image=self.tokenJarGui.find('**/jar'),
+            text_font=ToontownGlobals.getSignFont()
+        )
+
         self.tokenJarGui.removeNode()
 
         self.cancelIcon = self.tokenGUI.find("**/cancelIcon")
@@ -84,17 +95,45 @@ class PrizeClerkPurchase(DirectObject):
         self.itemPanel4 = self.tokenGUI.find("**/item_panel_4")
         self.itemPanel5 = self.tokenGUI.find("**/item_panel_5")
 
+    def isEligibleToPurchase(self, price):
+        return base.localAvatar.getTokens() < price or base.localAvatar.getNumPies() > 0
+
     def createItemPanel(self, panelOrigin, amount, track, level, price):
         buttonModels = loader.loadModel('phase_3.5/models/gui/inventory_gui')
         upButton = buttonModels.find('**/InventoryButtonUp')
         downButton = buttonModels.find('**/InventoryButtonDown')
         rolloverButton = buttonModels.find('**/InventoryButtonRollover')
 
-        self.itemTypeTitle = OnscreenText(parent=panelOrigin, text=TTLocalizer.ToonfestPieTypeName, font=ToontownGlobals.getInterfaceFont(), fg=(0.95, 0.95, 0, 1), shadow=(0, 0, 0, 1), scale=TTLocalizer.CIPtypeLabel, pos=(0, 0.24))
-        self.itemTypeCost = OnscreenText(parent=panelOrigin, text=TTLocalizer.ToonfestTokenCost % price, font=ToontownGlobals.getSignFont(), fg=(0.95, 0.95, 0, 1), shadow=(0, 0, 0, 1), scale=TTLocalizer.CIPpriceLabel, pos=(0, -0.30))
-        self.itemTypeAmount = OnscreenText(parent=panelOrigin, text=TTLocalizer.ToonfestPieAmount % ({"amount": amount, "name": TTLocalizer.BattleGlobalAvPropStringsPlural[track][level]}), font=ToontownGlobals.getInterfaceFont(), fg=(0, 0, 0, 1), scale=TTLocalizer.CIPamountNameLabel, pos=(0, -0.22))
+        itemTypeTitle = OnscreenText(
+            parent=panelOrigin,
+            text=TTLocalizer.ToonfestPieTypeName,
+            font=ToontownGlobals.getInterfaceFont(),
+            fg=(0.95, 0.95, 0, 1),
+            shadow=(0, 0, 0, 1),
+            scale=TTLocalizer.CIPtypeLabel,
+            pos=(0, 0.24)
+        )
+        itemTypeCost = OnscreenText(
+            parent=panelOrigin,
+            text=TTLocalizer.ToonfestTokenCost % price,
+            font=ToontownGlobals.getSignFont(),
+            fg=(0.95, 0.95, 0, 1),
+            shadow=(0, 0, 0, 1),
+            scale=TTLocalizer.CIPpriceLabel,
+            pos=(0, -0.30)
+        )
+        itemTypeAmount = OnscreenText(
+            parent=panelOrigin,
+            text=TTLocalizer.ToonfestPieAmount % (
+                {"amount": amount, "name": TTLocalizer.BattleGlobalAvPropStringsPlural[track][level]}
+            ),
+            font=ToontownGlobals.getInterfaceFont(),
+            fg=(0, 0, 0, 1),
+            scale=TTLocalizer.CIPamountNameLabel,
+            pos=(0, -0.22)
+        )
 
-        self.itemTypeBuyButton = DirectButton(
+        itemTypeBuyButton = DirectButton(
             parent=panelOrigin,
             state=DGG.DISABLED,
             relief=None,
@@ -116,23 +155,28 @@ class PrizeClerkPurchase(DirectObject):
             extraArgs=[amount, track, level, price]
         )
 
-        if base.localAvatar.getTokens() < price or base.localAvatar.getNumPies() > 0:
-            self.itemTypeBuyButton['state'] = DGG.DISABLED
+        if self.isEligibleToPurchase(price):
+            itemTypeBuyButton['state'] = DGG.DISABLED
         else:
-            self.itemTypeBuyButton['state'] = DGG.NORMAL
+            itemTypeBuyButton['state'] = DGG.NORMAL
 
         self.createItemPanelImage(panelOrigin)
 
     def createItemPanelImage(self, panelOrigin):
-        self.itemPanelFrame = DirectFrame(parent=panelOrigin, frameSize=(-1.0, 1.0, -1.0, 1.0), relief=None)
-        self.itemPanelFrame.setScale(0.15)
-        self.itemTypeModel = loader.loadModel("phase_3.5/models/props/ttr_m_prp_bat_pie")
+        itemPanelFrame = DirectFrame(
+            parent=panelOrigin,
+            frameSize=(-1.0, 1.0, -1.0, 1.0),
+            relief=None
+        )
 
-        if self.itemTypeModel:
-            model = self.itemTypeModel
+        itemPanelFrame.setScale(0.15)
+        itemTypeModel = loader.loadModel("phase_3.5/models/props/ttr_m_prp_bat_pie")
+
+        if itemTypeModel:
+            model = itemTypeModel
             model.setDepthTest(1)
             model.setDepthWrite(1)
-            pitch = self.itemPanelFrame.attachNewNode('pitch')
+            pitch = itemPanelFrame.attachNewNode('pitch')
             rotate = pitch.attachNewNode('rotate')
             scale = rotate.attachNewNode('scale')
             model.reparentTo(scale)
@@ -145,8 +189,8 @@ class PrizeClerkPurchase(DirectObject):
             corner = Vec3(bMax - center)
             scale.setScale(1.0 / max(corner[0], corner[1], corner[2]))
             pitch.setY(2)
-            self.rotateLerp = LerpHprInterval(model, 10, hpr=(360, 10, 0), startHpr=(0, 10, 0))
-            self.rotateLerp.loop()
+            rotateLerp = LerpHprInterval(model, 10, hpr=(360, 10, 0), startHpr=(0, 10, 0))
+            rotateLerp.loop()
 
     def purchaseItem(self, amount, track, level, price):
         self.verify = TTDialog.TTGlobalDialog(doneEvent='verifyDone', message=(TTLocalizer.ToonfestVerifyPurchase % {"item": TTLocalizer.BattleGlobalAvPropStringsPlural[track][level], "price": price}), style=TTDialog.TwoChoice)
@@ -169,7 +213,7 @@ class PrizeClerkPurchase(DirectObject):
         self.updateTokenJar()
 
     def updateBuyButton(self, price):
-        if base.localAvatar.getTokens() < price or base.localAvatar.getNumPies() > 0:
+        if self.isEligibleToPurchase(price):
             self.itemTypeBuyButton['state'] = DGG.DISABLED
 
     def updateTokenJar(self):
@@ -179,6 +223,15 @@ class PrizeClerkPurchase(DirectObject):
         self.prizePanel.reparentTo(aspect2d)
 
     def unload(self):
+        self.tokenGUI.removeNode()
+        del self.tokenGUI
+
+        self.tokenJarGui.removeNode()
+        del self.tokenJarGui
+
+        self.tokenDisplay.destroy()
+        self.tokenDisplay = None
+
         self.prizePanel.destroy()
         self.prizePanel = None
 
