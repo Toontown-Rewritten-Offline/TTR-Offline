@@ -1,5 +1,5 @@
 from direct.showbase.DirectObject import DirectObject
-from panda3d.core import *
+from panda3d.core import Vec4, Vec3
 from direct.gui.DirectGui import DirectFrame, DirectLabel, DirectButton, DGG, OnscreenText
 from toontown.toonbase import TTLocalizer
 from toontown.toonbase import ToontownGlobals
