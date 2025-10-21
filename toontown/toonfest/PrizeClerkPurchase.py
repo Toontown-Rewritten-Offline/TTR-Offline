@@ -1,148 +1,60 @@
 from direct.showbase.DirectObject import DirectObject
-from panda3d.core import Vec4, Vec3
-from direct.gui.DirectGui import DirectFrame, DirectLabel, DirectButton, DGG, OnscreenText
-from toontown.toonbase import TTLocalizer
+from direct.gui.DirectGui import DirectFrame, DirectLabel, DirectButton
+
 from toontown.toonbase import ToontownGlobals
-from toontown.toontowngui import TTDialog
-from direct.interval.IntervalGlobal import LerpHprInterval
+from toontown.toonfest import PrizeThrowableItem
 
 class PrizeClerkPurchase(DirectObject):
     def __init__(self, doneEvent):
         self.doneEvent = doneEvent
+        self.panels = []
 
     def createPage(self):
         self.page = DirectFrame(parent=self.prizePanel)
 
+        self.accept("purchaseConfirmation", self.purchaseConfirmed)
+
         self.itemPanel0 = self.tokenGUI.find("**/item_panel_0")
         self.itemPanel0.reparentTo(self.prizePanel, 2)
-        self.createItemPanel(self.itemPanel0, amount=100, track=4, level=4, price=25)
+        prizeItem0 = PrizeThrowableItem.PrizeThrowableItem(self.itemPanel0, amount=20, level=0, price=5)
+        prizeItem0.createItemPanel()
+        self.panels.append(prizeItem0)
 
         self.itemPanel1 = self.tokenGUI.find("**/item_panel_1")
+        self.itemPanel1.reparentTo(self.prizePanel, 2)
+        prizeItem1 = PrizeThrowableItem.PrizeThrowableItem(self.itemPanel1, amount=20, level=4, price=5)
+        prizeItem1.createItemPanel()
+        self.panels.append(prizeItem1)
+
         self.itemPanel2 = self.tokenGUI.find("**/item_panel_2")
+        self.itemPanel2.reparentTo(self.prizePanel, 2)
+        prizeItem2 = PrizeThrowableItem.PrizeThrowableItem(self.itemPanel2, amount=20, level=1, price=5)
+        prizeItem2.createItemPanel()
+        self.panels.append(prizeItem2)
+
         self.itemPanel3 = self.tokenGUI.find("**/item_panel_3")
+        self.itemPanel3.reparentTo(self.prizePanel, 2)
+        prizeItem3 = PrizeThrowableItem.PrizeThrowableItem(self.itemPanel3, amount=20, level=2, price=5)
+        prizeItem3.createItemPanel()
+        self.panels.append(prizeItem3)
+
         self.itemPanel4 = self.tokenGUI.find("**/item_panel_4")
+        self.itemPanel4.reparentTo(self.prizePanel, 2)
+        prizeItem4 = PrizeThrowableItem.PrizeThrowableItem(self.itemPanel4, amount=3, level=5, price=15)
+        prizeItem4.createItemPanel()
+        self.panels.append(prizeItem4)
+
         self.itemPanel5 = self.tokenGUI.find("**/item_panel_5")
+        self.itemPanel5.reparentTo(self.prizePanel, 2)
+        prizeItem5 = PrizeThrowableItem.PrizeThrowableItem(self.itemPanel5, amount=1, level=6, price=50)
+        prizeItem5.createItemPanel()
+        self.panels.append(prizeItem5)
 
-    def isEligibleToPurchase(self, price):
-        return base.localAvatar.getTokens() < price or base.localAvatar.getNumPies() > 0
 
-    def createItemPanel(self, panelOrigin, amount, track, level, price):
-        buttonModels = loader.loadModel('phase_3.5/models/gui/inventory_gui')
-        upButton = buttonModels.find('**/InventoryButtonUp')
-        downButton = buttonModels.find('**/InventoryButtonDown')
-        rolloverButton = buttonModels.find('**/InventoryButtonRollover')
-
-        itemTypeTitle = OnscreenText(
-            parent=panelOrigin,
-            text=TTLocalizer.ToonfestPieTypeName,
-            font=ToontownGlobals.getInterfaceFont(),
-            fg=(0.95, 0.95, 0, 1),
-            shadow=(0, 0, 0, 1),
-            scale=TTLocalizer.CIPtypeLabel,
-            pos=(0, 0.24)
-        )
-        itemTypeCost = OnscreenText(
-            parent=panelOrigin,
-            text=TTLocalizer.ToonfestTokenCost % price,
-            font=ToontownGlobals.getSignFont(),
-            fg=(0.95, 0.95, 0, 1),
-            shadow=(0, 0, 0, 1),
-            scale=TTLocalizer.CIPpriceLabel,
-            pos=(0, -0.30)
-        )
-        itemTypeAmount = OnscreenText(
-            parent=panelOrigin,
-            text=TTLocalizer.ToonfestPieAmount % (
-                {"amount": amount, "name": TTLocalizer.BattleGlobalAvPropStringsPlural[track][level]}
-            ),
-            font=ToontownGlobals.getInterfaceFont(),
-            fg=(0, 0, 0, 1),
-            scale=TTLocalizer.CIPamountNameLabel,
-            pos=(0, -0.22)
-        )
-
-        itemTypeBuyButton = DirectButton(
-            parent=panelOrigin,
-            state=DGG.DISABLED,
-            relief=None,
-            pos=(0.2, 0, 0.15),
-            scale=(0.7, 1, 0.8),
-            text=TTLocalizer.CatalogBuyText,
-            text_scale=TTLocalizer.CIPbuyButton,
-            text_pos=(-0.005, -0.01),
-            image=(
-                upButton,
-                downButton,
-                rolloverButton,
-                upButton
-            ),
-            image_color=(1.0, 0.2, 0.2, 1),
-            image0_color=Vec4(1.0, 0.4, 0.4, 1),
-            image3_color=Vec4(1.0, 0.4, 0.4, 0.4),
-            command=self.purchaseItem,
-            extraArgs=[amount, track, level, price]
-        )
-
-        if self.isEligibleToPurchase(price):
-            itemTypeBuyButton['state'] = DGG.DISABLED
-        else:
-            itemTypeBuyButton['state'] = DGG.NORMAL
-
-        self.createItemPanelImage(panelOrigin)
-
-    def createItemPanelImage(self, panelOrigin):
-        itemPanelFrame = DirectFrame(
-            parent=panelOrigin,
-            frameSize=(-1.0, 1.0, -1.0, 1.0),
-            relief=None
-        )
-
-        itemPanelFrame.setScale(0.15)
-        itemTypeModel = loader.loadModel("phase_3.5/models/props/ttr_m_prp_bat_pie")
-
-        if itemTypeModel:
-            model = itemTypeModel
-            model.setDepthTest(1)
-            model.setDepthWrite(1)
-            pitch = itemPanelFrame.attachNewNode('pitch')
-            rotate = pitch.attachNewNode('rotate')
-            scale = rotate.attachNewNode('scale')
-            model.reparentTo(scale)
-            bMin, bMax = model.getTightBounds()
-            center = (bMin + bMax) / 2.0
-            model.setPos(-center[0], -center[1], -center[2])
-            pitch.setP(20)
-            bMin, bMax = pitch.getTightBounds()
-            center = (bMin + bMax) / 2.0
-            corner = Vec3(bMax - center)
-            scale.setScale(1.0 / max(corner[0], corner[1], corner[2]))
-            pitch.setY(2)
-            rotateLerp = LerpHprInterval(model, 10, hpr=(360, 10, 0), startHpr=(0, 10, 0))
-            rotateLerp.loop()
-
-    def purchaseItem(self, amount, track, level, price):
-        self.verify = TTDialog.TTGlobalDialog(doneEvent='verifyDone', message=(TTLocalizer.ToonfestVerifyPurchase % {"item": TTLocalizer.BattleGlobalAvPropStringsPlural[track][level], "price": price}), style=TTDialog.TwoChoice)
-        self.verify.show()
-        self.accept('verifyDone', self.verifyPurchase, [amount, level, price])
-
-    def verifyPurchase(self, amount, level, price):
-        status = self.verify.doneStatus
-        self.ignore('verifyDone')
-        self.verify.cleanup()
-        del self.verify
-        self.verify = None
-        if status == 'ok':
-            messenger.send("tokenTakerRequestPurchase", [amount, level, price])
-            self.accept("prizeItemPurchased", self.purchaseConfirmed, [price])
-        return
-
-    def purchaseConfirmed(self, price):
-        self.updateBuyButton(price)
+    def purchaseConfirmed(self):
         self.updateTokenJar()
-
-    def updateBuyButton(self, price):
-        if self.isEligibleToPurchase(price):
-            self.itemTypeBuyButton['state'] = DGG.DISABLED
+        for panel in self.panels:
+            panel.updateBuyButton()
 
     def updateTokenJar(self):
         self.tokenDisplay.setText(str(base.localAvatar.getTokens()))
@@ -223,6 +135,8 @@ class PrizeClerkPurchase(DirectObject):
         self.prizePanel.reparentTo(aspect2d)
 
     def unload(self):
+        self.ignore("purchaseConfirmation")
+
         self.tokenGUI.removeNode()
         del self.tokenGUI
 
